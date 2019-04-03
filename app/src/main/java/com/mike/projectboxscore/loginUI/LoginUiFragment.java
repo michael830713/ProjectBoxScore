@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class LoginUiFragment extends Fragment implements LoginUIViewContract.View {
+
+    private static final String TAG = "LoginUiFragment";
 
     LoginUIViewContract.Presenter mPresenter;
     private Button mLoginButton;
@@ -32,6 +35,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
     }
 
     @Nullable
@@ -60,7 +64,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     private void demoConsoleView() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
-        fragmentTransaction.add(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }
 
