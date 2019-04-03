@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.loginUI;
+package com.mike.projectboxscore.mainConsole;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -12,21 +12,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginUiFragment extends Fragment implements LoginUIViewContract.View {
+public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View {
 
-    LoginUIViewContract.Presenter mPresenter;
+    MainConsoleViewContract.Presenter mPresenter;
     private Button mLoginButton;
 
-    public LoginUiFragment() {
+    public MainConsoleFragment() {
         // Requires empty public constructor
     }
 
-    public static LoginUiFragment newInstance() {
-        return new LoginUiFragment();
+    public static MainConsoleFragment newInstance() {
+        return new MainConsoleFragment();
     }
 
     @Override
@@ -37,9 +36,8 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.login_layout, container, false);
+        View root = inflater.inflate(R.layout.console_fragment, container, false);
 
-        mLoginButton = root.findViewById(R.id.button_google_login);
 
         return root;
     }
@@ -48,19 +46,13 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                demoConsoleView();
-            }
-        });
 
     }
 
-    private void demoConsoleView() {
+    private void demoSurfaceView() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
-        fragmentTransaction.add(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.add(R.id.container, fragment, "Surface");
         fragmentTransaction.commit();
     }
 
@@ -95,7 +87,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
-    public void setPresenter(LoginUIViewContract.Presenter loginUiPresenter) {
+    public void setPresenter(MainConsoleViewContract.Presenter loginUiPresenter) {
         mPresenter = checkNotNull(loginUiPresenter);
     }
 }
