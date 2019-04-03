@@ -1,6 +1,17 @@
 package com.mike.projectboxscore.loginUI;
 
+import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
+
 public class LoginUIPresenter implements LoginUIViewContract.Presenter {
+
+    LoginUIViewContract.View mView;
+
+    public LoginUIPresenter(LoginUIViewContract.View view) {
+        mView = checkNotNull(view, "view cannot be null!");
+        mView.setPresenter(this);
+
+    }
+
     @Override
     public void result(int requestCode, int resultCode) {
 
