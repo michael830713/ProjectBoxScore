@@ -4,7 +4,7 @@ import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mike.projectboxscore.loginUI.LoginUIFragment;
+import com.mike.projectboxscore.loginUI.LoginUiFragment;
 import com.mike.projectboxscore.loginUI.LoginUIPresenter;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void demoSurfaceView() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        LoginUIFragment fragment = LoginUIFragment.newInstance();
+        LoginUiFragment fragment = LoginUiFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface");
         fragmentTransaction.commit();
         mSurfaceViewPresenter = new LoginUIPresenter(fragment);

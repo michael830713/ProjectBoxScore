@@ -8,21 +8,23 @@ import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mike.projectboxscore.R;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginUIFragment extends Fragment implements LoginUIViewContract.View {
+public class LoginUiFragment extends Fragment implements LoginUIViewContract.View {
 
     LoginUIViewContract.Presenter mPresenter;
+    private Button mLoginButton;
 
-    public LoginUIFragment() {
+    public LoginUiFragment() {
         // Requires empty public constructor
     }
 
-    public static LoginUIFragment newInstance() {
-        return new LoginUIFragment();
+    public static LoginUiFragment newInstance() {
+        return new LoginUiFragment();
     }
 
     @Override
@@ -35,7 +37,7 @@ public class LoginUIFragment extends Fragment implements LoginUIViewContract.Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.login_layout, container, false);
 
-
+        mLoginButton = root.findViewById(R.id.button_google_login);
 
         return root;
     }
@@ -43,6 +45,14 @@ public class LoginUIFragment extends Fragment implements LoginUIViewContract.Vie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
@@ -76,7 +86,7 @@ public class LoginUIFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
-    public void setPresenter(LoginUIViewContract.Presenter loginUIPresenter) {
-        mPresenter = checkNotNull(loginUIPresenter);
+    public void setPresenter(LoginUIViewContract.Presenter loginUiPresenter) {
+        mPresenter = checkNotNull(loginUiPresenter);
     }
 }
