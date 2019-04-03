@@ -9,10 +9,13 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mike.projectboxscore.R;
+
+import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
+
 public class LoginUIFragment extends Fragment implements LoginUIViewContract.View {
 
     LoginUIViewContract.Presenter mPresenter;
-
 
     public LoginUIFragment() {
         // Requires empty public constructor
@@ -30,7 +33,11 @@ public class LoginUIFragment extends Fragment implements LoginUIViewContract.Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.login_layout, container, false);
+
+
+
+        return root;
     }
 
     @Override
@@ -69,7 +76,7 @@ public class LoginUIFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
-    public void setPresenter(LoginUIViewContract.Presenter surfaceViewPresenter) {
-
+    public void setPresenter(LoginUIViewContract.Presenter loginUIPresenter) {
+        mPresenter = checkNotNull(loginUIPresenter);
     }
 }
