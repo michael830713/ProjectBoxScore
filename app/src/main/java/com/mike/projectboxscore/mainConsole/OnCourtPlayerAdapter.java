@@ -1,6 +1,8 @@
 package com.mike.projectboxscore.mainConsole;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,10 @@ import com.mike.projectboxscore.R;
 
 public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
 
-    public OnCourtPlayerAdapter() {
+    private MainConsoleViewContract.Presenter mPresenter;
 
+    public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
+        mPresenter = presenter;
     }
 
     @NonNull
@@ -33,12 +37,13 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         return 5;
     }
 
-    public static class PlayerViewHolder extends RecyclerView.ViewHolder {
+    public class PlayerViewHolder extends RecyclerView.ViewHolder {
 
         ImageView mPlayerAvatar;
         TextView mPlayerName;
         TextView mOnCourtPosition;
         TextView mBackNumber;
+        ConstraintLayout mConstraintLayout;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -46,7 +51,19 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mOnCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             mBackNumber = itemView.findViewById(R.id.textView_number);
-
+            mConstraintLayout = itemView.findViewById(R.id.constraintLayout_onCourt_players);
+            mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mConstraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+//                    mPresenter.selectPlayer(getAdapterPosition());
+//                    getAdapterPosition();
+                }
+            });
         }
+    }
+
+    public void highlightSelectedPlayer(int position) {
+
     }
 }

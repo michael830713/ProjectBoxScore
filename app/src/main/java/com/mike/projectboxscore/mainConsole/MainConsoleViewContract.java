@@ -32,6 +32,8 @@ public interface MainConsoleViewContract {
 
         void initView();
 
+        void showSelectedPlayer();
+
         void showFullscreenModeUi(int videoWidth, int videoHeight);
 
         void showNormalModeUi(int videoWidth, int videoHeight);
@@ -63,5 +65,7 @@ public interface MainConsoleViewContract {
         void requestLandscape();
 
         void requestPortrait();
+
+        void selectPlayer(int position);
     }
 }

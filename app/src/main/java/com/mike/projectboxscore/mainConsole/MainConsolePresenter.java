@@ -13,6 +13,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void selectPlayer(int position) {
+mView.showSelectedPlayer();
+    }
+
+    @Override
     public void result(int requestCode, int resultCode) {
 
     }
