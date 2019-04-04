@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mike.projectboxscore.Data.PlayerOnCourtStats;
 import com.mike.projectboxscore.R;
+
+import java.util.ArrayList;
 
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
@@ -38,6 +41,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private Button mSubstitude;
     private Button mFoul;
     private Button mBlock;
+    private ArrayList<PlayerOnCourtStats> players;
 
     public MainConsoleFragment() {
         // Requires empty public constructor
@@ -51,6 +55,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
+        players = new ArrayList<PlayerOnCourtStats>();
 
     }
 
@@ -58,43 +63,33 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.console_fragment, container, false);
+
         mPlayerRecyclerView = root.findViewById(R.id.recyclerview_onCourt_players);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mPlayerRecyclerView.setLayoutManager(linearLayoutManager);
         mPlayerRecyclerView.setAdapter(mOnCourtPlayerAdapter);
 
         m2Pts = root.findViewById(R.id.button2Pts);
-        m2Pts.setOnClickListener(awesomeOnClickListener);
 
         m3Pts = root.findViewById(R.id.button3Pts);
-        m3Pts.setOnClickListener(awesomeOnClickListener);
 
         mAssist = root.findViewById(R.id.buttonAssist);
-        mAssist.setOnClickListener(awesomeOnClickListener);
 
         mBlock = root.findViewById(R.id.buttonBlock);
-        mBlock.setOnClickListener(awesomeOnClickListener);
 
         mTurnOver = root.findViewById(R.id.buttonTurnOver);
-        mTurnOver.setOnClickListener(awesomeOnClickListener);
 
         mFreeThrows = root.findViewById(R.id.buttonFreeThrow);
-        mFreeThrows.setOnClickListener(awesomeOnClickListener);
 
         mFoul = root.findViewById(R.id.buttonFoul);
-        mFoul.setOnClickListener(awesomeOnClickListener);
 
         mSubstitude = root.findViewById(R.id.buttonSub);
-        mSubstitude.setOnClickListener(awesomeOnClickListener);
 
         mDreb = root.findViewById(R.id.buttonDefensiveRebound);
-        mDreb.setOnClickListener(awesomeOnClickListener);
 
         mOreb = root.findViewById(R.id.buttonOffensiveRebound);
-        mOreb.setOnClickListener(awesomeOnClickListener);
 
         mSteal = root.findViewById(R.id.buttonSteal);
-        mSteal.setOnClickListener(awesomeOnClickListener);
 
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
@@ -104,6 +99,23 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        players.add(new PlayerOnCourtStats("Mike", 23));
+        players.add(new PlayerOnCourtStats("Mike", 24));
+        players.add(new PlayerOnCourtStats("Mike", 25));
+        players.add(new PlayerOnCourtStats("Mike", 26));
+        players.add(new PlayerOnCourtStats("Mike", 27));
+
+        m2Pts.setOnClickListener(awesomeOnClickListener);
+        m3Pts.setOnClickListener(awesomeOnClickListener);
+        mAssist.setOnClickListener(awesomeOnClickListener);
+        mBlock.setOnClickListener(awesomeOnClickListener);
+        mTurnOver.setOnClickListener(awesomeOnClickListener);
+        mFreeThrows.setOnClickListener(awesomeOnClickListener);
+        mFoul.setOnClickListener(awesomeOnClickListener);
+        mSubstitude.setOnClickListener(awesomeOnClickListener);
+        mDreb.setOnClickListener(awesomeOnClickListener);
+        mOreb.setOnClickListener(awesomeOnClickListener);
+        mSteal.setOnClickListener(awesomeOnClickListener);
 
 //        mJoystickView.setOnMoveListener(new JoystickView.OnMoveListener() {
 //            int mAngle;
@@ -124,7 +136,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.button2Pts:
-                    Log.d(TAG, "onClick: button2Pts");
+//                    Log.d(TAG, "onClick: button2Pts");
+                    int point = players.get(mOnCourtPlayerAdapter.getRow_index()).getPoints();
+                    int newPoint = point + 2;
+                    players.get(mOnCourtPlayerAdapter.getRow_index()).setPoints(newPoint);
+                    Log.d(TAG, players.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + newPoint);
                     break;
                 case R.id.button3Pts:
                     break;
