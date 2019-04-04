@@ -15,6 +15,7 @@ import com.mike.projectboxscore.R;
 public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
+    int row_index;
 
     public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -28,8 +29,21 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlayerViewHolder playerViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
+        playerViewHolder.mConstraintLayout.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+//                highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+                row_index = i;
+                notifyDataSetChanged();
+            }
+        });
+        if (row_index == i) {
+            highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+        } else {
+            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+        }
     }
 
     @Override
@@ -52,10 +66,15 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
             mOnCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             mBackNumber = itemView.findViewById(R.id.textView_number);
             mConstraintLayout = itemView.findViewById(R.id.constraintLayout_onCourt_players);
+
             mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+                int row_index;
+
                 @Override
                 public void onClick(View v) {
                     highlightSelectedPlayer(mConstraintLayout);
+                    row_index = getAdapterPosition();
+                    notifyDataSetChanged();
                 }
             });
         }
@@ -63,5 +82,9 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
         constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+    }
+
+    public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
+        constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
     }
 }
