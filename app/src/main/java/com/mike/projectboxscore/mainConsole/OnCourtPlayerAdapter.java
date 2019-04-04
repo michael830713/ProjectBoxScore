@@ -55,15 +55,13 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
             mConstraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mConstraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
-//                    mPresenter.selectPlayer(getAdapterPosition());
-//                    getAdapterPosition();
+                    highlightSelectedPlayer(mConstraintLayout);
                 }
             });
         }
     }
 
-    public void highlightSelectedPlayer(int position) {
-
+    public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
+        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
     }
 }
