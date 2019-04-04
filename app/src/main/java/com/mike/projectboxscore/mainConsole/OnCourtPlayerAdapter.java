@@ -15,7 +15,7 @@ import com.mike.projectboxscore.R;
 public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
-    int row_index;
+    int row_index = 0;
 
     public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -34,7 +34,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
             @Override
             public void onClick(View v) {
-//                highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
                 row_index = i;
                 notifyDataSetChanged();
             }
@@ -86,5 +85,9 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+    }
+
+    public int getRow_index(){
+        return row_index;
     }
 }
