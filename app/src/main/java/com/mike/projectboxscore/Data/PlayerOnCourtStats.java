@@ -16,6 +16,11 @@ public class PlayerOnCourtStats {
     private int fouls;
     private int steals;
     private int blocks;
+    private String onCourtPosition;
+
+    public String getOnCourtPosition() {
+        return onCourtPosition;
+    }
 
     public int getBlocks() {
         return blocks;
@@ -33,9 +38,10 @@ public class PlayerOnCourtStats {
         this.steals = steals;
     }
 
-    public PlayerOnCourtStats(String name, int backNumber) {
+    public PlayerOnCourtStats(String name, int backNumber, String onCourtPosition) {
         Name = name;
         this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
     }
 
     public String getName() {

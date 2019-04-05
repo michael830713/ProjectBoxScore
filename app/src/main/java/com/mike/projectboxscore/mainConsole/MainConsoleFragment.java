@@ -88,11 +88,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        players.add(new PlayerOnCourtStats("Mike", 23));
-        players.add(new PlayerOnCourtStats("Jordan", 24));
-        players.add(new PlayerOnCourtStats("Chris", 25));
-        players.add(new PlayerOnCourtStats("Paul", 26));
-        players.add(new PlayerOnCourtStats("Gasol", 27));
+        players.add(new PlayerOnCourtStats("Mike", 23,getString(R.string.gaurd)));
+        players.add(new PlayerOnCourtStats("Jordan", 24,getString(R.string.gaurd)));
+        players.add(new PlayerOnCourtStats("Chris", 25,getString(R.string.forward)));
+        players.add(new PlayerOnCourtStats("Paul", 26,getString(R.string.forward)));
+        players.add(new PlayerOnCourtStats("Gasol", 27,getString(R.string.center)));
+        mOnCourtPlayerAdapter.setPlayers(players);
 
         m2Pts.setOnClickListener(awesomeOnClickListener);
         m3Pts.setOnClickListener(awesomeOnClickListener);

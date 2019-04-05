@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Data.PlayerOnCourtStats;
 import com.mike.projectboxscore.R;
+
+import java.util.ArrayList;
 
 public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
     int row_index = 0;
+    private ArrayList<PlayerOnCourtStats> mPlayers;
 
     public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -30,13 +34,15 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
-        playerViewHolder.mConstraintLayout.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                row_index = i;
-                notifyDataSetChanged();
-            }
+        playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
+        playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
+        playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+
+
+        playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
+            row_index = i;
+            notifyDataSetChanged();
         });
         if (row_index == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
@@ -87,7 +93,11 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
     }
 
-    public int getRow_index(){
+    public int getRow_index() {
         return row_index;
+    }
+
+    public void setPlayers(ArrayList<PlayerOnCourtStats> players) {
+        mPlayers = players;
     }
 }
