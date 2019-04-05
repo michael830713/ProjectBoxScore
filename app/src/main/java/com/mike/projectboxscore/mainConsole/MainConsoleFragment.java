@@ -28,7 +28,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     MainConsoleViewContract.Presenter mPresenter;
     private OnCourtPlayerAdapter mOnCourtPlayerAdapter;
+    private MainLogAdapter mMainLogAdapter;
     RecyclerView mPlayerRecyclerView;
+    RecyclerView mLogRecyclerView;
     private JoystickView mJoystickView;
     private Button m2Pts;
     private Button m3Pts;
@@ -41,7 +43,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private Button mSubstitude;
     private Button mFoul;
     private Button mBlock;
-    private ArrayList<PlayerOnCourtStats> players;
+    private ArrayList<PlayerOnCourtStats> mPlayers;
 
     public MainConsoleFragment() {
         // Requires empty public constructor
@@ -55,7 +57,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
-        players = new ArrayList<PlayerOnCourtStats>();
+        mPlayers = new ArrayList<PlayerOnCourtStats>();
+        mMainLogAdapter = new MainLogAdapter(mPresenter);
 
     }
 
@@ -65,9 +68,14 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         View root = inflater.inflate(R.layout.console_fragment, container, false);
 
         mPlayerRecyclerView = root.findViewById(R.id.recyclerview_onCourt_players);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        mPlayerRecyclerView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
+        mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mOnCourtPlayerAdapter);
+
+        mLogRecyclerView = root.findViewById(R.id.recyclerView_log);
+        LinearLayoutManager logLayoutManager = new LinearLayoutManager(getContext());
+        mLogRecyclerView.setLayoutManager(logLayoutManager);
+        mLogRecyclerView.setAdapter(mMainLogAdapter);
 
         m2Pts = root.findViewById(R.id.button2Pts);
         m3Pts = root.findViewById(R.id.button3Pts);
@@ -88,12 +96,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        players.add(new PlayerOnCourtStats("Mike", 23,getString(R.string.gaurd)));
-        players.add(new PlayerOnCourtStats("Jordan", 24,getString(R.string.gaurd)));
-        players.add(new PlayerOnCourtStats("Chris", 25,getString(R.string.forward)));
-        players.add(new PlayerOnCourtStats("Paul", 26,getString(R.string.forward)));
-        players.add(new PlayerOnCourtStats("Gasol", 27,getString(R.string.center)));
-        mOnCourtPlayerAdapter.setPlayers(players);
+        mPlayers.add(new PlayerOnCourtStats("Mike", 23, getString(R.string.gaurd)));
+        mPlayers.add(new PlayerOnCourtStats("Jordan", 24, getString(R.string.gaurd)));
+        mPlayers.add(new PlayerOnCourtStats("Chris", 25, getString(R.string.forward)));
+        mPlayers.add(new PlayerOnCourtStats("Paul", 26, getString(R.string.forward)));
+        mPlayers.add(new PlayerOnCourtStats("Gasol", 27, getString(R.string.center)));
+        mOnCourtPlayerAdapter.setPlayers(mPlayers);
 
         m2Pts.setOnClickListener(awesomeOnClickListener);
         m3Pts.setOnClickListener(awesomeOnClickListener);
@@ -126,59 +134,55 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.button2Pts:
-//                    Log.d(TAG, "onClick: button2Pts");
                     int added2points = playerScored(2);
-                    Log.d(TAG, players.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added2points);
-
+                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added2points);
                     break;
                 case R.id.button3Pts:
                     int added3points = playerScored(3);
-                    Log.d(TAG, players.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added3points);
-
+                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added3points);
                     break;
                 case R.id.buttonFreeThrow:
                     int added1points = playerScored(1);
-                    Log.d(TAG, players.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added1points);
+                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added1points);
                     break;
                 case R.id.buttonOffensiveRebound:
-                    int currentOffensiveRebounds = players.get(mOnCourtPlayerAdapter.getRow_index()).getOffensiveRebounds();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setOffensiveRebounds(currentOffensiveRebounds + 1);
+                    int currentOffensiveRebounds = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getOffensiveRebounds();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setOffensiveRebounds(currentOffensiveRebounds + 1);
                     break;
                 case R.id.buttonDefensiveRebound:
-                    int currentDefensiveRebounds = players.get(mOnCourtPlayerAdapter.getRow_index()).getDefensiveRebounds();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setDefensiveRebounds(currentDefensiveRebounds + 1);
+                    int currentDefensiveRebounds = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getDefensiveRebounds();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setDefensiveRebounds(currentDefensiveRebounds + 1);
                     break;
                 case R.id.buttonAssist:
-                    int currentAssist = players.get(mOnCourtPlayerAdapter.getRow_index()).getAssists();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setAssists(currentAssist + 1);
+                    int currentAssist = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getAssists();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setAssists(currentAssist + 1);
                     break;
                 case R.id.buttonTurnOver:
-                    int currentTurnOver = players.get(mOnCourtPlayerAdapter.getRow_index()).getTurnOvers();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setTurnOvers(currentTurnOver + 1);
+                    int currentTurnOver = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getTurnOvers();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setTurnOvers(currentTurnOver + 1);
                     break;
                 case R.id.buttonFoul:
-                    int currentFouls = players.get(mOnCourtPlayerAdapter.getRow_index()).getFouls();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setFouls(currentFouls + 1);
+                    int currentFouls = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getFouls();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setFouls(currentFouls + 1);
                     break;
                 case R.id.buttonSub:
                     break;
                 case R.id.buttonSteal:
-                    int currentSteals = players.get(mOnCourtPlayerAdapter.getRow_index()).getSteals();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setSteals(currentSteals + 1);
+                    int currentSteals = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getSteals();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setSteals(currentSteals + 1);
                     break;
                 case R.id.buttonBlock:
-
-                    int currentBlocks = players.get(mOnCourtPlayerAdapter.getRow_index()).getBlocks();
-                    players.get(mOnCourtPlayerAdapter.getRow_index()).setBlocks(currentBlocks + 1);
+                    int currentBlocks = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBlocks();
+                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setBlocks(currentBlocks + 1);
                     break;
             }
         }
     };
 
     private int playerScored(int point) {
-        int currentPoints = players.get(mOnCourtPlayerAdapter.getRow_index()).getPoints();
+        int currentPoints = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getPoints();
         int newPoint = currentPoints + point;
-        players.get(mOnCourtPlayerAdapter.getRow_index()).setPoints(newPoint);
+        mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setPoints(newPoint);
         return newPoint;
     }
 
