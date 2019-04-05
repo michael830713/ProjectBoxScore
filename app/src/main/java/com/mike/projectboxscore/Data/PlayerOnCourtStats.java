@@ -14,6 +14,24 @@ public class PlayerOnCourtStats {
     private int threePointShotMade;
     private int turnOvers;
     private int fouls;
+    private int steals;
+    private int blocks;
+
+    public int getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(int blocks) {
+        this.blocks = blocks;
+    }
+
+    public int getSteals() {
+        return steals;
+    }
+
+    public void setSteals(int steals) {
+        this.steals = steals;
+    }
 
     public PlayerOnCourtStats(String name, int backNumber) {
         Name = name;
