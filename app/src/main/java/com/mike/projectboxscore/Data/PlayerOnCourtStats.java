@@ -3,7 +3,7 @@ package com.mike.projectboxscore.Data;
 public class PlayerOnCourtStats {
     private String Name;
     private int backNumber;
-    private int points;
+    private int points = 0;
     private int rebounds;
     private int assists;
     private int offensiveRebounds;

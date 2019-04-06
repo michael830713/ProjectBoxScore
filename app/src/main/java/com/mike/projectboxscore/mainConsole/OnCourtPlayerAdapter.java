@@ -72,16 +72,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
             mBackNumber = itemView.findViewById(R.id.textView_number);
             mConstraintLayout = itemView.findViewById(R.id.constraintLayout_onCourt_players);
 
-            mConstraintLayout.setOnClickListener(new View.OnClickListener() {
-                int row_index;
-
-                @Override
-                public void onClick(View v) {
-                    highlightSelectedPlayer(mConstraintLayout);
-                    row_index = getAdapterPosition();
-                    notifyDataSetChanged();
-                }
-            });
         }
     }
 
