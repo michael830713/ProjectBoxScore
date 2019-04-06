@@ -41,7 +41,9 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         playerViewHolder.mPlayerName.setText(mPlayerOnCourtStatList.get(0).getName());
         playerViewHolder.mPlayerPoints.setText(Integer.toString(mPlayerOnCourtStatList.get(0).getPoints()));
         playerViewHolder.mAction.setText(mActions.get(0));
+        playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayerOnCourtStatList.get(0).getBackNumber()));
         Log.d(TAG, "mPlayerList: " + mPlayerOnCourtStatList);
+
     }
 
     @Override
@@ -54,6 +56,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         TextView mPlayerPoints;
         TextView mPlayerName;
         TextView mFieldGoals;
+        TextView mBackNumber;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +64,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
             mPlayerPoints = itemView.findViewById(R.id.textView_player_points);
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mFieldGoals = itemView.findViewById(R.id.textView_field_goal);
+            mBackNumber = itemView.findViewById(R.id.textView_back_number);
 
         }
     }
@@ -69,6 +73,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         mPlayerOnCourtStatList.add(0, playerOnCourtStats);
         mActions.add(0, action);
         notifyItemInserted(0);
+
     }
 
 }

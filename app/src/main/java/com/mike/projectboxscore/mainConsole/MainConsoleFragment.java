@@ -136,6 +136,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 case R.id.button2Pts:
                     int added2points = playerScored(2);
                     mMainLogAdapter.setLog(mPlayers.get(mOnCourtPlayerAdapter.getRow_index()), getString(R.string.two_points_made));
+                    mLogRecyclerView.smoothScrollToPosition(0);
                     Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added2points);
                     break;
                 case R.id.button3Pts:
