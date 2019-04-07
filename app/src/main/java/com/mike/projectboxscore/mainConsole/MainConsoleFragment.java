@@ -110,6 +110,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mPlayers.add(new PlayerOnCourtStats("Chris", 25, getString(R.string.forward)));
         mPlayers.add(new PlayerOnCourtStats("Paul", 26, getString(R.string.forward)));
         mPlayers.add(new PlayerOnCourtStats("Gasol", 27, getString(R.string.center)));
+        mPlayers.add(new PlayerOnCourtStats("Opponent", 000, "O"));
         mOnCourtPlayerAdapter.setPlayers(mPlayers);
 
         m2Pts.setOnClickListener(awesomeOnClickListener);
@@ -141,14 +142,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private View.OnClickListener awesomeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            PlayerOnCourtStats selectedPlayer = mPlayers.get(mOnCourtPlayerAdapter.getRow_index());
+            int rowIndex = mOnCourtPlayerAdapter.getRow_index();
+            PlayerOnCourtStats selectedPlayer = mPlayers.get(rowIndex);
+
             switch (v.getId()) {
 
                 case R.id.button2Pts:
                     int added2points = playerScored(2);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_made));
 //                    mPresenter.calculateAndUpdateScore(2);
-                    mTextViewAwayScore.setText(Integer.toString(updateScore(2)));
+                    updateScoreBoardUi(rowIndex,2);
 
                     Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added2points);
                     break;
@@ -156,7 +159,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 case R.id.button3Pts:
                     int added3points = playerScored(3);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_made));
-                    mTextViewAwayScore.setText(Integer.toString(updateScore(3)));
+                    updateScoreBoardUi(rowIndex,3);
 //                    mPresenter.calculateAndUpdateScore(3);
 
                     Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added3points);
@@ -165,7 +168,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 case R.id.buttonFreeThrow:
                     int added1points = playerScored(1);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_made));
-                    mTextViewAwayScore.setText(Integer.toString(updateScore(1)));
+                    updateScoreBoardUi(rowIndex,1);
 
 //                    mPresenter.calculateAndUpdateScore(1);
 
@@ -210,13 +213,28 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
             }
+
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
 
-    private int updateScore(int addPoints) {
+    private void updateScoreBoardUi(int rowIndex, int addPoints) {
+        if (rowIndex != 5) {
+            mTextViewAwayScore.setText(Integer.toString(updateAwayScore(addPoints)));
+        } else {
+            mTextViewHomeScore.setText(Integer.toString(updateHomeScore(addPoints)));
+        }
+
+    }
+
+    private int updateAwayScore(int addPoints) {
         mAwayScore = mAwayScore + addPoints;
         return mAwayScore;
+    }
+
+    private int updateHomeScore(int addPoints) {
+        mHomeScore = mHomeScore + addPoints;
+        return mHomeScore;
     }
 
     private int playerScored(int point) {

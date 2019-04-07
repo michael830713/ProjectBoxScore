@@ -53,7 +53,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mPlayers.size();
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
