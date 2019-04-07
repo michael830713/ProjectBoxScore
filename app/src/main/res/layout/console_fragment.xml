@@ -205,7 +205,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="33"
+        android:text="0"
         android:textColor="#F1F1F1"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
@@ -216,7 +216,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="29"
+        android:text="0"
         android:textColor="#F1F1F1"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -235,19 +235,6 @@
         app:layout_constraintStart_toEndOf="@+id/textViewAwayScore"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/textViewAwayScore" />
-
-    <TextView
-        android:id="@+id/textViewTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="5 : 13"
-        android:textColor="#F1F1F1"
-        app:layout_constraintEnd_toEndOf="@+id/textViewHomeScore"
-        app:layout_constraintStart_toStartOf="@+id/textViewAwayScore"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joy_stick_controller"
@@ -271,12 +258,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTimer" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </android.support.constraint.ConstraintLayout>

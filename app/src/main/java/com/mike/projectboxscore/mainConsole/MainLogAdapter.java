@@ -38,9 +38,9 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
-        playerViewHolder.mPlayerName.setText(mPlayerOnCourtStatList.get(0).getName());
+        playerViewHolder.mPlayerName.setText(mPlayerOnCourtStatList.get(i).getName());
         playerViewHolder.mPlayerPoints.setText(Integer.toString(mPlayerOnCourtStatList.get(0).getPoints()));
-        playerViewHolder.mAction.setText(mActions.get(0));
+        playerViewHolder.mAction.setText(mActions.get(i));
         playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayerOnCourtStatList.get(0).getBackNumber()));
         Log.d(TAG, "mPlayerList: " + mPlayerOnCourtStatList);
 

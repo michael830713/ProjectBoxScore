@@ -110,7 +110,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mPlayers.add(new PlayerOnCourtStats("Chris", 25, getString(R.string.forward)));
         mPlayers.add(new PlayerOnCourtStats("Paul", 26, getString(R.string.forward)));
         mPlayers.add(new PlayerOnCourtStats("Gasol", 27, getString(R.string.center)));
-        mPlayers.add(new PlayerOnCourtStats("Opponent", 000, "O"));
+        mPlayers.add(new PlayerOnCourtStats("Opponent", -1, "O"));
         mOnCourtPlayerAdapter.setPlayers(mPlayers);
 
         m2Pts.setOnClickListener(awesomeOnClickListener);
@@ -152,7 +152,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_made));
 //                    mPresenter.calculateAndUpdateScore(2);
                     updateScoreBoardUi(rowIndex,2);
-
                     Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added2points);
                     break;
 
@@ -161,7 +160,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_made));
                     updateScoreBoardUi(rowIndex,3);
 //                    mPresenter.calculateAndUpdateScore(3);
-
                     Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added3points);
                     break;
 
@@ -169,9 +167,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     int added1points = playerScored(1);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_made));
                     updateScoreBoardUi(rowIndex,1);
-
 //                    mPresenter.calculateAndUpdateScore(1);
-
                     Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added1points);
                     break;
 
@@ -205,8 +201,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonBlock:
-                    int currentBlocks = selectedPlayer.getBlocks();
-                    selectedPlayer.setBlocks(currentBlocks + 1);
+                    selectedPlayer.setBlocks(selectedPlayer.getBlocks() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.block));
                     break;
 
                 case R.id.buttonSub:

@@ -12,11 +12,29 @@ public class PlayerOnCourtStats {
     private int twoPointShotMade;
     private int threePointShotTaken;
     private int threePointShotMade;
+    private int freeThrowTaken;
+    private int freeThrowMade;
     private int turnOvers;
     private int fouls;
     private int steals;
     private int blocks;
     private String onCourtPosition;
+
+    public int getFreeThrowTaken() {
+        return freeThrowTaken;
+    }
+
+    public void setFreeThrowTaken(int freeThrowTaken) {
+        this.freeThrowTaken = freeThrowTaken;
+    }
+
+    public int getFreeThrowMade() {
+        return freeThrowMade;
+    }
+
+    public void setFreeThrowMade(int freeThrowMade) {
+        this.freeThrowMade = freeThrowMade;
+    }
 
     public String getOnCourtPosition() {
         return onCourtPosition;

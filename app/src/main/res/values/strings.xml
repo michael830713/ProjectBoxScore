@@ -12,5 +12,6 @@
     <string name="turn_over">turn over</string>
     <string name="foul_made">foul</string>
     <string name="steal">steal</string>
+    <string name="block">block</string>
 
 </resources>
