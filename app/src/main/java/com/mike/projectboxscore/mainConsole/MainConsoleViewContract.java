@@ -42,7 +42,7 @@ public interface MainConsoleViewContract {
 
         void requestLandscapeUi();
 
-        void requestPortraitUi();
+        void updateScoreUi(int addScore);
 
     }
 
@@ -60,7 +60,7 @@ public interface MainConsoleViewContract {
 
         void setVideoInfo(int videoWidth, int videoHeight);
 
-        void calculateAndUpdateSurface();
+        void calculateAndUpdateScore(int addPoint);
 
         void requestLandscape();
 

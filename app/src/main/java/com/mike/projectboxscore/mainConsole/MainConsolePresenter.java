@@ -14,7 +14,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void selectPlayer(int position) {
-mView.showSelectedPlayer();
+        mView.showSelectedPlayer();
     }
 
     @Override
@@ -43,8 +43,8 @@ mView.showSelectedPlayer();
     }
 
     @Override
-    public void calculateAndUpdateSurface() {
-
+    public void calculateAndUpdateScore(int addScore) {
+        mView.updateScoreUi(addScore);
     }
 
     @Override

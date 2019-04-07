@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.PlayerOnCourtStats;
 import com.mike.projectboxscore.R;
@@ -31,7 +32,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private MainLogAdapter mMainLogAdapter;
     RecyclerView mPlayerRecyclerView;
     RecyclerView mLogRecyclerView;
+    TextView mTextViewAwayScore;
+    TextView mTextViewHomeScore;
     private JoystickView mJoystickView;
+    private int mAwayScore = 0;
+    private int mHomeScore = 0;
     private Button m2Pts;
     private Button m3Pts;
     private Button mFreeThrows;
@@ -67,11 +72,13 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.console_fragment, container, false);
 
+        //setup the player recyclerView
         mPlayerRecyclerView = root.findViewById(R.id.recyclerview_onCourt_players);
         LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
         mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mOnCourtPlayerAdapter);
 
+        //setup the middle log recyclerView
         mLogRecyclerView = root.findViewById(R.id.recyclerView_log);
         LinearLayoutManager logLayoutManager = new LinearLayoutManager(getContext());
         mLogRecyclerView.setLayoutManager(logLayoutManager);
@@ -88,6 +95,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mDreb = root.findViewById(R.id.buttonDefensiveRebound);
         mOreb = root.findViewById(R.id.buttonOffensiveRebound);
         mSteal = root.findViewById(R.id.buttonSteal);
+        mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
+        mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
         return root;
@@ -132,60 +141,94 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private View.OnClickListener awesomeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            PlayerOnCourtStats selectedPlayer = mPlayers.get(mOnCourtPlayerAdapter.getRow_index());
             switch (v.getId()) {
+
                 case R.id.button2Pts:
                     int added2points = playerScored(2);
-                    mMainLogAdapter.setLog(mPlayers.get(mOnCourtPlayerAdapter.getRow_index()), getString(R.string.two_points_made));
-                    mLogRecyclerView.smoothScrollToPosition(0);
-                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added2points);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_made));
+//                    mPresenter.calculateAndUpdateScore(2);
+                    mTextViewAwayScore.setText(Integer.toString(updateScore(2)));
+
+                    Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added2points);
                     break;
+
                 case R.id.button3Pts:
                     int added3points = playerScored(3);
-                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added3points);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_made));
+                    mTextViewAwayScore.setText(Integer.toString(updateScore(3)));
+//                    mPresenter.calculateAndUpdateScore(3);
+
+                    Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added3points);
                     break;
+
                 case R.id.buttonFreeThrow:
                     int added1points = playerScored(1);
-                    Log.d(TAG, mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBackNumber() + "scored: " + added1points);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_made));
+                    mTextViewAwayScore.setText(Integer.toString(updateScore(1)));
+
+//                    mPresenter.calculateAndUpdateScore(1);
+
+                    Log.d(TAG, selectedPlayer.getBackNumber() + "scored: " + added1points);
                     break;
+
                 case R.id.buttonOffensiveRebound:
-                    int currentOffensiveRebounds = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getOffensiveRebounds();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setOffensiveRebounds(currentOffensiveRebounds + 1);
+                    selectedPlayer.setOffensiveRebounds(selectedPlayer.getOffensiveRebounds() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.offensive_rebound));
                     break;
+
                 case R.id.buttonDefensiveRebound:
-                    int currentDefensiveRebounds = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getDefensiveRebounds();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setDefensiveRebounds(currentDefensiveRebounds + 1);
+                    selectedPlayer.setDefensiveRebounds(selectedPlayer.getDefensiveRebounds() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.defensive_rebound));
                     break;
+
                 case R.id.buttonAssist:
-                    int currentAssist = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getAssists();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setAssists(currentAssist + 1);
+                    selectedPlayer.setAssists(selectedPlayer.getAssists() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.assist));
                     break;
+
                 case R.id.buttonTurnOver:
-                    int currentTurnOver = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getTurnOvers();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setTurnOvers(currentTurnOver + 1);
+                    selectedPlayer.setTurnOvers(selectedPlayer.getTurnOvers() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.turn_over));
                     break;
+
                 case R.id.buttonFoul:
-                    int currentFouls = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getFouls();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setFouls(currentFouls + 1);
-                    break;
-                case R.id.buttonSub:
+                    selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
                     break;
                 case R.id.buttonSteal:
-                    int currentSteals = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getSteals();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setSteals(currentSteals + 1);
+                    selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
+                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
                     break;
+
                 case R.id.buttonBlock:
-                    int currentBlocks = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getBlocks();
-                    mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setBlocks(currentBlocks + 1);
+                    int currentBlocks = selectedPlayer.getBlocks();
+                    selectedPlayer.setBlocks(currentBlocks + 1);
                     break;
+
+                case R.id.buttonSub:
+                    break;
+
             }
+            mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
+
+    private int updateScore(int addPoints) {
+        mAwayScore = mAwayScore + addPoints;
+        return mAwayScore;
+    }
 
     private int playerScored(int point) {
         int currentPoints = mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).getPoints();
         int newPoint = currentPoints + point;
         mPlayers.get(mOnCourtPlayerAdapter.getRow_index()).setPoints(newPoint);
         return newPoint;
+    }
+
+    @Override
+    public void updateScoreUi(int addScore) {
+        mTextViewAwayScore.setText(mTextViewAwayScore.getText() + Integer.toString(addScore));
     }
 
     @Override
@@ -215,11 +258,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void requestLandscapeUi() {
-
-    }
-
-    @Override
-    public void requestPortraitUi() {
 
     }
 
