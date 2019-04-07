@@ -43,6 +43,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         playerViewHolder.mAction.setText(mActions.get(i));
         playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayerOnCourtStatList.get(0).getBackNumber()));
         Log.d(TAG, "mPlayerList: " + mPlayerOnCourtStatList);
+        playerViewHolder.mFieldGoals.setText("FG" + Integer.toString(mPlayerOnCourtStatList.get(i).getShotMade()) + "-" + Integer.toString(mPlayerOnCourtStatList.get(i).getShotTaken()));
 
     }
 

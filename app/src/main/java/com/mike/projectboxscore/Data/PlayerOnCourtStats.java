@@ -8,8 +8,8 @@ public class PlayerOnCourtStats {
     private int assists;
     private int offensiveRebounds;
     private int defensiveRebounds;
-    private int twoPointShotTaken;
-    private int twoPointShotMade;
+    private int shotTaken;
+    private int shotMade;
     private int threePointShotTaken;
     private int threePointShotMade;
     private int freeThrowTaken;
@@ -110,20 +110,20 @@ public class PlayerOnCourtStats {
         this.defensiveRebounds = defensiveRebounds;
     }
 
-    public int getTwoPointShotTaken() {
-        return twoPointShotTaken;
+    public int getShotTaken() {
+        return shotTaken;
     }
 
-    public void setTwoPointShotTaken(int twoPointShotTaken) {
-        this.twoPointShotTaken = twoPointShotTaken;
+    public void setShotTaken(int shotTaken) {
+        this.shotTaken = shotTaken;
     }
 
-    public int getTwoPointShotMade() {
-        return twoPointShotMade;
+    public int getShotMade() {
+        return shotMade;
     }
 
-    public void setTwoPointShotMade(int twoPointShotMade) {
-        this.twoPointShotMade = twoPointShotMade;
+    public void setShotMade(int shotMade) {
+        this.shotMade = shotMade;
     }
 
     public int getThreePointShotTaken() {

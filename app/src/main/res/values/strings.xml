@@ -4,8 +4,11 @@
     <string name="forward">F</string>
     <string name="center">C</string>
     <string name="two_points_made">2pts made</string>
+    <string name="two_points_miss">2pts miss</string>
     <string name="three_points_made">3pts made</string>
+    <string name="three_points_miss">3pts miss</string>
     <string name="free_throw_made">free throw made</string>
+    <string name="free_throw_miss">free throw miss</string>
     <string name="offensive_rebound">O rebound</string>
     <string name="defensive_rebound">D rebound</string>
     <string name="assist">assist</string>
