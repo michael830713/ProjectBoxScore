@@ -60,14 +60,14 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void calculateAndUpdateScore(int addScore) {
-        mView.updateScoreUi(addScore);
-    }
-
-    @Override
     public void showMadeOrMissDialog(int rowIndex, int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
 
+    }
+
+    @Override
+    public void returnLastStep() {
+        mView.returnLastStepUi();
     }
 
     @Override
@@ -81,21 +81,75 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void updateLog(int addPoint, boolean isShotMade) {
+        mView.updateLogUi(addPoint, isShotMade);
+    }
+
+    @Override
+    public void updateLog(String action) {
+        mView.updateLogUi(action);
+    }
+
+    @Override
+    public void removeLog() {
+        mView.removeLogUi();
+    }
+
+    @Override
     public void updatePlayerScores(int addPoints) {
         int currentPoints = mSelectedPlayer.getPoints();
         int newPoint = currentPoints + addPoints;
         mSelectedPlayer.setPoints(newPoint);
-        if (addPoints != 1) {
-            playerMadeShot();
+        if (addPoints > 0) {
+
+            if (addPoints != 1) {
+                playerMadeShot();
+                playerShoot();
+
+                if (addPoints == 3) {
+                    playerMade3PtShot();
+                    player3ptShoot();
+                }
+            }
+        } else if (addPoints == -2 || addPoints == -3) {
+
+            playerMadeShotReturn();
+            playerShootReturn();
+            if (addPoints == -3) {
+                player3ptShootReturn();
+                playerMade3PtShotReturn();
+            }
+        } else {
+
+        }
+//        updateLog(addPoints);
+    }
+
+    @Override
+    public void updatePlayerMisses(int addPoints) {
+        if (addPoints != 1 && addPoints > 0) {
             playerShoot();
 
             if (addPoints == 3) {
-                playerMade3PtShot();
                 player3ptShoot();
+            }
+        } else if (addPoints == -2 || addPoints == -3) {
+            playerShootReturn();
+            if (addPoints == -3) {
+                player3ptShootReturn();
             }
         }
 
+    }
 
+    @Override
+    public void updateScoreboard(int addPoint) {
+        mView.updateScoreboardUi(addPoint);
+    }
+
+    @Override
+    public void updateScoreboardReturn(int addPoint) {
+        mView.updateScoreboardReturnUi(addPoint);
     }
 
     @Override
@@ -124,6 +178,56 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int currentShotTaken = mSelectedPlayer.getThreePointShotTaken();
         int newTakenShot = currentShotTaken + 1;
         mSelectedPlayer.setThreePointShotTaken(newTakenShot);
+    }
+
+    @Override
+    public void playerMadeShotReturn() {
+        int currentShotMade = mSelectedPlayer.getShotMade();
+        int newShotMade = currentShotMade - 1;
+        mSelectedPlayer.setShotMade(newShotMade);
+    }
+
+    @Override
+    public void playerShootReturn() {
+        int currentShotTaken = mSelectedPlayer.getShotTaken();
+        int newTakenShot = currentShotTaken - 1;
+        mSelectedPlayer.setShotTaken(newTakenShot);
+    }
+
+    @Override
+    public void playerMade3PtShotReturn() {
+        int currentShotMade = mSelectedPlayer.getThreePointShotMade();
+        int newShotMade = currentShotMade - 1;
+        mSelectedPlayer.setThreePointShotMade(newShotMade);
+    }
+
+    @Override
+    public void player3ptShootReturn() {
+        int currentShotTaken = mSelectedPlayer.getThreePointShotTaken();
+        int newTakenShot = currentShotTaken - 1;
+        mSelectedPlayer.setThreePointShotTaken(newTakenShot);
+    }
+
+    @Override
+    public void playerOffensiveRebounded(int amount) {
+        int newRebounds = mSelectedPlayer.getOffensiveRebounds() + amount;
+
+        mSelectedPlayer.setOffensiveRebounds(newRebounds);
+
+    }
+
+    @Override
+    public void playerDefensiveRebounded(int amount) {
+        int newRebounds = mSelectedPlayer.getDefensiveRebounds() + amount;
+
+        mSelectedPlayer.setDefensiveRebounds(newRebounds);
+    }
+
+    @Override
+    public void playerAssisted(int amount) {
+        int newAmount = mSelectedPlayer.getAssists() + amount;
+
+        mSelectedPlayer.setAssists(newAmount);
     }
 
     @Override

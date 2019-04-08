@@ -45,7 +45,17 @@ public interface MainConsoleViewContract {
 
         void showMadeOrMissDialogUi( int addPoints);
 
-        void updateScoreUi(int addScore);
+        void updateLogUi(int addScore,boolean isShotMade);
+
+        void updateLogUi(String action);
+
+        void removeLogUi();
+
+        void updateScoreboardUi(int addScore);
+
+        void updateScoreboardReturnUi(int addScore);
+
+        void  returnLastStepUi();
 
     }
 
@@ -63,7 +73,19 @@ public interface MainConsoleViewContract {
 
         void setVideoInfo(int videoWidth, int videoHeight);
 
-        void calculateAndUpdateScore(int addPoint);
+        void updatePlayerScores(int addPoints);
+
+        void updatePlayerMisses(int addPoints);
+
+        void updateLog(int addPoint, boolean isShotMade);
+
+        void updateLog(String action);
+
+        void removeLog();
+
+        void updateScoreboard(int addPoint);
+
+        void updateScoreboardReturn(int addPoint);
 
         void showMadeOrMissDialog(int rowIndex, int addPoints);
 
@@ -77,8 +99,6 @@ public interface MainConsoleViewContract {
 
         PlayerOnCourtStats getSelectedPlayer();
 
-        void updatePlayerScores(int addPoints);
-
          void playerMadeShot();
 
         void playerShoot();
@@ -86,5 +106,21 @@ public interface MainConsoleViewContract {
         void playerMade3PtShot();
 
         void player3ptShoot();
+
+        void playerMadeShotReturn();
+
+        void playerShootReturn();
+
+        void playerMade3PtShotReturn();
+
+        void player3ptShootReturn();
+
+        void playerOffensiveRebounded(int amount);
+
+        void playerDefensiveRebounded(int amount);
+
+        void playerAssisted(int amount);
+
+        void returnLastStep();
     }
 }

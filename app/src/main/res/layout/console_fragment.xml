@@ -266,4 +266,15 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+    <ImageView
+        android:id="@+id/imageViewReturnStep"
+        android:layout_width="59dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/circle_button"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSub"
+        app:layout_constraintStart_toStartOf="@+id/buttonSub"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSub"
+        app:srcCompat="@drawable/undo_icon" />
+
 </android.support.constraint.ConstraintLayout>
