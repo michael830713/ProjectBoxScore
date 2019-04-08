@@ -2,7 +2,6 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -63,6 +62,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new MainConsolePresenter(this);
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
         mPlayers = new ArrayList<PlayerOnCourtStats>();
         mMainLogAdapter = new MainLogAdapter(mPresenter);
@@ -150,19 +150,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             switch (v.getId()) {
 
                 case R.id.button2Pts:
-
                     showMadeOrMissDialog(rowIndex, 2, selectedPlayer);
-
                     break;
 
                 case R.id.button3Pts:
                     showMadeOrMissDialog(rowIndex, 3, selectedPlayer);
-
+                    Log.d(TAG, "button3Pts: FG" + selectedPlayer.getThreePointShotMade() + "-" + selectedPlayer.getThreePointShotTaken());
                     break;
 
                 case R.id.buttonFreeThrow:
                     showMadeOrMissDialog(rowIndex, 1, selectedPlayer);
-
                     break;
 
                 case R.id.buttonOffensiveRebound:
@@ -203,7 +200,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
             }
-
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
@@ -214,7 +210,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 .setCancelable(true)
                 .setPositiveButton("Made", (dialog, id) -> {
 
-                    updatePlayerScore(addPoints,selectedPlayer);
+                    updatePlayerScore(addPoints, selectedPlayer);
+
                     if (addPoints == 2) {
                         mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_made));
                     } else if (addPoints == 3) {
@@ -224,15 +221,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     }
 //                    mPresenter.calculateAndUpdateScore(2);
                     updateScoreBoardUi(rowIndex, addPoints);
-
                     dialog.dismiss();
                     mLogRecyclerView.smoothScrollToPosition(0);
                 })
                 .setNegativeButton("Miss", (dialog, id) -> {
-                    playerShoot(selectedPlayer);
                     if (addPoints == 2) {
+                        playerShoot(selectedPlayer);
                         mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_miss));
                     } else if (addPoints == 3) {
+                        playerShoot(selectedPlayer);
+                        player3ptShoot(selectedPlayer);
                         mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_miss));
                     } else {
                         mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_miss));
@@ -250,7 +248,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateHomeScore(addPoints)));
         }
-
     }
 
     private int updateAwayScore(int addPoints) {
@@ -263,12 +260,18 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         return mHomeScore;
     }
 
-    private int updatePlayerScore(int point,PlayerOnCourtStats selectedPlayer) {
+    private int updatePlayerScore(int point, PlayerOnCourtStats selectedPlayer) {
         int currentPoints = selectedPlayer.getPoints();
         int newPoint = currentPoints + point;
         selectedPlayer.setPoints(newPoint);
-        playerMadeShot(selectedPlayer);
-        playerShoot(selectedPlayer);
+        if (point != 1) {
+            playerMadeShot(selectedPlayer);
+            playerShoot(selectedPlayer);
+            if (point == 3) {
+                playerMade3PtShot(selectedPlayer);
+                player3ptShoot(selectedPlayer);
+            }
+        }
         return newPoint;
     }
 
@@ -278,6 +281,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         selectedPlayer.setShotMade(newShotMade);
     }
 
+    private void playerMade3PtShot(PlayerOnCourtStats selectedPlayer) {
+        int currentShotMade = selectedPlayer.getThreePointShotMade();
+        int newShotMade = currentShotMade + 1;
+        selectedPlayer.setThreePointShotMade(newShotMade);
+    }
+
     private int playerShoot(PlayerOnCourtStats selectedPlayer) {
         int currentShotTaken = selectedPlayer.getShotTaken();
         int newTakenShot = currentShotTaken + 1;
@@ -285,9 +294,17 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         return newTakenShot;
     }
 
+    private int player3ptShoot(PlayerOnCourtStats selectedPlayer) {
+        int currentShotTaken = selectedPlayer.getThreePointShotTaken();
+        int newTakenShot = currentShotTaken + 1;
+        selectedPlayer.setThreePointShotTaken(newTakenShot);
+        return newTakenShot;
+    }
+
     @Override
     public void updateScoreUi(int addScore) {
         mTextViewAwayScore.setText(mTextViewAwayScore.getText() + Integer.toString(addScore));
+        Log.d(TAG, "updateScoreUi: ");
     }
 
     @Override

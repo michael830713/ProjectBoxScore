@@ -73,6 +73,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     public void setLog(PlayerOnCourtStats playerOnCourtStats, String action) {
         mPlayerOnCourtStatList.add(0, playerOnCourtStats);
         mActions.add(0, action);
+        Log.d(TAG, "first action: " + mActions.get(0));
         notifyItemInserted(0);
 
     }
