@@ -107,13 +107,15 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPlayers.add(new PlayerOnCourtStats("Mike", 23, getString(R.string.gaurd)));
-        mPlayers.add(new PlayerOnCourtStats("Jordan", 24, getString(R.string.gaurd)));
-        mPlayers.add(new PlayerOnCourtStats("Chris", 25, getString(R.string.forward)));
-        mPlayers.add(new PlayerOnCourtStats("Paul", 26, getString(R.string.forward)));
-        mPlayers.add(new PlayerOnCourtStats("Gasol", 27, getString(R.string.center)));
-        mPlayers.add(new PlayerOnCourtStats("Opponent", -1, "O"));
-        mOnCourtPlayerAdapter.setPlayers(mPlayers);
+
+        mPresenter.setupNewPlayer("Mike", 23, getString(R.string.gaurd));
+        mPresenter.setupNewPlayer("Jordan", 24, getString(R.string.gaurd));
+        mPresenter.setupNewPlayer("Chris", 25, getString(R.string.forward));
+        mPresenter.setupNewPlayer("Paul", 26, getString(R.string.forward));
+        mPresenter.setupNewPlayer("Gasol", 27, getString(R.string.center));
+        mPresenter.setupNewPlayer("Opponent", -1, "O");
+
+        mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
 
         m2Pts.setOnClickListener(awesomeOnClickListener);
         m3Pts.setOnClickListener(awesomeOnClickListener);
@@ -145,21 +147,24 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         @Override
         public void onClick(View v) {
             int rowIndex = mOnCourtPlayerAdapter.getRow_index();
-            PlayerOnCourtStats selectedPlayer = mPlayers.get(rowIndex);
+            PlayerOnCourtStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
+            mPresenter.setSelectedPlayer(selectedPlayer);
 
             switch (v.getId()) {
 
                 case R.id.button2Pts:
-                    showMadeOrMissDialog(rowIndex, 2, selectedPlayer);
+                    mPresenter.showMadeOrMissDialog(rowIndex, 2);
                     break;
 
                 case R.id.button3Pts:
-                    showMadeOrMissDialog(rowIndex, 3, selectedPlayer);
-                    Log.d(TAG, "button3Pts: FG" + selectedPlayer.getThreePointShotMade() + "-" + selectedPlayer.getThreePointShotTaken());
+                    mPresenter.showMadeOrMissDialog(rowIndex, 3);
+                    Log.d(TAG, "button3Pts: FG" + selectedPlayer.getThreePointShotMade()
+                            + "-"
+                            + selectedPlayer.getThreePointShotTaken());
                     break;
 
                 case R.id.buttonFreeThrow:
-                    showMadeOrMissDialog(rowIndex, 1, selectedPlayer);
+                    mPresenter.showMadeOrMissDialog(rowIndex, 1);
                     break;
 
                 case R.id.buttonOffensiveRebound:
@@ -186,6 +191,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
                     break;
+
                 case R.id.buttonSteal:
                     selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
                     mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
@@ -204,46 +210,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         }
     };
 
-    private void showMadeOrMissDialog(int rowIndex, int addPoints, PlayerOnCourtStats selectedPlayer) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Made or miss?")
-                .setCancelable(true)
-                .setPositiveButton("Made", (dialog, id) -> {
-
-                    updatePlayerScore(addPoints, selectedPlayer);
-
-                    if (addPoints == 2) {
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_made));
-                    } else if (addPoints == 3) {
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_made));
-                    } else {
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_made));
-                    }
-//                    mPresenter.calculateAndUpdateScore(2);
-                    updateScoreBoardUi(rowIndex, addPoints);
-                    dialog.dismiss();
-                    mLogRecyclerView.smoothScrollToPosition(0);
-                })
-                .setNegativeButton("Miss", (dialog, id) -> {
-                    if (addPoints == 2) {
-                        playerShoot(selectedPlayer);
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.two_points_miss));
-                    } else if (addPoints == 3) {
-                        playerShoot(selectedPlayer);
-                        player3ptShoot(selectedPlayer);
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.three_points_miss));
-                    } else {
-                        mMainLogAdapter.setLog(selectedPlayer, getString(R.string.free_throw_miss));
-                    }
-                    dialog.dismiss();
-                    mLogRecyclerView.smoothScrollToPosition(0);
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void updateScoreBoardUi(int rowIndex, int addPoints) {
-        if (rowIndex != 5) {
+    private void updateScoreBoardUi(int addPoints) {
+        if (mOnCourtPlayerAdapter.getRow_index() != 5) {
             mTextViewAwayScore.setText(Integer.toString(updateAwayScore(addPoints)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateHomeScore(addPoints)));
@@ -260,56 +228,55 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         return mHomeScore;
     }
 
-    private int updatePlayerScore(int point, PlayerOnCourtStats selectedPlayer) {
-        int currentPoints = selectedPlayer.getPoints();
-        int newPoint = currentPoints + point;
-        selectedPlayer.setPoints(newPoint);
-        if (point != 1) {
-            playerMadeShot(selectedPlayer);
-            playerShoot(selectedPlayer);
-            if (point == 3) {
-                playerMade3PtShot(selectedPlayer);
-                player3ptShoot(selectedPlayer);
-            }
-        }
-        return newPoint;
-    }
+    @Override
+    public void showMadeOrMissDialogUi(int addPoints) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Made or miss?")
+                .setCancelable(true)
+                .setPositiveButton("Made", (dialog, id) -> {
 
-    private void playerMadeShot(PlayerOnCourtStats selectedPlayer) {
-        int currentShotMade = selectedPlayer.getShotMade();
-        int newShotMade = currentShotMade + 1;
-        selectedPlayer.setShotMade(newShotMade);
-    }
+                    //player made shot
+                    mPresenter.updatePlayerScores(addPoints);
+                    if (addPoints == 2) {
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.two_points_made));
+                    } else if (addPoints == 3) {
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.three_points_made));
+                    } else {
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.free_throw_made));
+                    }
+                    updateScoreBoardUi(addPoints);
+                    dialog.dismiss();
+                    mLogRecyclerView.smoothScrollToPosition(0);
+                })
+                .setNegativeButton("Miss", (dialog, id) -> {
 
-    private void playerMade3PtShot(PlayerOnCourtStats selectedPlayer) {
-        int currentShotMade = selectedPlayer.getThreePointShotMade();
-        int newShotMade = currentShotMade + 1;
-        selectedPlayer.setThreePointShotMade(newShotMade);
-    }
-
-    private int playerShoot(PlayerOnCourtStats selectedPlayer) {
-        int currentShotTaken = selectedPlayer.getShotTaken();
-        int newTakenShot = currentShotTaken + 1;
-        selectedPlayer.setShotTaken(newTakenShot);
-        return newTakenShot;
-    }
-
-    private int player3ptShoot(PlayerOnCourtStats selectedPlayer) {
-        int currentShotTaken = selectedPlayer.getThreePointShotTaken();
-        int newTakenShot = currentShotTaken + 1;
-        selectedPlayer.setThreePointShotTaken(newTakenShot);
-        return newTakenShot;
+                    //player missed shot
+                    if (addPoints == 2) {
+                        mPresenter.playerShoot();
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.two_points_miss));
+                    } else if (addPoints == 3) {
+                        mPresenter.playerShoot();
+                        mPresenter.player3ptShoot();
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.three_points_miss));
+                    } else {
+                        mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.free_throw_miss));
+                    }
+                    dialog.dismiss();
+                    mLogRecyclerView.smoothScrollToPosition(0);
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void updateScoreUi(int addScore) {
-        mTextViewAwayScore.setText(mTextViewAwayScore.getText() + Integer.toString(addScore));
-        Log.d(TAG, "updateScoreUi: ");
+
+        
+
     }
 
     @Override
     public void showSelectedPlayer() {
-//mOnCourtPlayerAdapter
     }
 
     @Override
@@ -329,11 +296,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void addSurfaceHolderCallback(SurfaceHolder.Callback callback) {
-
-    }
-
-    @Override
-    public void requestLandscapeUi() {
 
     }
 

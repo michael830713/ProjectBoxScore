@@ -18,8 +18,11 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.view.SurfaceHolder;
 
+import com.mike.projectboxscore.Data.PlayerOnCourtStats;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Wayne Chen on 2018/4/16.
@@ -40,7 +43,7 @@ public interface MainConsoleViewContract {
 
         void addSurfaceHolderCallback(SurfaceHolder.Callback callback);
 
-        void requestLandscapeUi();
+        void showMadeOrMissDialogUi( int addPoints);
 
         void updateScoreUi(int addScore);
 
@@ -62,10 +65,26 @@ public interface MainConsoleViewContract {
 
         void calculateAndUpdateScore(int addPoint);
 
-        void requestLandscape();
+        void showMadeOrMissDialog(int rowIndex, int addPoints);
 
         void requestPortrait();
 
-        void selectPlayer(int position);
+        void setupNewPlayer(String name, int backNumber, String onCourtPosition);
+
+        ArrayList<PlayerOnCourtStats> getPlayers();
+
+        void setSelectedPlayer(PlayerOnCourtStats playerOnCourtStats);
+
+        PlayerOnCourtStats getSelectedPlayer();
+
+        void updatePlayerScores(int addPoints);
+
+         void playerMadeShot();
+
+        void playerShoot();
+
+        void playerMade3PtShot();
+
+        void player3ptShoot();
     }
 }

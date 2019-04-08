@@ -20,6 +20,21 @@ public class PlayerOnCourtStats {
     private int blocks;
     private String onCourtPosition;
 
+    public PlayerOnCourtStats() {
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setBackNumber(int backNumber) {
+        this.backNumber = backNumber;
+    }
+
+    public void setOnCourtPosition(String onCourtPosition) {
+        this.onCourtPosition = onCourtPosition;
+    }
+
     public int getFreeThrowTaken() {
         return freeThrowTaken;
     }
