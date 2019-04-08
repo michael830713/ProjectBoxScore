@@ -231,6 +231,34 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void playerTurnedOver(int amount) {
+        int newAmount = mSelectedPlayer.getTurnOvers() + amount;
+
+        mSelectedPlayer.setTurnOvers(newAmount);
+    }
+
+    @Override
+    public void playerFouled(int amount) {
+        int newAmount = mSelectedPlayer.getFouls() + amount;
+
+        mSelectedPlayer.setFouls(newAmount);
+    }
+
+    @Override
+    public void playerstealed(int amount) {
+        int newAmount = mSelectedPlayer.getSteals() + amount;
+
+        mSelectedPlayer.setSteals(newAmount);
+    }
+
+    @Override
+    public void playerBlocked(int amount) {
+        int newAmount = mSelectedPlayer.getBlocks() + amount;
+
+        mSelectedPlayer.setBlocks(newAmount);
+    }
+
+    @Override
     public void start() {
 
     }

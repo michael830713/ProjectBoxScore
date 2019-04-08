@@ -121,6 +121,14 @@ public interface MainConsoleViewContract {
 
         void playerAssisted(int amount);
 
+        void playerTurnedOver(int amount);
+
+        void playerFouled(int amount);
+
+        void playerstealed(int amount);
+
+        void playerBlocked(int amount);
+
         void returnLastStep();
     }
 }

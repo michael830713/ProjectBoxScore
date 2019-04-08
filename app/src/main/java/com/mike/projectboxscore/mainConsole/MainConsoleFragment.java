@@ -191,23 +191,35 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonTurnOver:
-                    selectedPlayer.setTurnOvers(selectedPlayer.getTurnOvers() + 1);
-                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.turn_over));
+                    mPresenter.playerTurnedOver(1);
+                    mPresenter.updateLog(getString(R.string.turn_over));
+
+//                    selectedPlayer.setTurnOvers(selectedPlayer.getTurnOvers() + 1);
+//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.turn_over));
                     break;
 
                 case R.id.buttonFoul:
-                    selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
-                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
+                    mPresenter.playerFouled(1);
+                    mPresenter.updateLog(getString(R.string.foul_made));
+
+//                    selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
+//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
                     break;
 
                 case R.id.buttonSteal:
-                    selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
-                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
+                    mPresenter.playerstealed(1);
+                    mPresenter.updateLog(getString(R.string.steal));
+
+//                    selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
+//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
                     break;
 
                 case R.id.buttonBlock:
-                    selectedPlayer.setBlocks(selectedPlayer.getBlocks() + 1);
-                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.block));
+                    mPresenter.playerBlocked(1);
+                    mPresenter.updateLog(getString(R.string.block));
+
+//                    selectedPlayer.setBlocks(selectedPlayer.getBlocks() + 1);
+//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.block));
                     break;
 
                 case R.id.buttonSub:
@@ -245,7 +257,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void returnLastStepUi() {
-        if (mMainLogAdapter.getmPlayers().size()!=0) {
+        if (mMainLogAdapter.getmPlayers().size() != 0) {
 
             PlayerOnCourtStats player = mMainLogAdapter.getmPlayers().get(0);
             mPresenter.setSelectedPlayer(player);
@@ -284,11 +296,13 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                     break;
                 case "O rebound":
+                    mPresenter.playerOffensiveRebounded(-1);
+                    Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
                     mPresenter.removeLog();
 
                     break;
                 case "D rebound":
-
+                    mPresenter.playerDefensiveRebounded(-1);
                     mPresenter.removeLog();
 
                     break;
@@ -300,18 +314,22 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                     break;
                 case "turn over":
+                    mPresenter.playerTurnedOver(-1);
                     mPresenter.removeLog();
 
                     break;
                 case "foul":
+                    mPresenter.playerFouled(-1);
                     mPresenter.removeLog();
 
                     break;
                 case "steal":
+                    mPresenter.playerstealed(-1);
                     mPresenter.removeLog();
 
                     break;
                 case "block":
+                    mPresenter.playerBlocked(-1);
                     mPresenter.removeLog();
 
                     break;
