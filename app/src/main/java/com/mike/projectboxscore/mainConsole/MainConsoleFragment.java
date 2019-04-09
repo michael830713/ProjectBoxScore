@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mike.projectboxscore.Data.PlayerOnCourtStats;
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private Button mSubstitude;
     private Button mFoul;
     private Button mBlock;
+    private Button mSettings;
     private ImageView mBackButton;
 
     public MainConsoleFragment() {
@@ -100,6 +101,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
         mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
         mBackButton = root.findViewById(R.id.imageViewReturnStep);
+        mSettings = root.findViewById(R.id.buttonSetting);
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
         return root;
@@ -114,10 +116,24 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mPresenter.setupNewPlayer("Chris", 25, getString(R.string.forward));
         mPresenter.setupNewPlayer("Paul", 26, getString(R.string.forward));
         mPresenter.setupNewPlayer("Gasol", 27, getString(R.string.center));
-        mPresenter.setupNewPlayer("Opponent", -1, "O");
+        mPresenter.setupNewPlayer("Opponent", -1, "O", true);
+        mPresenter.setupNewPlayer("Mikey", 33, getString(R.string.gaurd));
+        mPresenter.setupNewPlayer("Jordany", 34, getString(R.string.gaurd));
+        mPresenter.setupNewPlayer("Chrissy", 35, getString(R.string.forward));
+        mPresenter.setupNewPlayer("Paully", 66, getString(R.string.forward));
+        mPresenter.setupNewPlayer("Gasolly", 77, getString(R.string.center));
+
+        mPresenter.setPlayerOnCourt(33);
+        mPresenter.setPlayerOnCourt(24);
+        mPresenter.setPlayerOnCourt(66);
+        mPresenter.setPlayerOnCourt(35);
+        mPresenter.setPlayerOnCourt(27);
+
+        mPresenter.setOnCourtPlayers();
 
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
 
+        mPresenter.getPlayers();
         m2Pts.setOnClickListener(awesomeOnClickListener);
         m3Pts.setOnClickListener(awesomeOnClickListener);
         mAssist.setOnClickListener(awesomeOnClickListener);
@@ -130,6 +146,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mOreb.setOnClickListener(awesomeOnClickListener);
         mSteal.setOnClickListener(awesomeOnClickListener);
         mBackButton.setOnClickListener(awesomeOnClickListener);
+        mSettings.setOnClickListener(awesomeOnClickListener);
 
 //        mJoystickView.setOnMoveListener(new JoystickView.OnMoveListener() {
 //            int mAngle;
@@ -149,7 +166,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         @Override
         public void onClick(View v) {
             int rowIndex = mOnCourtPlayerAdapter.getRow_index();
-            PlayerOnCourtStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
+            PlayerStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
             mPresenter.setSelectedPlayer(selectedPlayer);
 
             switch (v.getId()) {
@@ -223,8 +240,22 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonSub:
+                    mPresenter.setPlayerOffCourt(33);
+                    mPresenter.setPlayerOnCourt(26);
+
+                    mPresenter.setOnCourtPlayers();
+
+                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
                     break;
 
+                case R.id.buttonSetting:
+                    mPresenter.setPlayerOffCourt(26);
+                    mPresenter.setPlayerOnCourt(33);
+
+                    mPresenter.setOnCourtPlayers();
+
+                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+                    break;
                 case R.id.imageViewReturnStep:
 
                     mPresenter.returnLastStep();
@@ -259,7 +290,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void returnLastStepUi() {
         if (mMainLogAdapter.getmPlayers().size() != 0) {
 
-            PlayerOnCourtStats player = mMainLogAdapter.getmPlayers().get(0);
+            PlayerStats player = mMainLogAdapter.getmPlayers().get(0);
             mPresenter.setSelectedPlayer(player);
             String currentAction = mMainLogAdapter.getmActions().get(0);
             Log.d(TAG, "returnLastStepUi: " + currentAction);
@@ -392,7 +423,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void removeLogUi() {
-        ArrayList<PlayerOnCourtStats> players = mMainLogAdapter.getmPlayers();
+        ArrayList<PlayerStats> players = mMainLogAdapter.getmPlayers();
         players.remove(0);
         mMainLogAdapter.setmPlayers(players);
         ArrayList<String> actions = mMainLogAdapter.getmActions();
@@ -402,12 +433,17 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateScoreboardUi(int addScore) {
-
-        if (mOnCourtPlayerAdapter.getRow_index() != 5) {
+        if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
             mTextViewAwayScore.setText(Integer.toString(updateAddAwayScore(addScore)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateAddHomeScore(addScore)));
+
         }
+//            if (mOnCourtPlayerAdapter.getRow_index() != 5) {
+//
+//            } else {
+//                mTextViewHomeScore.setText(Integer.toString(updateAddHomeScore(addScore)));
+//            }
     }
 
     @Override

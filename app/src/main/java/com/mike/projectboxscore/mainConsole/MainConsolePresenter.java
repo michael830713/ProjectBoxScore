@@ -1,6 +1,6 @@
 package com.mike.projectboxscore.mainConsole;
 
-import com.mike.projectboxscore.Data.PlayerOnCourtStats;
+import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
 
@@ -9,29 +9,68 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     MainConsoleViewContract.View mView;
-    private PlayerOnCourtStats mSelectedPlayer;
-    private ArrayList<PlayerOnCourtStats> mPlayers;
+    private PlayerStats mSelectedPlayer;
+    private ArrayList<PlayerStats> mOnCourtPlayers;
+    private ArrayList<PlayerStats> mTeamPlayers;
 
     public MainConsolePresenter(MainConsoleViewContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-        mPlayers = new ArrayList<PlayerOnCourtStats>();
+        mOnCourtPlayers = new ArrayList<>();
+        mTeamPlayers = new ArrayList<>();
 
     }
 
     @Override
     public void setupNewPlayer(String name, int backNumber, String onCourtPosition) {
-        mPlayers.add(new PlayerOnCourtStats(name, backNumber, onCourtPosition));
+        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition);
+        mTeamPlayers.add(playerStats);
     }
 
     @Override
-    public ArrayList<PlayerOnCourtStats> getPlayers() {
-        return mPlayers;
+    public void setupNewPlayer(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
+        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition, isOnCourt);
+        mTeamPlayers.add(playerStats);
     }
 
     @Override
-    public void setSelectedPlayer(PlayerOnCourtStats playerOnCourtStats) {
-        mSelectedPlayer = playerOnCourtStats;
+    public void setPlayerOnCourt(int backNumber) {
+        for (int i = 0; i < mTeamPlayers.size(); i++) {
+            if (mTeamPlayers.get(i).getBackNumber() == backNumber) {
+                mTeamPlayers.get(i).setOnCourt(true);
+            }
+        }
+    }
+
+    @Override
+    public void setPlayerOffCourt(int backNumber) {
+        for (int i = 0; i < mTeamPlayers.size(); i++) {
+            if (mTeamPlayers.get(i).getBackNumber() == backNumber) {
+                mTeamPlayers.get(i).setOnCourt(false);
+            }
+        }
+    }
+
+    @Override
+    public void setOnCourtPlayers() {
+        ArrayList<PlayerStats> playerStats=new ArrayList<>();
+
+        for (int i = 0; i < mTeamPlayers.size(); i++) {
+            if (mTeamPlayers.get(i).isOnCourt()) {
+                playerStats.add(mTeamPlayers.get(i));
+            }
+        }
+        mOnCourtPlayers=playerStats;
+    }
+
+    @Override
+    public ArrayList<PlayerStats> getPlayers() {
+        return mOnCourtPlayers;
+    }
+
+    @Override
+    public void setSelectedPlayer(PlayerStats playerStats) {
+        mSelectedPlayer = playerStats;
     }
 
     @Override
@@ -71,7 +110,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public PlayerOnCourtStats getSelectedPlayer() {
+    public PlayerStats getSelectedPlayer() {
         return mSelectedPlayer;
     }
 

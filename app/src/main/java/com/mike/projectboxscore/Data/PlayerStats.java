@@ -1,6 +1,6 @@
 package com.mike.projectboxscore.Data;
 
-public class PlayerOnCourtStats {
+public class PlayerStats {
     private String Name;
     private int backNumber;
     private int points = 0;
@@ -18,9 +18,18 @@ public class PlayerOnCourtStats {
     private int fouls;
     private int steals;
     private int blocks;
+    private boolean isOnCourt;
     private String onCourtPosition;
 
-    public PlayerOnCourtStats() {
+    public boolean isOnCourt() {
+        return isOnCourt;
+    }
+
+    public void setOnCourt(boolean onCourt) {
+        isOnCourt = onCourt;
+    }
+
+    public PlayerStats() {
     }
 
     public void setName(String name) {
@@ -71,9 +80,16 @@ public class PlayerOnCourtStats {
         this.steals = steals;
     }
 
-    public PlayerOnCourtStats(String name, int backNumber, String onCourtPosition) {
+    public PlayerStats(String name, int backNumber, String onCourtPosition) {
         Name = name;
         this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+    }
+
+    public PlayerStats(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
+        Name = name;
+        this.backNumber = backNumber;
+        this.isOnCourt = isOnCourt;
         this.onCourtPosition = onCourtPosition;
     }
 

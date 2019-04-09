@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mike.projectboxscore.Data.PlayerOnCourtStats;
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     private static final String TAG = "MainLogAdapter";
 
     private MainConsoleViewContract.Presenter mPresenter;
-    private ArrayList<PlayerOnCourtStats> mPlayers = new ArrayList<>();
+    private ArrayList<PlayerStats> mPlayers = new ArrayList<>();
     private ArrayList<String> mActions = new ArrayList<>();
 
     public MainLogAdapter(MainConsoleViewContract.Presenter presenter) {
@@ -67,8 +67,8 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         }
     }
 
-    public void setLog(PlayerOnCourtStats playerOnCourtStats, String action) {
-        mPlayers.add(0, playerOnCourtStats);
+    public void setLog(PlayerStats playerStats, String action) {
+        mPlayers.add(0, playerStats);
         mActions.add(0, action);
         Log.d(TAG, " action: " + mActions.get(0));
         notifyItemInserted(0);
@@ -79,11 +79,11 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         return mActions;
     }
 
-    public ArrayList<PlayerOnCourtStats> getmPlayers() {
+    public ArrayList<PlayerStats> getmPlayers() {
         return mPlayers;
     }
 
-    public void setmPlayers(ArrayList<PlayerOnCourtStats> mPlayers) {
+    public void setmPlayers(ArrayList<PlayerStats> mPlayers) {
         this.mPlayers = mPlayers;
 
     }

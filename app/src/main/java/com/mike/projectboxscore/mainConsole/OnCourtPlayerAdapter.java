@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mike.projectboxscore.Data.PlayerOnCourtStats;
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     private MainConsoleViewContract.Presenter mPresenter;
     int row_index = 0;
-    private ArrayList<PlayerOnCourtStats> mPlayers;
+    private ArrayList<PlayerStats> mPlayers;
 
     public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -87,7 +87,8 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         return row_index;
     }
 
-    public void setPlayers(ArrayList<PlayerOnCourtStats> players) {
+    public void setPlayers(ArrayList<PlayerStats> players) {
         mPlayers = players;
+        notifyDataSetChanged();
     }
 }

@@ -18,7 +18,7 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.view.SurfaceHolder;
 
-import com.mike.projectboxscore.Data.PlayerOnCourtStats;
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
 
@@ -93,11 +93,19 @@ public interface MainConsoleViewContract {
 
         void setupNewPlayer(String name, int backNumber, String onCourtPosition);
 
-        ArrayList<PlayerOnCourtStats> getPlayers();
+        void setupNewPlayer(String name, int backNumber, String onCourtPosition,boolean isOnCourt);
 
-        void setSelectedPlayer(PlayerOnCourtStats playerOnCourtStats);
+        void setPlayerOnCourt(int backNumber);
 
-        PlayerOnCourtStats getSelectedPlayer();
+        void setPlayerOffCourt(int backNumber);
+
+        void setOnCourtPlayers();
+
+        ArrayList<PlayerStats> getPlayers();
+
+        void setSelectedPlayer(PlayerStats playerStats);
+
+        PlayerStats getSelectedPlayer();
 
          void playerMadeShot();
 
