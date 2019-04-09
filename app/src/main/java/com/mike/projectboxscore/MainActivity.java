@@ -1,6 +1,6 @@
 package com.mike.projectboxscore;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void demoSurfaceView() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         try {
             LoginUiFragment fragment = LoginUiFragment.newInstance();
             fragmentTransaction.replace(R.id.container, fragment, "Surface");

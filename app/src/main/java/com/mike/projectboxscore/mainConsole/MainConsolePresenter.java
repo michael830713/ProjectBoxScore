@@ -11,6 +11,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     MainConsoleViewContract.View mView;
     private PlayerStats mSelectedPlayer;
     private ArrayList<PlayerStats> mOnCourtPlayers;
+    private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
 
     public MainConsolePresenter(MainConsoleViewContract.View view) {
@@ -53,19 +54,36 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void setOnCourtPlayers() {
-        ArrayList<PlayerStats> playerStats=new ArrayList<>();
+        ArrayList<PlayerStats> playerStats = new ArrayList<>();
 
         for (int i = 0; i < mTeamPlayers.size(); i++) {
             if (mTeamPlayers.get(i).isOnCourt()) {
                 playerStats.add(mTeamPlayers.get(i));
             }
         }
-        mOnCourtPlayers=playerStats;
+        mOnCourtPlayers = playerStats;
+    }
+
+    @Override
+    public void setOnBenchPlayers() {
+        ArrayList<PlayerStats> playerStats = new ArrayList<>();
+
+        for (int i = 0; i < mTeamPlayers.size(); i++) {
+            if (!mTeamPlayers.get(i).isOnCourt()) {
+                playerStats.add(mTeamPlayers.get(i));
+            }
+        }
+        mOnBenchPlayers = playerStats;
     }
 
     @Override
     public ArrayList<PlayerStats> getPlayers() {
         return mOnCourtPlayers;
+    }
+
+    @Override
+    public ArrayList<PlayerStats> getOnBenchPlayers() {
+        return mOnBenchPlayers;
     }
 
     @Override
@@ -102,6 +120,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     public void showMadeOrMissDialog(int rowIndex, int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
 
+    }
+
+    @Override
+    public void showSubstituteDialog() {
+        mView.showSubstituteDialogUi();
     }
 
     @Override

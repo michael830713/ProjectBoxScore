@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.mainConsole;
+package com.mike.projectboxscore.mainConsole.substituteDialog;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -12,20 +12,21 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.mainConsole.MainConsoleViewContract;
 
 import java.util.ArrayList;
 
-public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
+public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.PlayerViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<PlayerStats> mPlayers;
 
-    public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter) {
+    public SubstituteAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
-    public OnCourtPlayerAdapter(){
+    public SubstituteAdapter() {
 
     }
 
@@ -43,7 +44,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 
-
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
             notifyDataSetChanged();
@@ -57,7 +57,12 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     @Override
     public int getItemCount() {
-        return mPlayers.size();
+        if (mPlayers != null) {
+            return mPlayers.size();
+        } else {
+            return 1;
+        }
+
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -93,6 +98,10 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     public void setPlayers(ArrayList<PlayerStats> players) {
         mPlayers = players;
+        notifyDataSetChanged();
+    }
+
+    public void updateData() {
         notifyDataSetChanged();
     }
 }

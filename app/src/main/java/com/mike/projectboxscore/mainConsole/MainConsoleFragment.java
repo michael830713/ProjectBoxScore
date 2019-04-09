@@ -1,7 +1,7 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
+import com.mike.projectboxscore.mainConsole.substituteDialog.SubDialogPresenter;
+import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private static final String TAG = "MainConsoleFragment";
 
     MainConsoleViewContract.Presenter mPresenter;
+    SubContract.Presenter mSubPresenter;
     private OnCourtPlayerAdapter mOnCourtPlayerAdapter;
     private MainLogAdapter mMainLogAdapter;
     RecyclerView mPlayerRecyclerView;
@@ -52,6 +56,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private Button mBlock;
     private Button mSettings;
     private ImageView mBackButton;
+    private static final String DIALOG_DATE = "date";
 
     public MainConsoleFragment() {
         // Requires empty public constructor
@@ -240,12 +245,13 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonSub:
-                    mPresenter.setPlayerOffCourt(33);
-                    mPresenter.setPlayerOnCourt(26);
-
-                    mPresenter.setOnCourtPlayers();
-
-                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+//                    mPresenter.setPlayerOffCourt(33);
+//                    mPresenter.setPlayerOnCourt(26);
+//
+//                    mPresenter.setOnCourtPlayers();
+//
+//                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+                    mPresenter.showSubstituteDialog();
                     break;
 
                 case R.id.buttonSetting:
@@ -391,6 +397,17 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void showSubstituteDialogUi() {
+        SubstituteDialog substituteDialog = new SubstituteDialog();
+        mSubPresenter = new SubDialogPresenter(substituteDialog);
+        mPresenter.setOnBenchPlayers();
+        Log.d(TAG, "setBenchPlayer: "+mPresenter.getOnBenchPlayers());
+        ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
+        substituteDialog.setPresenter(mSubPresenter);
+        substituteDialog.show(getFragmentManager(),"wierd");
     }
 
     @Override

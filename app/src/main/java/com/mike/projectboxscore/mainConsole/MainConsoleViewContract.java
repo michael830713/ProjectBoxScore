@@ -45,6 +45,8 @@ public interface MainConsoleViewContract {
 
         void showMadeOrMissDialogUi( int addPoints);
 
+        void showSubstituteDialogUi();
+
         void updateLogUi(int addScore,boolean isShotMade);
 
         void updateLogUi(String action);
@@ -89,6 +91,8 @@ public interface MainConsoleViewContract {
 
         void showMadeOrMissDialog(int rowIndex, int addPoints);
 
+        void showSubstituteDialog();
+
         void requestPortrait();
 
         void setupNewPlayer(String name, int backNumber, String onCourtPosition);
@@ -101,7 +105,13 @@ public interface MainConsoleViewContract {
 
         void setOnCourtPlayers();
 
+        void setOnBenchPlayers();
+
         ArrayList<PlayerStats> getPlayers();
+
+        ArrayList<PlayerStats> getOnBenchPlayers();
+
+
 
         void setSelectedPlayer(PlayerStats playerStats);
 
