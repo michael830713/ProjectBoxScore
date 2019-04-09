@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.PlayerViewHolder> {
 
-    private MainConsoleViewContract.Presenter mPresenter;
+    private SubContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<PlayerStats> mPlayers;
 
-    public SubstituteAdapter(MainConsoleViewContract.Presenter presenter) {
+    public SubstituteAdapter(SubContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -47,6 +47,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
             notifyDataSetChanged();
+            mPresenter.changePlayer(row_index);
         });
         if (row_index == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout);

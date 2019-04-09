@@ -12,6 +12,7 @@ public class SubDialogPresenter implements SubContract.Presenter {
     private static final String TAG = "SubDialogPresenter";
     SubContract.View mView;
     private ArrayList<PlayerStats> mPlayerOnBench;
+    private PlayerStats mTobeReplacedPlayer;
 
     public SubDialogPresenter(SubContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
@@ -24,8 +25,20 @@ public class SubDialogPresenter implements SubContract.Presenter {
     }
 
     @Override
+    public void changePlayer(int rowIndex) {
+        mPlayerOnBench.get(rowIndex).setOnCourt(true);
+        mTobeReplacedPlayer.setOnCourt(false);
+        mView.changePlayerUi(mPlayerOnBench.get(rowIndex));
+    }
+
+    @Override
+    public void setToBeReplacedPlayer(PlayerStats playerToEnterGame) {
+        mTobeReplacedPlayer = playerToEnterGame;
+    }
+
+    @Override
     public void showPlayer() {
-        Log.d(TAG, "showPlayer: "+mPlayerOnBench);
+        Log.d(TAG, "showPlayer: " + mPlayerOnBench);
         mView.showPlayerUi(mPlayerOnBench);
     }
 

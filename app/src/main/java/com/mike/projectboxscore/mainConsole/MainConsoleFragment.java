@@ -245,18 +245,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonSub:
-//                    mPresenter.setPlayerOffCourt(33);
-//                    mPresenter.setPlayerOnCourt(26);
-//
-//                    mPresenter.setOnCourtPlayers();
-//
-//                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
                     mPresenter.showSubstituteDialog();
                     break;
 
                 case R.id.buttonSetting:
-                    mPresenter.setPlayerOffCourt(26);
-                    mPresenter.setPlayerOnCourt(33);
+                    mPresenter.setPlayerOffCourt(33);
+                    mPresenter.setPlayerOnCourt(26);
 
                     mPresenter.setOnCourtPlayers();
 
@@ -401,13 +395,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void showSubstituteDialogUi() {
+
         SubstituteDialog substituteDialog = new SubstituteDialog();
         mSubPresenter = new SubDialogPresenter(substituteDialog);
         mPresenter.setOnBenchPlayers();
-        Log.d(TAG, "setBenchPlayer: "+mPresenter.getOnBenchPlayers());
+        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
+        ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
         ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
         substituteDialog.setPresenter(mSubPresenter);
-        substituteDialog.show(getFragmentManager(),"wierd");
+        substituteDialog.show(getFragmentManager(), "wierd");
+
     }
 
     @Override
@@ -471,6 +468,22 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateMinusHomeScore(addScore)));
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onResume() {
+
+        mPresenter.setOnCourtPlayers();
+
+        mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+        Log.d(TAG, "onResume: ");
+        super.onResume();
     }
 
     @Override

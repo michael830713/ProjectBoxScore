@@ -25,18 +25,17 @@ public class SubstituteDialog extends DialogFragment implements SubContract.View
 
     private SubContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-    private SubstituteAdapter mAdapter= new SubstituteAdapter();
+    private SubstituteAdapter mAdapter;
 
     @Override
     public void setPresenter(SubContract.Presenter surfaceViewPresenter) {
         mPresenter = checkNotNull(surfaceViewPresenter);
-        mAdapter.updateData();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SubstituteAdapter();
+        mAdapter = new SubstituteAdapter(mPresenter);
         Log.d(TAG, "Dialog onCreate: ");
     }
 
@@ -63,5 +62,10 @@ public class SubstituteDialog extends DialogFragment implements SubContract.View
     @Override
     public void showPlayerUi(ArrayList<PlayerStats> playerOnBench) {
         mAdapter.setPlayers(playerOnBench);
+    }
+
+    @Override
+    public void changePlayerUi(PlayerStats playerToEnterGame) {
+        dismiss();
     }
 }
