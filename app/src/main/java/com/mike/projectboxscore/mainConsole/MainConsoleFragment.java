@@ -1,10 +1,13 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -403,7 +406,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
         ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
         substituteDialog.setPresenter(mSubPresenter);
-        substituteDialog.show(getFragmentManager(), "wierd");
+
+//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.container,substituteDialog);
+//        fragmentTransaction.commit();
+        FragmentManager fm=getFragmentManager();
+
+        substituteDialog.show(fm, "wierd");
+
+        fm.executePendingTransactions();
+
+        substituteDialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mPresenter.setOnCourtPlayers();
+                mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+            }
+        });
+
+
 
     }
 
@@ -482,7 +503,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mPresenter.setOnCourtPlayers();
 
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-        Log.d(TAG, "onResume: ");
+        Log.d(TAG, "onResume: "+mPresenter.getPlayers());
         super.onResume();
     }
 
