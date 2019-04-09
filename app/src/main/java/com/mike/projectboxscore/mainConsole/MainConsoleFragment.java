@@ -402,6 +402,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateScoreboardUi(int addScore) {
+
         if (mOnCourtPlayerAdapter.getRow_index() != 5) {
             mTextViewAwayScore.setText(Integer.toString(updateAddAwayScore(addScore)));
         } else {
@@ -411,7 +412,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateScoreboardReturnUi(int addScore) {
-        if (mOnCourtPlayerAdapter.getRow_index() != 5) {
+        Log.d(TAG, "currentACtiomn: " + mMainLogAdapter.getmActions().get(0));
+        if (mMainLogAdapter.getmPlayers().get(0).getBackNumber() != -1) {
             mTextViewAwayScore.setText(Integer.toString(updateMinusAwayScore(addScore)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateMinusHomeScore(addScore)));
