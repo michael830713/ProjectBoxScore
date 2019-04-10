@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imageViewPlayerAvatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_OnCourtPosition"
@@ -25,7 +25,7 @@
         android:layout_marginEnd="8dp"
         android:text="Michael Jordan"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_number"
@@ -38,7 +38,7 @@
         android:layout_marginStart="8dp"
         android:text="C"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:text="#32"
         android:textColor="#ffffff"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />

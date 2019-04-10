@@ -461,7 +461,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mMainLogAdapter.setmPlayers(players);
         ArrayList<String> actions = mMainLogAdapter.getmActions();
         actions.remove(0);
-        mMainLogAdapter.setmActions(actions);
+        mMainLogAdapter.setmActionsRemoved(actions);
     }
 
     @Override
@@ -472,11 +472,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             mTextViewHomeScore.setText(Integer.toString(updateAddHomeScore(addScore)));
 
         }
-//            if (mOnCourtPlayerAdapter.getRow_index() != 5) {
-//
-//            } else {
-//                mTextViewHomeScore.setText(Integer.toString(updateAddHomeScore(addScore)));
-//            }
     }
 
     @Override

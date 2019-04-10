@@ -92,4 +92,9 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         this.mActions = mActions;
         notifyDataSetChanged();
     }
-}
+    public void setmActionsRemoved(ArrayList<String> mActions) {
+        this.mActions = mActions;
+        notifyItemRemoved(0);
+        notifyItemRangeChanged(0, getItemCount());
+
+    }}

@@ -1,5 +1,7 @@
 package com.mike.projectboxscore.mainConsole;
 
+import android.util.Log;
+
 import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
+
+    private static final String TAG = "MainConsolePresenter";
 
     MainConsoleViewContract.View mView;
     private PlayerStats mSelectedPlayer;
@@ -316,7 +320,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void playerBlocked(int amount) {
         int newAmount = mSelectedPlayer.getBlocks() + amount;
-
+        Log.d(TAG, mSelectedPlayer.getName()+" playerBlocked: "+newAmount);
         mSelectedPlayer.setBlocks(newAmount);
     }
 
