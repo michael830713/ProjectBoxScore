@@ -205,11 +205,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/audiowide"
         android:text="0"
         android:textColor="#F1F1F1"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,11 +217,11 @@
         android:id="@+id/textViewHomeScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="@font/audiowide"
         android:text="0"
         android:textColor="#F1F1F1"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textViewAwayScore" />
 

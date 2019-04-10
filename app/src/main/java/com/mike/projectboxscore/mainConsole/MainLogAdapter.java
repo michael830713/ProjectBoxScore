@@ -1,6 +1,7 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     private MainConsoleViewContract.Presenter mPresenter;
     private ArrayList<PlayerStats> mPlayers = new ArrayList<>();
     private ArrayList<String> mActions = new ArrayList<>();
+    private int mColor = 0;
 
     public MainLogAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -41,6 +43,14 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayers.get(i).getBackNumber()));
         Log.d(TAG, "mPlayerList: " + mPlayers);
         playerViewHolder.mFieldGoals.setText("FG" + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
+        if (mActions.get(i).indexOf("made") != -1) {
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_green);
+        } else if (mActions.get(i).indexOf("miss") != -1) {
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
+        }else{
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
+
+        }
 
     }
 
@@ -55,6 +65,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         TextView mPlayerName;
         TextView mFieldGoals;
         TextView mBackNumber;
+        ConstraintLayout constraintLayout;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +74,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mFieldGoals = itemView.findViewById(R.id.textView_field_goal);
             mBackNumber = itemView.findViewById(R.id.textView_back_number);
+            constraintLayout = itemView.findViewById(R.id.constraint_layout_logs);
 
         }
     }
@@ -71,6 +83,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         mPlayers.add(0, playerStats);
         mActions.add(0, action);
         Log.d(TAG, " action: " + mActions.get(0));
+
         notifyItemInserted(0);
 
     }
@@ -92,9 +105,14 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         this.mActions = mActions;
         notifyDataSetChanged();
     }
+
     public void setmActionsRemoved(ArrayList<String> mActions) {
         this.mActions = mActions;
         notifyItemRemoved(0);
         notifyItemRangeChanged(0, getItemCount());
+    }
 
-    }}
+    public void setColor(int color) {
+        mColor = color;
+    }
+}
