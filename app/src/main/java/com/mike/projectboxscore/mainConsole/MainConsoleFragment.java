@@ -2,12 +2,14 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
@@ -94,6 +97,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         LinearLayoutManager logLayoutManager = new LinearLayoutManager(getContext());
         mLogRecyclerView.setLayoutManager(logLayoutManager);
         mLogRecyclerView.setAdapter(mMainLogAdapter);
+
+        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider);
+
+        mLogRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+
 
         m2Pts = root.findViewById(R.id.button2Pts);
         m3Pts = root.findViewById(R.id.button3Pts);
@@ -407,24 +415,14 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
         substituteDialog.setPresenter(mSubPresenter);
 
-//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.container,substituteDialog);
-//        fragmentTransaction.commit();
-        FragmentManager fm=getFragmentManager();
-
+        FragmentManager fm = getFragmentManager();
         substituteDialog.show(fm, "wierd");
-
         fm.executePendingTransactions();
 
-        substituteDialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                mPresenter.setOnCourtPlayers();
-                mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-            }
+        substituteDialog.getDialog().setOnDismissListener(dialog -> {
+            mPresenter.setOnCourtPlayers();
+            mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
         });
-
-
 
     }
 
@@ -503,7 +501,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mPresenter.setOnCourtPlayers();
 
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-        Log.d(TAG, "onResume: "+mPresenter.getPlayers());
+        Log.d(TAG, "onResume: " + mPresenter.getPlayers());
         super.onResume();
     }
 

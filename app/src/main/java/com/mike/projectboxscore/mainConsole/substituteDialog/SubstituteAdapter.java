@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.mike.projectboxscore.mainConsole.MainConsoleViewContract;
 import java.util.ArrayList;
 
 public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.PlayerViewHolder> {
+
+    private static final String TAG = "SubstituteAdapter";
 
     private SubContract.Presenter mPresenter;
     int row_index = 0;
@@ -46,8 +49,9 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
-            notifyDataSetChanged();
+
             mPresenter.changePlayer(row_index);
+            notifyDataSetChanged();
         });
         if (row_index == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
@@ -100,6 +104,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     public void setPlayers(ArrayList<PlayerStats> players) {
         mPlayers = players;
         notifyDataSetChanged();
+
     }
 
     public void updateData() {
