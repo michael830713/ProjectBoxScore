@@ -42,12 +42,12 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         playerViewHolder.mAction.setText(mActions.get(i));
         playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayers.get(i).getBackNumber()));
         Log.d(TAG, "mPlayerList: " + mPlayers);
-        playerViewHolder.mFieldGoals.setText("FG" + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
+        playerViewHolder.mFieldGoals.setText("FG " + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
         if (mActions.get(i).indexOf("made") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_green);
         } else if (mActions.get(i).indexOf("miss") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
-        }else{
+        } else {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
 
         }
@@ -110,6 +110,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         this.mActions = mActions;
         notifyItemRemoved(0);
         notifyItemRangeChanged(0, getItemCount());
+//        notifyDataSetChanged();
     }
 
     public void setColor(int color) {
