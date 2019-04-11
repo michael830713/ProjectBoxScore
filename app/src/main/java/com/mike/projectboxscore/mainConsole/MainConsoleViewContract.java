@@ -125,6 +125,10 @@ public interface MainConsoleViewContract {
 
         void player3ptShoot();
 
+        void playerMadeFreeThrow();
+
+        void playerFreeThrowShoot();
+
         void playerMadeShotReturn();
 
         void playerShootReturn();
@@ -132,6 +136,10 @@ public interface MainConsoleViewContract {
         void playerMade3PtShotReturn();
 
         void player3ptShootReturn();
+
+        void playerMadeFreeThrowReturn();
+
+        void playerFreeThrowReturn();
 
         void playerOffensiveRebounded(int amount);
 

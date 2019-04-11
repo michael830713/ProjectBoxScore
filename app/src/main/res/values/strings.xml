@@ -3,18 +3,18 @@
     <string name="gaurd">G</string>
     <string name="forward">F</string>
     <string name="center">C</string>
-    <string name="two_points_made">2pts made</string>
-    <string name="two_points_miss">2pts miss</string>
-    <string name="three_points_made">3pts made</string>
-    <string name="three_points_miss">3pts miss</string>
-    <string name="free_throw_made">free throw made</string>
-    <string name="free_throw_miss">free throw miss</string>
-    <string name="offensive_rebound">O rebound</string>
-    <string name="defensive_rebound">D rebound</string>
-    <string name="assist">assist</string>
-    <string name="turn_over">turn over</string>
-    <string name="foul_made">foul</string>
-    <string name="steal">steal</string>
-    <string name="block">block</string>
+    <string name="two_points_made">2 Pts Made</string>
+    <string name="two_points_miss">2 Pts Miss</string>
+    <string name="three_points_made">3 Pts Made</string>
+    <string name="three_points_miss">3 Pts Miss</string>
+    <string name="free_throw_made">Free Throw Made</string>
+    <string name="free_throw_miss">Free Throw Miss</string>
+    <string name="offensive_rebound">O Rebound</string>
+    <string name="defensive_rebound">D Rebound</string>
+    <string name="assist">Assist</string>
+    <string name="turn_over">Turn Over</string>
+    <string name="foul_made">Foul</string>
+    <string name="steal">Steal</string>
+    <string name="block">Block</string>
 
 </resources>

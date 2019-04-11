@@ -1,14 +1,12 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,12 +55,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private Button mSteal;
     private Button mAssist;
     private Button mTurnOver;
-    private Button mSubstitude;
+    private Button mSubstitute;
     private Button mFoul;
     private Button mBlock;
     private Button mSettings;
     private ImageView mBackButton;
-    private static final String DIALOG_DATE = "date";
+
+    private static final String TWO_POINTS_MADE = "2 Pts Made";
+    private static final String THREE_POINTS_MADE = "3 Pts Made";
+    private static final String TWO_POINTS_MISS = "2 Pts Miss";
+    private static final String THREE_POINTS_MISS = "3 Pts Miss";
+    private static final String FREE_THROW_MADE = "Free Throw Made";
+    private static final String FREE_THROW_MISS = "Free Throw Miss";
+    private static final String OFFENSIVE_REBOUND = "O Rebound";
+    private static final String DEFENSIVE_REBOUND = "D Rebound";
+    private static final String ASSIST = "Assist";
+    private static final String TURN_OVER = "Turn Over";
+    private static final String FOUL = "Foul";
+    private static final String STEAL = "Steal";
+    private static final String BLOCK = "Block";
 
     public MainConsoleFragment() {
         // Requires empty public constructor
@@ -109,7 +120,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTurnOver = root.findViewById(R.id.buttonTurnOver);
         mFreeThrows = root.findViewById(R.id.buttonFreeThrow);
         mFoul = root.findViewById(R.id.buttonFoul);
-        mSubstitude = root.findViewById(R.id.buttonSub);
+        mSubstitute = root.findViewById(R.id.buttonSub);
         mDreb = root.findViewById(R.id.buttonDefensiveRebound);
         mOreb = root.findViewById(R.id.buttonOffensiveRebound);
         mSteal = root.findViewById(R.id.buttonSteal);
@@ -156,7 +167,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTurnOver.setOnClickListener(awesomeOnClickListener);
         mFreeThrows.setOnClickListener(awesomeOnClickListener);
         mFoul.setOnClickListener(awesomeOnClickListener);
-        mSubstitude.setOnClickListener(awesomeOnClickListener);
+        mSubstitute.setOnClickListener(awesomeOnClickListener);
         mDreb.setOnClickListener(awesomeOnClickListener);
         mOreb.setOnClickListener(awesomeOnClickListener);
         mSteal.setOnClickListener(awesomeOnClickListener);
@@ -198,17 +209,18 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonFreeThrow:
                     mPresenter.showMadeOrMissDialog(rowIndex, 1);
+
                     break;
 
                 case R.id.buttonOffensiveRebound:
                     mPresenter.playerOffensiveRebounded(1);
-                    mPresenter.updateLog(getString(R.string.offensive_rebound));
+                    mPresenter.updateLog(OFFENSIVE_REBOUND);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.offensive_rebound));
                     break;
 
                 case R.id.buttonDefensiveRebound:
                     mPresenter.playerDefensiveRebounded(1);
-                    mPresenter.updateLog(getString(R.string.defensive_rebound));
+                    mPresenter.updateLog(DEFENSIVE_REBOUND);
 
 //                    selectedPlayer.setDefensiveRebounds(selectedPlayer.getDefensiveRebounds() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.defensive_rebound));
@@ -216,7 +228,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonAssist:
                     mPresenter.playerAssisted(1);
-                    mPresenter.updateLog(getString(R.string.assist));
+                    mPresenter.updateLog(ASSIST);
                     Log.d(TAG, "assist: " + mPresenter.getSelectedPlayer().getAssists());
 //                    selectedPlayer.setAssists(selectedPlayer.getAssists() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.assist));
@@ -224,7 +236,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonTurnOver:
                     mPresenter.playerTurnedOver(1);
-                    mPresenter.updateLog(getString(R.string.turn_over));
+                    mPresenter.updateLog(TURN_OVER);
 
 //                    selectedPlayer.setTurnOvers(selectedPlayer.getTurnOvers() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.turn_over));
@@ -232,7 +244,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonFoul:
                     mPresenter.playerFouled(1);
-                    mPresenter.updateLog(getString(R.string.foul_made));
+                    mPresenter.updateLog(FOUL);
 
 //                    selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
@@ -240,7 +252,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonSteal:
                     mPresenter.playerstealed(1);
-                    mPresenter.updateLog(getString(R.string.steal));
+                    mPresenter.updateLog(STEAL);
 
 //                    selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
@@ -248,7 +260,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonBlock:
                     mPresenter.playerBlocked(1);
-                    mPresenter.updateLog(getString(R.string.block));
+                    mPresenter.updateLog(BLOCK);
 
 //                    selectedPlayer.setBlocks(selectedPlayer.getBlocks() + 1);
 //                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.block));
@@ -305,74 +317,75 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             String currentAction = mMainLogAdapter.getmActions().get(0);
             Log.d(TAG, "returnLastStepUi: " + currentAction);
             switch (currentAction) {
-                case "2pts made":
+                case TWO_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(2);
                     mPresenter.updatePlayerScores(-2);
                     mPresenter.removeLog();
                     break;
-                case "2pts miss":
+                case TWO_POINTS_MISS:
                     mPresenter.updatePlayerMisses(-2);
                     mPresenter.removeLog();
-
                     break;
-                case "3pts made":
+
+                case THREE_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(3);
                     mPresenter.updatePlayerScores(-3);
                     mPresenter.removeLog();
-
                     break;
-                case "3pts miss":
+
+                case THREE_POINTS_MISS:
                     mPresenter.updatePlayerMisses(-3);
                     mPresenter.removeLog();
-
                     break;
-                case "free throw made":
+
+                case FREE_THROW_MADE:
                     mPresenter.updateScoreboardReturn(1);
                     mPresenter.updatePlayerScores(-1);
                     mPresenter.removeLog();
+                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
 
                     break;
-                case "free throw miss":
+                case FREE_THROW_MISS:
+                    mPresenter.updatePlayerMisses(-1);
                     mPresenter.removeLog();
-
+                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     break;
-                case "O rebound":
+
+                case OFFENSIVE_REBOUND:
                     mPresenter.playerOffensiveRebounded(-1);
                     Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
                     mPresenter.removeLog();
 
                     break;
-                case "D rebound":
+                case DEFENSIVE_REBOUND:
                     mPresenter.playerDefensiveRebounded(-1);
                     mPresenter.removeLog();
-
                     break;
-                case "assist":
+
+                case ASSIST:
                     mPresenter.playerAssisted(-1);
                     Log.d(TAG, "assist after remove: " + mPresenter.getSelectedPlayer().getAssists());
-
                     mPresenter.removeLog();
-
                     break;
-                case "turn over":
+
+                case TURN_OVER:
                     mPresenter.playerTurnedOver(-1);
                     mPresenter.removeLog();
-
                     break;
-                case "foul":
+
+                case FOUL:
                     mPresenter.playerFouled(-1);
                     mPresenter.removeLog();
-
                     break;
-                case "steal":
+
+                case STEAL:
                     mPresenter.playerstealed(-1);
                     mPresenter.removeLog();
-
                     break;
-                case "block":
+
+                case BLOCK:
                     mPresenter.playerBlocked(-1);
                     mPresenter.removeLog();
-
                     break;
 
             }
@@ -390,6 +403,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.updatePlayerScores(addPoints);
                     mPresenter.updateLog(addPoints, true);
                     mPresenter.updateScoreboard(addPoints);
+                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     dialog.dismiss();
                 })
                 .setNegativeButton("Miss", (dialog, id) -> {
@@ -397,6 +411,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     //player missed shot
                     mPresenter.updatePlayerMisses(addPoints);
                     mPresenter.updateLog(addPoints, false);
+                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     dialog.dismiss();
                 });
         AlertDialog alert = builder.create();
@@ -428,23 +443,23 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void updateLogUi(int addScore, boolean isShotMade) {
         if (isShotMade) {
-            mMainLogAdapter.setColor(1);
+//            mMainLogAdapter.setColor(1);
             if (addScore == 2) {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.two_points_made));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MADE);
             } else if (addScore == 3) {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.three_points_made));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), THREE_POINTS_MADE);
             } else {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.free_throw_made));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), FREE_THROW_MADE);
             }
 
         } else {
-            mMainLogAdapter.setColor(2);
+//            mMainLogAdapter.setColor(2);
             if (addScore == 2) {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.two_points_miss));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MISS);
             } else if (addScore == 3) {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.three_points_miss));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), THREE_POINTS_MISS);
             } else {
-                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), getString(R.string.free_throw_miss));
+                mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), FREE_THROW_MISS);
             }
 
         }
@@ -454,7 +469,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateLogUi(String action) {
-        mMainLogAdapter.setColor(0);
+//        mMainLogAdapter.setColor(0);
         mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), action);
     }
 

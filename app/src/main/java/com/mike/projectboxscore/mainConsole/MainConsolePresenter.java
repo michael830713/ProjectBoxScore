@@ -167,6 +167,10 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int newPoint = currentPoints + addPoints;
         mSelectedPlayer.setPoints(newPoint);
         if (addPoints > 0) {
+            if (addPoints == 1) {
+                playerMadeFreeThrow();
+                playerFreeThrowShoot();
+            }
 
             if (addPoints != 1) {
                 playerMadeShot();
@@ -185,15 +189,18 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
                 player3ptShootReturn();
                 playerMade3PtShotReturn();
             }
-        } else {
-
+        } else if (addPoints == -1) {
+            playerFreeThrowReturn();
+            playerMadeFreeThrowReturn();
         }
 //        updateLog(addPoints);
     }
 
     @Override
     public void updatePlayerMisses(int addPoints) {
-        if (addPoints != 1 && addPoints > 0) {
+        if (addPoints == 1) {
+            playerFreeThrowShoot();
+        } else if (addPoints > 0) {
             playerShoot();
 
             if (addPoints == 3) {
@@ -204,6 +211,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
             if (addPoints == -3) {
                 player3ptShootReturn();
             }
+        } else if (addPoints == -1) {
+            playerFreeThrowReturn();
         }
 
     }
@@ -247,6 +256,20 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void playerMadeFreeThrow() {
+        int currentShotTaken = mSelectedPlayer.getFreeThrowMade();
+        int newTakenShot = currentShotTaken + 1;
+        mSelectedPlayer.setFreeThrowMade(newTakenShot);
+    }
+
+    @Override
+    public void playerFreeThrowShoot() {
+        int currentShotTaken = mSelectedPlayer.getFreeThrowTaken();
+        int newTakenShot = currentShotTaken + 1;
+        mSelectedPlayer.setFreeThrowTaken(newTakenShot);
+    }
+
+    @Override
     public void playerMadeShotReturn() {
         int currentShotMade = mSelectedPlayer.getShotMade();
         int newShotMade = currentShotMade - 1;
@@ -272,6 +295,20 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int currentShotTaken = mSelectedPlayer.getThreePointShotTaken();
         int newTakenShot = currentShotTaken - 1;
         mSelectedPlayer.setThreePointShotTaken(newTakenShot);
+    }
+
+    @Override
+    public void playerMadeFreeThrowReturn() {
+        int currentShotMade = mSelectedPlayer.getFreeThrowMade();
+        int newShotMade = currentShotMade - 1;
+        mSelectedPlayer.setFreeThrowMade(newShotMade);
+    }
+
+    @Override
+    public void playerFreeThrowReturn() {
+        int currentShotMade = mSelectedPlayer.getFreeThrowTaken();
+        int newShotMade = currentShotMade - 1;
+        mSelectedPlayer.setFreeThrowTaken(newShotMade);
     }
 
     @Override
@@ -320,7 +357,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void playerBlocked(int amount) {
         int newAmount = mSelectedPlayer.getBlocks() + amount;
-        Log.d(TAG, mSelectedPlayer.getName()+" playerBlocked: "+newAmount);
+        Log.d(TAG, mSelectedPlayer.getName() + " playerBlocked: " + newAmount);
         mSelectedPlayer.setBlocks(newAmount);
     }
 

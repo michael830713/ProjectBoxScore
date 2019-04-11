@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutNewGame"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewSelectTeam"
+        style="@style/WhiteText"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="Select Team"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNewGame" />
+
+    <TextView
+        android:id="@+id/textViewNewGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="New Game"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelectTeam"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectTeam"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTeam" />
+
+    <TextView
+        android:id="@+id/textViewOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Opponent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectTeam" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/editTextOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Opponent"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewOpponent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOpponent" />
+
+    <TextView
+        android:id="@+id/textViewTournament"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tournament"
+        app:layout_constraintStart_toStartOf="@+id/editTextOpponent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOpponent" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Enter Tournament"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewTournament"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTournament" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/right_arrow" />
+
+</android.support.constraint.ConstraintLayout>
