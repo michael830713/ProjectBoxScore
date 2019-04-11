@@ -35,44 +35,39 @@
 
     <Button
         android:id="@+id/buttonSub"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_border_new"
         android:text="sub"
         android:textColor="#FFF9BF"
         app:layout_constraintEnd_toEndOf="@+id/buttonTurnOver"
-        app:layout_constraintTop_toTopOf="@+id/buttonFoul" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTurnOver" />
 
     <Button
         android:id="@+id/buttonFoul"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:background="@drawable/button_border_new"
         android:text="foul"
         android:textColor="#FFF9BF"
         app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
-        app:layout_constraintTop_toTopOf="@+id/buttonSetting" />
+        app:layout_constraintTop_toTopOf="@+id/buttonSub" />
 
     <Button
         android:id="@+id/buttonSetting"
         style="@android:style/Widget.DeviceDefault.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:background="@drawable/button_border_new"
         android:text="setting"
         android:textColor="#FFF9BF"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFoul"
         app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
         app:layout_constraintStart_toStartOf="@+id/buttonOffensiveRebound"
-        app:layout_constraintTop_toBottomOf="@+id/buttonOffensiveRebound" />
+        app:layout_constraintTop_toTopOf="@+id/buttonFoul" />
 
     <Button
         android:id="@+id/buttonBlock"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:background="@drawable/button_border_new"
         android:text="blk"
         android:textColor="#FFF9BF"
@@ -81,9 +76,7 @@
 
     <Button
         android:id="@+id/buttonAssist"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:background="@drawable/button_border_new"
         android:text="assist"
         android:textColor="#FFF9BF"
@@ -92,9 +85,7 @@
 
     <Button
         android:id="@+id/buttonTurnOver"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:background="@drawable/button_border_new"
         android:text="to"
         android:textColor="#FFF9BF"
@@ -103,10 +94,8 @@
 
     <Button
         android:id="@+id/buttonOffensiveRebound"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        style="@style/iconSize"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_border_new"
         android:text="oreb"
         android:textColor="#FFF9BF"
@@ -115,9 +104,7 @@
 
     <Button
         android:id="@+id/buttonSteal"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:background="@drawable/button_border_new"
         android:text="stl"
         android:textColor="#FFF9BF"
@@ -126,10 +113,8 @@
 
     <Button
         android:id="@+id/buttonDefensiveRebound"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        style="@style/iconSize"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_border_new"
         android:text="dreb"
         android:textColor="#FFF9BF"
@@ -152,9 +137,7 @@
 
     <Button
         android:id="@+id/button3Pts"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="14dp"
         android:background="@drawable/button_border_new"
@@ -165,10 +148,7 @@
 
     <Button
         android:id="@+id/button2Pts"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        style="@style/iconSize"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="8dp"
@@ -181,9 +161,8 @@
 
     <Button
         android:id="@+id/buttonFreeThrow"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/iconSize"
+
         android:layout_marginStart="14dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/button_border_new"
@@ -287,8 +266,9 @@
         android:id="@+id/imageViewReturnStep"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonSub"
         app:layout_constraintStart_toStartOf="@+id/buttonSub"
         app:layout_constraintTop_toBottomOf="@+id/buttonSub"
