@@ -10,10 +10,15 @@ import java.util.ArrayList;
 public interface NewGameContract {
 
     interface View extends BaseView<NewGameContract.Presenter> {
+
+        void openMainConsoleUi();
+
     }
 
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
+
+        void openMainConsole();
 
         ArrayList<Team> getTeams();
     }
