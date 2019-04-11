@@ -4,29 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayoutNewGame"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
 
-    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/adjusted_background_logo" />
 
     <TextView
         android:id="@+id/textViewSelectTeam"
         style="@style/WhiteText"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="Select Team"
+        android:textSize="20dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNewGame" />
 
     <TextView
         android:id="@+id/textViewNewGame"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="New Game"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +52,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:id="@+id/teamRecyclerView"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -45,9 +63,11 @@
 
     <TextView
         android:id="@+id/textViewOpponent"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:textSize="20dp"
         android:text="Opponent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/textViewSelectTeam" />
@@ -61,9 +81,11 @@
 
     <EditText
         android:id="@+id/editTextOpponent"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@color/light_grey"
         android:ems="10"
         android:hint="Opponent"
         android:inputType="textPersonName"
@@ -72,6 +94,8 @@
 
     <TextView
         android:id="@+id/textViewTournament"
+        android:textSize="20dp"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -81,9 +105,11 @@
 
     <EditText
         android:id="@+id/editText2"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@color/light_grey"
         android:ems="10"
         android:hint="Enter Tournament"
         android:inputType="textPersonName"
@@ -91,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewTournament" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewNext"
         android:layout_width="50dp"
 
         android:layout_height="50dp"

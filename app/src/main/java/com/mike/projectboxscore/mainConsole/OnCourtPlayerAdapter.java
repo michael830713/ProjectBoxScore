@@ -25,7 +25,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         mPresenter = presenter;
     }
 
-    public OnCourtPlayerAdapter(){
+    public OnCourtPlayerAdapter() {
 
     }
 
@@ -42,7 +42,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
         playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
-
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;

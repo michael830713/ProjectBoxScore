@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
+import com.mike.projectboxscore.newGame.NewGameFragment;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
@@ -52,18 +53,18 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                demoConsoleView();
-            }
-        });
+        mLoginButton.setOnClickListener(v -> mPresenter.demoNewGameView());
 
     }
 
     private void demoConsoleView() {
+
+    }
+
+    @Override
+    public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MainConsoleFragment fragment = MainConsoleFragment.newInstance();
+        NewGameFragment fragment = NewGameFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }

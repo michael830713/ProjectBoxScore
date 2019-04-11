@@ -42,6 +42,8 @@ public interface LoginUIViewContract {
 
         void requestPortraitUi();
 
+        void  demoNewGameViewUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -51,6 +53,8 @@ public interface LoginUIViewContract {
 //        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
         void doNormalMode(int screenWidth, int screenHeight);
+
+        void demoNewGameView();
 
         void doFullscreenMode(int screenWidth, int screenHeight);
 

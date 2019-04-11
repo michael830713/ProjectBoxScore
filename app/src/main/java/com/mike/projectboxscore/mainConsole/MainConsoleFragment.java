@@ -209,7 +209,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case R.id.buttonFreeThrow:
                     mPresenter.showMadeOrMissDialog(rowIndex, 1);
-
                     break;
 
                 case R.id.buttonOffensiveRebound:

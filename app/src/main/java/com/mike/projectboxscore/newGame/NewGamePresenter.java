@@ -1,4 +1,36 @@
 package com.mike.projectboxscore.newGame;
 
-public class NewGamePresenter {
+import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.loginUI.LoginUIViewContract;
+
+import java.util.ArrayList;
+
+import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
+
+public class NewGamePresenter implements NewGameContract.Presenter {
+
+    NewGameContract.View mView;
+    private ArrayList<Team> mTeams;
+
+    @Override
+    public void start() {
+
+    }
+
+    public NewGamePresenter(NewGameContract.View view) {
+        mView = checkNotNull(view, "view cannot be null!");
+        mView.setPresenter(this);
+        mTeams = new ArrayList<>();
+
+    }
+
+    @Override
+    public void setupNewTeam(Team team) {
+        mTeams.add(team);
+    }
+
+    @Override
+    public ArrayList<Team> getTeams() {
+        return mTeams;
+    }
 }
