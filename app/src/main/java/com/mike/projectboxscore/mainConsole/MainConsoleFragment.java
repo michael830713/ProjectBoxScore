@@ -86,9 +86,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new MainConsolePresenter(this);
+
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
         mMainLogAdapter = new MainLogAdapter(mPresenter);
+        mPresenter.setOpponent("Pistons");
+        Log.d(TAG, "onCreate: ");
 
     }
 
@@ -137,25 +139,29 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter.setupNewPlayer("Mike", 23, getString(R.string.gaurd));
-        mPresenter.setupNewPlayer("Jordan", 24, getString(R.string.gaurd));
-        mPresenter.setupNewPlayer("Chris", 25, getString(R.string.forward));
-        mPresenter.setupNewPlayer("Paul", 26, getString(R.string.forward));
-        mPresenter.setupNewPlayer("Gasol", 27, getString(R.string.center));
-        mPresenter.setupNewPlayer("Opponent", -1, "O", true);
-        mPresenter.setupNewPlayer("Mikey", 33, getString(R.string.gaurd));
-        mPresenter.setupNewPlayer("Jordany", 34, getString(R.string.gaurd));
-        mPresenter.setupNewPlayer("Chrissy", 35, getString(R.string.forward));
-        mPresenter.setupNewPlayer("Paully", 66, getString(R.string.forward));
-        mPresenter.setupNewPlayer("Gasolly", 77, getString(R.string.center));
+//        mPresenter.setupNewPlayer("Mike", 23, getString(R.string.gaurd));
+//        mPresenter.setupNewPlayer("Jordan", 24, getString(R.string.gaurd));
+//        mPresenter.setupNewPlayer("Chris", 25, getString(R.string.forward));
+//        mPresenter.setupNewPlayer("Paul", 26, getString(R.string.forward));
+//        mPresenter.setupNewPlayer("Gasol", 27, getString(R.string.center));
+//        mPresenter.setupNewPlayer("Opponent", -1, "O", true);
+//        mPresenter.setupNewPlayer("Mikey", 33, getString(R.string.gaurd));
+//        mPresenter.setupNewPlayer("Jordany", 34, getString(R.string.gaurd));
+//        mPresenter.setupNewPlayer("Chrissy", 35, getString(R.string.forward));
+//        mPresenter.setupNewPlayer("Paully", 66, getString(R.string.forward));
+//        mPresenter.setupNewPlayer("Gasolly", 77, getString(R.string.center));
+//
+//        mPresenter.setPlayerOnCourt(33);
+//        mPresenter.setPlayerOnCourt(24);
+//        mPresenter.setPlayerOnCourt(66);
+//        mPresenter.setPlayerOnCourt(35);
+//        mPresenter.setPlayerOnCourt(27);
 
-        mPresenter.setPlayerOnCourt(33);
-        mPresenter.setPlayerOnCourt(24);
-        mPresenter.setPlayerOnCourt(66);
-        mPresenter.setPlayerOnCourt(35);
-        mPresenter.setPlayerOnCourt(27);
+        Log.d(TAG, "onViewCreated players: "+mPresenter.getPlayers());
+
 
         mPresenter.setOnCourtPlayers();
+
 
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
 

@@ -18,11 +18,12 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
 
-    public MainConsolePresenter(MainConsoleViewContract.View view) {
+    public MainConsolePresenter(MainConsoleViewContract.View view, ArrayList<PlayerStats> team) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
+        mTeamPlayers = team;
         mOnCourtPlayers = new ArrayList<>();
-        mTeamPlayers = new ArrayList<>();
+        mOnBenchPlayers = new ArrayList<>();
 
     }
 
@@ -78,6 +79,20 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
             }
         }
         mOnBenchPlayers = playerStats;
+    }
+
+    @Override
+    public void setOpponent(String name) {
+        boolean hasOpponent = false;
+        for (PlayerStats playerStats : mTeamPlayers) {
+            if (playerStats.getBackNumber() == -1) {
+                hasOpponent = true;
+            }
+        }
+        if (!hasOpponent) {
+            mTeamPlayers.add(new PlayerStats(name, -1, "O", true));
+        }
+
     }
 
     @Override

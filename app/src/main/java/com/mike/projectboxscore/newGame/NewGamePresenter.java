@@ -11,6 +11,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     NewGameContract.View mView;
     private ArrayList<Team> mTeams;
+    private Team mSelectedTeam;
 
     @Override
     public void start() {
@@ -31,7 +32,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     @Override
     public void showPlayersOnTeam(int teamPosition) {
-
+        mSelectedTeam = mTeams.get(teamPosition);
         mView.showPlayersOnTeamUi(mTeams.get(teamPosition).getmPlayers());
     }
 
@@ -43,5 +44,14 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     @Override
     public ArrayList<Team> getTeams() {
         return mTeams;
+    }
+
+    public Team getmSelectedTeam() {
+        return mSelectedTeam;
+    }
+
+    @Override
+    public void showToast(String message) {
+mView.showToastMessageUi(message);
     }
 }

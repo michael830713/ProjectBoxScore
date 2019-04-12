@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
+import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     private TeamAdapter mTeamAdapter;
     private PlayerAdapter mPlayerAdapter;
     private ImageView mNextButton;
+    private MainConsolePresenter mMainConsolePresenter;
 
     @Override
     public void setPresenter(NewGameContract.Presenter surfaceViewPresenter) {
@@ -60,6 +63,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         a.addmPlayers(new PlayerStats("Jerry", 24, getString(R.string.center)));
         a.addmPlayers(new PlayerStats("Jefferson", 37, getString(R.string.center)));
         a.addmPlayers(new PlayerStats("John", 43, getString(R.string.center)));
+
 
         Team b = new Team("Spurs");
         b.addmPlayers(new PlayerStats("Duncan", 23, getString(R.string.gaurd)));
@@ -111,7 +115,26 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.openMainConsole();
+                int f = 0;
+                for (int i = 0; i < mPresenter.getmSelectedTeam().getmPlayers().size(); i++) {
+                    if (mPresenter.getmSelectedTeam().getmPlayers().get(i).isOnCourt()) {
+                        f += 1;
+                    }
+                }
+                if (mPresenter.getmSelectedTeam() != null) {
+
+                    if (f < 5) {
+                        mPresenter.showToast("please select 5 Starters");
+//                        Toast.makeText(getContext(), "please select 5 Starters", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mPresenter.openMainConsole();
+                    }
+
+                } else {
+                    mPresenter.showToast("please select a team");
+//                    Toast.makeText(getContext(), "please select a team", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -121,13 +144,22 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void openMainConsoleUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
+        Log.d(TAG, "openMainConsoleUi: " + mPresenter.getmSelectedTeam().getmPlayers());
+        mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmSelectedTeam().getmPlayers());
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+
         fragmentTransaction.commit();
+
     }
 
     @Override
     public void showPlayersOnTeamUi(ArrayList<PlayerStats> playerStats) {
         mPlayerAdapter.setPlayers(playerStats);
+    }
+
+    @Override
+    public void showToastMessageUi(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }
 

@@ -107,6 +107,8 @@ public interface MainConsoleViewContract {
 
         void setOnBenchPlayers();
 
+        void setOpponent(String name);
+
         ArrayList<PlayerStats> getPlayers();
 
         ArrayList<PlayerStats> getOnBenchPlayers();

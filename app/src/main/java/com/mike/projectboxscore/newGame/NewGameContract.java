@@ -16,6 +16,8 @@ public interface NewGameContract {
 
         void showPlayersOnTeamUi(ArrayList<PlayerStats> playerStats);
 
+        void showToastMessageUi(String message);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -26,5 +28,9 @@ public interface NewGameContract {
         void showPlayersOnTeam(int teamPosition);
 
         ArrayList<Team> getTeams();
+
+        Team getmSelectedTeam();
+
+        void showToast(String message);
     }
 }

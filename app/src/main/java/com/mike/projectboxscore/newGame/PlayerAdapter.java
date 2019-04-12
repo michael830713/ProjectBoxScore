@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
@@ -45,7 +46,23 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         playerViewHolder.mOnCourtPosition.setText(playerStats.getOnCourtPosition());
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
-            playerStats.setOnCourt(!playerStats.isOnCourt());
+            int onCourtPlayers = 0;
+            for (int j = 0; j < mPresenter.getmSelectedTeam().getmPlayers().size(); j++) {
+                if (mPresenter.getmSelectedTeam().getmPlayers().get(j).isOnCourt()) {
+                    onCourtPlayers += 1;
+                }
+            }
+            if (onCourtPlayers >= 5) {
+                if (playerStats.isOnCourt()){
+                    playerStats.setOnCourt(!playerStats.isOnCourt());
+                }else {
+                    mPresenter.showToast("Reached 5 players!!");
+                }
+
+            }else {
+                playerStats.setOnCourt(!playerStats.isOnCourt());
+            }
+
             notifyDataSetChanged();
         });
         if (playerStats.isOnCourt()) {
