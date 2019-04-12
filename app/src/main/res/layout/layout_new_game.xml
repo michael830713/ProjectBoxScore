@@ -23,17 +23,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/adjusted_background_logo" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/playerRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="302dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelectPlayer"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectPlayer"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectPlayer" />
+
     <TextView
         android:id="@+id/textViewSelectTeam"
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="0dp"
         android:text="Select Team"
         android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/textViewSelectPlayer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNewGame" />
 
@@ -45,14 +56,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="New Game"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/teamRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:id="@+id/teamRecyclerView"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -66,10 +77,11 @@
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:textSize="20dp"
         android:text="Opponent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectPlayer"
         app:layout_constraintTop_toTopOf="@+id/textViewSelectTeam" />
 
     <android.support.constraint.Guideline
@@ -82,37 +94,41 @@
     <EditText
         android:id="@+id/editTextOpponent"
         style="@style/WhiteText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:ems="10"
         android:hint="Opponent"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewOpponent"
         app:layout_constraintTop_toBottomOf="@+id/textViewOpponent" />
 
     <TextView
         android:id="@+id/textViewTournament"
-        android:textSize="20dp"
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Tournament"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/editTextOpponent"
         app:layout_constraintTop_toBottomOf="@+id/editTextOpponent" />
 
     <EditText
         android:id="@+id/editText2"
         style="@style/WhiteText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:ems="10"
         android:hint="Enter Tournament"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewTournament"
         app:layout_constraintTop_toBottomOf="@+id/textViewTournament" />
 
@@ -126,5 +142,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/right_arrow" />
+
+    <TextView
+        android:id="@+id/textViewSelectPlayer"
+        style="@style/WhiteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Select Starter"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectTeam" />
 
 </android.support.constraint.ConstraintLayout>

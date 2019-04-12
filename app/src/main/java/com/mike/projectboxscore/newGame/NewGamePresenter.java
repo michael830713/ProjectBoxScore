@@ -32,6 +32,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     @Override
     public void showPlayersOnTeam(int teamPosition) {
 
+        mView.showPlayersOnTeamUi(mTeams.get(teamPosition).getmPlayers());
     }
 
     @Override

@@ -74,7 +74,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     }
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+        constraintLayout.setBackgroundColor(Color.parseColor("#d67500"));
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {

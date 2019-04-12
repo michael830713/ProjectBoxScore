@@ -1,5 +1,6 @@
 package com.mike.projectboxscore.newGame;
 
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -12,6 +13,8 @@ public interface NewGameContract {
     interface View extends BaseView<NewGameContract.Presenter> {
 
         void openMainConsoleUi();
+
+        void showPlayersOnTeamUi(ArrayList<PlayerStats> playerStats);
 
     }
 
