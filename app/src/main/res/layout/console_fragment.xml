@@ -78,7 +78,7 @@
         android:id="@+id/buttonAssist"
         style="@style/iconSize"
         android:background="@drawable/button_border_new"
-        android:text="assist"
+        android:text="asst"
         android:textColor="#FFF9BF"
         app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
         app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound" />

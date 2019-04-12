@@ -20,6 +20,8 @@ public interface NewGameContract {
 
         void openMainConsole();
 
+        void showPlayersOnTeam(int teamPosition);
+
         ArrayList<Team> getTeams();
     }
 }

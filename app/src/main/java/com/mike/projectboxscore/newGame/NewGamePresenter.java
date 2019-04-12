@@ -30,6 +30,11 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     }
 
     @Override
+    public void showPlayersOnTeam(int teamPosition) {
+
+    }
+
+    @Override
     public void setupNewTeam(Team team) {
         mTeams.add(team);
     }

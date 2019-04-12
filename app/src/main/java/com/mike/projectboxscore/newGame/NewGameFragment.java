@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 
 public class NewGameFragment extends Fragment implements NewGameContract.View {
+
+    private static final String TAG = "NewGameFragment";
+
     NewGameContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private TeamAdapter mTeamAdapter;
@@ -36,6 +40,12 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         super.onCreate(savedInstanceState);
         mPresenter = new NewGamePresenter(this);
         mTeamAdapter = new TeamAdapter(mPresenter);
+
+        Team a = new Team("Lakers");
+        Team b = new Team("Spurs");
+        mPresenter.setupNewTeam(a);
+        mPresenter.setupNewTeam(b);
+        Log.d(TAG, "onCreate: ");
 
     }
 
@@ -57,11 +67,10 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Team a = new Team("Lakers");
-        Team b = new Team("Spurs");
-        mPresenter.setupNewTeam(a);
-        mPresenter.setupNewTeam(b);
+
         mTeamAdapter.setmTeams(mPresenter.getTeams());
+
+        Log.d(TAG, "onViewCreated again: ");
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +88,8 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
 }
 
 
