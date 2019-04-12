@@ -45,35 +45,35 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         super.onCreate(savedInstanceState);
         mPresenter = new NewGamePresenter(this);
         mTeamAdapter = new TeamAdapter(mPresenter);
-        mPlayerAdapter=new PlayerAdapter(mPresenter);
+        mPlayerAdapter = new PlayerAdapter(mPresenter);
 
         Team a = new Team("Lakers");
-        PlayerStats playerStats = new PlayerStats("Mike", 23, getString(R.string.gaurd));
-        PlayerStats playerStats1 = new PlayerStats("Mikey", 33, getString(R.string.gaurd));
-        PlayerStats playerStats2 = new PlayerStats("Jack", 43, getString(R.string.forward));
-        PlayerStats playerStats3 = new PlayerStats("Jacky", 53, getString(R.string.forward));
-        PlayerStats playerStats4 = new PlayerStats("Chris", 63, getString(R.string.gaurd));
-        PlayerStats playerStats5 = new PlayerStats("Chrissy", 73, getString(R.string.gaurd));
-        PlayerStats playerStats6 = new PlayerStats("Jordan", 83, getString(R.string.forward));
-        PlayerStats playerStats7 = new PlayerStats("Jordanio", 93, getString(R.string.forward));
-        PlayerStats playerStats8 = new PlayerStats("Jerry", 24, getString(R.string.center));
-        PlayerStats playerStats9 = new PlayerStats("Jefferson", 37, getString(R.string.center));
-        PlayerStats playerStats10 = new PlayerStats("John", 43, getString(R.string.center));
 
-       a.addmPlayers(playerStats);
-       a.addmPlayers(playerStats1);
-       a.addmPlayers(playerStats2);
-       a.addmPlayers(playerStats3);
-       a.addmPlayers(playerStats4);
-       a.addmPlayers(playerStats5);
-       a.addmPlayers(playerStats6);
-       a.addmPlayers(playerStats7);
-       a.addmPlayers(playerStats8);
-       a.addmPlayers(playerStats9);
-       a.addmPlayers(playerStats10);
-
+        a.addmPlayers(new PlayerStats("Mike", 23, getString(R.string.gaurd)));
+        a.addmPlayers(new PlayerStats("Mikey", 33, getString(R.string.gaurd)));
+        a.addmPlayers(new PlayerStats("Jack", 43, getString(R.string.forward)));
+        a.addmPlayers(new PlayerStats("Jacky", 53, getString(R.string.forward)));
+        a.addmPlayers(new PlayerStats("Chris", 63, getString(R.string.gaurd)));
+        a.addmPlayers(new PlayerStats("Chrissy", 73, getString(R.string.gaurd)));
+        a.addmPlayers(new PlayerStats("Jordan", 83, getString(R.string.forward)));
+        a.addmPlayers(new PlayerStats("Jordanio", 93, getString(R.string.forward)));
+        a.addmPlayers(new PlayerStats("Jerry", 24, getString(R.string.center)));
+        a.addmPlayers(new PlayerStats("Jefferson", 37, getString(R.string.center)));
+        a.addmPlayers(new PlayerStats("John", 43, getString(R.string.center)));
 
         Team b = new Team("Spurs");
+        b.addmPlayers(new PlayerStats("Duncan", 23, getString(R.string.gaurd)));
+        b.addmPlayers(new PlayerStats("Parker", 33, getString(R.string.gaurd)));
+        b.addmPlayers(new PlayerStats("James", 43, getString(R.string.forward)));
+        b.addmPlayers(new PlayerStats("Antakunpo", 53, getString(R.string.forward)));
+        b.addmPlayers(new PlayerStats("Davis", 63, getString(R.string.gaurd)));
+        b.addmPlayers(new PlayerStats("Cousins", 73, getString(R.string.gaurd)));
+        b.addmPlayers(new PlayerStats("Barea", 83, getString(R.string.forward)));
+        b.addmPlayers(new PlayerStats("Fisher", 93, getString(R.string.forward)));
+        b.addmPlayers(new PlayerStats("Harry", 24, getString(R.string.center)));
+        b.addmPlayers(new PlayerStats("Bieber", 37, getString(R.string.center)));
+        b.addmPlayers(new PlayerStats("Rudy", 43, getString(R.string.center)));
+
         mPresenter.setupNewTeam(a);
         mPresenter.setupNewTeam(b);
         Log.d(TAG, "onCreate: ");
@@ -124,8 +124,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }
-
-
 
     @Override
     public void showPlayersOnTeamUi(ArrayList<PlayerStats> playerStats) {
