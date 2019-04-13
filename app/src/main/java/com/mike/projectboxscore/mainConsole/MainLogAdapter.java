@@ -44,11 +44,13 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         Log.d(TAG, "mPlayerList: " + mPlayers);
         playerViewHolder.mFieldGoals.setText("FG " + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
         if (mActions.get(i).indexOf("Made") != -1) {
-            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_green);
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
         } else if (mActions.get(i).indexOf("Miss") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
-        } else {
+        } else if (mActions.get(i).indexOf("Foul") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
+        } else {
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_light_green);
 
         }
 

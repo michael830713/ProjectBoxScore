@@ -22,6 +22,23 @@
         app:srcCompat="@drawable/adjusted_background_logo" />
 
     <View
+        android:id="@+id/functionKeyBackground"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/log_border_grey"
+
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFoul"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/button2Pts" />
+
+    <View
         android:id="@+id/view2"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
@@ -34,33 +51,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
+    <ImageView
         android:id="@+id/buttonAssist"
-        style="@style/iconSize"
-        android:background="@drawable/button_border_new"
-        android:text="asst"
-        android:textColor="#FFF9BF"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
-        app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound" />
+        style="@style/iconInnerGreen"
 
-    <Button
+        app:layout_constraintEnd_toEndOf="@+id/buttonFreeThrow"
+        app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound"
+        app:srcCompat="@drawable/icon_assist" />
+
+    <ImageView
         android:id="@+id/buttonTurnOver"
-        style="@style/iconSize"
-        android:background="@drawable/button_border_new"
-        android:text="to"
-        android:textColor="#FFF9BF"
-        app:layout_constraintStart_toStartOf="@+id/buttonBlock"
-        app:layout_constraintTop_toTopOf="@+id/buttonAssist" />
+        style="@style/iconInnerGreen"
 
+        app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
+        app:layout_constraintTop_toTopOf="@+id/buttonBlock"
+        app:srcCompat="@drawable/icon_slipped" />
 
 
     <ImageView
         android:id="@+id/buttonOffensiveRebound"
-        style="@style/iconInner"
-        android:layout_marginTop="16dp"
+        style="@style/iconInnerGreen"
         android:padding="13dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound"
+        app:layout_constraintEnd_toEndOf="@+id/button2Pts"
+        app:layout_constraintTop_toTopOf="@+id/buttonDefensiveRebound"
         app:srcCompat="@drawable/icon_rebound3" />
 
     <TextView
@@ -77,19 +90,20 @@
 
     <ImageView
         android:id="@+id/buttonSteal"
-        style="@style/iconInner"
+        style="@style/iconInnerGreen"
 
-        app:layout_constraintEnd_toEndOf="@+id/button2Pts"
-        app:layout_constraintTop_toTopOf="@+id/buttonDefensiveRebound"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound"
         app:srcCompat="@drawable/icon_steal" />
 
 
     <ImageView
         android:id="@+id/buttonDefensiveRebound"
-        style="@style/iconInner"
+        style="@style/iconInnerGreen"
         android:layout_marginTop="16dp"
-        android:padding="13dp"
         android:layout_marginEnd="0dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="@+id/button3Pts"
         app:layout_constraintTop_toBottomOf="@+id/button3Pts"
         app:srcCompat="@drawable/icon_rebound3" />
@@ -245,29 +259,26 @@
         android:id="@+id/buttonSetting"
 
         style="@style/iconInner"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
 
-        app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
-        app:layout_constraintTop_toBottomOf="@+id/buttonOffensiveRebound"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
         app:srcCompat="@drawable/settings" />
 
     <ImageView
         android:id="@+id/buttonSub"
         style="@style/iconInner"
-        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonTurnOver"
         app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTurnOver"
+        app:layout_constraintTop_toTopOf="@+id/buttonFoul"
         app:srcCompat="@drawable/player_change" />
 
     <ImageView
         android:id="@+id/buttonFoul"
         style="@style/iconInner"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
 
-        app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
-        app:layout_constraintTop_toTopOf="@+id/buttonSub"
+        app:layout_constraintEnd_toEndOf="@+id/buttonBlock"
+        app:layout_constraintTop_toTopOf="@+id/buttonSetting"
         app:srcCompat="@drawable/foul_wistle" />
 
     <ImageView
@@ -293,10 +304,10 @@
 
     <ImageView
         android:id="@+id/buttonBlock"
-        style="@style/iconInner"
+        style="@style/iconInnerGreen"
 
 
-        app:layout_constraintStart_toStartOf="@+id/buttonFreeThrow"
+        app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
         app:layout_constraintTop_toTopOf="@+id/buttonSteal"
         app:srcCompat="@drawable/block" />
 

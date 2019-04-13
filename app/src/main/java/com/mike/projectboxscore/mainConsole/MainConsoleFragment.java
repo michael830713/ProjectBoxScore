@@ -53,8 +53,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private ImageView mDreb;
     private ImageView mOreb;
     private ImageView mSteal;
-    private Button mAssist;
-    private Button mTurnOver;
+    private ImageView mAssist;
+    private ImageView mTurnOver;
     private ImageView mSubstitute;
     private ImageView mFoul;
     private ImageView mBlock;
