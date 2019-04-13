@@ -40,6 +40,11 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
 
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
+        if (mPlayers.get(i).getBackNumber() == -1) {
+            playerViewHolder.mPlayerName.setTextColor(Color.parseColor("#e00007"));
+        } else {
+            playerViewHolder.mPlayerName.setTextColor(Color.parseColor("#ffffff"));
+        }
         playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 

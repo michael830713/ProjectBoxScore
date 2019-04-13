@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     private TeamAdapter mTeamAdapter;
     private PlayerAdapter mPlayerAdapter;
     private ImageView mNextButton;
+    private EditText mOpponent;
     private MainConsolePresenter mMainConsolePresenter;
 
     @Override
@@ -50,36 +52,35 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mTeamAdapter = new TeamAdapter(mPresenter);
         mPlayerAdapter = new PlayerAdapter(mPresenter);
 
-        Team a = new Team("Lakers");
+        Team lakers = new Team("Lakers");
 
-        a.addmPlayers(new PlayerStats("Mike", 23, getString(R.string.gaurd)));
-        a.addmPlayers(new PlayerStats("Mikey", 33, getString(R.string.gaurd)));
-        a.addmPlayers(new PlayerStats("Jack", 43, getString(R.string.forward)));
-        a.addmPlayers(new PlayerStats("Jacky", 53, getString(R.string.forward)));
-        a.addmPlayers(new PlayerStats("Chris", 63, getString(R.string.gaurd)));
-        a.addmPlayers(new PlayerStats("Chrissy", 73, getString(R.string.gaurd)));
-        a.addmPlayers(new PlayerStats("Jordan", 83, getString(R.string.forward)));
-        a.addmPlayers(new PlayerStats("Jordanio", 93, getString(R.string.forward)));
-        a.addmPlayers(new PlayerStats("Jerry", 24, getString(R.string.center)));
-        a.addmPlayers(new PlayerStats("Jefferson", 37, getString(R.string.center)));
-        a.addmPlayers(new PlayerStats("John", 43, getString(R.string.center)));
+        lakers.addmPlayers(new PlayerStats("Mike", 23, getString(R.string.gaurd)));
+        lakers.addmPlayers(new PlayerStats("Mikey", 33, getString(R.string.gaurd)));
+        lakers.addmPlayers(new PlayerStats("Jack", 43, getString(R.string.forward)));
+        lakers.addmPlayers(new PlayerStats("Jacky", 53, getString(R.string.forward)));
+        lakers.addmPlayers(new PlayerStats("Chris", 63, getString(R.string.gaurd)));
+        lakers.addmPlayers(new PlayerStats("Chrissy", 73, getString(R.string.gaurd)));
+        lakers.addmPlayers(new PlayerStats("Jordan", 83, getString(R.string.forward)));
+        lakers.addmPlayers(new PlayerStats("Jordanio", 93, getString(R.string.forward)));
+        lakers.addmPlayers(new PlayerStats("Jerry", 24, getString(R.string.center)));
+        lakers.addmPlayers(new PlayerStats("Jefferson", 37, getString(R.string.center)));
+        lakers.addmPlayers(new PlayerStats("John", 43, getString(R.string.center)));
 
+        Team spurs = new Team("Spurs");
+        spurs.addmPlayers(new PlayerStats("Bieber", 37, getString(R.string.center)));
+        spurs.addmPlayers(new PlayerStats("Duncan", 23, getString(R.string.gaurd)));
+        spurs.addmPlayers(new PlayerStats("Parker", 33, getString(R.string.gaurd)));
+        spurs.addmPlayers(new PlayerStats("James", 43, getString(R.string.forward)));
+        spurs.addmPlayers(new PlayerStats("Kobe", 53, getString(R.string.forward)));
+        spurs.addmPlayers(new PlayerStats("Davis", 63, getString(R.string.gaurd)));
+        spurs.addmPlayers(new PlayerStats("Cousins", 73, getString(R.string.gaurd)));
+        spurs.addmPlayers(new PlayerStats("Barea", 83, getString(R.string.forward)));
+        spurs.addmPlayers(new PlayerStats("Fisher", 93, getString(R.string.forward)));
+        spurs.addmPlayers(new PlayerStats("Harry", 24, getString(R.string.center)));
+        spurs.addmPlayers(new PlayerStats("Rudy", 43, getString(R.string.center)));
 
-        Team b = new Team("Spurs");
-        b.addmPlayers(new PlayerStats("Duncan", 23, getString(R.string.gaurd)));
-        b.addmPlayers(new PlayerStats("Parker", 33, getString(R.string.gaurd)));
-        b.addmPlayers(new PlayerStats("James", 43, getString(R.string.forward)));
-        b.addmPlayers(new PlayerStats("Antakunpo", 53, getString(R.string.forward)));
-        b.addmPlayers(new PlayerStats("Davis", 63, getString(R.string.gaurd)));
-        b.addmPlayers(new PlayerStats("Cousins", 73, getString(R.string.gaurd)));
-        b.addmPlayers(new PlayerStats("Barea", 83, getString(R.string.forward)));
-        b.addmPlayers(new PlayerStats("Fisher", 93, getString(R.string.forward)));
-        b.addmPlayers(new PlayerStats("Harry", 24, getString(R.string.center)));
-        b.addmPlayers(new PlayerStats("Bieber", 37, getString(R.string.center)));
-        b.addmPlayers(new PlayerStats("Rudy", 43, getString(R.string.center)));
-
-        mPresenter.setupNewTeam(a);
-        mPresenter.setupNewTeam(b);
+        mPresenter.setupNewTeam(lakers);
+        mPresenter.setupNewTeam(spurs);
         Log.d(TAG, "onCreate: ");
 
     }
@@ -101,6 +102,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
 
         mNextButton = root.findViewById(R.id.imageViewNext);
+        mOpponent = root.findViewById(R.id.editTextOpponent);
         return root;
     }
 
@@ -112,33 +114,31 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
 
         Log.d(TAG, "onViewCreated again: ");
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int f = 0;
-                for (int i = 0; i < mPresenter.getmSelectedTeam().getmPlayers().size(); i++) {
-                    if (mPresenter.getmSelectedTeam().getmPlayers().get(i).isOnCourt()) {
-                        f += 1;
-                    }
-                }
-                if (mPresenter.getmSelectedTeam() != null) {
-
-                    if (f < 5) {
-                        mPresenter.showToast("please select 5 Starters");
-//                        Toast.makeText(getContext(), "please select 5 Starters", Toast.LENGTH_SHORT).show();
-                    } else {
-                        mPresenter.openMainConsole();
-                    }
-
-                } else {
-                    mPresenter.showToast("please select a team");
-//                    Toast.makeText(getContext(), "please select a team", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
+        mNextButton.setOnClickListener(nextOnClickListener);
 
     }
+
+    private View.OnClickListener nextOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+//            if (mPresenter.getmSelectedTeam() != null) {
+//                int f = 0;
+//                for (int i = 0; i < mPresenter.getmSelectedTeam().getmPlayers().size(); i++) {
+//                    if (mPresenter.getmSelectedTeam().getmPlayers().get(i).isOnCourt()) {
+//                        f += 1;
+//                    }
+//                }
+//                if (f < 5) {
+//                    mPresenter.showToast("please select 5 Starters");
+//                } else {
+            mPresenter.openMainConsole();
+//                }
+//            } else {
+//                mPresenter.showToast("please select a team");
+//            }
+        }
+    };
 
     @Override
     public void openMainConsoleUi() {
@@ -147,7 +147,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         Log.d(TAG, "openMainConsoleUi: " + mPresenter.getmSelectedTeam().getmPlayers());
         mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmSelectedTeam().getmPlayers());
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-
         fragmentTransaction.commit();
 
     }

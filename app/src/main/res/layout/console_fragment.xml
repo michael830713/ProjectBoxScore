@@ -33,46 +33,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonSub"
-        style="@style/iconSize"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_border_new"
-        android:text="sub"
-        android:textColor="#FFF9BF"
-        app:layout_constraintEnd_toEndOf="@+id/buttonTurnOver"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTurnOver" />
-
-    <Button
-        android:id="@+id/buttonFoul"
-        style="@style/iconSize"
-        android:background="@drawable/button_border_new"
-        android:text="foul"
-        android:textColor="#FFF9BF"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
-        app:layout_constraintTop_toTopOf="@+id/buttonSub" />
-
-    <Button
-        android:id="@+id/buttonSetting"
-        style="@android:style/Widget.DeviceDefault.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border_new"
-        android:text="setting"
-        android:textColor="#FFF9BF"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonFoul"
-        app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
-        app:layout_constraintStart_toStartOf="@+id/buttonOffensiveRebound"
-        app:layout_constraintTop_toTopOf="@+id/buttonFoul" />
-
-    <Button
-        android:id="@+id/buttonBlock"
-        style="@style/iconSize"
-        android:background="@drawable/button_border_new"
-        android:text="blk"
-        android:textColor="#FFF9BF"
-        app:layout_constraintStart_toStartOf="@+id/buttonFreeThrow"
-        app:layout_constraintTop_toTopOf="@+id/buttonSteal" />
 
     <Button
         android:id="@+id/buttonAssist"
@@ -92,34 +52,58 @@
         app:layout_constraintStart_toStartOf="@+id/buttonBlock"
         app:layout_constraintTop_toTopOf="@+id/buttonAssist" />
 
-    <Button
+
+
+    <ImageView
         android:id="@+id/buttonOffensiveRebound"
-        style="@style/iconSize"
+        style="@style/iconInner"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_border_new"
-        android:text="oreb"
-        android:textColor="#FFF9BF"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound"
+        app:srcCompat="@drawable/icon_rebound3" />
 
-    <Button
+    <TextView
+        android:id="@+id/textVieOffensiveRebound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:text="O"
+        android:textColor="#fff9bf"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonOffensiveRebound"
+        app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound" />
+
+
+    <ImageView
         android:id="@+id/buttonSteal"
-        style="@style/iconSize"
-        android:background="@drawable/button_border_new"
-        android:text="stl"
-        android:textColor="#FFF9BF"
-        app:layout_constraintEnd_toEndOf="@+id/button2Pts"
-        app:layout_constraintTop_toTopOf="@+id/buttonDefensiveRebound" />
+        style="@style/iconInner"
 
-    <Button
+        app:layout_constraintEnd_toEndOf="@+id/button2Pts"
+        app:layout_constraintTop_toTopOf="@+id/buttonDefensiveRebound"
+        app:srcCompat="@drawable/icon_steal" />
+
+
+    <ImageView
         android:id="@+id/buttonDefensiveRebound"
-        style="@style/iconSize"
+        style="@style/iconInner"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_border_new"
-        android:text="dreb"
-        android:textColor="#FFF9BF"
+        android:padding="13dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintEnd_toEndOf="@+id/button3Pts"
-        app:layout_constraintTop_toBottomOf="@+id/button3Pts" />
+        app:layout_constraintTop_toBottomOf="@+id/button3Pts"
+        app:srcCompat="@drawable/icon_rebound3" />
+
+    <TextView
+        android:id="@+id/textVieDefensiveRebound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:text="D"
+        android:textColor="#fff9bf"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonDefensiveRebound"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -135,41 +119,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.68" />
 
-    <Button
+
+    <ImageView
         android:id="@+id/button3Pts"
-        style="@style/iconSize"
+        style="@style/iconInner"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="14dp"
-        android:background="@drawable/button_border_new"
-        android:text="3pt"
-        android:textColor="#FFF9BF"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_shoot" />
 
-    <Button
-        android:id="@+id/button2Pts"
-        style="@style/iconSize"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/button_border_new"
-        android:text="2pt"
-        android:textColor="#FFF9BF"
-        app:layout_constraintEnd_toStartOf="@+id/button3Pts"
-        app:layout_constraintStart_toEndOf="@+id/buttonFreeThrow"
-        app:layout_constraintTop_toTopOf="@+id/button3Pts" />
-
-    <Button
-        android:id="@+id/buttonFreeThrow"
-        style="@style/iconSize"
-
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/button_border_new"
-        android:text="FT"
-        android:textColor="#FFF9BF"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/button2Pts" />
 
     <View
         android:id="@+id/view"
@@ -280,5 +240,97 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.99" />
+
+    <ImageView
+        android:id="@+id/buttonSetting"
+
+        style="@style/iconInner"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="0dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOffensiveRebound"
+        app:srcCompat="@drawable/settings" />
+
+    <ImageView
+        android:id="@+id/buttonSub"
+        style="@style/iconInner"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTurnOver"
+        app:srcCompat="@drawable/player_change" />
+
+    <ImageView
+        android:id="@+id/buttonFoul"
+        style="@style/iconInner"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
+        app:layout_constraintTop_toTopOf="@+id/buttonSub"
+        app:srcCompat="@drawable/foul_wistle" />
+
+    <ImageView
+        android:id="@+id/buttonFreeThrow"
+        style="@style/iconInner"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/button2Pts"
+        app:srcCompat="@drawable/icon_shoot" />
+
+
+    <ImageView
+        android:id="@+id/button2Pts"
+        style="@style/iconInner"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button3Pts"
+        app:layout_constraintStart_toEndOf="@+id/buttonFreeThrow"
+        app:layout_constraintTop_toTopOf="@+id/button3Pts"
+        app:srcCompat="@drawable/icon_shoot" />
+
+    <ImageView
+        android:id="@+id/buttonBlock"
+        style="@style/iconInner"
+
+
+        app:layout_constraintStart_toStartOf="@+id/buttonFreeThrow"
+        app:layout_constraintTop_toTopOf="@+id/buttonSteal"
+        app:srcCompat="@drawable/block" />
+
+    <TextView
+        android:id="@+id/textViewOnePoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="6dp"
+        android:text="1"
+        android:textColor="#fff9bf"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFreeThrow"
+        app:layout_constraintStart_toStartOf="@+id/buttonFreeThrow" />
+
+    <TextView
+        android:id="@+id/textViewThreePoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="6dp"
+        android:text="3"
+        android:textColor="#fff9bf"
+        app:layout_constraintBottom_toBottomOf="@+id/button3Pts"
+        app:layout_constraintStart_toStartOf="@+id/button3Pts" />
+
+    <TextView
+        android:id="@+id/textViewTwoPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="6dp"
+        android:text="2"
+        android:textColor="#fff9bf"
+        app:layout_constraintBottom_toBottomOf="@+id/button2Pts"
+        app:layout_constraintStart_toStartOf="@+id/button2Pts" />
 
 </android.support.constraint.ConstraintLayout>

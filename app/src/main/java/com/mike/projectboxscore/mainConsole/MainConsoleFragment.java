@@ -47,18 +47,18 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private JoystickView mJoystickView;
     private int mAwayScore = 0;
     private int mHomeScore = 0;
-    private Button m2Pts;
-    private Button m3Pts;
-    private Button mFreeThrows;
-    private Button mDreb;
-    private Button mOreb;
-    private Button mSteal;
+    private ImageView m2Pts;
+    private ImageView m3Pts;
+    private ImageView mFreeThrows;
+    private ImageView mDreb;
+    private ImageView mOreb;
+    private ImageView mSteal;
     private Button mAssist;
     private Button mTurnOver;
-    private Button mSubstitute;
-    private Button mFoul;
-    private Button mBlock;
-    private Button mSettings;
+    private ImageView mSubstitute;
+    private ImageView mFoul;
+    private ImageView mBlock;
+    private ImageView mSettings;
     private ImageView mBackButton;
 
     private static final String TWO_POINTS_MADE = "2 Pts Made";

@@ -15,4 +15,10 @@
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
     </style>
+    <style name="iconInner" parent="iconSize">
+
+        <item name="android:background">@drawable/button_border_new</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:tint">#fff9bf</item>
+    </style>
 </resources>
