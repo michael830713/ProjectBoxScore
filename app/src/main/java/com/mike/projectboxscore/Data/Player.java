@@ -4,22 +4,45 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    boolean isOnCourt;
     private String mName;
     private String mEmail;
     private Team mMyTeam;
     private int backNumber;
     private String onCourtPosition;
-    private HashMap<String,PlayerStats> mGameStats;
+    ArrayList<HashMap> gameStatHistory;
+    private HashMap<Integer, PlayerStats> mGameStats=new HashMap<>();
 
-    public HashMap<String, PlayerStats> getmGameStats() {
+    public Player(String mName, String mEmail, int backNumber, String onCourtPosition) {
+        this.mName = mName;
+        this.mEmail = mEmail;
+        this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+    }
+
+    public Player(String mName, int backNumber, String onCourtPosition) {
+        this.mName = mName;
+        this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+    }
+
+    public boolean isOnCourt() {
+        return isOnCourt;
+    }
+
+    public void setOnCourt(boolean onCourt) {
+        isOnCourt = onCourt;
+    }
+
+    public HashMap<Integer, PlayerStats> getmGameStats() {
         return mGameStats;
     }
 
-    public void setmGameStats(HashMap<String, PlayerStats> mGameStats) {
+    public void setmGameStats(HashMap<Integer, PlayerStats> mGameStats) {
         this.mGameStats = mGameStats;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
@@ -58,6 +81,5 @@ public class Player {
     public void setOnCourtPosition(String onCourtPosition) {
         this.onCourtPosition = onCourtPosition;
     }
-
 
 }

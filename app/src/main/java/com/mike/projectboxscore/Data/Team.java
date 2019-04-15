@@ -9,6 +9,10 @@ public class Team {
     private int mWins;
     private int mLosses;
 
+    public Team(String mName) {
+        this.mName = mName;
+    }
+
     public ArrayList<Game> getmGames() {
         return mGames;
     }
@@ -31,6 +35,10 @@ public class Team {
 
     public void setmPlayers(ArrayList<Player> mPlayers) {
         this.mPlayers = mPlayers;
+    }
+
+    public void addmPlayers(Player mPlayeradds) {
+        mPlayers.add(mPlayeradds);
     }
 
     public int getmWins() {
