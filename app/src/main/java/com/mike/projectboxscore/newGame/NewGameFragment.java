@@ -114,6 +114,8 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
 
         Log.d(TAG, "onViewCreated again: ");
 
+        Log.d(TAG, "onViewCreated: ");
+
         mNextButton.setOnClickListener(nextOnClickListener);
 
     }
@@ -122,21 +124,21 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         @Override
         public void onClick(View v) {
 
-//            if (mPresenter.getmSelectedTeam() != null) {
-//                int f = 0;
-//                for (int i = 0; i < mPresenter.getmSelectedTeam().getmPlayers().size(); i++) {
-//                    if (mPresenter.getmSelectedTeam().getmPlayers().get(i).isOnCourt()) {
-//                        f += 1;
-//                    }
-//                }
-//                if (f < 5) {
-//                    mPresenter.showToast("please select 5 Starters");
-//                } else {
+            if (mPresenter.getmSelectedTeam() != null) {
+                int f = 0;
+                for (int i = 0; i < mPresenter.getmSelectedTeam().getmPlayers().size(); i++) {
+                    if (mPresenter.getmSelectedTeam().getmPlayers().get(i).isOnCourt()) {
+                        f += 1;
+                    }
+                }
+                if (f < 5) {
+                    mPresenter.showToast("please select 5 Starters");
+                } else {
             mPresenter.openMainConsole();
-//                }
-//            } else {
-//                mPresenter.showToast("please select a team");
-//            }
+                }
+            } else {
+                mPresenter.showToast("please select a team");
+            }
         }
     };
 

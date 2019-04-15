@@ -52,6 +52,6 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     @Override
     public void showToast(String message) {
-mView.showToastMessageUi(message);
+        mView.showToastMessageUi(message);
     }
 }
