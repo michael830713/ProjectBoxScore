@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsoleViewContract;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     private NewGameContract.Presenter mPresenter;
     int row_index = 0;
-    private ArrayList<PlayerStats> mPlayers;
+    private ArrayList<Player> mPlayers;
 
     public PlayerAdapter(NewGameContract.Presenter presenter) {
         mPresenter = presenter;
@@ -40,32 +38,32 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
-        PlayerStats playerStats = mPlayers.get(i);
-        playerViewHolder.mPlayerName.setText(playerStats.getName());
-        playerViewHolder.mBackNumber.setText("#" + playerStats.getBackNumber());
-        playerViewHolder.mOnCourtPosition.setText(playerStats.getOnCourtPosition());
+        Player player = mPlayers.get(i);
+        playerViewHolder.mPlayerName.setText(player.getName());
+        playerViewHolder.mBackNumber.setText("#" + player.getBackNumber());
+        playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
+
             int onCourtPlayers = 0;
-            for (int j = 0; j < mPresenter.getmSelectedTeam().getmPlayers().size(); j++) {
-                if (mPresenter.getmSelectedTeam().getmPlayers().get(j).isOnCourt()) {
+            for (int j = 0; j < mPlayers.size(); j++) {
+                if (mPlayers.get(j).isOnCourt()) {
                     onCourtPlayers += 1;
                 }
             }
             if (onCourtPlayers >= 5) {
-                if (playerStats.isOnCourt()){
-                    playerStats.setOnCourt(!playerStats.isOnCourt());
-                }else {
+                if (player.isOnCourt()) {
+                    player.setOnCourt(!player.isOnCourt());
+                } else {
                     mPresenter.showToast("Reached 5 players!!");
                 }
-
-            }else {
-                playerStats.setOnCourt(!playerStats.isOnCourt());
+            } else {
+                player.setOnCourt(!player.isOnCourt());
             }
-
             notifyDataSetChanged();
+
         });
-        if (playerStats.isOnCourt()) {
+        if (player.isOnCourt()) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
         } else {
             notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
@@ -114,7 +112,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         return row_index;
     }
 
-    public void setPlayers(ArrayList<PlayerStats> players) {
+    public void setPlayers(ArrayList<Player> players) {
         mPlayers = players;
         notifyDataSetChanged();
     }

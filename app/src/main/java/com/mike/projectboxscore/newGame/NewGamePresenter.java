@@ -1,7 +1,9 @@
 package com.mike.projectboxscore.newGame;
 
+import android.util.Log;
+
+import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.loginUI.LoginUIViewContract;
 
 import java.util.ArrayList;
 
@@ -9,9 +11,12 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class NewGamePresenter implements NewGameContract.Presenter {
 
+    private static final String TAG = "NewGamePresenter";
+
     NewGameContract.View mView;
-    private ArrayList<Team> mTeams;
+    private ArrayList<Team> mMyTeams;
     private Team mSelectedTeam;
+    private Game mNewGame;
 
     @Override
     public void start() {
@@ -21,7 +26,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     public NewGamePresenter(NewGameContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-        mTeams = new ArrayList<>();
+        mMyTeams = new ArrayList<>();
 
     }
 
@@ -31,19 +36,34 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     }
 
     @Override
+    public void setupGameData() {
+        mView.getGameDataAndSetNewGame();
+    }
+
+    @Override
+    public void setNewGame(String opponent, String tournament) {
+        Log.d(TAG, "selectedTeam: " + getmSelectedTeam());
+        mNewGame = new Game(opponent, tournament, getmSelectedTeam());
+    }
+
+    public Game getmNewGame() {
+        return mNewGame;
+    }
+
+    @Override
     public void showPlayersOnTeam(int teamPosition) {
-        mSelectedTeam = mTeams.get(teamPosition);
-        mView.showPlayersOnTeamUi(mTeams.get(teamPosition).getmPlayers());
+        mSelectedTeam = mMyTeams.get(teamPosition);
+        mView.showPlayersOnTeamUi(mMyTeams.get(teamPosition).getmPlayers());
     }
 
     @Override
     public void setupNewTeam(Team team) {
-        mTeams.add(team);
+        mMyTeams.add(team);
     }
 
     @Override
     public ArrayList<Team> getTeams() {
-        return mTeams;
+        return mMyTeams;
     }
 
     public Team getmSelectedTeam() {

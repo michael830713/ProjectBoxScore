@@ -4,12 +4,21 @@ import java.util.ArrayList;
 
 public class Team {
     private String mName;
-    private ArrayList<PlayerStats> mPlayers=new ArrayList<>();
+    private ArrayList<Player> mPlayers = new ArrayList<>();
+    private ArrayList<Game> mGames;
     private int mWins;
     private int mLosses;
 
     public Team(String mName) {
         this.mName = mName;
+    }
+
+    public ArrayList<Game> getmGames() {
+        return mGames;
+    }
+
+    public void setmGames(ArrayList<Game> mGames) {
+        this.mGames = mGames;
     }
 
     public String getmName() {
@@ -20,16 +29,16 @@ public class Team {
         this.mName = mName;
     }
 
-    public ArrayList<PlayerStats> getmPlayers() {
+    public ArrayList<Player> getmPlayers() {
         return mPlayers;
     }
 
-    public void setmPlayers(ArrayList<PlayerStats> mPlayers) {
+    public void setmPlayers(ArrayList<Player> mPlayers) {
         this.mPlayers = mPlayers;
     }
 
-    public void addmPlayers(PlayerStats player) {
-        mPlayers.add(player);
+    public void addmPlayers(Player mPlayeradds) {
+        mPlayers.add(mPlayeradds);
     }
 
     public int getmWins() {

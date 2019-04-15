@@ -2,6 +2,8 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.util.Log;
 
+import com.mike.projectboxscore.Data.Game;
+import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
@@ -18,10 +20,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
 
-    public MainConsolePresenter(MainConsoleViewContract.View view, ArrayList<PlayerStats> team) {
+    public MainConsolePresenter(MainConsoleViewContract.View view, Game game) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-        mTeamPlayers = team;
+        mTeamPlayers = game.getmPlayerStats();
+        Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
 
@@ -29,14 +32,14 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void setupNewPlayer(String name, int backNumber, String onCourtPosition) {
-        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition);
-        mTeamPlayers.add(playerStats);
+//        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition);
+//        mTeamPlayers.add(playerStats);
     }
 
     @Override
     public void setupNewPlayer(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
-        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition, isOnCourt);
-        mTeamPlayers.add(playerStats);
+//        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition, isOnCourt);
+//        mTeamPlayers.add(playerStats);
     }
 
     @Override

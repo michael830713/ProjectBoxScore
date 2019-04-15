@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
@@ -32,7 +33,6 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.viewholder_logs, viewGroup, false));
-
     }
 
     @Override
@@ -51,9 +51,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
         } else {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_light_green);
-
         }
-
     }
 
     @Override
@@ -85,7 +83,6 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         mPlayers.add(0, playerStats);
         mActions.add(0, action);
         Log.d(TAG, " action: " + mActions.get(0));
-
         notifyItemInserted(0);
 
     }
