@@ -33,36 +33,13 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     RecyclerView mLogRecyclerView;
     TextView mTextViewAwayScore;
     TextView mTextViewHomeScore;
+    TextView mTextViewAwayTeamName;
+    TextView mTextViewHomeTeamName;
     private JoystickView mJoystickView;
     private int mAwayScore = 0;
     private int mHomeScore = 0;
-    private ImageView m2Pts;
-    private ImageView m3Pts;
-    private ImageView mFreeThrows;
-    private ImageView mDreb;
-    private ImageView mOreb;
-    private ImageView mSteal;
-    private ImageView mAssist;
-    private ImageView mTurnOver;
-    private ImageView mSubstitute;
-    private ImageView mFoul;
-    private ImageView mBlock;
-    private ImageView mSettings;
-    private ImageView mBackButton;
 
-    private static final String TWO_POINTS_MADE = "2 Pts Made";
-    private static final String THREE_POINTS_MADE = "3 Pts Made";
-    private static final String TWO_POINTS_MISS = "2 Pts Miss";
-    private static final String THREE_POINTS_MISS = "3 Pts Miss";
-    private static final String FREE_THROW_MADE = "Free Throw Made";
-    private static final String FREE_THROW_MISS = "Free Throw Miss";
-    private static final String OFFENSIVE_REBOUND = "O Rebound";
-    private static final String DEFENSIVE_REBOUND = "D Rebound";
-    private static final String ASSIST = "Assist";
-    private static final String TURN_OVER = "Turn Over";
-    private static final String FOUL = "Foul";
-    private static final String STEAL = "Steal";
-    private static final String BLOCK = "Block";
+
 
     public BoxSoreFragment() {
         // Requires empty public constructor
@@ -76,7 +53,7 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBoxScoreAdapter = new BoxScoreAdapter(mPresenter,mPresenter.getPlayerStats());
+        mBoxScoreAdapter = new BoxScoreAdapter(mPresenter, mPresenter.getPlayerStats());
 
     }
 
@@ -84,6 +61,11 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_box_score, container, false);
+        mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
+        mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
+
+        mTextViewAwayTeamName = root.findViewById(R.id.textViewAwayTeam);
+        mTextViewHomeTeamName = root.findViewById(R.id.textViewHomeTeam);
 
         //setup the box recyclerView
         mBoxRecyclerView = root.findViewById(R.id.recyclerViewBoxScore);
@@ -97,6 +79,12 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTextViewAwayScore.setText(String.valueOf(mPresenter.getAwayScore()));
+        mTextViewHomeScore.setText(String.valueOf(mPresenter.getHomeScore()));
+
+        mTextViewAwayTeamName.setText(mPresenter.getGame().getmHomeTeam().getmName());
+        mTextViewHomeTeamName.setText(mPresenter.getGame().getmOpponent());
 
     }
 
@@ -128,11 +116,6 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
 
     @Override
     public void onResume() {
-//
-//        mPresenter.setOnCourtPlayers();
-//
-//        mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-//        Log.d(TAG, "onResume: " + mPresenter.getPlayers());
         super.onResume();
     }
 

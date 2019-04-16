@@ -18,6 +18,7 @@ package com.mike.projectboxscore.boxScore;
 
 import android.view.SurfaceHolder;
 
+import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -44,6 +45,12 @@ public interface BoxScoreViewContract {
 //        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
         ArrayList<PlayerStats> getPlayerStats();
+
+        Game getGame();
+
+        int getAwayScore();
+
+        int getHomeScore();
 
     }
 }

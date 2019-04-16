@@ -15,6 +15,7 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
 
     BoxScoreViewContract.View mView;
     private PlayerStats mSelectedPlayer;
+    private Game mGame;
     private ArrayList<PlayerStats> mOnCourtPlayers;
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
@@ -22,11 +23,27 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
     public BoxScorePresenter(BoxScoreViewContract.View view, Game game) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
+        mGame = game;
         mTeamPlayers = game.getmPlayerStats();
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
 
+    }
+
+    @Override
+    public Game getGame() {
+        return mGame;
+    }
+
+    @Override
+    public int getAwayScore() {
+        return mGame.getmAwayScore();
+    }
+
+    @Override
+    public int getHomeScore() {
+        return mGame.getmHomeScore();
     }
 
     @Override

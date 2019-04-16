@@ -183,6 +183,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mSettings.setOnClickListener(awesomeOnClickListener);
         mBoxScore.setOnClickListener(awesomeOnClickListener);
 
+        mTextViewAwayScore.setText(String.valueOf(mAwayScore));
+        mTextViewHomeScore.setText(String.valueOf(mHomeScore));
+
 //        mJoystickView.setOnMoveListener(new JoystickView.OnMoveListener() {
 //            int mAngle;
 //
@@ -302,21 +305,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     private int updateAddAwayScore(int addPoints) {
         mAwayScore = mAwayScore + addPoints;
+        mPresenter.getGame().setmAwayScore(mAwayScore);
         return mAwayScore;
     }
 
     private int updateAddHomeScore(int addPoints) {
         mHomeScore = mHomeScore + addPoints;
+        mPresenter.getGame().setmHomeScore(mHomeScore);
         return mHomeScore;
     }
 
     private int updateMinusAwayScore(int addPoints) {
         mAwayScore = mAwayScore - addPoints;
+        mPresenter.getGame().setmAwayScore(mAwayScore);
         return mAwayScore;
     }
 
     private int updateMinusHomeScore(int addPoints) {
         mHomeScore = mHomeScore - addPoints;
+        mPresenter.getGame().setmHomeScore(mHomeScore);
         return mHomeScore;
     }
 
