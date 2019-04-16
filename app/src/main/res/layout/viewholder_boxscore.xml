@@ -8,7 +8,6 @@
     <TextView
         android:id="@+id/text_view_pts"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PTS"
         app:layout_constraintStart_toEndOf="@+id/text_view_player"
@@ -18,7 +17,7 @@
     <TextView
         android:id="@+id/textViewReb"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:text="REB"
         app:layout_constraintStart_toEndOf="@+id/text_view_pts"
@@ -27,7 +26,7 @@
     <TextView
         android:id="@+id/textViewAst"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:text="AST"
         app:layout_constraintStart_toEndOf="@+id/textViewReb"
@@ -37,7 +36,7 @@
     <TextView
         android:id="@+id/textViewSteal"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:text="STL"
         app:layout_constraintStart_toEndOf="@+id/textViewAst"
@@ -45,8 +44,7 @@
 
     <TextView
         android:id="@+id/textViewFreeThrowPercentage"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowAttempt"
@@ -55,7 +53,6 @@
     <TextView
         android:id="@+id/textViewPersonalFoul"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="PF"
@@ -66,7 +63,6 @@
     <TextView
         android:id="@+id/textViewTurnOver"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TOV"
         app:layout_constraintStart_toEndOf="@+id/textViewDefensiveRebound"
@@ -75,7 +71,6 @@
     <TextView
         android:id="@+id/textViewOffensiveRebound"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OFF"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowPercentage"
@@ -84,7 +79,6 @@
     <TextView
         android:id="@+id/textViewDefensiveRebound"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DEF"
         app:layout_constraintStart_toEndOf="@+id/textViewOffensiveRebound"
@@ -92,8 +86,7 @@
 
     <TextView
         android:id="@+id/textViewFreeThrowAttempt"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowMade"
@@ -101,8 +94,7 @@
 
     <TextView
         android:id="@+id/textViewFreeThrowMade"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsPercentage"
@@ -110,8 +102,8 @@
 
     <TextView
         android:id="@+id/textViewThreePointsAttempt"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMA"
+
         android:layout_height="wrap_content"
         android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsMade"
@@ -119,8 +111,8 @@
 
     <TextView
         android:id="@+id/textViewThreePointsMade"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMA"
+
         android:layout_height="wrap_content"
         android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalPercentage"
@@ -128,8 +120,7 @@
 
     <TextView
         android:id="@+id/textViewThreePointsPercentage"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMA"
         android:layout_height="wrap_content"
         android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsAttempt"
@@ -137,8 +128,8 @@
 
     <TextView
         android:id="@+id/textViewFieldGoalPercentage"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
+
         android:layout_height="wrap_content"
         android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalAttempt"
@@ -147,7 +138,7 @@
     <TextView
         android:id="@+id/textViewBlock"
         style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:text="BLK"
         app:layout_constraintStart_toEndOf="@+id/textViewSteal"
@@ -155,8 +146,7 @@
 
     <TextView
         android:id="@+id/textViewFieldGoalMade"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewBlock"
@@ -164,8 +154,8 @@
 
     <TextView
         android:id="@+id/textViewFieldGoalAttempt"
-        style="@style/boxScoreMargin"
-        android:layout_width="wrap_content"
+        style="@style/boxScoreMarginforMAWithGreyBack"
+
         android:layout_height="wrap_content"
         android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalMade"
@@ -174,8 +164,8 @@
 
     <TextView
         android:id="@+id/text_view_player"
-        android:layout_width="wrap_content"
         style="@style/WhiteText"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

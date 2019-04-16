@@ -29,7 +29,26 @@
     </style>
 
     <style name="boxScoreMargin" >
+        <item name="android:layout_width">30dp</item>
         <item name="android:textColor">#ffffff</item>
-       <item name="android:layout_marginStart">12dp</item>
+       <item name="android:layout_marginStart">2dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="greyBackground">
+        <item name="android:background">#3f3d3d</item>
+    </style>
+    <style name="boxScoreMarginforMAWithGreyBack" parent="greyBackground">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+
+        <item name="android:layout_marginStart">2dp</item>
+    </style>
+    <style name="boxScoreMarginforMA" >
+        <item name="android:layout_width">24dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+
+        <item name="android:layout_marginStart">2dp</item>
     </style>
 </resources>

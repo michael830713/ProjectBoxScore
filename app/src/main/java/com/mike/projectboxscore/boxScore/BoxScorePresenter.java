@@ -29,14 +29,15 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
 
     }
 
-
-
     @Override
     public void result(int requestCode, int resultCode) {
 
     }
 
-
+    @Override
+    public ArrayList<PlayerStats> getPlayerStats() {
+        return mTeamPlayers;
+    }
 
     @Override
     public void start() {

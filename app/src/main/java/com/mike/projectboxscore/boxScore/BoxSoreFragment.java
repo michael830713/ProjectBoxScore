@@ -76,7 +76,7 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBoxScoreAdapter = new BoxScoreAdapter(mPresenter);
+        mBoxScoreAdapter = new BoxScoreAdapter(mPresenter,mPresenter.getPlayerStats());
 
     }
 

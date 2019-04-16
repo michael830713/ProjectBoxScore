@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Wayne Chen on 2018/4/16.
- *
+ * <p>
  * This specifies the contract between the view and the presenter.
  */
 public interface BoxScoreViewContract {
@@ -34,8 +34,6 @@ public interface BoxScoreViewContract {
     interface View extends BaseView<Presenter> {
 
         void initView();
-
-
 
     }
 
@@ -45,10 +43,7 @@ public interface BoxScoreViewContract {
 
 //        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
-
-
-
-
+        ArrayList<PlayerStats> getPlayerStats();
 
     }
 }

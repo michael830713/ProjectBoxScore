@@ -12,6 +12,7 @@ public class Game {
     private String mTournament;
     private Team mHomeTeam;
     private Date mDate;
+    private int mAwayScore;
     private ArrayList<PlayerStats> mPlayerStats = new ArrayList<>();
 
     public Game(String mOpponent, String mTournament, Team mHomeTeam) {
