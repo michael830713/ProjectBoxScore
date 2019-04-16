@@ -65,7 +65,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FT%"
+        android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowAttempt" />
 
@@ -95,7 +95,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OREB"
+        android:text="OFF"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowPercentage" />
 
@@ -104,7 +104,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DREB"
+        android:text="DEF"
         app:layout_constraintStart_toEndOf="@+id/textViewOffensiveRebound"
         app:layout_constraintTop_toTopOf="@+id/textViewOffensiveRebound" />
 
@@ -113,7 +113,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FTA"
+        android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowMade"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowMade" />
 
@@ -122,7 +122,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FTM"
+        android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsPercentage" />
 
@@ -131,7 +131,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3PA"
+        android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsMade"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsMade" />
 
@@ -140,7 +140,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3PM"
+        android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalPercentage" />
 
@@ -149,7 +149,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3P%"
+        android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsAttempt" />
 
@@ -158,7 +158,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FG%"
+        android:text="%"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalAttempt" />
 
@@ -176,7 +176,7 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FGM"
+        android:text="M"
         app:layout_constraintStart_toEndOf="@+id/textViewBlock"
         app:layout_constraintTop_toTopOf="@+id/textViewBlock" />
 
@@ -185,26 +185,26 @@
         style="@style/boxScoreMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FGA"
+        android:text="A"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalMade"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalMade" />
 
 
     <TextView
         android:id="@+id/text_view_player"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/WhiteText"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
         android:text="Player"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAwayScore" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFG" />
 
     <TextView
         android:id="@+id/textViewAwayScore"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="52dp"
         android:fontFamily="@font/audiowide"
@@ -217,7 +217,7 @@
     <TextView
         android:id="@+id/textViewHomeScore"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_marginStart="52dp"
         android:fontFamily="@font/audiowide"
         android:text="0"
@@ -243,7 +243,7 @@
         android:id="@+id/recyclerViewBoxScore"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -253,10 +253,10 @@
 
     <TextView
         android:id="@+id/textViewAwayTeam"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/WhiteText"
         android:layout_marginEnd="80dp"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/textViewAwayScore"
@@ -264,13 +264,60 @@
 
     <TextView
         android:id="@+id/textViewHomeTeam"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
-        style="@style/WhiteText"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/textViewHomeScore"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textViewFG"
+        style="@style/WhiteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="FG"
+        app:layout_constraintEnd_toStartOf="@+id/textViewThreePointsMade"
+        app:layout_constraintStart_toEndOf="@+id/textViewBlock"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAwayTeam" />
+
+    <TextView
+        android:id="@+id/textView3PT"
+        style="@style/WhiteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:text="3PT"
+        app:layout_constraintEnd_toEndOf="@+id/textViewThreePointsPercentage"
+        app:layout_constraintStart_toStartOf="@+id/textViewThreePointsMade"
+        app:layout_constraintTop_toTopOf="@+id/textViewFG" />
+
+    <TextView
+        android:id="@+id/textViewFT"
+        style="@style/WhiteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="FT"
+        app:layout_constraintEnd_toEndOf="@+id/textViewFreeThrowPercentage"
+        app:layout_constraintStart_toStartOf="@+id/textViewFreeThrowMade"
+        app:layout_constraintTop_toTopOf="@+id/textView3PT" />
+
+    <TextView
+        android:id="@+id/textViewREB"
+        style="@style/WhiteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="REB"
+        app:layout_constraintEnd_toEndOf="@+id/textViewDefensiveRebound"
+        app:layout_constraintStart_toStartOf="@+id/textViewOffensiveRebound"
+        app:layout_constraintTop_toTopOf="@+id/textViewFT" />
 </android.support.constraint.ConstraintLayout>
