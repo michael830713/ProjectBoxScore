@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.loginUI.LoginUIPresenter;
+import com.mike.projectboxscore.loginUI.LoginUiFragment;
 import com.mike.projectboxscore.mainConsole.OnCourtPlayerAdapter;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
 
@@ -31,6 +34,7 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     private BoxScoreAdapter mBoxScoreAdapter;
     RecyclerView mBoxRecyclerView;
     RecyclerView mLogRecyclerView;
+    ImageView imageViewHome;
     TextView mTextViewAwayScore;
     TextView mTextViewHomeScore;
     TextView mTextViewAwayTeamName;
@@ -38,8 +42,6 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     private JoystickView mJoystickView;
     private int mAwayScore = 0;
     private int mHomeScore = 0;
-
-
 
     public BoxSoreFragment() {
         // Requires empty public constructor
@@ -67,6 +69,8 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         mTextViewAwayTeamName = root.findViewById(R.id.textViewAwayTeam);
         mTextViewHomeTeamName = root.findViewById(R.id.textViewHomeTeam);
 
+        imageViewHome = root.findViewById(R.id.imageViewHome);
+
         //setup the box recyclerView
         mBoxRecyclerView = root.findViewById(R.id.recyclerViewBoxScore);
         LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
@@ -86,7 +90,19 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         mTextViewAwayTeamName.setText(mPresenter.getGame().getmHomeTeam().getmName());
         mTextViewHomeTeamName.setText(mPresenter.getGame().getmOpponent());
 
+        if (mPresenter.getExit()) {
+            imageViewHome.setVisibility(View.VISIBLE);
+            imageViewHome.setOnClickListener(awesomeOnClickListener);
+        } else {
+            imageViewHome.setVisibility(View.INVISIBLE);
+        }
+
     }
+
+    private View.OnClickListener awesomeOnClickListener = v -> {
+
+        mPresenter.openHome();
+    };
 
     private int updateAddAwayScore(int addPoints) {
         mAwayScore = mAwayScore + addPoints;
@@ -112,6 +128,20 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void openHomeUi() {
+        LoginUIPresenter mSurfaceViewPresenter;
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        try {
+            LoginUiFragment fragment = LoginUiFragment.newInstance();
+            fragmentTransaction.replace(R.id.container, fragment, "Surface");
+            fragmentTransaction.commit();
+            mSurfaceViewPresenter = new LoginUIPresenter(fragment);
+        } catch (Throwable t) {
+            Log.d(TAG, "demoSurfaceView: " + t);
+        }
     }
 
     @Override

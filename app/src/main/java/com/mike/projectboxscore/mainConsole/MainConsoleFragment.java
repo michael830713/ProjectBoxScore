@@ -1,6 +1,7 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -18,9 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.IOnBackPressed;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.boxScore.BoxScorePresenter;
 import com.mike.projectboxscore.boxScore.BoxSoreFragment;
@@ -34,7 +37,7 @@ import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View {
+public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed {
 
     private static final String TAG = "MainConsoleFragment";
 
@@ -132,7 +135,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
         mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
         mBackButton = root.findViewById(R.id.imageViewReturnStep);
-        mSettings = root.findViewById(R.id.buttonSetting);
+        mSettings = root.findViewById(R.id.buttonExit);
         mBoxScore = root.findViewById(R.id.buttonBoxScore);
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
@@ -226,73 +229,55 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 case R.id.buttonOffensiveRebound:
                     mPresenter.playerOffensiveRebounded(1);
                     mPresenter.updateLog(OFFENSIVE_REBOUND);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.offensive_rebound));
                     break;
 
                 case R.id.buttonDefensiveRebound:
                     mPresenter.playerDefensiveRebounded(1);
                     mPresenter.updateLog(DEFENSIVE_REBOUND);
 
-//                    selectedPlayer.setDefensiveRebounds(selectedPlayer.getDefensiveRebounds() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.defensive_rebound));
                     break;
 
                 case R.id.buttonAssist:
                     mPresenter.playerAssisted(1);
                     mPresenter.updateLog(ASSIST);
                     Log.d(TAG, "assist: " + mPresenter.getSelectedPlayer().getAssists());
-//                    selectedPlayer.setAssists(selectedPlayer.getAssists() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.assist));
                     break;
 
                 case R.id.buttonTurnOver:
                     mPresenter.playerTurnedOver(1);
                     mPresenter.updateLog(TURN_OVER);
 
-//                    selectedPlayer.setTurnOvers(selectedPlayer.getTurnOvers() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.turn_over));
                     break;
 
                 case R.id.buttonFoul:
                     mPresenter.playerFouled(1);
                     mPresenter.updateLog(FOUL);
 
-//                    selectedPlayer.setFouls(selectedPlayer.getFouls() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.foul_made));
                     break;
 
                 case R.id.buttonSteal:
                     mPresenter.playerstealed(1);
                     mPresenter.updateLog(STEAL);
 
-//                    selectedPlayer.setSteals(selectedPlayer.getSteals() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.steal));
                     break;
 
                 case R.id.buttonBlock:
                     mPresenter.playerBlocked(1);
                     mPresenter.updateLog(BLOCK);
 
-//                    selectedPlayer.setBlocks(selectedPlayer.getBlocks() + 1);
-//                    mMainLogAdapter.setLog(selectedPlayer, getString(R.string.block));
                     break;
 
                 case R.id.buttonSub:
                     mPresenter.showSubstituteDialog();
                     break;
 
-                case R.id.buttonSetting:
-                    mPresenter.setPlayerOffCourt(33);
-                    mPresenter.setPlayerOnCourt(26);
+                case R.id.buttonExit:
+                    mPresenter.showConfirmExitDialog();
 
-                    mPresenter.setOnCourtPlayers();
-
-                    mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
                     break;
+
                 case R.id.imageViewReturnStep:
-
                     mPresenter.returnLastStep();
-
                     break;
 
                 case R.id.buttonBoxScore:
@@ -460,6 +445,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
+    public void showConfirmExitDialogUi() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure to end game?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    mPresenter.openExitBoxScore();
+                    //player made shot
+
+                    dialog.dismiss();
+                })
+                .setNegativeButton("No", (dialog, id) -> {
+
+                    dialog.dismiss();
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
     public void updateLogUi(int addScore, boolean isShotMade) {
         if (isShotMade) {
 //            mMainLogAdapter.setColor(1);
@@ -561,10 +565,19 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void openBoxScoreUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
-//        Log.d(TAG, "newGame: " + mPresenter.getmNewGame());
         BoxScorePresenter boxScorePresenter;
-        boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame());
+        boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), false);
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void openExitBoxScoreUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        BoxSoreFragment fragment = BoxSoreFragment.newInstance();
+        BoxScorePresenter boxScorePresenter;
+        boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), true);
+        fragmentTransaction.replace(R.id.container, fragment, "Surface");
         fragmentTransaction.commit();
     }
 
@@ -576,5 +589,19 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void setPresenter(MainConsoleViewContract.Presenter loginUiPresenter) {
         mPresenter = checkNotNull(loginUiPresenter);
+    }
+
+    long lastPress;
+
+    @Override
+    public boolean onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastPress > 5000) {
+            Toast.makeText(getActivity(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+            lastPress = currentTime;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

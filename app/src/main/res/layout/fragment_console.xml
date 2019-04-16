@@ -227,8 +227,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSub"
-        app:layout_constraintStart_toStartOf="@+id/buttonSub"
+        app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
         app:layout_constraintTop_toBottomOf="@+id/buttonSub"
         app:srcCompat="@drawable/undo_icon" />
 
@@ -240,32 +239,26 @@
         app:layout_constraintGuide_percent="0.99" />
 
     <ImageView
-        android:id="@+id/buttonSetting"
-
+        android:id="@+id/buttonExit"
         style="@style/iconInner"
-
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
-        app:srcCompat="@drawable/settings" />
+        app:layout_constraintTop_toTopOf="@+id/buttonBoxScore"
+        app:srcCompat="@drawable/icon_finish" />
 
     <ImageView
         android:id="@+id/buttonBoxScore"
-
         style="@style/iconInner"
-
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSetting"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSetting"
+        app:layout_constraintStart_toStartOf="@+id/buttonBlock"
+        app:layout_constraintTop_toTopOf="@+id/imageViewReturnStep"
         app:srcCompat="@drawable/icon_box_score" />
 
 
     <ImageView
         android:id="@+id/buttonSub"
         style="@style/iconInner"
-        app:layout_constraintEnd_toEndOf="@+id/buttonTurnOver"
-        app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
+        app:layout_constraintEnd_toStartOf="@+id/buttonBlock"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonTurnOver"
         app:layout_constraintTop_toTopOf="@+id/buttonFoul"
         app:srcCompat="@drawable/player_change" />
 
@@ -273,8 +266,12 @@
         android:id="@+id/buttonFoul"
         style="@style/iconInner"
 
-        app:layout_constraintEnd_toEndOf="@+id/buttonBlock"
-        app:layout_constraintTop_toTopOf="@+id/buttonSetting"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSteal"
+
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonBlock"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
         app:srcCompat="@drawable/foul_wistle" />
 
     <ImageView

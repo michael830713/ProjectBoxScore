@@ -10,6 +10,8 @@
         style="@style/boxScoreMargin"
         android:layout_height="wrap_content"
         android:text="PTS"
+        app:layout_constraintEnd_toStartOf="@+id/textViewReb"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/text_view_player"
         app:layout_constraintTop_toTopOf="@+id/text_view_player" />
 
@@ -20,6 +22,8 @@
 
         android:layout_height="wrap_content"
         android:text="REB"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAst"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/text_view_pts"
         app:layout_constraintTop_toTopOf="@+id/text_view_pts" />
 
@@ -29,6 +33,8 @@
 
         android:layout_height="wrap_content"
         android:text="AST"
+        app:layout_constraintEnd_toStartOf="@+id/textViewSteal"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewReb"
         app:layout_constraintTop_toTopOf="@+id/textViewReb" />
 
@@ -39,6 +45,8 @@
 
         android:layout_height="wrap_content"
         android:text="STL"
+        app:layout_constraintEnd_toStartOf="@+id/textViewBlock"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewAst"
         app:layout_constraintTop_toTopOf="@+id/textViewAst" />
 
@@ -47,6 +55,8 @@
         style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="%"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOffensiveRebound"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowAttempt" />
 
@@ -54,7 +64,7 @@
         android:id="@+id/textViewPersonalFoul"
         style="@style/boxScoreMargin"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         android:text="PF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewTurnOver"
@@ -65,6 +75,8 @@
         style="@style/boxScoreMargin"
         android:layout_height="wrap_content"
         android:text="TOV"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPersonalFoul"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewDefensiveRebound"
         app:layout_constraintTop_toTopOf="@+id/textViewDefensiveRebound" />
 
@@ -73,6 +85,8 @@
         style="@style/boxScoreMargin"
         android:layout_height="wrap_content"
         android:text="OFF"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDefensiveRebound"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowPercentage" />
 
@@ -81,6 +95,8 @@
         style="@style/boxScoreMargin"
         android:layout_height="wrap_content"
         android:text="DEF"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTurnOver"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewOffensiveRebound"
         app:layout_constraintTop_toTopOf="@+id/textViewOffensiveRebound" />
 
@@ -89,6 +105,8 @@
         style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="A"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFreeThrowPercentage"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowMade"
         app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowMade" />
 
@@ -97,6 +115,8 @@
         style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="M"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFreeThrowAttempt"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsPercentage" />
 
@@ -106,6 +126,8 @@
 
         android:layout_height="wrap_content"
         android:text="A"
+        app:layout_constraintEnd_toStartOf="@+id/textViewThreePointsPercentage"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsMade"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsMade" />
 
@@ -115,6 +137,8 @@
 
         android:layout_height="wrap_content"
         android:text="M"
+        app:layout_constraintEnd_toStartOf="@+id/textViewThreePointsAttempt"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalPercentage"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalPercentage" />
 
@@ -123,6 +147,8 @@
         style="@style/boxScoreMarginforMA"
         android:layout_height="wrap_content"
         android:text="%"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFreeThrowMade"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewThreePointsAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewThreePointsAttempt" />
 
@@ -132,6 +158,8 @@
 
         android:layout_height="wrap_content"
         android:text="%"
+        app:layout_constraintEnd_toStartOf="@+id/textViewThreePointsMade"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalAttempt"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalAttempt" />
 
@@ -141,6 +169,8 @@
 
         android:layout_height="wrap_content"
         android:text="BLK"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFieldGoalMade"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewSteal"
         app:layout_constraintTop_toTopOf="@+id/textViewSteal" />
 
@@ -149,6 +179,8 @@
         style="@style/boxScoreMarginforMAWithGreyBack"
         android:layout_height="wrap_content"
         android:text="M"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFieldGoalAttempt"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewBlock"
         app:layout_constraintTop_toTopOf="@+id/textViewBlock" />
 
@@ -158,6 +190,8 @@
 
         android:layout_height="wrap_content"
         android:text="A"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFieldGoalPercentage"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalMade"
         app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalMade" />
 
@@ -167,9 +201,12 @@
         style="@style/WhiteText"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
         android:text="Player"
+        app:layout_constraintEnd_toStartOf="@+id/text_view_pts"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

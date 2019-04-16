@@ -36,6 +36,8 @@ public interface BoxScoreViewContract {
 
         void initView();
 
+        void openHomeUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -51,6 +53,9 @@ public interface BoxScoreViewContract {
         int getAwayScore();
 
         int getHomeScore();
+
+        boolean getExit();
+        void openHome();
 
     }
 }

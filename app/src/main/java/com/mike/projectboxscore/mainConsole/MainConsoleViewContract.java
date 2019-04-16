@@ -54,7 +54,11 @@ public interface MainConsoleViewContract {
 
         void removeLogUi();
 
+        void showConfirmExitDialogUi();
+
         void openBoxScoreUi();
+
+        void openExitBoxScoreUi();
 
         void updateScoreboardUi(int addScore);
 
@@ -95,6 +99,8 @@ public interface MainConsoleViewContract {
         void showMadeOrMissDialog(int rowIndex, int addPoints);
 
         void showSubstituteDialog();
+
+        void showConfirmExitDialog();
 
         void requestPortrait();
 
@@ -161,6 +167,8 @@ public interface MainConsoleViewContract {
         void playerBlocked(int amount);
 
         void openBoxScore();
+
+        void openExitBoxScore();
 
         void returnLastStep();
     }

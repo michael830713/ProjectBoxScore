@@ -392,6 +392,16 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void openExitBoxScore() {
+        mView.openExitBoxScoreUi();
+    }
+
+    @Override
+    public void showConfirmExitDialog() {
+        mView.showConfirmExitDialogUi();
+    }
+
+    @Override
     public void start() {
 
     }
