@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.boxScore.BoxScorePresenter;
+import com.mike.projectboxscore.boxScore.BoxSoreFragment;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubDialogPresenter;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
@@ -59,6 +62,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private ImageView mBlock;
     private ImageView mSettings;
     private ImageView mBackButton;
+    private ImageView mBoxScore;
 
     private static final String TWO_POINTS_MADE = "2 Pts Made";
     private static final String THREE_POINTS_MADE = "3 Pts Made";
@@ -129,6 +133,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
         mBackButton = root.findViewById(R.id.imageViewReturnStep);
         mSettings = root.findViewById(R.id.buttonSetting);
+        mBoxScore = root.findViewById(R.id.buttonBoxScore);
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
         return root;
@@ -156,11 +161,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 //        mPresenter.setPlayerOnCourt(35);
 //        mPresenter.setPlayerOnCourt(27);
 
-        Log.d(TAG, "onViewCreated players: "+mPresenter.getPlayers());
-
+        Log.d(TAG, "onViewCreated players: " + mPresenter.getPlayers());
 
         mPresenter.setOnCourtPlayers();
-
 
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
 
@@ -178,6 +181,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mSteal.setOnClickListener(awesomeOnClickListener);
         mBackButton.setOnClickListener(awesomeOnClickListener);
         mSettings.setOnClickListener(awesomeOnClickListener);
+        mBoxScore.setOnClickListener(awesomeOnClickListener);
 
 //        mJoystickView.setOnMoveListener(new JoystickView.OnMoveListener() {
 //            int mAngle;
@@ -286,6 +290,10 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                     mPresenter.returnLastStep();
 
+                    break;
+
+                case R.id.buttonBoxScore:
+                    mPresenter.openBoxScore();
                     break;
             }
             mLogRecyclerView.smoothScrollToPosition(0);
@@ -540,6 +548,17 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void showNormalModeUi(int videoWidth, int videoHeight) {
 
+    }
+
+    @Override
+    public void openBoxScoreUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        BoxSoreFragment fragment = BoxSoreFragment.newInstance();
+//        Log.d(TAG, "newGame: " + mPresenter.getmNewGame());
+        BoxScorePresenter boxScorePresenter;
+        boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame());
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

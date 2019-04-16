@@ -28,11 +28,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/log_border_grey"
-
-
         android:layout_marginEnd="8dp"
+
+
         android:layout_marginBottom="8dp"
+        android:background="@drawable/log_border_grey"
         app:layout_constraintBottom_toTopOf="@+id/buttonFoul"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -207,7 +207,6 @@
         app:layout_constraintTop_toTopOf="@+id/textViewAwayScore" />
 
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_log"
         android:layout_width="0dp"
@@ -249,6 +248,18 @@
         app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
         app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
         app:srcCompat="@drawable/settings" />
+
+    <ImageView
+        android:id="@+id/buttonBoxScore"
+
+        style="@style/iconInner"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSetting"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSetting"
+        app:srcCompat="@drawable/icon_box_score" />
+
 
     <ImageView
         android:id="@+id/buttonSub"

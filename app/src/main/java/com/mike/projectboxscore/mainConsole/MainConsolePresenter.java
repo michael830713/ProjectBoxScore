@@ -16,6 +16,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     MainConsoleViewContract.View mView;
     private PlayerStats mSelectedPlayer;
+    private Game mGame;
     private ArrayList<PlayerStats> mOnCourtPlayers;
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
@@ -24,6 +25,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
         mTeamPlayers = game.getmPlayerStats();
+        mGame = game;
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
@@ -111,6 +113,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void setSelectedPlayer(PlayerStats playerStats) {
         mSelectedPlayer = playerStats;
+    }
+
+    @Override
+    public Game getGame() {
+        return mGame;
     }
 
     @Override
@@ -377,6 +384,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int newAmount = mSelectedPlayer.getBlocks() + amount;
         Log.d(TAG, mSelectedPlayer.getName() + " playerBlocked: " + newAmount);
         mSelectedPlayer.setBlocks(newAmount);
+    }
+
+    @Override
+    public void openBoxScore() {
+        mView.openBoxScoreUi();
     }
 
     @Override

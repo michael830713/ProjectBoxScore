@@ -18,6 +18,7 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.view.SurfaceHolder;
 
+import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Wayne Chen on 2018/4/16.
- *
+ * <p>
  * This specifies the contract between the view and the presenter.
  */
 public interface MainConsoleViewContract {
@@ -43,21 +44,23 @@ public interface MainConsoleViewContract {
 
         void addSurfaceHolderCallback(SurfaceHolder.Callback callback);
 
-        void showMadeOrMissDialogUi( int addPoints);
+        void showMadeOrMissDialogUi(int addPoints);
 
         void showSubstituteDialogUi();
 
-        void updateLogUi(int addScore,boolean isShotMade);
+        void updateLogUi(int addScore, boolean isShotMade);
 
         void updateLogUi(String action);
 
         void removeLogUi();
 
+        void openBoxScoreUi();
+
         void updateScoreboardUi(int addScore);
 
         void updateScoreboardReturnUi(int addScore);
 
-        void  returnLastStepUi();
+        void returnLastStepUi();
 
     }
 
@@ -97,7 +100,7 @@ public interface MainConsoleViewContract {
 
         void setupNewPlayer(String name, int backNumber, String onCourtPosition);
 
-        void setupNewPlayer(String name, int backNumber, String onCourtPosition,boolean isOnCourt);
+        void setupNewPlayer(String name, int backNumber, String onCourtPosition, boolean isOnCourt);
 
         void setPlayerOnCourt(int backNumber);
 
@@ -113,13 +116,11 @@ public interface MainConsoleViewContract {
 
         ArrayList<PlayerStats> getOnBenchPlayers();
 
-
-
         void setSelectedPlayer(PlayerStats playerStats);
 
         PlayerStats getSelectedPlayer();
 
-         void playerMadeShot();
+        void playerMadeShot();
 
         void playerShoot();
 
@@ -139,6 +140,8 @@ public interface MainConsoleViewContract {
 
         void player3ptShootReturn();
 
+        Game getGame();
+
         void playerMadeFreeThrowReturn();
 
         void playerFreeThrowReturn();
@@ -156,6 +159,8 @@ public interface MainConsoleViewContract {
         void playerstealed(int amount);
 
         void playerBlocked(int amount);
+
+        void openBoxScore();
 
         void returnLastStep();
     }
