@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -97,7 +96,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.console_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_console, container, false);
 
         //setup the player recyclerView
         mPlayerRecyclerView = root.findViewById(R.id.recyclerview_onCourt_players);

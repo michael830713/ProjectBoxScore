@@ -206,22 +206,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/textViewAwayScore" />
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView
-        android:id="@+id/joy_stick_controller"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
 
-        android:visibility="invisible"
-        app:JV_backgroundColor="#009688"
-        app:JV_borderColor="#00796B"
-        app:JV_borderWidth="4dp"
-        app:JV_buttonColor="#FF6E40"
-        app:JV_buttonSizeRatio="35%"
-        app:JV_fixedCenter="false"
-        app:layout_constraintEnd_toEndOf="@+id/buttonFoul"
-        app:layout_constraintStart_toStartOf="@+id/buttonFoul"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFoul" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_log"

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.OnCourtPlayerAdapter;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class SubstituteDialog extends DialogFragment implements SubContract.View
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.substitute_dialog, container, false);
+        View view = inflater.inflate(R.layout.dialog_substitite, container, false);
         mRecyclerView = view.findViewById(R.id.subPlayers);
         LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(playerLayoutManager);

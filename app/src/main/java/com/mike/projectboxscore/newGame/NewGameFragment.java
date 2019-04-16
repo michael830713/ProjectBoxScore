@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,16 +56,16 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         Team lakers = new Team("Lakers");
 
         lakers.addmPlayers(new Player("Jordan", 23, "G"));
+        lakers.addmPlayers(new Player("Jordan", 24, "F"));
+        lakers.addmPlayers(new Player("Jordan", 25, "G"));
+        lakers.addmPlayers(new Player("Jordan", 26, "G"));
         lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
-        lakers.addmPlayers(new Player("Jordan", 23, "G"));
+        lakers.addmPlayers(new Player("Jordan", 27, "F"));
+        lakers.addmPlayers(new Player("Jordan", 28, "G"));
+        lakers.addmPlayers(new Player("Jordan", 29, "G"));
+        lakers.addmPlayers(new Player("Jordan", 20, "F"));
+        lakers.addmPlayers(new Player("Jordan", 43, "G"));
+        lakers.addmPlayers(new Player("Jordan", 53, "G"));
 
         Team spurs = new Team("Spurs");
         spurs.addmPlayers(new Player("Duncan", 21, "C"));
@@ -90,7 +89,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.layout_new_game, container, false);
+        View root = inflater.inflate(R.layout.fragment_new_game, container, false);
 
         mTeamRecyclerView = root.findViewById(R.id.teamRecyclerView);
         LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext());
@@ -140,7 +139,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
                 if (f < 5) {
                     mPresenter.showToast("please select 5 Starters");
 
-                } else if (opponent.isEmpty()||tournament.isEmpty()) {
+                } else if (opponent.isEmpty() || tournament.isEmpty()) {
                     mPresenter.showToast("Enter Opponent and Tournament!");
                 } else {
                     mPresenter.setupGameData();

@@ -27,4 +27,9 @@
         <item name="android:padding">11dp</item>
         <item name="android:tint">#fff9bf</item>
     </style>
+
+    <style name="boxScoreMargin" >
+        <item name="android:textColor">#ffffff</item>
+       <item name="android:layout_marginStart">12dp</item>
+    </style>
 </resources>

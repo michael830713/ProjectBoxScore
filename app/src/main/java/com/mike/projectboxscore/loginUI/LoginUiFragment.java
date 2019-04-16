@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
@@ -42,7 +41,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.login_layout, container, false);
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
 
         mLoginButton = root.findViewById(R.id.button_google_login);
 

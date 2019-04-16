@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/text_view_pts"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PTS"
+        app:layout_constraintStart_toEndOf="@+id/text_view_player"
+        app:layout_constraintTop_toTopOf="@+id/text_view_player" />
+
+
+    <TextView
+        android:id="@+id/textViewReb"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REB"
+        app:layout_constraintStart_toEndOf="@+id/text_view_pts"
+        app:layout_constraintTop_toTopOf="@+id/text_view_pts" />
+
+    <TextView
+        android:id="@+id/textViewAst"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AST"
+        app:layout_constraintStart_toEndOf="@+id/textViewReb"
+        app:layout_constraintTop_toTopOf="@+id/textViewReb" />
+
+
+    <TextView
+        android:id="@+id/textViewSteal"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STL"
+        app:layout_constraintStart_toEndOf="@+id/textViewAst"
+        app:layout_constraintTop_toTopOf="@+id/textViewAst" />
+
+    <TextView
+        android:id="@+id/textViewFreeThrowPercentage"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FT%"
+        app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowAttempt"
+        app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowAttempt" />
+
+    <TextView
+        android:id="@+id/textViewPersonalFoul"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="PF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewTurnOver"
+        app:layout_constraintTop_toTopOf="@+id/textViewTurnOver" />
+
+    <TextView
+        android:id="@+id/textViewTurnOver"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOV"
+        app:layout_constraintStart_toEndOf="@+id/textViewDefensiveRebound"
+        app:layout_constraintTop_toTopOf="@+id/textViewDefensiveRebound" />
+
+    <TextView
+        android:id="@+id/textViewOffensiveRebound"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OREB"
+        app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowPercentage"
+        app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowPercentage" />
+
+    <TextView
+        android:id="@+id/textViewDefensiveRebound"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DREB"
+        app:layout_constraintStart_toEndOf="@+id/textViewOffensiveRebound"
+        app:layout_constraintTop_toTopOf="@+id/textViewOffensiveRebound" />
+
+    <TextView
+        android:id="@+id/textViewFreeThrowAttempt"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FTA"
+        app:layout_constraintStart_toEndOf="@+id/textViewFreeThrowMade"
+        app:layout_constraintTop_toTopOf="@+id/textViewFreeThrowMade" />
+
+    <TextView
+        android:id="@+id/textViewFreeThrowMade"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FTM"
+        app:layout_constraintStart_toEndOf="@+id/textViewThreePointsPercentage"
+        app:layout_constraintTop_toTopOf="@+id/textViewThreePointsPercentage" />
+
+    <TextView
+        android:id="@+id/textViewThreePointsAttempt"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3PA"
+        app:layout_constraintStart_toEndOf="@+id/textViewThreePointsMade"
+        app:layout_constraintTop_toTopOf="@+id/textViewThreePointsMade" />
+
+    <TextView
+        android:id="@+id/textViewThreePointsMade"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3PM"
+        app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalPercentage"
+        app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalPercentage" />
+
+    <TextView
+        android:id="@+id/textViewThreePointsPercentage"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3P%"
+        app:layout_constraintStart_toEndOf="@+id/textViewThreePointsAttempt"
+        app:layout_constraintTop_toTopOf="@+id/textViewThreePointsAttempt" />
+
+    <TextView
+        android:id="@+id/textViewFieldGoalPercentage"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FG%"
+        app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalAttempt"
+        app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalAttempt" />
+
+    <TextView
+        android:id="@+id/textViewBlock"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BLK"
+        app:layout_constraintStart_toEndOf="@+id/textViewSteal"
+        app:layout_constraintTop_toTopOf="@+id/textViewSteal" />
+
+    <TextView
+        android:id="@+id/textViewFieldGoalMade"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FGM"
+        app:layout_constraintStart_toEndOf="@+id/textViewBlock"
+        app:layout_constraintTop_toTopOf="@+id/textViewBlock" />
+
+    <TextView
+        android:id="@+id/textViewFieldGoalAttempt"
+        style="@style/boxScoreMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FGA"
+        app:layout_constraintStart_toEndOf="@+id/textViewFieldGoalMade"
+        app:layout_constraintTop_toTopOf="@+id/textViewFieldGoalMade" />
+
+
+    <TextView
+        android:id="@+id/text_view_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Player"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
