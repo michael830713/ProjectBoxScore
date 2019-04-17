@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 
@@ -23,6 +24,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
 
     LoginUIViewContract.Presenter mPresenter;
     private Button mLoginButton;
+    private Button mMyTeamButton;
 
     public LoginUiFragment() {
         // Requires empty public constructor
@@ -44,6 +46,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
         mLoginButton = root.findViewById(R.id.button_google_login);
+        mMyTeamButton = root.findViewById(R.id.button_my_team);
 
         return root;
     }
@@ -53,6 +56,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
         super.onViewCreated(view, savedInstanceState);
 
         mLoginButton.setOnClickListener(v -> mPresenter.demoNewGameView());
+        mMyTeamButton.setOnClickListener(v -> mPresenter.demoMyTeamView());
 
     }
 
@@ -64,6 +68,14 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         NewGameFragment fragment = NewGameFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void demoMyTeamViewUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        NewTeamFragment fragment = NewTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }

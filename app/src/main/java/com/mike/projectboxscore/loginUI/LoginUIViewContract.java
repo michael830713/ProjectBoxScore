@@ -43,6 +43,7 @@ public interface LoginUIViewContract {
         void requestPortraitUi();
 
         void  demoNewGameViewUi();
+        void  demoMyTeamViewUi();
 
     }
 
@@ -55,6 +56,8 @@ public interface LoginUIViewContract {
         void doNormalMode(int screenWidth, int screenHeight);
 
         void demoNewGameView();
+
+        void demoMyTeamView();
 
         void doFullscreenMode(int screenWidth, int screenHeight);
 

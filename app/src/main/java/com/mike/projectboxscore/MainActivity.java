@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Throwable t) {
             Log.d(TAG, "demoSurfaceView: " + t);
         }
-
     }
 
     @Override
@@ -41,6 +40,5 @@ public class MainActivity extends AppCompatActivity {
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
             super.onBackPressed();
         }
-//        super.onBackPressed();
     }
 }
