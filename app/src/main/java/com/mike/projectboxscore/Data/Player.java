@@ -8,10 +8,10 @@ public class Player {
     private String mName;
     private String mEmail;
     private Team mMyTeam;
-    private int backNumber;
+    private int backNumber = -1;
     private String onCourtPosition;
     ArrayList<HashMap> gameStatHistory;
-    private HashMap<Integer, PlayerStats> mGameStats=new HashMap<>();
+    private HashMap<Integer, PlayerStats> mGameStats = new HashMap<>();
 
     public Player(String mName, String mEmail, int backNumber, String onCourtPosition) {
         this.mName = mName;
@@ -24,6 +24,9 @@ public class Player {
         this.mName = mName;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
+    }
+
+    public Player() {
     }
 
     public boolean isOnCourt() {

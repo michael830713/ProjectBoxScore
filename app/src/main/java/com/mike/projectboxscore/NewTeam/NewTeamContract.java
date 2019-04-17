@@ -12,29 +12,39 @@ public interface NewTeamContract {
 
     interface View extends BaseView<NewTeamContract.Presenter> {
 
-        void openMainConsoleUi();
-
         void showPlayersOnTeamUi(ArrayList<Player> playerStats);
 
         void showToastMessageUi(String message);
 
-        void getGameDataAndSetNewGame();
+        String getTeamName();
+
         void showNewPlayerUi();
+
+        void updateDataUi();
 
     }
 
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
 
+        void setNewPlayer();
+
+        Player getNewPlayer();
+
+        ArrayList<Player> getTeamPlayer();
+
         void openMainConsole();
+
+        void updateData();
 
         void setupGameData();
 
-        void setNewGame(String opponent, String tournament);
-
         void showPlayersOnTeam(int teamPosition);
 
+        void createNewTeam();
+
         Game getmNewGame();
+
         void showNewPlayerDialog();
 
         ArrayList<Team> getTeams();

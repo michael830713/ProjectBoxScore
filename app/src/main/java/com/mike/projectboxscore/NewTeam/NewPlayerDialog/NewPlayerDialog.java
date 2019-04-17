@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.MainActivity;
@@ -57,6 +58,8 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         mPosition = view.findViewById(R.id.spinner);
         mConfirmButton = view.findViewById(R.id.imageViewConfirm);
         mDismissButton = view.findViewById(R.id.imageViewDismiss);
+
+        setCancelable(false);
         return view;
     }
 
@@ -65,6 +68,34 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.setPositionSpinner();
+        mConfirmButton.setOnClickListener(v -> {
+            String playerName = mPlayerName.getText().toString();
+            String email = mEmail.getText().toString();
+            int backNumber = -1;
+            if (!mBackNumber.getText().toString().equals("")) {
+                backNumber = Integer.parseInt(mBackNumber.getText().toString());
+            }
+            String position = mPosition.getSelectedItem().toString();
+            if (playerName != null && email != null && backNumber != -1 && position != null) {
+                mPresenter.setNewPlayerInfo(mPlayerName.getText().toString(),
+                        mEmail.getText().toString(),
+                        Integer.parseInt(mBackNumber.getText().toString()),
+                        mPosition.getSelectedItem().toString());
+                dismiss();
+            } else {
+                Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        mDismissButton.setOnClickListener(v ->
+                {
+                    mPresenter.deletePlayer();
+                    dismiss();
+                }
+
+
+        );
+
 
     }
 

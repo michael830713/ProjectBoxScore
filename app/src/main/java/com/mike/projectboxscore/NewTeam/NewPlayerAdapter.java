@@ -15,17 +15,17 @@ import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
 
-public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
+public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.PlayerViewHolder> {
 
     private NewTeamContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<Player> mPlayers;
 
-    public PlayerAdapter(NewTeamContract.Presenter presenter) {
+    public NewPlayerAdapter(NewTeamContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
-    public PlayerAdapter() {
+    public NewPlayerAdapter() {
 
     }
 
@@ -38,12 +38,21 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
+        if (mPlayers != null) {
+            playerViewHolder.playerName.setText(mPlayers.get(i).getName());
+            playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
+            playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        if (mPlayers != null) {
+            return mPlayers.size();
+        } else {
+            return 0;
+        }
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -76,6 +85,11 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public void setPlayers(ArrayList<Player> players) {
         mPlayers = players;
+        notifyDataSetChanged();
+    }
+
+    public void updateData(ArrayList<Player> teamPlayers) {
+        mPlayers = teamPlayers;
         notifyDataSetChanged();
     }
 }

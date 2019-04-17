@@ -21,6 +21,9 @@ public interface NewPlayerDialogContract {
         void changePlayer(int rowIndex);
 
         void setPositionSpinner();
+        void deletePlayer();
+
+        void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition);
 
         void setToBeReplacedPlayer(PlayerStats playerToEnterGame);
     }

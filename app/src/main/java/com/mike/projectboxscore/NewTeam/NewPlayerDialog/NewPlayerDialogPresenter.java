@@ -2,6 +2,7 @@ package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
 import android.util.Log;
 
+import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
@@ -11,12 +12,12 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Presenter {
     private static final String TAG = "NewPlayerDialogPresenter";
     NewPlayerDialogContract.View mView;
-    private ArrayList<PlayerStats> mPlayerOnBench;
+    private Player mPlayer;
     private PlayerStats mTobeReplacedPlayer;
 
-    public NewPlayerDialogPresenter(NewPlayerDialogContract.View view) {
+    public NewPlayerDialogPresenter(NewPlayerDialogContract.View view, Player player) {
         mView = checkNotNull(view, "view cannot be null!");
-        mPlayerOnBench = new ArrayList<>();
+        mPlayer = player;
     }
 
     @Override
@@ -25,10 +26,22 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     }
 
     @Override
+    public void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition) {
+        mPlayer.setmName(mName);
+        mPlayer.setmEmail(mEmail);
+        mPlayer.setBackNumber(backNumber);
+        mPlayer.setOnCourtPosition(onCourtPosition);
+    }
+
+    @Override
+    public void deletePlayer() {
+
+        mPlayer = null;
+        System.gc();
+    }
+
+    @Override
     public void changePlayer(int rowIndex) {
-        mPlayerOnBench.get(rowIndex).setOnCourt(true);
-        mTobeReplacedPlayer.setOnCourt(false);
-        mView.changePlayerUi(mPlayerOnBench.get(rowIndex));
     }
 
     @Override
@@ -43,11 +56,8 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
 
     @Override
     public void showPlayer() {
-        Log.d(TAG, "showPlayer: " + mPlayerOnBench);
-        mView.showPlayerUi(mPlayerOnBench);
     }
 
     public void setBenchPlayer(ArrayList<PlayerStats> player) {
-        mPlayerOnBench = player;
     }
 }

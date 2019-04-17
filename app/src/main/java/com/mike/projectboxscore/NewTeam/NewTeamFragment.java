@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,10 +19,7 @@ import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
-import com.mike.projectboxscore.mainConsole.substituteDialog.SubDialogPresenter;
-import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
 
 import java.util.ArrayList;
 
@@ -36,8 +32,9 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     private EditText mTeamName;
     private ImageView mTeamLogo;
     private ImageView mButtonAddPlayer;
+    private ImageView mButtonFinishCreateTeam;
 
-    private PlayerAdapter mPlayerAdapter;
+    private NewPlayerAdapter mPlayerAdapter;
     private ImageView mNextButton;
     private EditText mOpponent;
     private EditText mTournament;
@@ -56,7 +53,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new NewTeamPresenter(this);
-        mPlayerAdapter = new PlayerAdapter(mPresenter);
+        mPlayerAdapter = new NewPlayerAdapter(mPresenter);
 
     }
 
@@ -74,6 +71,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         mTeamName = root.findViewById(R.id.editTextNewTeamName);
         mTeamLogo = root.findViewById(R.id.imageViewLogo);
         mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
+        mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
 
         return root;
     }
@@ -81,55 +79,71 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mButtonAddPlayer.setOnClickListener(newPlayerOnClickListener);
+        mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
+        mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
 
     }
 
-    private View.OnClickListener newPlayerOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener newTeamOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mPresenter.showNewPlayerDialog();
+            switch (v.getId()) {
+                case R.id.imageViewAddButton:
+                    mPresenter.showNewPlayerDialog();
+                    break;
+
+                case R.id.imageViewNext:
+                    mPresenter.createNewTeam();
+                    break;
+
+            }
         }
     };
 
     @Override
-    public void openMainConsoleUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MainConsoleFragment fragment = MainConsoleFragment.newInstance();
-        Log.d(TAG, "newGame: " + mPresenter.getmNewGame());
-        mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmNewGame());
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void getGameDataAndSetNewGame() {
-        String opponent = mOpponent.getText().toString();
-        String tournament = mTournament.getText().toString();
-        Log.d(TAG, "opponent: " + opponent);
-        Log.d(TAG, "tournament: " + tournament);
-        if (mOpponent.getText().equals("") || mTournament.getText().equals("")) {
-            mPresenter.showToast("Enter Opponent and Tournament!");
-        } else {
-            Log.d(TAG, "setNewGame is running: ");
-            mPresenter.setNewGame(opponent, tournament);
-        }
-    }
-
-    @Override
     public void showNewPlayerUi() {
         NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
-        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
-
+        mPresenter.setNewPlayer();
+        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog, mPresenter.getNewPlayer());
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
-
         FragmentManager fm = getFragmentManager();
-        newPlayerDialog.show(fm, "wierd");
-        fm.executePendingTransactions();
+        newPlayerDialog.show(fm, "createPlayer");
+        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
+            @Override
+            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
+                super.onFragmentViewDestroyed(fm, f);
+                //do sth
+                if (mPresenter.getNewPlayer() != null) {
+                    mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
+                    mPresenter.updateData();
+                }
+                fm.unregisterFragmentLifecycleCallbacks(this);
+            }
+        }, false);
 
-        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
+//        fm.executePendingTransactions();
+//
+//        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
+//
+//        });
+    }
 
-        });
+    @Override
+    public void updateDataUi() {
+        mPlayerAdapter.updateData(mPresenter.getTeamPlayer());
+    }
+
+    @Override
+    public String getTeamName() {
+        return mTeamName.getText().toString();
+    }
+
+    @Override
+    public void onPause() {
+
+        mButtonAddPlayer.setOnClickListener(null);
+        Log.d(TAG, "onPause: ");
+        super.onPause();
     }
 
     @Override

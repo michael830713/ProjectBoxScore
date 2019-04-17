@@ -435,12 +435,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         FragmentManager fm = getFragmentManager();
         substituteDialog.show(fm, "wierd");
-        fm.executePendingTransactions();
 
-        substituteDialog.getDialog().setOnDismissListener(dialog -> {
-            mPresenter.setOnCourtPlayers();
-            mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-        });
+        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
+            @Override
+            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
+                super.onFragmentViewDestroyed(fm, f);
+                Log.d(TAG, "onFragmentViewDestroyed: ");
+                mPresenter.setOnCourtPlayers();
+                mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+                //do sth      
+                fm.unregisterFragmentLifecycleCallbacks(this);
+            }
+        }, false);
+
+//        fm.executePendingTransactions();
+//
+//        substituteDialog.getDialog().setOnDismissListener(dialog -> {
+//            mPresenter.setOnCourtPlayers();
+//            mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
+//        });
 
     }
 
