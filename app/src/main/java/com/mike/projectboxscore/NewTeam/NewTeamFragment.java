@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +17,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.Player;
-import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
+import com.mike.projectboxscore.mainConsole.substituteDialog.SubDialogPresenter;
+import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,8 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     private RecyclerView mPlayerRecyclerView;
     private EditText mTeamName;
     private ImageView mTeamLogo;
+    private ImageView mButtonAddPlayer;
+
     private PlayerAdapter mPlayerAdapter;
     private ImageView mNextButton;
     private EditText mOpponent;
@@ -67,6 +73,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 
         mTeamName = root.findViewById(R.id.editTextNewTeamName);
         mTeamLogo = root.findViewById(R.id.imageViewLogo);
+        mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
 
         return root;
     }
@@ -74,13 +81,14 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mButtonAddPlayer.setOnClickListener(newPlayerOnClickListener);
 
     }
 
-    private View.OnClickListener nextOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener newPlayerOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            mPresenter.showNewPlayerDialog();
         }
     };
 
@@ -106,6 +114,22 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
             Log.d(TAG, "setNewGame is running: ");
             mPresenter.setNewGame(opponent, tournament);
         }
+    }
+
+    @Override
+    public void showNewPlayerUi() {
+        NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
+        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
+
+        newPlayerDialog.setPresenter(newPlayerDialogPresenter);
+
+        FragmentManager fm = getFragmentManager();
+        newPlayerDialog.show(fm, "wierd");
+        fm.executePendingTransactions();
+
+        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
+
+        });
     }
 
     @Override

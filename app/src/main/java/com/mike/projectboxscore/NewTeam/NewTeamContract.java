@@ -19,6 +19,7 @@ public interface NewTeamContract {
         void showToastMessageUi(String message);
 
         void getGameDataAndSetNewGame();
+        void showNewPlayerUi();
 
     }
 
@@ -34,6 +35,7 @@ public interface NewTeamContract {
         void showPlayersOnTeam(int teamPosition);
 
         Game getmNewGame();
+        void showNewPlayerDialog();
 
         ArrayList<Team> getTeams();
 

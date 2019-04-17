@@ -58,6 +58,11 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     }
 
     @Override
+    public void showNewPlayerDialog() {
+mView.showNewPlayerUi();
+    }
+
+    @Override
     public void setupNewTeam(Team team) {
         mMyTeams.add(team);
     }

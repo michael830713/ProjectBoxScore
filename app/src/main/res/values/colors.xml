@@ -6,5 +6,8 @@
     <color name="btnColor">#F39A2C</color>
     <color name="transparent">#00000000</color>
     <color name="light_grey">#37383D</color>
+    <color name="green_confirm">#6fd85d</color>
+    <color name="red_dismiss">#d11919</color>
+
 
 </resources>
