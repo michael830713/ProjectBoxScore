@@ -15,9 +15,9 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     private Player mPlayer;
     private PlayerStats mTobeReplacedPlayer;
 
-    public NewPlayerDialogPresenter(NewPlayerDialogContract.View view, Player player) {
+    public NewPlayerDialogPresenter(NewPlayerDialogContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
-        mPlayer = player;
+//        mPlayer = player;
     }
 
     @Override

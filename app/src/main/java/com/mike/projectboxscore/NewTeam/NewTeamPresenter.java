@@ -45,8 +45,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     }
 
     @Override
-    public void setNewPlayer() {
-        Player player = new Player();
+    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber) {
+        Player player = new Player(name, email, backNumber, onCourtPosition);
         mNewPlayer = player;
     }
 

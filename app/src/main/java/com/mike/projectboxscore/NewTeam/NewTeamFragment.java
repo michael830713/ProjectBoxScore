@@ -1,5 +1,7 @@
 package com.mike.projectboxscore.NewTeam;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,12 @@ import java.util.ArrayList;
 public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 
     private static final String TAG = "NewTeamFragment";
+
+    private static final int TARGET_FRAGMENT_REQUEST_CODE = 1;
+    private static final String NEW_PLAYER_NAME = "playerMessage";
+    private static final String NEW_PLAYER_EMAIL = "playerEmail";
+    private static final String NEW_PLAYER_ONCOURT_POSITION = "playerOnCourtPosition";
+    private static final String NEW_PLAYER_BACK_NUMBER = "playerBackNumber";
 
     NewTeamContract.Presenter mPresenter;
     private RecyclerView mPlayerRecyclerView;
@@ -103,29 +111,61 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void showNewPlayerUi() {
         NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
-        mPresenter.setNewPlayer();
-        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog, mPresenter.getNewPlayer());
+//        mPresenter.setNewPlayer();
+        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
-        FragmentManager fm = getFragmentManager();
-        newPlayerDialog.show(fm, "createPlayer");
-        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
-            @Override
-            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-                super.onFragmentViewDestroyed(fm, f);
-                //do sth
-                if (mPresenter.getNewPlayer() != null) {
-                    mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
-                    mPresenter.updateData();
-                }
-                fm.unregisterFragmentLifecycleCallbacks(this);
-            }
-        }, false);
+        newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
+        newPlayerDialog.show(getFragmentManager(), "createPlayer");
+
+//        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
+//            @Override
+//            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
+//                super.onFragmentViewDestroyed(fm, f);
+//                //do sth
+//                if (mPresenter.getNewPlayer() != null) {
+//                    mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
+//                    mPresenter.updateData();
+//                }
+//                fm.unregisterFragmentLifecycleCallbacks(this);
+//            }
+//        }, false);
 
 //        fm.executePendingTransactions();
 //
 //        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
 //
 //        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
+            String name = data.getStringExtra(NEW_PLAYER_NAME);
+            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
+            String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
+            String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
+
+            Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
+            if (name == null) {
+                Log.d(TAG, "it is null: ");
+            } else {
+                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber));
+                mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
+                mPresenter.updateData();
+            }
+        }
+    }
+
+    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {
+        Intent intent = new Intent();
+        intent.putExtra(NEW_PLAYER_NAME, name);
+        intent.putExtra(NEW_PLAYER_EMAIL, email);
+        intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
+        intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
+        return intent;
     }
 
     @Override

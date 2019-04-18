@@ -1,5 +1,7 @@
 package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.MainActivity;
+import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -68,35 +71,48 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.setPositionSpinner();
-        mConfirmButton.setOnClickListener(v -> {
-            String playerName = mPlayerName.getText().toString();
-            String email = mEmail.getText().toString();
-            int backNumber = -1;
-            if (!mBackNumber.getText().toString().equals("")) {
-                backNumber = Integer.parseInt(mBackNumber.getText().toString());
-            }
-            String position = mPosition.getSelectedItem().toString();
-            if (playerName != null && email != null && backNumber != -1 && position != null) {
-                mPresenter.setNewPlayerInfo(mPlayerName.getText().toString(),
-                        mEmail.getText().toString(),
-                        Integer.parseInt(mBackNumber.getText().toString()),
-                        mPosition.getSelectedItem().toString());
-                dismiss();
-            } else {
-                Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
-            }
+        mConfirmButton.setOnClickListener(onClickListener);
+        mDismissButton.setOnClickListener(onClickListener);
 
-        });
-        mDismissButton.setOnClickListener(v ->
-                {
-                    mPresenter.deletePlayer();
+    }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.imageViewConfirm:
+                    String playerName = mPlayerName.getText().toString();
+                    String email = mEmail.getText().toString();
+                    int backNumber = -1;
+                    String position = mPosition.getSelectedItem().toString();
+
+                    if (!mBackNumber.getText().toString().equals("")) {
+                        backNumber = Integer.parseInt(mBackNumber.getText().toString());
+                    }
+                    if (playerName != null && email != null && backNumber != -1 && position != null) {
+                        sendResult(playerName, email, position, backNumber);
+                        dismiss();
+                    } else {
+                        Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+                case R.id.imageViewDismiss:
+
+                    sendResult(null,null,null,-1);
                     dismiss();
-                }
+                    break;
+            }
+        }
+    };
 
-
-        );
-
-
+    private void sendResult(String name, String email, String onCourtPosition, int backNumber) {
+        if (getTargetFragment() == null) {
+            return;
+        }
+        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        dismiss();
     }
 
     @Override
@@ -106,7 +122,6 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
         mPosition.setAdapter(lunchList);
-
     }
 
     @Override
