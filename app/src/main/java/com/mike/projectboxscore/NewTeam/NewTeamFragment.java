@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,12 +19,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.MyTeam.MyTeamFragment;
+import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
 
 import java.util.ArrayList;
+
+import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 
@@ -46,7 +51,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 
     @Override
     public void setPresenter(NewTeamContract.Presenter surfaceViewPresenter) {
-
+        mPresenter = checkNotNull(surfaceViewPresenter);
     }
 
     public static NewTeamFragment newInstance() {
@@ -56,7 +61,6 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new NewTeamPresenter(this);
         mPlayerAdapter = new NewPlayerAdapter(mPresenter);
 
     }
@@ -97,7 +101,13 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
                     break;
 
                 case R.id.imageViewNext:
-                    mPresenter.createNewTeam();
+                    if (mTeamName.getText().toString().isEmpty()) {
+                        showToastMessageUi("Please enter team name!");
+                    } else {
+                        mPresenter.createNewTeam();
+                        mPresenter.openMyTeamFragment();
+                    }
+
                     break;
 
             }
@@ -131,6 +141,15 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 //        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
 //
 //        });
+    }
+
+    @Override
+    public void openMyTeamFragmentUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MyTeamFragment fragment = MyTeamFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "Surface");
+        fragmentTransaction.commit();
+        MyTeamPresenter myyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override
@@ -172,6 +191,11 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public String getTeamName() {
         return mTeamName.getText().toString();
+    }
+
+    @Override
+    public ArrayList<Player> getPlayers() {
+        return null;
     }
 
     @Override

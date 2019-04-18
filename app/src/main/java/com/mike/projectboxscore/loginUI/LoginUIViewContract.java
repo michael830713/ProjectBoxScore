@@ -18,8 +18,11 @@ package com.mike.projectboxscore.loginUI;
 
 import android.view.SurfaceHolder;
 
+import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Wayne Chen on 2018/4/16.
@@ -31,16 +34,6 @@ public interface LoginUIViewContract {
     interface View extends BaseView<Presenter> {
 
         void initView();
-
-        void showFullscreenModeUi(int videoWidth, int videoHeight);
-
-        void showNormalModeUi(int videoWidth, int videoHeight);
-
-        void addSurfaceHolderCallback(SurfaceHolder.Callback callback);
-
-        void requestLandscapeUi();
-
-        void requestPortraitUi();
 
         void demoNewGameViewUi();
 
@@ -60,20 +53,11 @@ public interface LoginUIViewContract {
 
         void demoNewGameView();
 
+        ArrayList<Team> getTeams();
+
+        void addTeam(Team team);
+
         void demoMyTeamView();
 
-        void demoNewTeam();
-
-        void doFullscreenMode(int screenWidth, int screenHeight);
-
-        void setScreenInfo(int screenWidth, int screenHeight);
-
-        void setVideoInfo(int videoWidth, int videoHeight);
-
-        void calculateAndUpdateSurface();
-
-        void requestLandscape();
-
-        void requestPortrait();
     }
 }

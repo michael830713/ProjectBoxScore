@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.NewTeam.NewTeamContract;
 import com.mike.projectboxscore.R;
 
@@ -18,16 +19,15 @@ import java.util.ArrayList;
 
 public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.PlayerViewHolder> {
 
+    private Team mTeam;
     private MyTeamContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<Player> mPlayers;
 
-    public TeamPlayerAdapter(MyTeamContract.Presenter presenter) {
+    public TeamPlayerAdapter(MyTeamContract.Presenter presenter, Team team) {
         mPresenter = presenter;
-    }
-
-    public TeamPlayerAdapter() {
-
+        mTeam = team;
+        mPlayers=mTeam.getmPlayers();
     }
 
     @NonNull
@@ -39,11 +39,14 @@ public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.Pl
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
+        playerViewHolder.playerName.setText(mPlayers.get(i).getName());
+        playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+        playerViewHolder.backNumber.setText(String.valueOf(mPlayers.get(i).getBackNumber()));
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mPlayers.size();
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {

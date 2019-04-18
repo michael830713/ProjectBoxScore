@@ -1,6 +1,5 @@
 package com.mike.projectboxscore.MyTeam;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,22 +15,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
-import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
-import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
+import com.mike.projectboxscore.NewTeam.NewTeamPresenter;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
-import me.relex.circleindicator.CircleIndicator;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
+
+import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
@@ -45,14 +42,15 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
     MyTeamContract.Presenter mPresenter;
     private RecyclerView mTeamRecyclerView;
-    private ImageView mTeamLogo;
     private ImageView mAddTeamButton;
 
-    private MyTeamAdapter mPlayerAdapter;
+    private NewTeamPresenter mNewTeamPresenter;
+
+    private MyTeamAdapter mTeamAdapter;
 
     @Override
     public void setPresenter(MyTeamContract.Presenter surfaceViewPresenter) {
-
+        mPresenter = checkNotNull(surfaceViewPresenter);
     }
 
     public static MyTeamFragment newInstance() {
@@ -62,33 +60,17 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new MyTeamPresenter(this);
-        mPlayerAdapter = new MyTeamAdapter(mPresenter, getActivity());
+        mTeamAdapter = new MyTeamAdapter(mPresenter, getActivity());
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_myteam, container, false);
-
         mAddTeamButton = root.findViewById(R.id.imageViewAddTeam);
 
-        mTeamRecyclerView = root.findViewById(R.id.recyclerViewTeam);
-        LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mTeamRecyclerView.setLayoutManager(teamLayoutManager);
-        mTeamRecyclerView.setAdapter(mPlayerAdapter);
-
-        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider_vertical);
-
-        mTeamRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
-
-        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(mTeamRecyclerView);
-
-        ScrollingPagerIndicator recyclerIndicator = root.findViewById(R.id.indicator);
-        recyclerIndicator.attachToRecyclerView(mTeamRecyclerView);
+        setupRecyclerView(root);
 
         return root;
     }
@@ -98,6 +80,21 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         super.onViewCreated(view, savedInstanceState);
         mAddTeamButton.setOnClickListener(newTeamOnClickListener);
 
+    }
+
+    private void setupRecyclerView(View view) {
+
+        mTeamRecyclerView = view.findViewById(R.id.recyclerViewTeam);
+        LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mTeamRecyclerView.setLayoutManager(teamLayoutManager);
+        mTeamAdapter.setTeams(mPresenter.getTeams());
+        mTeamRecyclerView.setAdapter(mTeamAdapter);
+        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider_vertical);
+        mTeamRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(mTeamRecyclerView);
+        ScrollingPagerIndicator recyclerIndicator = view.findViewById(R.id.indicator);
+        recyclerIndicator.attachToRecyclerView(mTeamRecyclerView);
     }
 
     private View.OnClickListener newTeamOnClickListener = new View.OnClickListener() {
@@ -113,6 +110,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         NewTeamFragment fragment = NewTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
+        mNewTeamPresenter = new NewTeamPresenter(fragment,mPresenter.getTeams());
     }
 
     @Override
@@ -131,7 +129,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
     @Override
     public void updateDataUi() {
-        mPlayerAdapter.updateData(mPresenter.getTeamPlayer());
+        mTeamAdapter.updateData(mPresenter.getTeams());
     }
 
     @Override
@@ -146,10 +144,6 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         super.onPause();
     }
 
-    @Override
-    public void showPlayersOnTeamUi(ArrayList<Player> playerStats) {
-        mPlayerAdapter.setPlayers(playerStats);
-    }
 
     @Override
     public void showToastMessageUi(String message) {

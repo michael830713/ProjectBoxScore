@@ -15,7 +15,7 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     private static final String TAG = "NewTeamPresenter";
 
     NewTeamContract.View mView;
-    //    private ArrayList<Team> mMyTeams;
+    private ArrayList<Team> mMyTeams;
     private Team mSelectedTeam;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     Player mNewPlayer;
@@ -26,8 +26,9 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
     }
 
-    public NewTeamPresenter(NewTeamContract.View view) {
+    public NewTeamPresenter(NewTeamContract.View view, ArrayList<Team> teams) {
         mView = checkNotNull(view, "view cannot be null!");
+        mMyTeams = teams;
         mView.setPresenter(this);
 //        mMyTeams = new ArrayList<>();
 
@@ -40,6 +41,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
             showToast("Please enter team name!");
         } else {
             Team team = new Team(teamName);
+            team.setmPlayers(mTeamPlayer);
+            mMyTeams.add(team);
         }
 
     }
@@ -60,25 +63,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         return mTeamPlayer;
     }
 
-    @Override
-    public void openMainConsole() {
-//        mView.openMainConsoleUi();
-    }
-
-    @Override
-    public void setupGameData() {
-//        mView.getGameDataAndSetNewGame();
-    }
-
-    public Game getmNewGame() {
-        return mNewGame;
-    }
-
-    @Override
-    public void showPlayersOnTeam(int teamPosition) {
-//        mSelectedTeam = mMyTeams.get(teamPosition);
-//        mView.showPlayersOnTeamUi(mMyTeams.get(teamPosition).getmPlayers());
-    }
 
     @Override
     public void showNewPlayerDialog() {
@@ -96,9 +80,14 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     }
 
     @Override
+    public void openMyTeamFragment() {
+        mView.openMyTeamFragmentUi();
+    }
+
+    @Override
     public ArrayList<Team> getTeams() {
 //        return mMyTeams;
-        return null;
+        return mMyTeams;
     }
 
     public Team getmSelectedTeam() {

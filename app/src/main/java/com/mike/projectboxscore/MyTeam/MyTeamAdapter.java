@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.MainActivity;
 import com.mike.projectboxscore.R;
 
@@ -26,7 +27,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
     private Context mContext;
     private MyTeamContract.Presenter mPresenter;
     int row_index = 0;
-    private ArrayList<Player> mPlayers;
+    private ArrayList<Team> mTeams;
 
     public MyTeamAdapter(MyTeamContract.Presenter presenter, Context context) {
         mPresenter = presenter;
@@ -48,22 +49,33 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
-        playerViewHolder.roster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter);
-                playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
-                playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            }
+
+        playerViewHolder.teamName.setText(mTeams.get(i).getmName());
+
+        playerViewHolder.roster.setOnClickListener(v -> {
+
+            TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter, mTeams.get(i));
+            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
+            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        });
+        playerViewHolder.games.setOnClickListener(v -> {
+            mPresenter.showToast("game coming soon!");
+//            TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter,mTeams.get(i));
+//            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
+//            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         });
         playerViewHolder.roster.performClick();
-
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        if (mTeams != null) {
+            return mTeams.size();
+        } else {
+            return 1;
+        }
+
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +83,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         RecyclerView recyclerView;
         Button roster;
         Button games;
+        TextView teamName;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +92,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             recyclerView = itemView.findViewById(R.id.recyclerViewPlayerOrGameList);
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);
+            teamName = itemView.findViewById(R.id.textViewTeamName);
 
         }
     }
@@ -95,13 +109,13 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         return row_index;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        mPlayers = players;
+    public void setTeams(ArrayList<Team> teams) {
+        mTeams = teams;
         notifyDataSetChanged();
     }
 
-    public void updateData(ArrayList<Player> teamPlayers) {
-        mPlayers = teamPlayers;
+    public void updateData(ArrayList<Team> teamPlayers) {
+        mTeams = teamPlayers;
         notifyDataSetChanged();
     }
 }

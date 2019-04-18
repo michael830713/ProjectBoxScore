@@ -12,7 +12,6 @@ public interface MyTeamContract {
 
     interface View extends BaseView<MyTeamContract.Presenter> {
 
-        void showPlayersOnTeamUi(ArrayList<Player> playerStats);
 
         void showToastMessageUi(String message);
 

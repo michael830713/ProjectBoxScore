@@ -18,7 +18,10 @@ public interface NewTeamContract {
 
         String getTeamName();
 
+        ArrayList<Player> getPlayers();
+
         void showNewPlayerUi();
+        void openMyTeamFragmentUi();
 
         void updateDataUi();
 
@@ -33,23 +36,15 @@ public interface NewTeamContract {
 
         ArrayList<Player> getTeamPlayer();
 
-        void openMainConsole();
-
         void updateData();
 
-        void setupGameData();
-
-        void showPlayersOnTeam(int teamPosition);
+        void openMyTeamFragment();
 
         void createNewTeam();
-
-        Game getmNewGame();
 
         void showNewPlayerDialog();
 
         ArrayList<Team> getTeams();
-
-        Team getmSelectedTeam();
 
         void showToast(String message);
     }

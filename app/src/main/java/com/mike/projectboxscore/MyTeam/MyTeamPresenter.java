@@ -22,10 +22,10 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
 
     }
 
-    public MyTeamPresenter(MyTeamContract.View view) {
+    public MyTeamPresenter(MyTeamContract.View view, ArrayList<Team> teams) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-//        mMyTeams = new ArrayList<>();
+        mTeams = teams;
 
     }
 
@@ -52,7 +52,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     @Override
     public ArrayList<Team> getTeams() {
 //        return mMyTeams;
-        return null;
+        return mTeams;
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
+import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
@@ -26,6 +27,8 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     LoginUIViewContract.Presenter mPresenter;
     private Button mLoginButton;
     private Button mMyTeamButton;
+
+    private MyTeamPresenter mMyTeamPresenter;
 
     public LoginUiFragment() {
         // Requires empty public constructor
@@ -87,35 +90,11 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
         MyTeamFragment fragment = MyTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
+        mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override
     public void initView() {
-
-    }
-
-    @Override
-    public void showFullscreenModeUi(int videoWidth, int videoHeight) {
-
-    }
-
-    @Override
-    public void showNormalModeUi(int videoWidth, int videoHeight) {
-
-    }
-
-    @Override
-    public void addSurfaceHolderCallback(SurfaceHolder.Callback callback) {
-
-    }
-
-    @Override
-    public void requestLandscapeUi() {
-
-    }
-
-    @Override
-    public void requestPortraitUi() {
 
     }
 
