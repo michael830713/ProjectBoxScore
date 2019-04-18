@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.NewTeam;
+package com.mike.projectboxscore.MyTeam;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,13 +21,15 @@ import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
 
 import java.util.ArrayList;
 
-public class NewTeamFragment extends Fragment implements NewTeamContract.View {
+import me.relex.circleindicator.CircleIndicator;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
-    private static final String TAG = "NewTeamFragment";
+public class MyTeamFragment extends Fragment implements MyTeamContract.View {
+
+    private static final String TAG = "MyTeamFragment";
 
     private static final int TARGET_FRAGMENT_REQUEST_CODE = 1;
     private static final String NEW_PLAYER_NAME = "playerMessage";
@@ -35,29 +37,29 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     private static final String NEW_PLAYER_ONCOURT_POSITION = "playerOnCourtPosition";
     private static final String NEW_PLAYER_BACK_NUMBER = "playerBackNumber";
 
-    NewTeamContract.Presenter mPresenter;
-    private RecyclerView mPlayerRecyclerView;
+    MyTeamContract.Presenter mPresenter;
+    private RecyclerView mTeamRecyclerView;
     private EditText mTeamName;
     private ImageView mTeamLogo;
     private ImageView mButtonAddPlayer;
     private ImageView mButtonFinishCreateTeam;
 
-    private NewPlayerAdapter mPlayerAdapter;
+    private MyTeamAdapter mPlayerAdapter;
 
     @Override
-    public void setPresenter(NewTeamContract.Presenter surfaceViewPresenter) {
+    public void setPresenter(MyTeamContract.Presenter surfaceViewPresenter) {
 
     }
 
-    public static NewTeamFragment newInstance() {
-        return new NewTeamFragment();
+    public static MyTeamFragment newInstance() {
+        return new MyTeamFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new NewTeamPresenter(this);
-        mPlayerAdapter = new NewPlayerAdapter(mPresenter);
+        mPresenter = new MyTeamPresenter(this);
+        mPlayerAdapter = new MyTeamAdapter(mPresenter);
 
     }
 
@@ -65,17 +67,26 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_new_team, container, false);
+        View root = inflater.inflate(R.layout.fragment_myteam, container, false);
 
-        mPlayerRecyclerView = root.findViewById(R.id.recyclerViewNewPlayerList);
-        LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
-        mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
-        mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+        mTeamRecyclerView = root.findViewById(R.id.recyclerViewTeam);
+        LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        mTeamRecyclerView.setLayoutManager(teamLayoutManager);
+        mTeamRecyclerView.setAdapter(mPlayerAdapter);
 
-        mTeamName = root.findViewById(R.id.editTextNewTeamName);
-        mTeamLogo = root.findViewById(R.id.imageViewLogo);
-        mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
-        mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
+
+
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(mTeamRecyclerView);
+
+
+
+        ScrollingPagerIndicator recyclerIndicator = root.findViewById(R.id.indicator);
+        recyclerIndicator.attachToRecyclerView(mTeamRecyclerView);
+//        mTeamName = root.findViewById(R.id.editTextNewTeamName);
+//        mTeamLogo = root.findViewById(R.id.imageViewLogo);
+//        mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
+//        mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
 
         return root;
     }
@@ -83,8 +94,8 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
-        mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
+//        mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
+//        mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
 
     }
 

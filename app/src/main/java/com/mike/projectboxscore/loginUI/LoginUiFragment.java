@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
@@ -73,9 +74,17 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
-    public void demoMyTeamViewUi() {
+    public void demoNewTeamUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         NewTeamFragment fragment = NewTeamFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void demoMyTeamViewUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MyTeamFragment fragment = MyTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
     }

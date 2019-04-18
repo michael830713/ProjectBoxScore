@@ -26,7 +26,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     @NonNull
     @Override
     public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new TeamViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.viewholder_team, viewGroup, false));
+        return new TeamViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.viewholder_team_list, viewGroup, false));
     }
 
     @Override

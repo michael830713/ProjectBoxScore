@@ -11,37 +11,47 @@
     <style name="WhiteText">
         <item name="android:textColor">#ffffff</item>
     </style>
+
     <style name="iconSize">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
     </style>
+
+    <style name="iconPrimaryTint">
+        <item name="android:tint">#fff9bf</item>
+    </style>
+
     <style name="iconInner" parent="iconSize">
 
         <item name="android:background">@drawable/button_border_new</item>
         <item name="android:padding">11dp</item>
         <item name="android:tint">#fff9bf</item>
     </style>
+
     <style name="iconInnerGreen" parent="iconSize">
 
-    <item name="android:background">@drawable/button_border_green</item>
-    <item name="android:padding">11dp</item>
-    <item name="android:tint">#fff9bf</item>
-</style>
-    <style name="iconInnerGreenWithoutTint" >
+        <item name="android:background">@drawable/button_border_green</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:tint">#fff9bf</item>
+    </style>
+
+    <style name="iconInnerGreenWithoutTint">
 
         <item name="android:background">@drawable/button_border_green</item>
         <item name="android:padding">11dp</item>
     </style>
 
-    <style name="boxScoreMargin" >
+    <style name="boxScoreMargin">
         <item name="android:layout_width">30dp</item>
         <item name="android:textColor">#ffffff</item>
-       <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginStart">2dp</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="greyBackground">
         <item name="android:background">#3f3d3d</item>
     </style>
+
     <style name="boxScoreMarginforMAWithGreyBack" parent="greyBackground">
         <item name="android:layout_width">24dp</item>
         <item name="android:textColor">#ffffff</item>
@@ -49,7 +59,8 @@
 
         <item name="android:layout_marginStart">2dp</item>
     </style>
-    <style name="boxScoreMarginforMA" >
+
+    <style name="boxScoreMarginforMA">
         <item name="android:layout_width">24dp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>

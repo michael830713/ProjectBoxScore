@@ -23,7 +23,7 @@ import com.mike.projectboxscore.base.BaseView;
 
 /**
  * Created by Wayne Chen on 2018/4/16.
- *
+ * <p>
  * This specifies the contract between the view and the presenter.
  */
 public interface LoginUIViewContract {
@@ -42,8 +42,11 @@ public interface LoginUIViewContract {
 
         void requestPortraitUi();
 
-        void  demoNewGameViewUi();
-        void  demoMyTeamViewUi();
+        void demoNewGameViewUi();
+
+        void demoMyTeamViewUi();
+
+        void demoNewTeamUi();
 
     }
 
@@ -58,6 +61,8 @@ public interface LoginUIViewContract {
         void demoNewGameView();
 
         void demoMyTeamView();
+
+        void demoNewTeam();
 
         void doFullscreenMode(int screenWidth, int screenHeight);
 

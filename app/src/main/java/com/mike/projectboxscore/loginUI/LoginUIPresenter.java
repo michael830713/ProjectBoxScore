@@ -28,6 +28,11 @@ public class LoginUIPresenter implements LoginUIViewContract.Presenter {
     }
 
     @Override
+    public void demoNewTeam() {
+        mView.demoNewTeamUi();
+    }
+
+    @Override
     public void result(int requestCode, int resultCode) {
 
     }
