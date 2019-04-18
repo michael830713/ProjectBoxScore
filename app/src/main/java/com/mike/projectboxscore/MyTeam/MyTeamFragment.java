@@ -2,10 +2,12 @@ package com.mike.projectboxscore.MyTeam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
@@ -24,6 +27,7 @@ import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
 import me.relex.circleindicator.CircleIndicator;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
@@ -74,7 +78,9 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         mTeamRecyclerView.setLayoutManager(teamLayoutManager);
         mTeamRecyclerView.setAdapter(mPlayerAdapter);
 
+        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider_vertical);
 
+        mTeamRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(mTeamRecyclerView);
@@ -188,7 +194,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public void onPause() {
 
-        mButtonAddPlayer.setOnClickListener(null);
+//        mButtonAddPlayer.setOnClickListener(null);
         Log.d(TAG, "onPause: ");
         super.onPause();
     }

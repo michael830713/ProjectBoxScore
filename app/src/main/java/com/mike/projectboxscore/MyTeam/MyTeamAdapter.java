@@ -15,6 +15,8 @@ import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
+
 public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerViewHolder> {
 
     private MyTeamContract.Presenter mPresenter;
@@ -47,10 +49,13 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
+        SegmentedGroup segmented2;
+
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            segmented2=(SegmentedGroup) itemView.findViewById(R.id.segmented2);
+            segmented2.setTintColor(Color.parseColor("#F39A2C"));
         }
     }
 

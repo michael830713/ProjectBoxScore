@@ -41,7 +41,7 @@ dependencies {
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     implementation 'io.github.controlwear:virtualjoystick:1.10.1'
-
+implementation 'info.hoang8f:android-segmented:1.0.6'
 }
 apply plugin: 'com.google.gms.google-services'
 
