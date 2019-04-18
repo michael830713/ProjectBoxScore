@@ -13,10 +13,8 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     private static final String TAG = "MyTeamPresenter";
 
     MyTeamContract.View mView;
-    //    private ArrayList<Team> mMyTeams;
-    private Team mSelectedTeam;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
-    Player mNewPlayer;
+    ArrayList<Team> mTeams;
     private Game mNewGame;
 
     @Override
@@ -32,25 +30,8 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     }
 
     @Override
-    public void createNewTeam() {
-        String teamName = mView.getTeamName();
-        if (teamName.isEmpty()) {
-            showToast("Please enter team name!");
-        } else {
-            Team team = new Team(teamName);
-        }
-
-    }
-
-    @Override
-    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber) {
-        Player player = new Player(name, email, backNumber, onCourtPosition);
-        mNewPlayer = player;
-    }
-
-    @Override
-    public Player getNewPlayer() {
-        return mNewPlayer;
+    public void openNewTeamFragment() {
+        mView.openNewTeamFragmentUi();
     }
 
     @Override
@@ -59,33 +40,8 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     }
 
     @Override
-    public void openMainConsole() {
-//        mView.openMainConsoleUi();
-    }
-
-    @Override
-    public void setupGameData() {
-//        mView.getGameDataAndSetNewGame();
-    }
-
-    public Game getmNewGame() {
-        return mNewGame;
-    }
-
-    @Override
-    public void showPlayersOnTeam(int teamPosition) {
-//        mSelectedTeam = mMyTeams.get(teamPosition);
-//        mView.showPlayersOnTeamUi(mMyTeams.get(teamPosition).getmPlayers());
-    }
-
-    @Override
-    public void showNewPlayerDialog() {
-        mView.showNewPlayerUi();
-    }
-
-    @Override
     public void setupNewTeam(Team team) {
-//        mMyTeams.add(team);
+
     }
 
     @Override
@@ -97,10 +53,6 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     public ArrayList<Team> getTeams() {
 //        return mMyTeams;
         return null;
-    }
-
-    public Team getmSelectedTeam() {
-        return mSelectedTeam;
     }
 
     @Override

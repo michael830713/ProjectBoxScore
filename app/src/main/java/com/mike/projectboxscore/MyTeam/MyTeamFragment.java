@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -23,6 +24,7 @@ import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
+import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -43,10 +45,8 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
     MyTeamContract.Presenter mPresenter;
     private RecyclerView mTeamRecyclerView;
-    private EditText mTeamName;
     private ImageView mTeamLogo;
-    private ImageView mButtonAddPlayer;
-    private ImageView mButtonFinishCreateTeam;
+    private ImageView mAddTeamButton;
 
     private MyTeamAdapter mPlayerAdapter;
 
@@ -63,7 +63,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new MyTeamPresenter(this);
-        mPlayerAdapter = new MyTeamAdapter(mPresenter);
+        mPlayerAdapter = new MyTeamAdapter(mPresenter, getActivity());
 
     }
 
@@ -73,8 +73,10 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
         View root = inflater.inflate(R.layout.fragment_myteam, container, false);
 
+        mAddTeamButton = root.findViewById(R.id.imageViewAddTeam);
+
         mTeamRecyclerView = root.findViewById(R.id.recyclerViewTeam);
-        LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mTeamRecyclerView.setLayoutManager(teamLayoutManager);
         mTeamRecyclerView.setAdapter(mPlayerAdapter);
 
@@ -85,14 +87,8 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(mTeamRecyclerView);
 
-
-
         ScrollingPagerIndicator recyclerIndicator = root.findViewById(R.id.indicator);
         recyclerIndicator.attachToRecyclerView(mTeamRecyclerView);
-//        mTeamName = root.findViewById(R.id.editTextNewTeamName);
-//        mTeamLogo = root.findViewById(R.id.imageViewLogo);
-//        mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
-//        mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
 
         return root;
     }
@@ -100,84 +96,36 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
-//        mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
+        mAddTeamButton.setOnClickListener(newTeamOnClickListener);
 
     }
 
     private View.OnClickListener newTeamOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.imageViewAddButton:
-                    mPresenter.showNewPlayerDialog();
-                    break;
-
-                case R.id.imageViewNext:
-                    mPresenter.createNewTeam();
-                    break;
-
-            }
+            mPresenter.openNewTeamFragment();
         }
     };
 
     @Override
+    public void openNewTeamFragmentUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        NewTeamFragment fragment = NewTeamFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void showNewPlayerUi() {
-        NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
-//        mPresenter.setNewPlayer();
-        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
-        newPlayerDialog.setPresenter(newPlayerDialogPresenter);
-        newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
-        newPlayerDialog.show(getFragmentManager(), "createPlayer");
 
-//        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
-//            @Override
-//            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-//                super.onFragmentViewDestroyed(fm, f);
-//                //do sth
-//                if (mPresenter.getNewPlayer() != null) {
-//                    mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
-//                    mPresenter.updateData();
-//                }
-//                fm.unregisterFragmentLifecycleCallbacks(this);
-//            }
-//        }, false);
-
-//        fm.executePendingTransactions();
-//
-//        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
-//
-//        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
-            String name = data.getStringExtra(NEW_PLAYER_NAME);
-            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
-            String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
-            String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
-
-            Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
-            if (name == null) {
-                Log.d(TAG, "it is null: ");
-            } else {
-                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber));
-                mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
-                mPresenter.updateData();
-            }
-        }
     }
 
     public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {
         Intent intent = new Intent();
-        intent.putExtra(NEW_PLAYER_NAME, name);
-        intent.putExtra(NEW_PLAYER_EMAIL, email);
-        intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
-        intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
         return intent;
     }
 
@@ -188,13 +136,12 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
     @Override
     public String getTeamName() {
-        return mTeamName.getText().toString();
+        return null;
     }
 
     @Override
     public void onPause() {
 
-//        mButtonAddPlayer.setOnClickListener(null);
         Log.d(TAG, "onPause: ");
         super.onPause();
     }

@@ -20,6 +20,8 @@ public interface MyTeamContract {
 
         void showNewPlayerUi();
 
+        void openNewTeamFragmentUi();
+
         void updateDataUi();
 
     }
@@ -27,29 +29,14 @@ public interface MyTeamContract {
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
 
-        void setNewPlayer(String name, String email, String onCourtPosition, int backNumber);
-
-        Player getNewPlayer();
-
         ArrayList<Player> getTeamPlayer();
 
-        void openMainConsole();
+
+        void openNewTeamFragment();
 
         void updateData();
 
-        void setupGameData();
-
-        void showPlayersOnTeam(int teamPosition);
-
-        void createNewTeam();
-
-        Game getmNewGame();
-
-        void showNewPlayerDialog();
-
         ArrayList<Team> getTeams();
-
-        Team getmSelectedTeam();
 
         void showToast(String message);
     }
