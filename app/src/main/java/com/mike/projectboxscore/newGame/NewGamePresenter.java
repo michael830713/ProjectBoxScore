@@ -23,10 +23,10 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     }
 
-    public NewGamePresenter(NewGameContract.View view) {
+    public NewGamePresenter(NewGameContract.View view,ArrayList<Team> myTeams) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-        mMyTeams = new ArrayList<>();
+        mMyTeams = myTeams;
 
     }
 

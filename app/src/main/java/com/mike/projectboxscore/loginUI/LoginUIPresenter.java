@@ -2,6 +2,7 @@ package com.mike.projectboxscore.loginUI;
 
 import android.support.v4.app.FragmentTransaction;
 
+import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
@@ -28,12 +29,26 @@ public class LoginUIPresenter implements LoginUIViewContract.Presenter {
 
     @Override
     public void demoMyTeamView() {
-        if (mTeams.size()==0){
-            Team team = new Team("Spurs");
-            addTeam(team);
-        }
 
         mView.demoMyTeamViewUi();
+    }
+
+    @Override
+    public void setSampleTeam() {
+        Team allStar = new Team("All-star");
+
+        allStar.addmPlayers(new Player("Jordan", 23, "G"));
+        allStar.addmPlayers(new Player("Pippen", 4, "F"));
+        allStar.addmPlayers(new Player("Kobe", 24, "G"));
+        allStar.addmPlayers(new Player("Lebron", 6, "F"));
+        allStar.addmPlayers(new Player("Harden", 13, "G"));
+        allStar.addmPlayers(new Player("Curry", 30, "G"));
+        allStar.addmPlayers(new Player("O'neal", 34, "C"));
+        allStar.addmPlayers(new Player("Duncan", 21, "C"));
+        allStar.addmPlayers(new Player("Parker", 9, "G"));
+        allStar.addmPlayers(new Player("McGrady", 1, "G"));
+        allStar.addmPlayers(new Player("Allen", 20, "G"));
+        addTeam(allStar);
     }
 
     @Override

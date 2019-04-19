@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         try {
             LoginUiFragment fragment = LoginUiFragment.newInstance();
+            mSurfaceViewPresenter = new LoginUIPresenter(fragment);
             fragmentTransaction.replace(R.id.container, fragment, "Surface");
             fragmentTransaction.commit();
-            mSurfaceViewPresenter = new LoginUIPresenter(fragment);
+
         } catch (Throwable t) {
             Log.d(TAG, "demoSurfaceView: " + t);
         }

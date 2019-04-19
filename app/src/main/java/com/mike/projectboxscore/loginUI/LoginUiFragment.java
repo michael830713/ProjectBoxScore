@@ -17,6 +17,7 @@ import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
+import com.mike.projectboxscore.newGame.NewGamePresenter;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
@@ -29,6 +30,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     private Button mMyTeamButton;
 
     private MyTeamPresenter mMyTeamPresenter;
+    private NewGamePresenter mNewGamePresenter;
 
     public LoginUiFragment() {
         // Requires empty public constructor
@@ -39,8 +41,14 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
+    public void setPresenter(LoginUIViewContract.Presenter loginUiPresenter) {
+        mPresenter = checkNotNull(loginUiPresenter);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.setSampleTeam();
         Log.d(TAG, "onCreate: ");
     }
 
@@ -74,14 +82,7 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
         NewGameFragment fragment = NewGameFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void demoNewTeamUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        NewTeamFragment fragment = NewTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
+        mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
     }
 
     @Override
@@ -94,12 +95,15 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     }
 
     @Override
-    public void initView() {
-
+    public void demoNewTeamUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        NewTeamFragment fragment = NewTeamFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
-    public void setPresenter(LoginUIViewContract.Presenter loginUiPresenter) {
-        mPresenter = checkNotNull(loginUiPresenter);
+    public void initView() {
+
     }
 }

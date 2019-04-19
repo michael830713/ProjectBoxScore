@@ -58,6 +58,7 @@ public interface LoginUIViewContract {
         void addTeam(Team team);
 
         void demoMyTeamView();
+        void setSampleTeam();
 
     }
 }

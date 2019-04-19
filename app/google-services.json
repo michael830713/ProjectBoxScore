@@ -21,6 +21,10 @@
             "package_name": "com.mike.projectboxscore",
             "certificate_hash": "6f506697d205d47ed6d0986e8c2b7b28ba8b90d9"
           }
+        },
+        {
+          "client_id": "284614397606-8l0qm607bsh3ebge8dkbcku1uf4isog5.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
