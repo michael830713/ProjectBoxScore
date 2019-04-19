@@ -48,6 +48,11 @@ public class MainPagePresenter implements MainPageContract.Presenter {
     }
 
     @Override
+    public void demoLoginView() {
+        mView.demoLoginViewUi();
+    }
+
+    @Override
     public ArrayList<Team> getTeams() {
         return mTeams;
     }

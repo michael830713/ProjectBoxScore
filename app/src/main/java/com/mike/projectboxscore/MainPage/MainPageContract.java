@@ -37,8 +37,9 @@ public interface MainPageContract {
 
         void demoMyTeamViewUi();
 
-        void demoNewTeamUi();
+        void demoMainPageUi();
 
+        void demoLoginViewUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -58,5 +59,6 @@ public interface MainPageContract {
         void demoMyTeamView();
         void setSampleTeam();
 
+        void demoLoginView();
     }
 }

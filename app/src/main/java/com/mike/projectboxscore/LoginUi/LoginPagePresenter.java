@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginPagePresenter implements MainPageContract.Presenter {
+public class LoginPagePresenter implements LoginPageContract.Presenter {
 
-    MainPageContract.View mView;
+    LoginPageContract.View mView;
     ArrayList<Team> mTeams = new ArrayList<>();
 
-    public LoginPagePresenter(MainPageContract.View view) {
+    public LoginPagePresenter(LoginPageContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
 

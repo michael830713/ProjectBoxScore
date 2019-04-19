@@ -27,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mike.projectboxscore.MainPage.MainPageContract;
+import com.mike.projectboxscore.MainPage.MainPageFragment;
+import com.mike.projectboxscore.MainPage.MainPagePresenter;
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
@@ -37,7 +39,7 @@ import com.mike.projectboxscore.newGame.NewGamePresenter;
 import static android.app.Activity.RESULT_CANCELED;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginPageFragment extends Fragment implements MainPageContract.View, View.OnClickListener {
+public class LoginPageFragment extends Fragment implements LoginPageContract.View, View.OnClickListener {
 
     private static final String TAG = "LoginPageFragment";
     private static final int RC_SIGN_IN = 500;
@@ -53,6 +55,7 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
 
     private MyTeamPresenter mMyTeamPresenter;
     private NewGamePresenter mNewGamePresenter;
+    private MainPagePresenter mMainPagePresenter;
     private View mView;
 
     public LoginPageFragment() {
@@ -64,15 +67,9 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
     }
 
     @Override
-    public void setPresenter(MainPageContract.Presenter loginUiPresenter) {
-        mPresenter = checkNotNull(loginUiPresenter);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        mPresenter.setSampleTeam();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_google_web_client_id))
                 .requestEmail()
@@ -85,7 +82,10 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        if (currentUser != null) {
+            updateUI(currentUser);
+        }
+
     }
 
     @Override
@@ -114,22 +114,17 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(mView, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Snackbar.make(mView, "Login Failed.", Snackbar.LENGTH_SHORT).show();
+//                        updateUI(null);
                     }
                 });
     }
@@ -152,13 +147,25 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
 
     }
 
+    public void demoMainPageUi() {
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MainPageFragment fragment = MainPageFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "welcome").remove(this);
+        fragmentTransaction.commit();
+        mMainPagePresenter = new MainPagePresenter(fragment);
+
+    }
+
     @Override
     public void onClick(View v) {
         signIn();
     }
 
     private void updateUI(FirebaseUser account) {
-
+        String name = account.getDisplayName();
+        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_LONG).show();
+        demoMainPageUi();
     }
 
     private void signIn() {
@@ -190,14 +197,16 @@ public class LoginPageFragment extends Fragment implements MainPageContract.View
 
     @Override
     public void demoNewTeamUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        NewTeamFragment fragment = NewTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
+
     }
 
     @Override
     public void initView() {
+
+    }
+
+    @Override
+    public void setPresenter(LoginPageContract.Presenter surfaceViewPresenter) {
 
     }
 }

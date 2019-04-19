@@ -56,6 +56,7 @@ public interface LoginPageContract {
         void addTeam(Team team);
 
         void demoMyTeamView();
+
         void setSampleTeam();
 
     }

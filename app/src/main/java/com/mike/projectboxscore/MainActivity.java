@@ -28,15 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void demoLoginView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        try {
+
             LoginPageFragment fragment = LoginPageFragment.newInstance();
             mLoginPresenter = new LoginPagePresenter(fragment);
             fragmentTransaction.replace(R.id.container, fragment, "Surface");
             fragmentTransaction.commit();
 
-        } catch (Throwable t) {
-            Log.d(TAG, "demoSurfaceView: " + t);
-        }
+
     }
 
     private void demoSurfaceView() {
