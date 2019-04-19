@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView3"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:src="@drawable/adjusted_background_logo" />-->
+    <ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="match_parent"
+        android:scaleType="fitStart"
+    android:layout_height="match_parent"
+    android:src="@drawable/adjusted_background_logo" />
 
 
     <android.support.v7.widget.RecyclerView

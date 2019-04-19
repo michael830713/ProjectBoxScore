@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.mike.projectboxscore.loginUI;
-
-import android.view.SurfaceHolder;
+package com.mike.projectboxscore.LoginUi;
 
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.base.BasePresenter;
@@ -29,7 +27,7 @@ import java.util.ArrayList;
  * <p>
  * This specifies the contract between the view and the presenter.
  */
-public interface LoginUIViewContract {
+public interface LoginPageContract {
 
     interface View extends BaseView<Presenter> {
 

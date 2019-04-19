@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.loginUI;
+package com.mike.projectboxscore.MainPage;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,11 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
@@ -21,27 +21,27 @@ import com.mike.projectboxscore.newGame.NewGamePresenter;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginUiFragment extends Fragment implements LoginUIViewContract.View {
+public class MainPageFragment extends Fragment implements MainPageContract.View {
 
-    private static final String TAG = "LoginUiFragment";
+    private static final String TAG = "MainPageFragment";
 
-    LoginUIViewContract.Presenter mPresenter;
+    MainPageContract.Presenter mPresenter;
     private Button mLoginButton;
     private Button mMyTeamButton;
 
     private MyTeamPresenter mMyTeamPresenter;
     private NewGamePresenter mNewGamePresenter;
 
-    public LoginUiFragment() {
+    public MainPageFragment() {
         // Requires empty public constructor
     }
 
-    public static LoginUiFragment newInstance() {
-        return new LoginUiFragment();
+    public static MainPageFragment newInstance() {
+        return new MainPageFragment();
     }
 
     @Override
-    public void setPresenter(LoginUIViewContract.Presenter loginUiPresenter) {
+    public void setPresenter(MainPageContract.Presenter loginUiPresenter) {
         mPresenter = checkNotNull(loginUiPresenter);
     }
 
@@ -55,9 +55,9 @@ public class LoginUiFragment extends Fragment implements LoginUIViewContract.Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mLoginButton = root.findViewById(R.id.button_google_login);
+        mLoginButton = root.findViewById(R.id.button_new_game);
         mMyTeamButton = root.findViewById(R.id.button_my_team);
 
         return root;

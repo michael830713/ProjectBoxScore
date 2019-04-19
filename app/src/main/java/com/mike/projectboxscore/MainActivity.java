@@ -6,27 +6,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.mike.projectboxscore.loginUI.LoginUiFragment;
-import com.mike.projectboxscore.loginUI.LoginUIPresenter;
+import com.mike.projectboxscore.LoginUi.LoginPageFragment;
+import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
+import com.mike.projectboxscore.MainPage.MainPageFragment;
+import com.mike.projectboxscore.MainPage.MainPagePresenter;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private LoginUIPresenter mSurfaceViewPresenter;
+    private LoginPagePresenter mLoginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        demoSurfaceView();
+//        demoSurfaceView();
+        demoLoginView();
+    }
+
+
+    private void demoLoginView() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        try {
+            LoginPageFragment fragment = LoginPageFragment.newInstance();
+            mLoginPresenter = new LoginPagePresenter(fragment);
+            fragmentTransaction.replace(R.id.container, fragment, "Surface");
+            fragmentTransaction.commit();
+
+        } catch (Throwable t) {
+            Log.d(TAG, "demoSurfaceView: " + t);
+        }
     }
 
     private void demoSurfaceView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         try {
-            LoginUiFragment fragment = LoginUiFragment.newInstance();
-            mSurfaceViewPresenter = new LoginUIPresenter(fragment);
+            MainPageFragment fragment = MainPageFragment.newInstance();
+//            mLoginPresenter = new MainPagePresenter(fragment);
             fragmentTransaction.replace(R.id.container, fragment, "Surface");
             fragmentTransaction.commit();
 

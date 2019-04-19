@@ -1,22 +1,19 @@
-package com.mike.projectboxscore.loginUI;
-
-import android.support.v4.app.FragmentTransaction;
+package com.mike.projectboxscore.LoginUi;
 
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
+import com.mike.projectboxscore.MainPage.MainPageContract;
 
 import java.util.ArrayList;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class LoginUIPresenter implements LoginUIViewContract.Presenter {
+public class LoginPagePresenter implements MainPageContract.Presenter {
 
-    LoginUIViewContract.View mView;
+    MainPageContract.View mView;
     ArrayList<Team> mTeams = new ArrayList<>();
 
-    public LoginUIPresenter(LoginUIViewContract.View view) {
+    public LoginPagePresenter(MainPageContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
 

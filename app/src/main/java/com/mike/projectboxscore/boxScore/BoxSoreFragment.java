@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.loginUI.LoginUIPresenter;
-import com.mike.projectboxscore.loginUI.LoginUiFragment;
+import com.mike.projectboxscore.MainPage.MainPagePresenter;
 import com.mike.projectboxscore.mainConsole.OnCourtPlayerAdapter;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
 
@@ -132,13 +132,13 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
 
     @Override
     public void openHomeUi() {
-        LoginUIPresenter mSurfaceViewPresenter;
+        MainPagePresenter mSurfaceViewPresenter;
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         try {
-            LoginUiFragment fragment = LoginUiFragment.newInstance();
+            MainPageFragment fragment = MainPageFragment.newInstance();
             fragmentTransaction.replace(R.id.container, fragment, "Surface");
             fragmentTransaction.commit();
-            mSurfaceViewPresenter = new LoginUIPresenter(fragment);
+            mSurfaceViewPresenter = new MainPagePresenter(fragment);
         } catch (Throwable t) {
             Log.d(TAG, "demoSurfaceView: " + t);
         }
