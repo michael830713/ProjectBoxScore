@@ -609,7 +609,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public boolean onBackPressed() {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastPress > 5000) {
+        if (currentTime - lastPress > 3000) {
             Toast.makeText(getActivity(), "Press back again to exit", Toast.LENGTH_SHORT).show();
             lastPress = currentTime;
             return true;

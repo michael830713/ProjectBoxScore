@@ -23,14 +23,11 @@
 
     <View
         android:id="@+id/functionKeyBackground"
-
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-
-
         android:layout_marginBottom="8dp"
         android:background="@drawable/log_border_grey"
         app:layout_constraintBottom_toTopOf="@+id/buttonFoul"
@@ -57,7 +54,7 @@
 
         app:layout_constraintEnd_toEndOf="@+id/buttonFreeThrow"
         app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound"
-        app:srcCompat="@drawable/icon_assist" />
+        app:srcCompat="@drawable/icon_assist_min2" />
 
     <ImageView
         android:id="@+id/buttonTurnOver"
@@ -65,7 +62,7 @@
 
         app:layout_constraintEnd_toEndOf="@+id/buttonAssist"
         app:layout_constraintTop_toTopOf="@+id/buttonBlock"
-        app:srcCompat="@drawable/icon_slipped" />
+        app:srcCompat="@drawable/icon_slipped_min2" />
 
 
     <ImageView
@@ -74,7 +71,7 @@
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="@+id/button2Pts"
         app:layout_constraintTop_toTopOf="@+id/buttonDefensiveRebound"
-        app:srcCompat="@drawable/icon_rebound3" />
+        app:srcCompat="@drawable/icon_rebound3_min2" />
 
     <TextView
         android:id="@+id/textVieOffensiveRebound"
@@ -95,7 +92,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound"
         app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound"
-        app:srcCompat="@drawable/icon_steal" />
+        app:srcCompat="@drawable/icon_steal_min2" />
 
 
     <ImageView
@@ -106,7 +103,7 @@
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="@+id/button3Pts"
         app:layout_constraintTop_toBottomOf="@+id/button3Pts"
-        app:srcCompat="@drawable/icon_rebound3" />
+        app:srcCompat="@drawable/icon_rebound3_min2" />
 
     <TextView
         android:id="@+id/textVieDefensiveRebound"
@@ -124,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -142,7 +139,7 @@
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_shoot" />
+        app:srcCompat="@drawable/icon_shoot_min2" />
 
 
     <View
@@ -229,7 +226,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
         app:layout_constraintTop_toBottomOf="@+id/buttonSub"
-        app:srcCompat="@drawable/undo_icon" />
+        app:srcCompat="@drawable/undo_icon_min2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -243,14 +240,14 @@
         style="@style/iconInner"
         app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
         app:layout_constraintTop_toTopOf="@+id/buttonBoxScore"
-        app:srcCompat="@drawable/icon_finish" />
+        app:srcCompat="@drawable/icon_finish_min2" />
 
     <ImageView
         android:id="@+id/buttonBoxScore"
         style="@style/iconInner"
         app:layout_constraintStart_toStartOf="@+id/buttonBlock"
         app:layout_constraintTop_toTopOf="@+id/imageViewReturnStep"
-        app:srcCompat="@drawable/icon_box_score" />
+        app:srcCompat="@drawable/icon_box_score_min2" />
 
 
     <ImageView
@@ -272,7 +269,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonBlock"
         app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
-        app:srcCompat="@drawable/foul_wistle" />
+        app:srcCompat="@drawable/foul_wistle_min2" />
 
     <ImageView
         android:id="@+id/buttonFreeThrow"
@@ -281,7 +278,7 @@
         android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/button2Pts"
-        app:srcCompat="@drawable/icon_shoot" />
+        app:srcCompat="@drawable/icon_shoot_min2" />
 
 
     <ImageView
@@ -293,7 +290,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button3Pts"
         app:layout_constraintStart_toEndOf="@+id/buttonFreeThrow"
         app:layout_constraintTop_toTopOf="@+id/button3Pts"
-        app:srcCompat="@drawable/icon_shoot" />
+        app:srcCompat="@drawable/icon_shoot_min2" />
 
     <ImageView
         android:id="@+id/buttonBlock"
@@ -302,7 +299,7 @@
 
         app:layout_constraintEnd_toEndOf="@+id/buttonOffensiveRebound"
         app:layout_constraintTop_toTopOf="@+id/buttonSteal"
-        app:srcCompat="@drawable/block" />
+        app:srcCompat="@drawable/block_min2" />
 
     <TextView
         android:id="@+id/textViewOnePoint"
