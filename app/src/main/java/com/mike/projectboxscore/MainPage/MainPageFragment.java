@@ -146,7 +146,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void demoMyTeamViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MyTeamFragment fragment = MyTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "myTeam").addToBackStack(null);
         fragmentTransaction.commit();
         mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }

@@ -146,10 +146,46 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void openMyTeamFragmentUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MyTeamFragment fragment = MyTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface");
-        fragmentTransaction.commit();
-        MyTeamPresenter myyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
+        MyTeamFragment fragment = (MyTeamFragment) getFragmentManager().findFragmentByTag("myTeam");
+        if (fragment != null) {
+            setFragmentToContainer(fragment, false);
+
+//            Log.d(TAG, "fragment is not null: ");
+//            fragmentTransaction.add(R.id.container,fragment);
+//            fragmentTransaction.show(fragment);
+//            fragmentTransaction.commit();
+//            MyTeamPresenter myyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
+        }
+
+    }
+
+    public void setFragmentToContainer(Fragment fragment, boolean adddToBackStack) {
+        final String tag = fragment.getClass().getName();
+
+        FragmentManager manager = getFragmentManager();
+
+        if (isFragmentInBackstack(manager, tag)) {
+            // Fragment exists, go back to that fragment
+            manager.popBackStackImmediate(tag, 0);
+
+        } else {
+            // Fragment doesn't exist
+
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            if (adddToBackStack) transaction.addToBackStack(tag);
+            transaction.commit();
+        }
+
+    }
+
+    public static boolean isFragmentInBackstack(final FragmentManager fragmentManager, final String fragmentTagName) {
+        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+            if (fragmentTagName.equals(fragmentManager.getBackStackEntryAt(entry).getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

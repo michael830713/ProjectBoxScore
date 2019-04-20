@@ -25,9 +25,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/playerRecyclerView"
-        android:layout_width="169dp"
+        android:layout_width="190dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:background="@drawable/log_border"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectPlayer"
@@ -42,30 +42,31 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="0dp"
-        android:text="Select Team"
+        android:text=" Select Team"
         android:textSize="20dp"
         app:layout_constraintEnd_toStartOf="@+id/textViewSelectPlayer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNewGame" />
-
-    <TextView
-        android:id="@+id/textViewNewGame"
-        style="@style/WhiteText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="New Game"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/textViewNewGame"-->
+        <!--style="@style/WhiteText"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="New Game"-->
+        <!--android:textSize="20sp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/teamRecyclerView"
-        android:layout_width="103dp"
+        android:layout_width="130dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:background="@drawable/log_border"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectTeam"
@@ -123,6 +124,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:ems="10"

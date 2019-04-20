@@ -130,4 +130,5 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         }
         return newPlayers;
     }
+
 }

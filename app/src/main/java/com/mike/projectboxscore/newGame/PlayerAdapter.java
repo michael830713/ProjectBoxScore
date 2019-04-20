@@ -40,7 +40,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         Player player = mPlayers.get(i);
         playerViewHolder.mPlayerName.setText(player.getName());
-        playerViewHolder.mBackNumber.setText("#" + player.getBackNumber());
+        playerViewHolder.mBackNumber.setText(""+ player.getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {

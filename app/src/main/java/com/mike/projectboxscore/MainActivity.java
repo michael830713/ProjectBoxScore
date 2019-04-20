@@ -1,6 +1,7 @@
 package com.mike.projectboxscore;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.mike.projectboxscore.LoginUi.LoginPageFragment;
 import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
 import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
+import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,15 +27,11 @@ public class MainActivity extends AppCompatActivity {
         demoLoginView();
     }
 
-
     private void demoLoginView() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            LoginPageFragment fragment = LoginPageFragment.newInstance();
-            mLoginPresenter = new LoginPagePresenter(fragment);
-            fragmentTransaction.replace(R.id.container, fragment, "Surface");
-            fragmentTransaction.commit();
-
+        LoginPageFragment fragment = LoginPageFragment.newInstance();
+        mLoginPresenter = new LoginPagePresenter(fragment);
+        setFragmentToContainer(fragment, false);
 
     }
 
@@ -53,8 +51,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+        fragment.getClass().getName();
+        Log.d(TAG, "fragment: " + fragment.getClass().getName());
+        if (fragment.getClass() == MyTeamFragment.class) {
+            MainPageFragment mainPageFragment = MainPageFragment.newInstance();
+            setFragmentToContainer(mainPageFragment, false);
+            MainPagePresenter mainPagePresenter = new MainPagePresenter(mainPageFragment);
+        } else if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
             super.onBackPressed();
         }
     }
+
+    public void setFragmentToContainer(Fragment fragment, boolean adddToBackStack) {
+        final String tag = fragment.getClass().getName();
+
+        FragmentManager manager = getSupportFragmentManager();
+
+        if (isFragmentInBackstack(manager, tag)) {
+            // Fragment exists, go back to that fragment
+            manager.popBackStackImmediate(tag, 0);
+
+        } else {
+            // Fragment doesn't exist
+
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            if (adddToBackStack) transaction.addToBackStack(tag);
+            transaction.commit();
+        }
+
+    }
+
+    public static boolean isFragmentInBackstack(final FragmentManager fragmentManager, final String fragmentTagName) {
+        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+            if (fragmentTagName.equals(fragmentManager.getBackStackEntryAt(entry).getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
