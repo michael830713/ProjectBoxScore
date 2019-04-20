@@ -206,24 +206,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private View.OnClickListener awesomeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int rowIndex = mOnCourtPlayerAdapter.getRow_index();
-            PlayerStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
+//            int rowIndex = mOnCourtPlayerAdapter.getRow_index();
+//            PlayerStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
+            PlayerStats selectedPlayer = mOnCourtPlayerAdapter.getCurrentPlayer();
             mPresenter.setSelectedPlayer(selectedPlayer);
 
             switch (v.getId()) {
                 case R.id.button2Pts:
-                    mPresenter.showMadeOrMissDialog(rowIndex, 2);
+                    mPresenter.showMadeOrMissDialog(2);
                     break;
 
                 case R.id.button3Pts:
-                    mPresenter.showMadeOrMissDialog(rowIndex, 3);
+                    mPresenter.showMadeOrMissDialog(3);
                     Log.d(TAG, "button3Pts: FG" + selectedPlayer.getThreePointShotMade()
                             + "-"
                             + selectedPlayer.getThreePointShotTaken());
                     break;
 
                 case R.id.buttonFreeThrow:
-                    mPresenter.showMadeOrMissDialog(rowIndex, 1);
+                    mPresenter.showMadeOrMissDialog(1);
                     break;
 
                 case R.id.buttonOffensiveRebound:

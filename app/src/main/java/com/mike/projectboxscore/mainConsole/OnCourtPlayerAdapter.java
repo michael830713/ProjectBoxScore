@@ -96,9 +96,13 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         return row_index;
     }
 
+    public PlayerStats getCurrentPlayer() {
+        return mPlayers.get(row_index);
+    }
+
     public void setPlayers(ArrayList<PlayerStats> players) {
-        mPlayers=players;
-//        mPlayers = sortPlayers(players);
+//        mPlayers = players;
+        mPlayers = sortPlayers(players);
         notifyDataSetChanged();
     }
 

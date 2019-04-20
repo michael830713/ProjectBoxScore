@@ -96,7 +96,7 @@ public interface MainConsoleViewContract {
 
         void updateScoreboardReturn(int addPoint);
 
-        void showMadeOrMissDialog(int rowIndex, int addPoints);
+        void showMadeOrMissDialog( int addPoints);
 
         void showSubstituteDialog();
 

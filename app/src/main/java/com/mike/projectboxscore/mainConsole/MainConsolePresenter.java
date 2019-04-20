@@ -146,7 +146,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void showMadeOrMissDialog(int rowIndex, int addPoints) {
+    public void showMadeOrMissDialog( int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
 
     }
