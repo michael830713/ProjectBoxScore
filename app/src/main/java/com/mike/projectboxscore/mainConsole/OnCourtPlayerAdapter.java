@@ -97,41 +97,32 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
     }
 
     public void setPlayers(ArrayList<PlayerStats> players) {
-        mPlayers = sortPlayers(players);
+        mPlayers=players;
+//        mPlayers = sortPlayers(players);
         notifyDataSetChanged();
     }
 
     private ArrayList<PlayerStats> sortPlayers(ArrayList<PlayerStats> players) {
         ArrayList<PlayerStats> newPlayers = new ArrayList<>();
         for (PlayerStats playerStats : players) {
-
             if (playerStats.getOnCourtPosition().equals("G")) {
                 newPlayers.add(playerStats);
             }
-
         }
-
         for (PlayerStats playerStats : players) {
-
             if (playerStats.getOnCourtPosition().equals("F")) {
                 newPlayers.add(playerStats);
             }
-
         }
-
         for (PlayerStats playerStats : players) {
-
             if (playerStats.getOnCourtPosition().equals("C")) {
                 newPlayers.add(playerStats);
             }
-
         }
         for (PlayerStats playerStats : players) {
-
             if (playerStats.getOnCourtPosition().equals("O")) {
                 newPlayers.add(playerStats);
             }
-
         }
         return newPlayers;
     }
