@@ -581,7 +581,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;
         boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), false);
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("BoxScore");
         fragmentTransaction.commit();
     }
 
