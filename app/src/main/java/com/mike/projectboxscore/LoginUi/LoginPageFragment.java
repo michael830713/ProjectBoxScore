@@ -147,16 +147,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
     }
 
-    public void demoMainPageUi() {
-
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MainPageFragment fragment = MainPageFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "welcome").remove(this);
-        fragmentTransaction.commit();
-        mMainPagePresenter = new MainPagePresenter(fragment);
-
-    }
-
     @Override
     public void onClick(View v) {
         signIn();
@@ -166,6 +156,16 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         String name = account.getDisplayName();
         Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_LONG).show();
         demoMainPageUi();
+    }
+
+    public void demoMainPageUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MainPageFragment fragment = MainPageFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
+//        fragmentTransaction.replace(R.id.container, fragment, "MainPage").addToBackStack("MainPage");
+        fragmentTransaction.commit();
+        mMainPagePresenter = new MainPagePresenter(fragment);
+
     }
 
     private void signIn() {

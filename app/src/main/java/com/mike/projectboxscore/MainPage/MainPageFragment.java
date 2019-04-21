@@ -137,7 +137,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         NewGameFragment fragment = NewGameFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("NewGame");
         fragmentTransaction.commit();
         mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
     }
@@ -146,7 +146,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void demoMyTeamViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MyTeamFragment fragment = MyTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "MyTeam").addToBackStack("MyTeam");
         fragmentTransaction.commit();
         mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }

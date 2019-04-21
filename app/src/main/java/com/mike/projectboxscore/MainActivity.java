@@ -25,15 +25,12 @@ public class MainActivity extends AppCompatActivity {
         demoLoginView();
     }
 
-
     private void demoLoginView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-            LoginPageFragment fragment = LoginPageFragment.newInstance();
-            mLoginPresenter = new LoginPagePresenter(fragment);
-            fragmentTransaction.replace(R.id.container, fragment, "Surface");
-            fragmentTransaction.commit();
-
+        LoginPageFragment fragment = LoginPageFragment.newInstance();
+        mLoginPresenter = new LoginPagePresenter(fragment);
+        fragmentTransaction.replace(R.id.container, fragment, "LoginFragment");
+        fragmentTransaction.commit();
 
     }
 
@@ -54,7 +51,15 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                super.onBackPressed();
+            } else {
+                Log.i(TAG, "backstack entry before pop: " + getSupportFragmentManager().getBackStackEntryCount());
+                getSupportFragmentManager().popBackStackImmediate();
+                Log.i(TAG, "backstack entry: " + getSupportFragmentManager().getBackStackEntryCount());
+            }
+
+//            super.onBackPressed();
         }
     }
 }
