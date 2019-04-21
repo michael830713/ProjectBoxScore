@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void demoLoginView() {
 
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         LoginPageFragment fragment = LoginPageFragment.newInstance();
         mLoginPresenter = new LoginPagePresenter(fragment);
-        setFragmentToContainer(fragment, false);
+        fragmentTransaction.replace(R.id.container, fragment, "LoginFragment");
+        fragmentTransaction.commit();
 
     }
 
@@ -49,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        fragment.getClass().getName();
-        Log.d(TAG, "fragment: " + fragment.getClass().getName());
-        if (fragment.getClass() == MyTeamFragment.class) {
-            clearStack();
-            MainPageFragment mainPageFragment = MainPageFragment.newInstance();
-            setFragmentToContainer(mainPageFragment, false);
-            MainPagePresenter mainPagePresenter = new MainPagePresenter(mainPageFragment);
-        } else if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
-            super.onBackPressed();
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                super.onBackPressed();
+            } else {
+                Log.i(TAG, "backstack entry before pop: " + getSupportFragmentManager().getBackStackEntryCount());
+                getSupportFragmentManager().popBackStackImmediate();
+                Log.i(TAG, "backstack entry: " + getSupportFragmentManager().getBackStackEntryCount());
+            }
+
+//            super.onBackPressed();
         }
     }
 

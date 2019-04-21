@@ -108,7 +108,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public void openNewTeamFragmentUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         NewTeamFragment fragment = NewTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("NewTeam");
         fragmentTransaction.commit();
         mNewTeamPresenter = new NewTeamPresenter(fragment,mPresenter.getTeams());
     }
