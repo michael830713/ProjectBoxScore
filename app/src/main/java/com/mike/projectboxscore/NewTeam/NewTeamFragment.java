@@ -148,8 +148,9 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MyTeamFragment fragment = (MyTeamFragment) getFragmentManager().findFragmentByTag("myTeam");
         if (fragment != null) {
+            MyTeamPresenter myyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
             setFragmentToContainer(fragment, false);
-
+            Log.d(TAG, "mPresenter.getTeams: "+mPresenter.getTeams());
 //            Log.d(TAG, "fragment is not null: ");
 //            fragmentTransaction.add(R.id.container,fragment);
 //            fragmentTransaction.show(fragment);

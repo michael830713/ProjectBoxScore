@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        demoSurfaceView();
         demoLoginView();
     }
 
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         try {
             MainPageFragment fragment = MainPageFragment.newInstance();
-//            mLoginPresenter = new MainPagePresenter(fragment);
             fragmentTransaction.replace(R.id.container, fragment, "Surface");
             fragmentTransaction.commit();
 
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.getClass().getName();
         Log.d(TAG, "fragment: " + fragment.getClass().getName());
         if (fragment.getClass() == MyTeamFragment.class) {
+            clearStack();
             MainPageFragment mainPageFragment = MainPageFragment.newInstance();
             setFragmentToContainer(mainPageFragment, false);
             MainPagePresenter mainPagePresenter = new MainPagePresenter(mainPageFragment);
@@ -64,22 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setFragmentToContainer(Fragment fragment, boolean adddToBackStack) {
         final String tag = fragment.getClass().getName();
-
         FragmentManager manager = getSupportFragmentManager();
-
+        manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (isFragmentInBackstack(manager, tag)) {
-            // Fragment exists, go back to that fragment
             manager.popBackStackImmediate(tag, 0);
-
         } else {
-            // Fragment doesn't exist
-
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.container, fragment);
             if (adddToBackStack) transaction.addToBackStack(tag);
             transaction.commit();
         }
-
     }
 
     public static boolean isFragmentInBackstack(final FragmentManager fragmentManager, final String fragmentTagName) {
@@ -91,4 +84,23 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    public void clearStack() {
+        //Here we are clearing back stack fragment entries
+        int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackEntry > 0) {
+            for (int i = 0; i < backStackEntry; i++) {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+        }
+
+        //Here we are removing all the fragment that are shown here
+        if (getSupportFragmentManager().getFragments() != null && getSupportFragmentManager().getFragments().size() > 0) {
+            for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+                Fragment mFragment = getSupportFragmentManager().getFragments().get(i);
+                if (mFragment != null) {
+                    getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
+                }
+            }
+        }
+    }
 }
