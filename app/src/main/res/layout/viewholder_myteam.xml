@@ -44,6 +44,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPlayerOrGameList"
         app:layout_constraintEnd_toStartOf="@+id/recyclerViewPlayerOrGameList"
         app:srcCompat="@drawable/icon_add" />
+
     <TextView
         android:id="@+id/textViewTeamName"
         android:layout_width="wrap_content"
@@ -56,6 +57,18 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
         app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+    <ImageView
+        android:id="@+id/imageViewEdit"
+        style="@style/iconInner"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="4dp"
+        android:padding="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewAddButton"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAddButton"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
     <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
         android:id="@+id/segmented2"

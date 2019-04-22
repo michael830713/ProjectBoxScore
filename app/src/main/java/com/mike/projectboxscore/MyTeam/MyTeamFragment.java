@@ -21,13 +21,15 @@ import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.EditTeam.EditTeamFragment;
+import com.mike.projectboxscore.EditTeam.EditTeamPresenter;
+import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialog;
+import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamPresenter;
 import com.mike.projectboxscore.R;
-
-import java.util.ArrayList;
 
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
@@ -37,7 +39,8 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 
     private static final String TAG = "MyTeamFragment";
 
-    private static final int TARGET_FRAGMENT_REQUEST_CODE = 1;
+    private static final int NEW_DIALOG_REQUEST_CODE = 1;
+    private static final int EDIT_DIALOG_REQUEST_CODE = 2;
     private static final String NEW_PLAYER_NAME = "playerMessage";
     private static final String NEW_PLAYER_EMAIL = "playerEmail";
     private static final String NEW_PLAYER_ONCOURT_POSITION = "playerOnCourtPosition";
@@ -50,6 +53,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     private NewTeamPresenter mNewTeamPresenter;
 
     private MyTeamAdapter mTeamAdapter;
+    private EditTeamPresenter mEditTeamPresenter;
 
     @Override
     public void setPresenter(MyTeamContract.Presenter surfaceViewPresenter) {
@@ -117,12 +121,33 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     }
 
     @Override
+    public void showEditTeamUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        EditTeamFragment fragment = EditTeamFragment.newInstance();
+        mEditTeamPresenter = new EditTeamPresenter(fragment, mTeamAdapter.getSelectedTeam());
+        fragment.setPresenter(mEditTeamPresenter);
+        fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("EditTeam");
+        fragmentTransaction.commit();
+
+        Log.d(TAG, "selectedteam: " + mTeamAdapter.getSelectedTeam());
+    }
+
+    @Override
     public void showNewPlayerUi() {
         NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
-        newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
+        newPlayerDialog.setTargetFragment(this, NEW_DIALOG_REQUEST_CODE);
         newPlayerDialog.show(getFragmentManager(), "createPlayer");
+    }
+
+    @Override
+    public void showEditPlayerUi(Player player) {
+        EditPlayerDialog editPlayerDialog = new EditPlayerDialog();
+        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player);
+        editPlayerDialog.setPresenter(newPlayerDialogPresenter);
+        editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
+        editPlayerDialog.show(getFragmentManager(), "createPlayer");
     }
 
     @Override
@@ -131,7 +156,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
+        if (requestCode == NEW_DIALOG_REQUEST_CODE) {
             String name = data.getStringExtra(NEW_PLAYER_NAME);
             String email = data.getStringExtra(NEW_PLAYER_EMAIL);
             String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
@@ -146,8 +171,9 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
 //                mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
                 mPresenter.updateData();
             }
+        } else if (requestCode == EDIT_DIALOG_REQUEST_CODE) {
+            mPresenter.updateData();
         }
-
     }
 
     public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {

@@ -47,6 +47,16 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     }
 
     @Override
+    public void showEditPlayer(Player player) {
+        mView.showEditPlayerUi(player);
+    }
+
+    @Override
+    public void showEditTeam() {
+mView.showEditTeamUi();
+    }
+
+    @Override
     public void openNewTeamFragment() {
         mView.openNewTeamFragmentUi();
     }

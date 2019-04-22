@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout_onCourt_players"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/log_background_grey">
+
+    <ImageView
+        android:id="@+id/imageViewPlayerAvatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_background"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout_onCourt_players"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintStart_toEndOf="@+id/textView_OnCourtPosition"
+        app:layout_constraintTop_toTopOf="@id/constraintLayout_onCourt_players"
+        app:srcCompat="@drawable/man" />
+
+    <TextView
+        android:id="@+id/textView_player_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/jersey_m54"
+        android:text="Michael Jordan "
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_number"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
+
+    <TextView
+        android:id="@+id/textView_OnCourtPosition"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="C"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
+
+    <TextView
+        android:id="@+id/textView_number"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/ncaa_ucla_condensed"
+        android:gravity="center"
+        android:text="#32"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
+
+    <ImageView
+        android:id="@+id/imageViewEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:tint="@color/selected_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+
+</android.support.constraint.ConstraintLayout>

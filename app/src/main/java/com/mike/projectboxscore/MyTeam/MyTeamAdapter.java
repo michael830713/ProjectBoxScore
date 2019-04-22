@@ -64,13 +64,15 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 //            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
 //            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         });
-        playerViewHolder.buttonAddPlayer.setOnClickListener(new View.OnClickListener() {
+        playerViewHolder.buttonAddPlayer.setOnClickListener(v -> mPresenter.showNewPlayer());
+        playerViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.showNewPlayer();
+                mPresenter.showEditTeam();
             }
         });
         playerViewHolder.roster.performClick();
+
 
     }
 
@@ -91,6 +93,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         Button games;
         TextView teamName;
         ImageView buttonAddPlayer;
+        ImageView buttonEditTeam;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +104,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             games = itemView.findViewById(R.id.button22);
             teamName = itemView.findViewById(R.id.textViewTeamName);
             buttonAddPlayer = itemView.findViewById(R.id.imageViewAddButton);
+            buttonEditTeam = itemView.findViewById(R.id.imageViewEdit);
 
         }
     }

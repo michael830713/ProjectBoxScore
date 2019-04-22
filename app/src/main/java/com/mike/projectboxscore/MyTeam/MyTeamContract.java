@@ -11,7 +11,6 @@ public interface MyTeamContract {
 
     interface View extends BaseView<MyTeamContract.Presenter> {
 
-
         void showToastMessageUi(String message);
 
         String getTeamName();
@@ -22,13 +21,15 @@ public interface MyTeamContract {
 
         void updateDataUi();
 
+        void showEditPlayerUi(Player player);
+
+        void showEditTeamUi();
     }
 
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
 
         ArrayList<Player> getTeamPlayer();
-
 
         void openNewTeamFragment();
 
@@ -40,8 +41,12 @@ public interface MyTeamContract {
 
         void showNewPlayer();
 
+        void showEditPlayer(Player player);
+
         void setNewPlayer(String name, String email, String onCourtPosition, int parseInt, Team selectedTeam);
 
         Player getNewPlayer();
+
+        void showEditTeam();
     }
 }
