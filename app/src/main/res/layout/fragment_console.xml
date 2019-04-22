@@ -7,19 +7,19 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <ImageView
-        android:id="@+id/imageViewBackGround"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/adjusted_background_logo" />
+    <!--<ImageView-->
+    <!--android:id="@+id/imageViewBackGround"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:srcCompat="@drawable/adjusted_background_logo" />-->
 
     <View
         android:id="@+id/functionKeyBackground"
@@ -89,7 +89,7 @@
         android:id="@+id/buttonSteal"
         style="@style/iconInnerGreen"
 
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFoul"
         app:layout_constraintEnd_toEndOf="@+id/buttonDefensiveRebound"
         app:layout_constraintTop_toBottomOf="@+id/buttonDefensiveRebound"
         app:srcCompat="@drawable/icon_steal_min2" />
@@ -98,9 +98,8 @@
     <ImageView
         android:id="@+id/buttonDefensiveRebound"
         style="@style/iconInnerGreen"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
         android:padding="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSteal"
         app:layout_constraintEnd_toEndOf="@+id/button3Pts"
         app:layout_constraintTop_toBottomOf="@+id/button3Pts"
         app:srcCompat="@drawable/icon_rebound3_min2" />
@@ -134,9 +133,9 @@
     <ImageView
         android:id="@+id/button3Pts"
         style="@style/iconInner"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+
         android:layout_marginEnd="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDefensiveRebound"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_shoot_min2" />
@@ -221,10 +220,9 @@
         android:id="@+id/imageViewReturnStep"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/button_border"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
+        app:layout_constraintTop_toTopOf="@+id/buttonBoxScore"
         app:srcCompat="@drawable/undo_icon_min2" />
 
     <android.support.constraint.Guideline
@@ -237,15 +235,16 @@
     <ImageView
         android:id="@+id/buttonExit"
         style="@style/iconInner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonSteal"
-        app:layout_constraintTop_toTopOf="@+id/buttonBoxScore"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFoul"
         app:srcCompat="@drawable/icon_finish_min2" />
 
     <ImageView
         android:id="@+id/buttonBoxScore"
         style="@style/iconInner"
         app:layout_constraintStart_toStartOf="@+id/buttonBlock"
-        app:layout_constraintTop_toTopOf="@+id/imageViewReturnStep"
+        app:layout_constraintTop_toTopOf="@+id/buttonExit"
         app:srcCompat="@drawable/icon_box_score_min2" />
 
 
@@ -262,9 +261,9 @@
         android:id="@+id/buttonFoul"
         style="@style/iconInner"
 
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSteal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonExit"
 
+        app:layout_constraintEnd_toStartOf="@+id/buttonSteal"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonBlock"
         app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
