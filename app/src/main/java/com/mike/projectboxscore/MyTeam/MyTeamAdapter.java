@@ -64,6 +64,12 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 //            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
 //            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         });
+        playerViewHolder.buttonAddPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.showNewPlayer();
+            }
+        });
         playerViewHolder.roster.performClick();
 
     }
@@ -84,6 +90,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         Button roster;
         Button games;
         TextView teamName;
+        ImageView buttonAddPlayer;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +100,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);
             teamName = itemView.findViewById(R.id.textViewTeamName);
+            buttonAddPlayer = itemView.findViewById(R.id.imageViewAddButton);
 
         }
     }
@@ -103,6 +111,10 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+    }
+
+    public Team getSelectedTeam() {
+        return mTeams.get(row_index);
     }
 
     public int getRow_index() {

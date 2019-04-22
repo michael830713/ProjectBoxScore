@@ -1,5 +1,6 @@
 package com.mike.projectboxscore.MyTeam;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamPresenter;
 import com.mike.projectboxscore.R;
@@ -110,16 +113,41 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         NewTeamFragment fragment = NewTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("NewTeam");
         fragmentTransaction.commit();
-        mNewTeamPresenter = new NewTeamPresenter(fragment,mPresenter.getTeams());
+        mNewTeamPresenter = new NewTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override
     public void showNewPlayerUi() {
-
+        NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
+        NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
+        newPlayerDialog.setPresenter(newPlayerDialogPresenter);
+        newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
+        newPlayerDialog.show(getFragmentManager(), "createPlayer");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
+            String name = data.getStringExtra(NEW_PLAYER_NAME);
+            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
+            String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
+            String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
+
+            Log.d(TAG, "onActivityResult player: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
+            if (name == null) {
+                Log.d(TAG, "it is null: ");
+            } else {
+                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber), mTeamAdapter.getSelectedTeam());
+                Log.d(TAG, "getNewPlayer: " + mPresenter.getNewPlayer());
+//                mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
+                mPresenter.updateData();
+            }
+        }
+
     }
 
     public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {
@@ -143,7 +171,6 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         Log.d(TAG, "onPause: ");
         super.onPause();
     }
-
 
     @Override
     public void showToastMessageUi(String message) {

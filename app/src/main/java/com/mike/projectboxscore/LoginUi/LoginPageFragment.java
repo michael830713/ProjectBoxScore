@@ -154,7 +154,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
     private void updateUI(FirebaseUser account) {
         String name = account.getDisplayName();
-        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
         demoMainPageUi();
     }
 

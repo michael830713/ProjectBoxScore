@@ -55,6 +55,6 @@ public class RecyclerViewCornerRadius extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         c.clipRect(rectF);
-        c.clipPath(path, Region.Op.REPLACE);
+//        c.clipPath(path, Region.Op.REPLACE);
     }
 }

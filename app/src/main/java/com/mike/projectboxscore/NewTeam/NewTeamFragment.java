@@ -117,7 +117,6 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void showNewPlayerUi() {
         NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
-//        mPresenter.setNewPlayer();
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
         newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);

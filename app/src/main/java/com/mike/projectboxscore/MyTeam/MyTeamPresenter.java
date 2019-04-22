@@ -15,6 +15,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     MyTeamContract.View mView;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     ArrayList<Team> mTeams;
+    Player mNewPlayer;
     private Game mNewGame;
 
     @Override
@@ -27,6 +28,22 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
         mView.setPresenter(this);
         mTeams = teams;
 
+    }
+
+    @Override
+    public void showNewPlayer() {
+        mView.showNewPlayerUi();
+    }
+
+    @Override
+    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber, Team selectedTeam) {
+        mNewPlayer = new Player(name, email, backNumber, onCourtPosition);
+        selectedTeam.addmPlayers(mNewPlayer);
+    }
+
+    @Override
+    public Player getNewPlayer() {
+        return mNewPlayer;
     }
 
     @Override

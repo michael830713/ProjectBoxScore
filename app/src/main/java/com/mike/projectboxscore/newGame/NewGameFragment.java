@@ -103,9 +103,9 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
 
-        RecyclerViewCornerRadius radiusItemDecoration = new RecyclerViewCornerRadius(mPlayerRecyclerView);
-        radiusItemDecoration.setCornerRadius(10);
-        mPlayerRecyclerView.addItemDecoration(radiusItemDecoration);
+//        RecyclerViewCornerRadius radiusItemDecoration = new RecyclerViewCornerRadius(mPlayerRecyclerView);
+////        radiusItemDecoration.setCornerRadius(10);
+////        mPlayerRecyclerView.addItemDecoration(radiusItemDecoration);
 
         mNextButton = root.findViewById(R.id.imageViewNext);
         mOpponent = root.findViewById(R.id.editTextOpponent);

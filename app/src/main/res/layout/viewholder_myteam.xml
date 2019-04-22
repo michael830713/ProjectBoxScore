@@ -34,6 +34,16 @@
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/segmented2" />
 
+    <ImageView
+        android:id="@+id/imageViewAddButton"
+        style="@style/iconInner"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPlayerOrGameList"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerViewPlayerOrGameList"
+        app:srcCompat="@drawable/icon_add" />
     <TextView
         android:id="@+id/textViewTeamName"
         android:layout_width="wrap_content"
