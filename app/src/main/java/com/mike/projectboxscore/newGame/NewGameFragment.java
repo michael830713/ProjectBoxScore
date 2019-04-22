@@ -53,7 +53,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTeamAdapter = new TeamAdapter(mPresenter);
-        mPlayerAdapter = new PlayerAdapter(mPresenter);
+        mPlayerAdapter = new PlayerAdapter(mPresenter,getActivity());
 
 //        Team allStar = new Team("All-star");
 //

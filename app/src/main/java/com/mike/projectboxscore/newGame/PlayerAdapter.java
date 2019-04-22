@@ -1,7 +1,10 @@
 package com.mike.projectboxscore.newGame;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +21,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     private NewGameContract.Presenter mPresenter;
     int row_index = 0;
+    private Context mContext;
     private ArrayList<Player> mPlayers;
 
-    public PlayerAdapter(NewGameContract.Presenter presenter) {
+    public PlayerAdapter(NewGameContract.Presenter presenter, Context context) {
         mPresenter = presenter;
+        mContext = context;
     }
 
     public PlayerAdapter() {
@@ -39,7 +44,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         Player player = mPlayers.get(i);
         playerViewHolder.mPlayerName.setText(player.getName());
-        playerViewHolder.mBackNumber.setText(""+ player.getBackNumber());
+        playerViewHolder.mBackNumber.setText("" + player.getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
@@ -64,7 +69,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         });
         if (player.isOnCourt()) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
-        } else {
+//            playerViewHolder.mPlayerName.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
+//            playerViewHolder.mBackNumber.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
+//            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+        }else {
             notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
         }
 
@@ -101,7 +109,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
 //        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
-        constraintLayout.setBackgroundResource(R.drawable.log_background_orange);
+        constraintLayout.setBackgroundResource(R.drawable.log_background_blue);
 
     }
 
