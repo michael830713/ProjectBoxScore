@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -49,6 +50,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     MyTeamContract.Presenter mPresenter;
     private RecyclerView mTeamRecyclerView;
     private ImageView mAddTeamButton;
+    private FloatingActionButton mFloatAddTeam;
 
     private NewTeamPresenter mNewTeamPresenter;
 
@@ -75,7 +77,8 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_myteam, container, false);
-        mAddTeamButton = root.findViewById(R.id.imageViewAddTeam);
+//        mAddTeamButton = root.findViewById(R.id.imageViewAddTeam);
+        mFloatAddTeam=root.findViewById(R.id.floatingActionButtonAddTeam);
 
         setupRecyclerView(root);
 
@@ -85,7 +88,9 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAddTeamButton.setOnClickListener(newTeamOnClickListener);
+//        mAddTeamButton.setOnClickListener(newTeamOnClickListener);
+        mFloatAddTeam.setOnClickListener(newTeamOnClickListener);
+
 
     }
 
