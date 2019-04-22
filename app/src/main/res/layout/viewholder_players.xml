@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout_onCourt_players"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/log_border_grey">
+    android:background="@drawable/log_background_grey">
 
     <ImageView
         android:id="@+id/imageViewPlayerAvatar"

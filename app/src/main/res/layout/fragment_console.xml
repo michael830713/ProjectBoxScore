@@ -29,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/log_border_grey"
+        android:background="@drawable/log_background_grey"
         app:layout_constraintBottom_toTopOf="@+id/buttonFoul"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -135,7 +135,7 @@
         android:id="@+id/button3Pts"
         style="@style/iconInner"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
@@ -221,11 +221,10 @@
         android:id="@+id/imageViewReturnStep"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/buttonTurnOver"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSub"
         app:srcCompat="@drawable/undo_icon_min2" />
 
     <android.support.constraint.Guideline

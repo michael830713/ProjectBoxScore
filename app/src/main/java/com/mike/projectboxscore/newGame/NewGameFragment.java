@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.RecyclerViewCornerRadius;
 import com.mike.projectboxscore.mainConsole.MainConsoleFragment;
 import com.mike.projectboxscore.mainConsole.MainConsolePresenter;
 
@@ -101,6 +102,10 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
         mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+
+        RecyclerViewCornerRadius radiusItemDecoration = new RecyclerViewCornerRadius(mPlayerRecyclerView);
+        radiusItemDecoration.setCornerRadius(10);
+        mPlayerRecyclerView.addItemDecoration(radiusItemDecoration);
 
         mNextButton = root.findViewById(R.id.imageViewNext);
         mOpponent = root.findViewById(R.id.editTextOpponent);

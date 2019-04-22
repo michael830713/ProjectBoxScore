@@ -9,6 +9,7 @@
     <color name="green_confirm">#6fd85d</color>
     <color name="red_dismiss">#d11919</color>
     <color name="button_green">#009688</color>
+    <color name="selected_blue">#689bed</color>
 
 
 </resources>

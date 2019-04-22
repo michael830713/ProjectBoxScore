@@ -146,23 +146,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mPresenter.setupNewPlayer("Mike", 23, getString(R.string.gaurd));
-//        mPresenter.setupNewPlayer("Jordan", 24, getString(R.string.gaurd));
-//        mPresenter.setupNewPlayer("Chris", 25, getString(R.string.forward));
-//        mPresenter.setupNewPlayer("Paul", 26, getString(R.string.forward));
-//        mPresenter.setupNewPlayer("Gasol", 27, getString(R.string.center));
-//        mPresenter.setupNewPlayer("Opponent", -1, "O", true);
-//        mPresenter.setupNewPlayer("Mikey", 33, getString(R.string.gaurd));
-//        mPresenter.setupNewPlayer("Jordany", 34, getString(R.string.gaurd));
-//        mPresenter.setupNewPlayer("Chrissy", 35, getString(R.string.forward));
-//        mPresenter.setupNewPlayer("Paully", 66, getString(R.string.forward));
-//        mPresenter.setupNewPlayer("Gasolly", 77, getString(R.string.center));
-//
-//        mPresenter.setPlayerOnCourt(33);
-//        mPresenter.setPlayerOnCourt(24);
-//        mPresenter.setPlayerOnCourt(66);
-//        mPresenter.setPlayerOnCourt(35);
-//        mPresenter.setPlayerOnCourt(27);
 
         Log.d(TAG, "onViewCreated players: " + mPresenter.getPlayers());
 
@@ -189,25 +172,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTextViewAwayScore.setText(String.valueOf(mAwayScore));
         mTextViewHomeScore.setText(String.valueOf(mHomeScore));
 
-//        mJoystickView.setOnMoveListener(new JoystickView.OnMoveListener() {
-//            int mAngle;
-//
-//            @Override
-//            public void onMove(int angle, int strength) {
-//
-//                Log.d(TAG, "angle: " + angle);
-//                Log.d(TAG, "strength: " + strength);
-//                Log.d(TAG, "mAngle: " + mAngle);
-//            }
-//        }, 100);
 
     }
 
     private View.OnClickListener awesomeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            int rowIndex = mOnCourtPlayerAdapter.getRow_index();
-//            PlayerStats selectedPlayer = mPresenter.getPlayers().get(rowIndex);
             PlayerStats selectedPlayer = mOnCourtPlayerAdapter.getCurrentPlayer();
             mPresenter.setSelectedPlayer(selectedPlayer);
 
@@ -449,12 +419,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             }
         }, false);
 
-//        fm.executePendingTransactions();
-//
-//        substituteDialog.getDialog().setOnDismissListener(dialog -> {
-//            mPresenter.setOnCourtPlayers();
-//            mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-//        });
 
     }
 
@@ -480,7 +444,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void updateLogUi(int addScore, boolean isShotMade) {
         if (isShotMade) {
-//            mMainLogAdapter.setColor(1);
             if (addScore == 2) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MADE);
             } else if (addScore == 3) {
@@ -490,7 +453,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             }
 
         } else {
-//            mMainLogAdapter.setColor(2);
             if (addScore == 2) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MISS);
             } else if (addScore == 3) {
@@ -506,7 +468,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateLogUi(String action) {
-//        mMainLogAdapter.setColor(0);
         mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), action);
     }
 
@@ -549,10 +510,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onResume() {
 //
-//        mPresenter.setOnCourtPlayers();
-//
-//        mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-//        Log.d(TAG, "onResume: " + mPresenter.getPlayers());
         super.onResume();
     }
 

@@ -98,13 +98,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        if (firebaseAuth.getCurrentUser() == null) {
-//            Log.d(TAG, "onAuthStateChanged getActivity: " + getActivity());
-//            android.app.FragmentManager fragmentManager=mActivity.getFragmentManager();
-//            Log.d(TAG, "onAuthStateChanged fragmentManager: "+fragmentManager);
-//            mPresenter.demoLoginView();
-
-        }
     }
 
     @Override
@@ -120,7 +113,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
             fragmentTransaction.show(fragment);
         }
 
-//        fragmentTransaction.replace(R.id.container, fragment, "login");
         fragmentTransaction.commit();
         mLoginPresenter = new LoginPagePresenter(fragment);
     }

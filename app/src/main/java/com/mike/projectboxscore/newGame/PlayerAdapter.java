@@ -1,6 +1,5 @@
 package com.mike.projectboxscore.newGame;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -101,11 +100,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+//        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+        constraintLayout.setBackgroundResource(R.drawable.log_background_orange);
+
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+        constraintLayout.setBackgroundResource(R.drawable.log_background_grey);
     }
 
     public int getRow_index() {

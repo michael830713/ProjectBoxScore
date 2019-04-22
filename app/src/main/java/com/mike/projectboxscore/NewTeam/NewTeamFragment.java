@@ -123,36 +123,12 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
         newPlayerDialog.show(getFragmentManager(), "createPlayer");
 
-//        fm.registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
-//            @Override
-//            public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-//                super.onFragmentViewDestroyed(fm, f);
-//                //do sth
-//                if (mPresenter.getNewPlayer() != null) {
-//                    mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
-//                    mPresenter.updateData();
-//                }
-//                fm.unregisterFragmentLifecycleCallbacks(this);
-//            }
-//        }, false);
-
-//        fm.executePendingTransactions();
-//
-//        newPlayerDialog.getDialog().setOnDismissListener(dialog -> {
-//
-//        });
     }
 
     @Override
     public void openMyTeamFragmentUi() {
 
         getFragmentManager().popBackStack("MyTeam", 0);
-//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
-//        MyTeamFragment fragment = MyTeamFragment.newInstance();
-//        fragmentTransaction.replace(R.id.container, fragment, "Surface");
-//        fragmentTransaction.commit();
-//        MyTeamPresenter myyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override

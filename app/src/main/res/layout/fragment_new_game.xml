@@ -7,28 +7,30 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
 
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/adjusted_background_logo" />
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:srcCompat="@drawable/adjusted_background_logo" />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/playerRecyclerView"
         android:layout_width="190dp"
         android:layout_height="0dp"
-        android:background="@drawable/log_border"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        app:layout_constraintCircleRadius="40dp"
+        android:background="@drawable/log_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectPlayer"
         app:layout_constraintStart_toStartOf="@+id/textViewSelectPlayer"
@@ -66,7 +68,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/log_border"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectTeam"
@@ -83,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toEndOf="@+id/textViewSelectPlayer"
-        app:layout_constraintTop_toTopOf="@+id/textViewSelectTeam" />
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectPlayer" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -98,6 +100,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:hint="Opponent"
@@ -125,6 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:paddingStart="8dp"
+        android:textSize="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:ems="10"
@@ -138,7 +142,7 @@
         android:id="@+id/imageViewNext"
         android:layout_width="50dp"
 
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

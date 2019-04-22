@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "backstack entry: " + getSupportFragmentManager().getBackStackEntryCount());
             }
 
-//            super.onBackPressed();
         }
     }
 
