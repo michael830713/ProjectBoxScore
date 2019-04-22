@@ -27,6 +27,8 @@ import com.mike.projectboxscore.IOnBackPressed;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.boxScore.BoxScorePresenter;
 import com.mike.projectboxscore.boxScore.BoxSoreFragment;
+import com.mike.projectboxscore.mainConsole.MadeOrMissDialog.MadeOrMissCallback;
+import com.mike.projectboxscore.mainConsole.MadeOrMissDialog.MadeOrMissDialog;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubContract;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubDialogPresenter;
 import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
@@ -37,7 +39,7 @@ import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed {
+public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed, MadeOrMissCallback {
 
     private static final String TAG = "MainConsoleFragment";
 
@@ -146,7 +148,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         Log.d(TAG, "onViewCreated players: " + mPresenter.getPlayers());
 
         mPresenter.setOnCourtPlayers();
@@ -171,7 +172,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         mTextViewAwayScore.setText(String.valueOf(mAwayScore));
         mTextViewHomeScore.setText(String.valueOf(mHomeScore));
-
 
     }
 
@@ -369,28 +369,73 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void showMadeOrMissDialogUi(int addPoints) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Made or miss?")
-                .setCancelable(true)
-                .setPositiveButton("Made", (dialog, id) -> {
 
-                    //player made shot
+        MadeOrMissDialog madeOrMissDialog = new MadeOrMissDialog();
+//        madeOrMissDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        mSubPresenter = new SubDialogPresenter(substituteDialog);
+//        mPresenter.setOnBenchPlayers();
+//        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
+//        ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
+//        ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
+//        substituteDialog.setPresenter(mSubPresenter);
+        madeOrMissDialog.setMadeOrMissCallback(new MadeOrMissCallback() {
+            @Override
+            public void madeOrMissCallBack(String madeOrMiss) {
+                if (madeOrMiss.equals("made")) {
                     mPresenter.updatePlayerScores(addPoints);
                     mPresenter.updateLog(addPoints, true);
                     mPresenter.updateScoreboard(addPoints);
                     Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-                    dialog.dismiss();
-                })
-                .setNegativeButton("Miss", (dialog, id) -> {
-
-                    //player missed shot
+                    madeOrMissDialog.dismiss();
+                } else {
                     mPresenter.updatePlayerMisses(addPoints);
                     mPresenter.updateLog(addPoints, false);
                     Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-                    dialog.dismiss();
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    madeOrMissDialog.dismiss();
+                }
+            }
+        });
+        FragmentManager fm = getFragmentManager();
+        madeOrMissDialog.show(fm, "wierd");
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//        builder.setMessage("Made or miss?")
+//                .setCancelable(true)
+//                .setPositiveButton("Made", (dialog, id) -> {
+//
+//                    //player made shot
+//                    mPresenter.updatePlayerScores(addPoints);
+//                    mPresenter.updateLog(addPoints, true);
+//                    mPresenter.updateScoreboard(addPoints);
+//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//                    dialog.dismiss();
+//                })
+//                .setNegativeButton("Miss", (dialog, id) -> {
+//
+//                    //player missed shot
+//                    mPresenter.updatePlayerMisses(addPoints);
+//                    mPresenter.updateLog(addPoints, false);
+//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//                    dialog.dismiss();
+//                });
+//        AlertDialog alert = builder.create();
+//        alert.show();
+    }
+
+    @Override
+    public void madeOrMissCallBack(String madeOrMiss) {
+//        if (madeOrMiss.equals("made")) {
+//            mPresenter.updatePlayerScores(addPoints);
+//            mPresenter.updateLog(addPoints, true);
+//            mPresenter.updateScoreboard(addPoints);
+//            Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//            dialog.dismiss();
+//        } else {
+//            mPresenter.updatePlayerMisses(addPoints);
+//            mPresenter.updateLog(addPoints, false);
+//            Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//            dialog.dismiss();
+//        }
     }
 
     @Override
@@ -414,11 +459,10 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 Log.d(TAG, "onFragmentViewDestroyed: ");
                 mPresenter.setOnCourtPlayers();
                 mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
-                //do sth      
+                //do sth
                 fm.unregisterFragmentLifecycleCallbacks(this);
             }
         }, false);
-
 
     }
 
