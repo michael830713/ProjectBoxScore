@@ -9,84 +9,94 @@
 
     <EditText
         android:id="@+id/editTextPlayerName"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:background="#7c7c7c"
         android:hint="Player Name"
         android:paddingHorizontal="5dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_view_player_oncourt_position"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/editText_email"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:background="#7c7c7c"
         android:hint="Player Email"
         android:inputType="textEmailAddress"
-
         android:paddingHorizontal="5dp"
-        app:layout_constraintStart_toStartOf="@+id/editTextPlayerName"
+
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPlayerName"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlayerName" />
 
 
     <EditText
         android:id="@+id/editText_back_number"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-
         android:background="#7c7c7c"
         android:hint="Back Number"
         android:inputType="number"
         android:paddingHorizontal="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editText_email"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/editText_email"
         app:layout_constraintTop_toBottomOf="@+id/editText_email" />
 
     <TextView
         android:id="@+id/text_view_player_name"
         style="@style/WhiteText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Name : "
+        android:text="Name"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextPlayerName"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_player_email"
+        app:layout_constraintStart_toStartOf="@+id/text_view_player_email"
         app:layout_constraintTop_toTopOf="@+id/editTextPlayerName" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="50dp"
+        android:layout_width="130dp"
         android:layout_height="24dp"
 
         android:layout_marginTop="8dp"
         android:background="#7c7c7c"
-        app:layout_constraintStart_toStartOf="@+id/editText_back_number"
+        app:layout_constraintEnd_toEndOf="@+id/editText_back_number"
         app:layout_constraintTop_toBottomOf="@+id/editText_back_number" />
 
     <TextView
         android:id="@+id/text_view_player_email"
         style="@style/WhiteText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Email : "
+android:gravity="center"
+        android:text="Email"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_email"
-        app:layout_constraintEnd_toEndOf="@+id/text_view_player_name"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_player_back_number"
+        app:layout_constraintStart_toStartOf="@+id/text_view_player_back_number"
         app:layout_constraintTop_toTopOf="@+id/editText_email" />
 
     <TextView
         android:id="@+id/text_view_player_back_number"
         style="@style/WhiteText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Number : "
+        android:text="Number"
+        android:gravity="center"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_back_number"
-        app:layout_constraintEnd_toEndOf="@+id/text_view_player_email"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_player_oncourt_position"
+        app:layout_constraintStart_toStartOf="@+id/text_view_player_oncourt_position"
         app:layout_constraintTop_toTopOf="@+id/editText_back_number" />
 
     <TextView
@@ -94,9 +104,13 @@
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Position : "
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Position"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="@+id/text_view_player_back_number"
+
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner" />
 
     <ImageView
@@ -104,21 +118,15 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/circle_background"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/man" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
+
 
     <ImageView
         android:id="@+id/imageViewConfirm"
@@ -129,8 +137,9 @@
         android:layout_marginBottom="8dp"
         android:tint="@color/green_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icon_confirm" />
 
     <ImageView
@@ -140,9 +149,16 @@
         android:layout_marginEnd="16dp"
         android:tint="@color/red_dismiss"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewConfirm"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/imageViewConfirm"
         app:srcCompat="@drawable/icon_dismiss" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </android.support.constraint.ConstraintLayout>
