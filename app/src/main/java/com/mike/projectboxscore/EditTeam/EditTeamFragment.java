@@ -122,7 +122,9 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 //                        mPresenter.createNewTeam();
                         mPresenter.openMyTeamFragment();
                     }
+                    break;
                 case R.id.imageViewDelete:
+                    Log.d(TAG, "delete pressed: ");
                     mPresenter.showConfirmDeleteDialog(false);
                     break;
 
