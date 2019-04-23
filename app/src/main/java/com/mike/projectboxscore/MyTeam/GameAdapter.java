@@ -43,6 +43,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
         playerViewHolder.opponentName.setText(game.getmOpponent());
         playerViewHolder.myScore.setText(String.valueOf(game.getmMyScore()));
         playerViewHolder.opponentScore.setText(String.valueOf(game.getmOpponentScore()));
+        playerViewHolder.mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openBoxScore(game);
+            }
+        });
 
     }
 
@@ -56,6 +62,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
         private TextView opponentName;
         private TextView myScore;
         private TextView opponentScore;
+        private ConstraintLayout mConstraintLayout;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +70,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
             opponentName = itemView.findViewById(R.id.textView_Opponent_name);
             myScore = itemView.findViewById(R.id.textView_My_Score);
             opponentScore = itemView.findViewById(R.id.textView_Opponent_Score);
+            mConstraintLayout = itemView.findViewById(R.id.constraintLayout_games);
 
         }
     }

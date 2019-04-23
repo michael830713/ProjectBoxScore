@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
+import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.EditTeam.EditTeamFragment;
 import com.mike.projectboxscore.EditTeam.EditTeamPresenter;
@@ -31,6 +32,8 @@ import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamPresenter;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.boxScore.BoxScorePresenter;
+import com.mike.projectboxscore.boxScore.BoxSoreFragment;
 
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
@@ -122,6 +125,17 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("NewTeam");
         fragmentTransaction.commit();
         mNewTeamPresenter = new NewTeamPresenter(fragment, mPresenter.getTeams());
+    }
+
+    @Override
+    public void openBoxScoreUi(Game game) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        BoxSoreFragment fragment = BoxSoreFragment.newInstance();
+        BoxScorePresenter boxScorePresenter;
+        boxScorePresenter = new BoxScorePresenter(fragment, game, false);
+//        Log.d(TAG, "openBoxScoreUi player size: " + mPresenter.getGame().getmPlayerStats().size());
+        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("BoxScore");
+        fragmentTransaction.commit();
     }
 
     @Override

@@ -72,6 +72,11 @@ mView.showEditTeamUi();
     }
 
     @Override
+    public void openBoxScore(Game game) {
+        mView.openBoxScoreUi(game);
+    }
+
+    @Override
     public void updateData() {
         mView.updateDataUi();
     }
