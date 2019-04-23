@@ -1,10 +1,12 @@
 package com.mike.projectboxscore.newGame;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
@@ -102,6 +105,10 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         LinearLayoutManager playerLayoutManager = new LinearLayoutManager(getContext());
         mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+
+        Drawable dividerDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.divider_grey);
+
+        mPlayerRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
 //        RecyclerViewCornerRadius radiusItemDecoration = new RecyclerViewCornerRadius(mPlayerRecyclerView);
 ////        radiusItemDecoration.setCornerRadius(10);

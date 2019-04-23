@@ -4,13 +4,16 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="btnColor">#F39A2C</color>
+    <color name="btnColor_dark">#c27b23</color>
     <color name="transparent">#00000000</color>
     <color name="light_grey">#37383D</color>
+    <color name="lighter_grey">#737377</color>
     <color name="green_confirm">#6fd85d</color>
     <color name="red_dismiss">#d11919</color>
     <color name="button_green">#009688</color>
     <color name="selected_blue">#689bed</color>
     <color name="selected_white">#fff9bf</color>
+    <color name="log_background_grey">#222021</color>
 
 
 </resources>

@@ -2,8 +2,10 @@ package com.mike.projectboxscore.MyTeam;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.MainActivity;
@@ -57,6 +60,10 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter, mTeams.get(i));
             playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
             playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+
+            playerViewHolder.recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         });
         playerViewHolder.games.setOnClickListener(v -> {
             mPresenter.showToast("game coming soon!");
@@ -68,11 +75,11 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         playerViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                row_index = i;
                 mPresenter.showEditTeam();
             }
         });
         playerViewHolder.roster.performClick();
-
 
     }
 

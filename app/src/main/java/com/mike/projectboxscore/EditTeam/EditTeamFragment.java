@@ -2,11 +2,13 @@ package com.mike.projectboxscore.EditTeam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,13 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialog;
 import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialogPresenter;
-import com.mike.projectboxscore.NewTeam.NewPlayerAdapter;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
-import com.mike.projectboxscore.NewTeam.NewTeamContract;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     private ImageView mTeamLogo;
     private ImageView mButtonAddPlayer;
     private ImageView mButtonFinishCreateTeam;
+    private ImageView mButtonDeleteTeam;
 
     private EditPlayerAdapter mPlayerAdapter;
 
@@ -81,10 +83,15 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         mPlayerRecyclerView.setLayoutManager(playerLayoutManager);
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
 
+        Drawable dividerDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.divider_grey);
+
+        mPlayerRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+
         mTeamName = root.findViewById(R.id.editTextNewTeamName);
         mTeamLogo = root.findViewById(R.id.imageViewLogo);
         mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
         mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
+        mButtonDeleteTeam = root.findViewById(R.id.imageViewDelete);
 
         return root;
     }
@@ -95,6 +102,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         mTeamName.setText(mPresenter.getTeam().getmName());
         mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
         mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
+        mButtonDeleteTeam.setOnClickListener(newTeamOnClickListener);
         mTitle.setText("Edit Team ");
 
     }
@@ -114,7 +122,8 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 //                        mPresenter.createNewTeam();
                         mPresenter.openMyTeamFragment();
                     }
-
+                case R.id.imageViewDelete:
+                    mPresenter.showConfirmDeleteDialog(false);
                     break;
 
             }
@@ -138,6 +147,33 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
         newPlayerDialog.show(getFragmentManager(), "createPlayer");
 
+    }
+
+    @Override
+    public void showConfirmDeleteDialogUi(boolean isPlayer) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure?")
+                .setCancelable(true)
+                .setPositiveButton("yes", (dialog, id) -> {
+                    if (isPlayer) {
+                        mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
+                        mPlayerAdapter.updateData();
+                    } else {
+                        mPresenter.getTeams().remove(mPresenter.getTeam());
+                        Log.d(TAG, "remove team name: " + mPresenter.getTeam().getmName());
+                        //player made shot
+                        mPresenter.openMyTeamFragment();
+                    }
+
+                    dialog.dismiss();
+                })
+                .setNegativeButton("no", (dialog, id) -> {
+
+                    //player missed shot
+                    dialog.dismiss();
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

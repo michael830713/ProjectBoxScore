@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="2dp" android:color="@color/btnColor_dark" />
+    <solid android:color="#000000" />
+    <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
+
+    <corners android:radius="8dp" />
+</shape>

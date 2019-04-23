@@ -27,11 +27,12 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
 
     }
 
-    public EditTeamPresenter(EditTeamContract.View view, Team team) {
+    public EditTeamPresenter(EditTeamContract.View view, Team team, ArrayList<Team> myTeams) {
         mView = checkNotNull(view, "view cannot be null!");
         mTeam = team;
+        mMyTeams = myTeams;
         Log.d(TAG, "Team: " + mTeam);
-        mTeamPlayer=mTeam.getmPlayers();
+        mTeamPlayer = mTeam.getmPlayers();
         mView.setPresenter(this);
 //        mMyTeams = new ArrayList<>();
 
@@ -84,6 +85,11 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     @Override
     public void setupNewTeam(Team team) {
 //        mMyTeams.add(team);
+    }
+
+    @Override
+    public void showConfirmDeleteDialog(boolean isPlayer) {
+        mView.showConfirmDeleteDialogUi(isPlayer);
     }
 
     @Override

@@ -78,7 +78,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_myteam, container, false);
 //        mAddTeamButton = root.findViewById(R.id.imageViewAddTeam);
-        mFloatAddTeam=root.findViewById(R.id.floatingActionButtonAddTeam);
+        mFloatAddTeam = root.findViewById(R.id.floatingActionButtonAddTeam);
 
         setupRecyclerView(root);
 
@@ -90,7 +90,6 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         super.onViewCreated(view, savedInstanceState);
 //        mAddTeamButton.setOnClickListener(newTeamOnClickListener);
         mFloatAddTeam.setOnClickListener(newTeamOnClickListener);
-
 
     }
 
@@ -129,7 +128,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public void showEditTeamUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         EditTeamFragment fragment = EditTeamFragment.newInstance();
-        mEditTeamPresenter = new EditTeamPresenter(fragment, mTeamAdapter.getSelectedTeam());
+        mEditTeamPresenter = new EditTeamPresenter(fragment, mTeamAdapter.getSelectedTeam(), mPresenter.getTeams());
         fragment.setPresenter(mEditTeamPresenter);
         fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("EditTeam");
         fragmentTransaction.commit();

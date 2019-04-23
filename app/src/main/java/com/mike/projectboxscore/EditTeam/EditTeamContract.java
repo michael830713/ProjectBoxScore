@@ -26,6 +26,8 @@ public interface EditTeamContract {
         void updateDataUi();
 
         void showEditPlayerUi(Player player);
+
+        void showConfirmDeleteDialogUi(boolean isPlayer);
     }
 
     interface Presenter extends BasePresenter {
@@ -52,5 +54,7 @@ public interface EditTeamContract {
         void showEditPlayerDialog(Player player);
 
         Team getTeam();
+
+        void showConfirmDeleteDialog(boolean isPlayer);
     }
 }

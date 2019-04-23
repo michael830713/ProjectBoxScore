@@ -53,7 +53,7 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/robot_reavers"
-        android:text="Hoop Stats"
+        android:text=" Hoop Stats "
         android:textColor="@color/btnColor"
         android:textSize="50sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"

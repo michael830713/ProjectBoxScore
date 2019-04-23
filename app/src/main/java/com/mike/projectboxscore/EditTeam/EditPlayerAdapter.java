@@ -25,7 +25,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
     public EditPlayerAdapter(EditTeamContract.Presenter presenter, ArrayList<Player> players) {
         mPresenter = presenter;
         mPlayers = players;
-        Log.d(TAG, "players: "+players);
+        Log.d(TAG, "players: " + players);
     }
 
     public EditPlayerAdapter() {
@@ -51,6 +51,15 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
                     mPresenter.showEditPlayerDialog(mPlayers.get(i));
                 }
             });
+            playerViewHolder.deletePlayerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    row_index = i;
+                    boolean isPlayer = true;
+                    mPresenter.showConfirmDeleteDialog(isPlayer);
+                }
+            });
+
         }
     }
 
@@ -69,6 +78,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         private TextView backNumber;
         private ImageView playerAvatar;
         private ImageView editPlayerButton;
+        private ImageView deletePlayerButton;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +87,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             backNumber = itemView.findViewById(R.id.textView_number);
             playerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
             editPlayerButton = itemView.findViewById(R.id.imageViewEdit);
+            deletePlayerButton = itemView.findViewById(R.id.imageViewDelete);
 
         }
     }

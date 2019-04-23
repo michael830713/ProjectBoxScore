@@ -46,6 +46,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     private ImageView mTeamLogo;
     private ImageView mButtonAddPlayer;
     private ImageView mButtonFinishCreateTeam;
+    private ImageView mButtonDeleteTeam;
 
     private NewPlayerAdapter mPlayerAdapter;
 
@@ -80,6 +81,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         mTeamLogo = root.findViewById(R.id.imageViewLogo);
         mButtonAddPlayer = root.findViewById(R.id.imageViewAddButton);
         mButtonFinishCreateTeam = root.findViewById(R.id.imageViewNext);
+        mButtonDeleteTeam = root.findViewById(R.id.imageViewDelete);
 
         return root;
     }
@@ -89,6 +91,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         super.onViewCreated(view, savedInstanceState);
         mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
         mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
+        mButtonDeleteTeam.setVisibility(View.INVISIBLE);
 
     }
 

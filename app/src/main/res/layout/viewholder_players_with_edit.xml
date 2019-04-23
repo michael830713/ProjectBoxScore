@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout_onCourt_players"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/log_background_grey">
+    android:background="@drawable/log_background_transparent">
 
     <ImageView
         android:id="@+id/imageViewPlayerAvatar"
@@ -26,16 +26,17 @@
 
     <TextView
         android:id="@+id/textView_player_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:gravity="center"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/jersey_m54"
         android:text="Michael Jordan "
         android:textColor="#ffffff"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewDelete"
         app:layout_constraintStart_toEndOf="@+id/textView_number"
         app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
 
@@ -66,6 +67,17 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
 
+    <ImageView
+        android:id="@+id/imageViewDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="8dp"
+        android:tint="@color/selected_white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewEdit"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewEdit"
+        app:layout_constraintTop_toTopOf="@+id/imageViewEdit"
+        app:srcCompat="@drawable/ic_delete_black_24dp" />
     <ImageView
         android:id="@+id/imageViewEdit"
         android:layout_width="wrap_content"

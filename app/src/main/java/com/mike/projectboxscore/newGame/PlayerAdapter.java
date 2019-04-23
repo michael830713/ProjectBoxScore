@@ -114,7 +114,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
-        constraintLayout.setBackgroundResource(R.drawable.log_background_grey);
+        constraintLayout.setBackgroundResource(R.drawable.log_background_transparent);
     }
 
     public int getRow_index() {
