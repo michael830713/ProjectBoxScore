@@ -12,8 +12,8 @@ public class Game {
     private String mTournament;
     private Team mHomeTeam;
     private Date mDate;
-    private int mAwayScore = 0;
-    private int mHomeScore = 0;
+    private int mMyScore = 0;
+    private int mOpponentScore = 0;
     private ArrayList<PlayerStats> mPlayerStats = new ArrayList<>();
 
     public Game(String mOpponent, String mTournament, Team mHomeTeam) {
@@ -29,20 +29,24 @@ public class Game {
         mPlayerStats.add(new PlayerStats(mOpponent, -1, "O", true));
     }
 
-    public int getmAwayScore() {
-        return mAwayScore;
+    public void setmPlayerStats(ArrayList<PlayerStats> mPlayerStats) {
+        this.mPlayerStats = mPlayerStats;
     }
 
-    public void setmAwayScore(int mAwayScore) {
-        this.mAwayScore = mAwayScore;
+    public int getmMyScore() {
+        return mMyScore;
     }
 
-    public int getmHomeScore() {
-        return mHomeScore;
+    public void setmMyScore(int mMyScore) {
+        this.mMyScore = mMyScore;
     }
 
-    public void setmHomeScore(int mHomeScore) {
-        this.mHomeScore = mHomeScore;
+    public int getmOpponentScore() {
+        return mOpponentScore;
+    }
+
+    public void setmOpponentScore(int mOpponentScore) {
+        this.mOpponentScore = mOpponentScore;
     }
 
     public ArrayList<PlayerStats> getmPlayerStats() {

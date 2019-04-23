@@ -1,7 +1,6 @@
 package com.mike.projectboxscore.mainConsole;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -261,25 +260,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     private int updateAddAwayScore(int addPoints) {
         mAwayScore = mAwayScore + addPoints;
-        mPresenter.getGame().setmAwayScore(mAwayScore);
+        mPresenter.getGame().setmMyScore(mAwayScore);
         return mAwayScore;
     }
 
     private int updateAddHomeScore(int addPoints) {
         mHomeScore = mHomeScore + addPoints;
-        mPresenter.getGame().setmHomeScore(mHomeScore);
+        mPresenter.getGame().setmOpponentScore(mHomeScore);
         return mHomeScore;
     }
 
     private int updateMinusAwayScore(int addPoints) {
         mAwayScore = mAwayScore - addPoints;
-        mPresenter.getGame().setmAwayScore(mAwayScore);
+        mPresenter.getGame().setmMyScore(mAwayScore);
         return mAwayScore;
     }
 
     private int updateMinusHomeScore(int addPoints) {
         mHomeScore = mHomeScore - addPoints;
-        mPresenter.getGame().setmHomeScore(mHomeScore);
+        mPresenter.getGame().setmOpponentScore(mHomeScore);
         return mHomeScore;
     }
 
@@ -572,6 +571,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
+    public int getAwayScore() {
+        return mAwayScore;
+    }
+
+    @Override
+    public int getHomeScore() {
+        return mHomeScore;
+    }
+
+    @Override
     public void showNormalModeUi(int videoWidth, int videoHeight) {
 
     }
@@ -582,12 +591,15 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;
         boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), false);
+        Log.d(TAG, "openBoxScoreUi player size: " + mPresenter.getGame().getmPlayerStats().size());
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("BoxScore");
         fragmentTransaction.commit();
     }
 
     @Override
     public void openExitBoxScoreUi() {
+        mPresenter.addNewGame();
+
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;

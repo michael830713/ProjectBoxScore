@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Team {
     private String mName;
     private ArrayList<Player> mPlayers = new ArrayList<>();
-    private ArrayList<Game> mGames;
+    private ArrayList<Game> mGames = new ArrayList<>();
     private int mWins;
     private int mLosses;
 

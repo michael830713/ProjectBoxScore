@@ -67,6 +67,13 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         });
         playerViewHolder.games.setOnClickListener(v -> {
             mPresenter.showToast("game coming soon!");
+            GameAdapter gameAdapter = new GameAdapter(mPresenter, mTeams.get(i).getmGames());
+            playerViewHolder.recyclerView.setAdapter(gameAdapter);
+            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+
+            playerViewHolder.recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 //            TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter,mTeams.get(i));
 //            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
 //            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));

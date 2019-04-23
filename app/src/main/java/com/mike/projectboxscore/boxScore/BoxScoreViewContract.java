@@ -55,6 +55,7 @@ public interface BoxScoreViewContract {
         int getHomeScore();
 
         boolean getExit();
+
         void openHome();
 
     }

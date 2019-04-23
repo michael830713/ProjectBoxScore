@@ -66,6 +66,9 @@ public interface MainConsoleViewContract {
 
         void returnLastStepUi();
 
+        int getAwayScore();
+
+        int getHomeScore();
     }
 
     interface Presenter extends BasePresenter {
@@ -171,5 +174,7 @@ public interface MainConsoleViewContract {
         void openExitBoxScore();
 
         void returnLastStep();
+
+        void addNewGame();
     }
 }

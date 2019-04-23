@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         super.onCreate(savedInstanceState);
 
         mBoxScoreAdapter = new BoxScoreAdapter(mPresenter, mPresenter.getPlayerStats());
-
+        Log.d(TAG, "onCreate player stat: "+mPresenter.getPlayerStats());
     }
 
     @Nullable
@@ -132,16 +133,8 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
 
     @Override
     public void openHomeUi() {
-        MainPagePresenter mSurfaceViewPresenter;
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        try {
-            MainPageFragment fragment = MainPageFragment.newInstance();
-            fragmentTransaction.replace(R.id.container, fragment, "Surface");
-            fragmentTransaction.commit();
-            mSurfaceViewPresenter = new MainPagePresenter(fragment);
-        } catch (Throwable t) {
-            Log.d(TAG, "demoSurfaceView: " + t);
-        }
+        getFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
     }
 
     @Override

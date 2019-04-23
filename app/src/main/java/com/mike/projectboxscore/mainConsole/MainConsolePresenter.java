@@ -3,7 +3,6 @@ package com.mike.projectboxscore.mainConsole;
 import android.util.Log;
 
 import com.mike.projectboxscore.Data.Game;
-import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
@@ -146,7 +145,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void showMadeOrMissDialog( int addPoints) {
+    public void showMadeOrMissDialog(int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
 
     }
@@ -394,6 +393,14 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void openExitBoxScore() {
         mView.openExitBoxScoreUi();
+    }
+
+    @Override
+    public void addNewGame() {
+//        mGame.setmPlayerStats(mTeamPlayers);
+        mGame.setmMyScore(mView.getAwayScore());
+        mGame.setmOpponentScore(mView.getHomeScore());
+        mGame.getmHomeTeam().getmGames().add(mGame);
     }
 
     @Override

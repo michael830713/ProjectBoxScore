@@ -40,7 +40,7 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
 
     @Override
     public int getAwayScore() {
-        return mGame.getmAwayScore();
+        return mGame.getmMyScore();
     }
 
     @Override
@@ -50,12 +50,12 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
 
     @Override
     public void openHome() {
-
+        mView.openHomeUi();
     }
 
     @Override
     public int getHomeScore() {
-        return mGame.getmHomeScore();
+        return mGame.getmOpponentScore();
     }
 
     @Override
