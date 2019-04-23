@@ -1,9 +1,7 @@
 package com.mike.projectboxscore.MainPage;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mike.projectboxscore.LoginUi.LoginPageFragment;
 import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
-import com.mike.projectboxscore.MainActivity;
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
@@ -39,7 +36,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     FirebaseAuth mFirebaseAuth;
     private Activity mActivity;
 
-    LoginPageFragment fragment;
+    LoginPageFragment mLoginFragment;
 
     private MyTeamPresenter mMyTeamPresenter;
     private NewGamePresenter mNewGamePresenter;
@@ -107,14 +104,14 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         Log.d(TAG, "demoLoginViewUi the activity: " + getActivity());
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (getFragmentManager().findFragmentByTag("login") == null) {
-            fragment = LoginPageFragment.newInstance();
-            fragmentTransaction.add(R.id.container, fragment, "login");
+            mLoginFragment = LoginPageFragment.newInstance();
+            fragmentTransaction.add(R.id.container, mLoginFragment, "login");
         } else {
-            fragmentTransaction.show(fragment);
+            fragmentTransaction.show(mLoginFragment);
         }
 
         fragmentTransaction.commit();
-        mLoginPresenter = new LoginPagePresenter(fragment);
+        mLoginPresenter = new LoginPagePresenter(mLoginFragment);
     }
 
     public FragmentManager getHostFragmentManager() {

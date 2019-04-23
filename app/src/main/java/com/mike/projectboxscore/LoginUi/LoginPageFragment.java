@@ -44,12 +44,11 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     private static final String TAG = "LoginPageFragment";
     private static final int RC_SIGN_IN = 500;
 
-    MainPageContract.Presenter mPresenter;
-    private Button mLoginButton;
-    private Button mMyTeamButton;
+    LoginPageContract.Presenter mPresenter;
     SignInButton mSignInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
+
 // ...
 // Initialize Firebase Auth
 
@@ -67,14 +66,16 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     }
 
     @Override
+    public void setPresenter(LoginPageContract.Presenter surfaceViewPresenter) {
+        mPresenter = checkNotNull(surfaceViewPresenter);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_google_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = (GoogleSignInClient) GoogleSignIn.getClient(getActivity(), gso);
+        mPresenter.setupGoogleSignIn();
+
         Log.d(TAG, "onCreate: ");
     }
 
@@ -88,6 +89,36 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        mView = root;
+        mSignInButton = root.findViewById(R.id.sign_in_button);
+        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mSignInButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        mPresenter.googleSignIn();
+
+    }
+
+    @Override
+    public void googleSignInUi() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,7 +129,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                     // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = task.getResult(ApiException.class);
                     Log.d(TAG, "email: " + account.getEmail());
-                    firebaseAuthWithGoogle(account);
+                    mPresenter.firebaseAuthWithGoogle(account);
                 } catch (ApiException e) {
                     // Google Sign In failed, update UI appropriately
                     Log.w(TAG, "Google sign in failed", e);
@@ -129,53 +160,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 });
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_login, container, false);
-        mView = root;
-        mSignInButton = root.findViewById(R.id.sign_in_button);
-        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
-
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mSignInButton.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        signIn();
-    }
-
-    private void updateUI(FirebaseUser account) {
-        String name = account.getDisplayName();
-        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
-        demoMainPageUi();
-    }
-
-    public void demoMainPageUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MainPageFragment fragment = MainPageFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
-//        fragmentTransaction.replace(R.id.container, fragment, "MainPage").addToBackStack("MainPage");
-        fragmentTransaction.commit();
-        mMainPagePresenter = new MainPagePresenter(fragment);
-
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void demoConsoleView() {
-
-    }
 
     @Override
     public void demoNewGameViewUi() {
@@ -196,17 +180,56 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     }
 
     @Override
+    public void setupGoogleSignInUi() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_google_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = (GoogleSignInClient) GoogleSignIn.getClient(getActivity(), gso);
+
+    }
+
+    @Override
+    public void firebaseAuthWithGoogleUi(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Snackbar.make(mView, "Login Failed.", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser account) {
+        String name = account.getDisplayName();
+        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
+        mPresenter.demoMainPage();
+    }
+
+    @Override
+    public void demoMainPageUi() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MainPageFragment fragment = MainPageFragment.newInstance();
+        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
+        fragmentTransaction.commit();
+        mMainPagePresenter = new MainPagePresenter(fragment);
+
+    }
+
+    @Override
     public void demoNewTeamUi() {
 
     }
 
     @Override
     public void initView() {
-
-    }
-
-    @Override
-    public void setPresenter(LoginPageContract.Presenter surfaceViewPresenter) {
 
     }
 }

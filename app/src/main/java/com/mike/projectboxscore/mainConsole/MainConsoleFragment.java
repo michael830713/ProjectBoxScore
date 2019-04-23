@@ -91,6 +91,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
+    public void setPresenter(MainConsoleViewContract.Presenter loginUiPresenter) {
+        mPresenter = checkNotNull(loginUiPresenter);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -611,11 +616,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void addSurfaceHolderCallback(SurfaceHolder.Callback callback) {
 
-    }
-
-    @Override
-    public void setPresenter(MainConsoleViewContract.Presenter loginUiPresenter) {
-        mPresenter = checkNotNull(loginUiPresenter);
     }
 
     long lastPress;

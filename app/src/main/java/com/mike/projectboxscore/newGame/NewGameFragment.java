@@ -170,7 +170,9 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
         Log.d(TAG, "newGame: " + mPresenter.getmNewGame());
+
         mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmNewGame());
+
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("MainConsole");
         fragmentTransaction.commit();
     }

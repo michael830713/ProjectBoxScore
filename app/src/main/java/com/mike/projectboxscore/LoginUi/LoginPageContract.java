@@ -16,6 +16,7 @@
 
 package com.mike.projectboxscore.LoginUi;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -39,6 +40,13 @@ public interface LoginPageContract {
 
         void demoNewTeamUi();
 
+        void setupGoogleSignInUi();
+
+        void firebaseAuthWithGoogleUi(GoogleSignInAccount account);
+
+        void demoMainPageUi();
+
+        void googleSignInUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -59,5 +67,12 @@ public interface LoginPageContract {
 
         void setSampleTeam();
 
+        void setupGoogleSignIn();
+
+        void firebaseAuthWithGoogle(GoogleSignInAccount account);
+
+        void demoMainPage();
+
+        void googleSignIn();
     }
 }
