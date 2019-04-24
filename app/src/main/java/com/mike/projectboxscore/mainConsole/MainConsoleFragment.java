@@ -397,8 +397,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     }
 
-
-
     @Override
     public void showSubstituteDialogUi() {
 
@@ -558,7 +556,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void openExitBoxScoreUi() {
         mPresenter.addNewGame();
-
+        mPresenter.updateFirebaseData();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;

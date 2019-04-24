@@ -176,5 +176,7 @@ public interface MainConsoleViewContract {
         void returnLastStep();
 
         void addNewGame();
+
+        void updateFirebaseData();
     }
 }

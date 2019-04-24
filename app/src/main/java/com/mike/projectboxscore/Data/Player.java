@@ -11,7 +11,7 @@ public class Player {
     private int backNumber = -1;
     private String onCourtPosition;
     ArrayList<HashMap> gameStatHistory;
-    private HashMap<Integer, PlayerStats> mGameStats = new HashMap<>();
+    private HashMap<String, PlayerStats> mGameStats = new HashMap<>();
 
     public Player(String mName, String mEmail, int backNumber, String onCourtPosition) {
         this.name = mName;
@@ -37,11 +37,11 @@ public class Player {
         isOnCourt = onCourt;
     }
 
-    public HashMap<Integer, PlayerStats> getmGameStats() {
+    public HashMap<String, PlayerStats> getmGameStats() {
         return mGameStats;
     }
 
-    public void setmGameStats(HashMap<Integer, PlayerStats> mGameStats) {
+    public void setmGameStats(HashMap<String, PlayerStats> mGameStats) {
         this.mGameStats = mGameStats;
     }
 

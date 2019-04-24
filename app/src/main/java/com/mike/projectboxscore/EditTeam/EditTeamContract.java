@@ -58,5 +58,7 @@ public interface EditTeamContract {
         void showConfirmDeleteDialog(boolean isPlayer);
 
         void updateFirebaseData();
+
+        void deleteTeamFromFirebase();
     }
 }

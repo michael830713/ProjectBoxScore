@@ -39,7 +39,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         Game game = mGames.get(i);
-        playerViewHolder.myName.setText(game.getmHomeTeam().getmName());
+        playerViewHolder.myName.setText(game.getmMyTeamName());
         playerViewHolder.opponentName.setText(game.getmOpponent());
         playerViewHolder.myScore.setText(String.valueOf(game.getmMyScore()));
         playerViewHolder.opponentScore.setText(String.valueOf(game.getmOpponentScore()));

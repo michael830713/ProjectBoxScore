@@ -2,6 +2,10 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 
@@ -19,6 +23,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     private ArrayList<PlayerStats> mOnCourtPlayers;
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
+    CollectionReference mUsersCollection;
+    String mUserId;
 
     public MainConsolePresenter(MainConsoleViewContract.View view, Game game) {
         mView = checkNotNull(view, "view cannot be null!");
@@ -28,6 +34,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
+        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -400,7 +408,13 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 //        mGame.setmPlayerStats(mTeamPlayers);
         mGame.setmMyScore(mView.getAwayScore());
         mGame.setmOpponentScore(mView.getHomeScore());
-        mGame.getmHomeTeam().getmGames().add(mGame);
+//        mGame.getmHomeTeam().getmGames().add(mGame);
+    }
+
+    @Override
+    public void updateFirebaseData() {
+        mUsersCollection.document(mUserId).collection("teams").document(mGame.getmMyTeamName()).collection("games").document(mGame.getTimeStamp()).set(mGame, SetOptions.merge());
+
     }
 
     @Override

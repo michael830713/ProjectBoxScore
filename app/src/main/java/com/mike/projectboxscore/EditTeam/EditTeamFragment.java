@@ -159,9 +159,11 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                 .setPositiveButton("yes", (dialog, id) -> {
                     if (isPlayer) {
                         mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
+                        mPresenter.updateFirebaseData();
                         mPlayerAdapter.updateData();
                     } else {
                         mPresenter.getTeams().remove(mPresenter.getTeam());
+                        mPresenter.deleteTeamFromFirebase();
                         Log.d(TAG, "remove team name: " + mPresenter.getTeam().getmName());
                         //player made shot
                         mPresenter.openMyTeamFragment();

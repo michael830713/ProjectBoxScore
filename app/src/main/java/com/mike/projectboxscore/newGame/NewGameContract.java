@@ -42,5 +42,7 @@ public interface NewGameContract {
         Team getmSelectedTeam();
 
         void showToast(String message);
+
+        void setPlayerStats();
     }
 }

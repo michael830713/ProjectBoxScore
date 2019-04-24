@@ -3,6 +3,8 @@ package com.mike.projectboxscore.newGame;
 import android.util.Log;
 
 import com.mike.projectboxscore.Data.Game;
+import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.Data.Team;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     }
 
-    public NewGamePresenter(NewGameContract.View view,ArrayList<Team> myTeams) {
+    public NewGamePresenter(NewGameContract.View view, ArrayList<Team> myTeams) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
         mMyTeams = myTeams;
@@ -43,7 +45,18 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     @Override
     public void setNewGame(String opponent, String tournament) {
         Log.d(TAG, "selectedTeam: " + getmSelectedTeam());
-        mNewGame = new Game(opponent, tournament, getmSelectedTeam());
+        mNewGame = new Game(opponent, tournament, getmSelectedTeam().getmName());
+        Log.d(TAG, "timestamp: "+mNewGame.getTimeStamp());
+    }
+
+    @Override
+    public void setPlayerStats() {
+        ArrayList<PlayerStats> playerStats = new ArrayList<>();
+        for (Player player : mSelectedTeam.getmPlayers()) {
+            PlayerStats playerStat = new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(),player.isOnCourt());
+            playerStats.add(playerStat);
+        }
+        mNewGame.setmPlayerStats(playerStats);
     }
 
     public Game getmNewGame() {

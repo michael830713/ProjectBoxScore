@@ -56,7 +56,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTeamAdapter = new TeamAdapter(mPresenter);
-        mPlayerAdapter = new PlayerAdapter(mPresenter,getActivity());
+        mPlayerAdapter = new PlayerAdapter(mPresenter, getActivity());
 
 //        Team allStar = new Team("All-star");
 //
@@ -169,7 +169,7 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void openMainConsoleUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
-        Log.d(TAG, "newGame: " + mPresenter.getmNewGame());
+        Log.d(TAG, "newGame: " + mPresenter.getmNewGame().getmPlayerStats().get(0).getName());
 
         mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmNewGame());
 
@@ -187,7 +187,9 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
             mPresenter.showToast("Enter Opponent and Tournament!");
         } else {
             Log.d(TAG, "setNewGame is running: ");
+
             mPresenter.setNewGame(opponent, tournament);
+            mPresenter.setPlayerStats();
         }
     }
 

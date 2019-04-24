@@ -88,7 +88,7 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         mTextViewAwayScore.setText(String.valueOf(mPresenter.getAwayScore()));
         mTextViewHomeScore.setText(String.valueOf(mPresenter.getHomeScore()));
 
-        mTextViewAwayTeamName.setText(mPresenter.getGame().getmHomeTeam().getmName());
+        mTextViewAwayTeamName.setText(mPresenter.getGame().getmMyTeamName());
         mTextViewHomeTeamName.setText(mPresenter.getGame().getmOpponent());
 
         if (mPresenter.getExit()) {

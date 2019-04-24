@@ -1,8 +1,8 @@
 package com.mike.projectboxscore.Data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
@@ -10,27 +10,37 @@ public class Game {
     private int id;
     private String mOpponent;
     private String mTournament;
-    private Team mHomeTeam;
-    private Date mDate;
+    private String mMyTeamName;
+    String timeStamp;
     private int mMyScore = 0;
     private int mOpponentScore = 0;
     private ArrayList<PlayerStats> mPlayerStats = new ArrayList<>();
 
-    public Game(String mOpponent, String mTournament, Team mHomeTeam) {
+    public Game(String mOpponent, String mTournament, String mHomeTeam) {
         id = uniqueId.getAndIncrement();
         this.mOpponent = mOpponent;
         this.mTournament = mTournament;
-        this.mHomeTeam = mHomeTeam;
-        for (Player player : mHomeTeam.getmPlayers()) {
-            HashMap<Integer, PlayerStats> gameStats = player.getmGameStats();
-            gameStats.put(id, new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(), player.isOnCourt));
-            mPlayerStats.add(player.getmGameStats().get(id));
-        }
+        this.mMyTeamName = mHomeTeam;
+        SimpleDateFormat s = new SimpleDateFormat("yyyyMMddHHmmss");
+     timeStamp = s.format(new Date());
+
         mPlayerStats.add(new PlayerStats(mOpponent, -1, "O", true));
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
     public void setmPlayerStats(ArrayList<PlayerStats> mPlayerStats) {
         this.mPlayerStats = mPlayerStats;
+    }
+
+    public String getmMyTeamName() {
+        return mMyTeamName;
+    }
+
+    public void setmMyTeamName(String mMyTeamName) {
+        this.mMyTeamName = mMyTeamName;
     }
 
     public int getmMyScore() {
@@ -73,21 +83,6 @@ public class Game {
         this.mTournament = mTournament;
     }
 
-    public Team getmHomeTeam() {
-        return mHomeTeam;
-    }
-
-    public void setmHomeTeam(Team mHomeTeam) {
-        this.mHomeTeam = mHomeTeam;
-    }
-
-    public Date getmDate() {
-        return mDate;
-    }
-
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
-    }
 
 //    public void setmPlayerStats() {
 //        for (Player player : mHomeTeam.getmPlayers()) {
