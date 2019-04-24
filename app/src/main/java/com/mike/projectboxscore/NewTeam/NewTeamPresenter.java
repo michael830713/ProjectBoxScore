@@ -2,11 +2,17 @@ package com.mike.projectboxscore.NewTeam;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
@@ -20,6 +26,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     Player mNewPlayer;
     private Game mNewGame;
+    CollectionReference mUsersCollection;
+    String mUserId;
 
     @Override
     public void start() {
@@ -30,6 +38,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         mView = checkNotNull(view, "view cannot be null!");
         mMyTeams = teams;
         mView.setPresenter(this);
+        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        mMyTeams = new ArrayList<>();
 
     }
@@ -43,6 +53,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
             Team team = new Team(teamName);
             team.setmPlayers(mTeamPlayer);
             mMyTeams.add(team);
+            addTeamToFirebase(team);
+
         }
 
     }
@@ -63,7 +75,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         return mTeamPlayer;
     }
 
-
     @Override
     public void showNewPlayerDialog() {
         mView.showNewPlayerUi();
@@ -77,6 +88,13 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     @Override
     public void updateData() {
         mView.updateDataUi();
+    }
+
+    @Override
+    public void addTeamToFirebase(Team team) {
+        Map<String, Object> data1 = new HashMap<>();
+        data1.put(team.getmName(), team);
+        mUsersCollection.document(mUserId).collection("teams").document(team.getmName()).set(team, SetOptions.merge());
     }
 
     @Override

@@ -106,7 +106,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (getFragmentManager().findFragmentByTag("login") == null) {
             mLoginFragment = LoginPageFragment.newInstance();
-            fragmentTransaction.add(R.id.container, mLoginFragment, "login");
+            fragmentTransaction.replace(R.id.container, mLoginFragment, "login");
         } else {
             fragmentTransaction.show(mLoginFragment);
         }

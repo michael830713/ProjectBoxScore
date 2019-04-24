@@ -21,6 +21,7 @@ public interface NewTeamContract {
         ArrayList<Player> getPlayers();
 
         void showNewPlayerUi();
+
         void openMyTeamFragmentUi();
 
         void updateDataUi();
@@ -37,6 +38,8 @@ public interface NewTeamContract {
         ArrayList<Player> getTeamPlayer();
 
         void updateData();
+
+        void addTeamToFirebase(Team team);
 
         void openMyTeamFragment();
 

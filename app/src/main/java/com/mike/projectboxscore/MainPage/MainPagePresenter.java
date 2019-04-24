@@ -70,7 +70,7 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         allStar.addmPlayers(new Player("Parker", 9, "G"));
         allStar.addmPlayers(new Player("McGrady", 1, "G"));
         allStar.addmPlayers(new Player("Allen", 20, "G"));
-        addTeam(allStar);
+//        addTeam(allStar);
         Map<String, Object> data1 = new HashMap<>();
 
         data1.put(allStar.getmName(), allStar);
@@ -93,11 +93,7 @@ public class MainPagePresenter implements MainPageContract.Presenter {
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Gson gSon = new Gson();
-//                        docume
-//                        Object object=document.
-//                        String string = document.getData().toString();
                         Team team = gSon.fromJson(document.getData().toString(), Team.class);
-//                        Team team = document.toObject(Team.class);
                         myTeams.add(team);
                     }
                     mTeams = myTeams;
