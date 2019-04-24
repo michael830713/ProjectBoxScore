@@ -1,7 +1,5 @@
 package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
-import android.util.Log;
-
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
 
@@ -27,7 +25,7 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
 
     @Override
     public void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition) {
-        mPlayer.setmName(mName);
+        mPlayer.setName(mName);
         mPlayer.setmEmail(mEmail);
         mPlayer.setBackNumber(backNumber);
         mPlayer.setOnCourtPosition(onCourtPosition);

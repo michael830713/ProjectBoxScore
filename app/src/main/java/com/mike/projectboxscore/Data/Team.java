@@ -9,6 +9,9 @@ public class Team {
     private int mWins;
     private int mLosses;
 
+    public Team() {
+    }
+
     public Team(String mName) {
         this.mName = mName;
     }

@@ -59,6 +59,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.setSampleTeam();
+        mPresenter.checkFirebaseData();
 //        mActivity = getActivity();
         mFirebaseAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "onCreate: ");

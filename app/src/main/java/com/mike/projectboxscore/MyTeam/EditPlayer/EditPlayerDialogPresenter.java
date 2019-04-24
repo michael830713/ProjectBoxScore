@@ -2,7 +2,6 @@ package com.mike.projectboxscore.MyTeam.EditPlayer;
 
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
-import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogContract;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
 
     @Override
     public void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition) {
-        mPlayer.setmName(mName);
+        mPlayer.setName(mName);
         mPlayer.setmEmail(mEmail);
         mPlayer.setBackNumber(backNumber);
         mPlayer.setOnCourtPosition(onCourtPosition);
@@ -67,7 +66,7 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
 
     @Override
     public void updatePlayerInfo(String playerName, String email, int backNumber, String position) {
-        mPlayer.setmName(playerName);
+        mPlayer.setName(playerName);
         mPlayer.setmEmail(email);
         mPlayer.setBackNumber(backNumber);
         mPlayer.setOnCourtPosition(position);

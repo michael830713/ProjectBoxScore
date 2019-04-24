@@ -26,6 +26,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.MainPage.MainPageContract;
 import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
@@ -35,6 +38,9 @@ import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 import com.mike.projectboxscore.newGame.NewGamePresenter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
@@ -140,27 +146,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        Snackbar.make(mView, "Login Failed.", Snackbar.LENGTH_SHORT).show();
-//                        updateUI(null);
-                    }
-                });
-    }
-
-
     @Override
     public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -198,6 +183,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+                        Log.d(TAG, "firebaseAuthWithGoogleUi Uid: " + user.getUid());
                         updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
@@ -208,18 +194,21 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     }
 
     private void updateUI(FirebaseUser account) {
+
         String name = account.getDisplayName();
         Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
+
         mPresenter.demoMainPage();
     }
 
     @Override
     public void demoMainPageUi() {
+
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainPageFragment fragment = MainPageFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
-        fragmentTransaction.commit();
         mMainPagePresenter = new MainPagePresenter(fragment);
+        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
+        fragmentTransaction.commitAllowingStateLoss();
 
     }
 

@@ -57,8 +57,11 @@ public interface MainPageContract {
         void addTeam(Team team);
 
         void demoMyTeamView();
+
         void setSampleTeam();
 
         void demoLoginView();
+
+        void checkFirebaseData();
     }
 }

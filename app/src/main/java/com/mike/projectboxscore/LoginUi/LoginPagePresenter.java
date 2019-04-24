@@ -1,35 +1,36 @@
 package com.mike.projectboxscore.LoginUi;
 
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.MainPage.MainPageContract;
-import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class LoginPagePresenter implements LoginPageContract.Presenter {
     private static final String TAG = "LoginPagePresenter";
     LoginPageContract.View mView;
+    FirebaseFirestore mFirebaseFirestore;
 
     ArrayList<Team> mTeams = new ArrayList<>();
 
     public LoginPagePresenter(LoginPageContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -81,6 +82,38 @@ public class LoginPagePresenter implements LoginPageContract.Presenter {
     @Override
     public void googleSignIn() {
         mView.googleSignInUi();
+    }
+
+    @Override
+    public void getFireStoreData(FirebaseUser account, FirebaseDataCallback callback) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("capital", true);
+
+        mFirebaseFirestore.collection("users").document(account.getUid())
+                .set(data, SetOptions.merge());
+
+        DocumentReference docRef = mFirebaseFirestore.collection("users").document(account.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        callback.firebaseDataCallBack(document);
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                    } else {
+                        Map<String, Object> data = new HashMap<>();
+
+                        callback.firebaseDataCallBack(null);
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     @Override

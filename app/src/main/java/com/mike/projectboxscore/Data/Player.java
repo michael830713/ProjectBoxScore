@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Player {
     boolean isOnCourt;
-    private String mName;
+    private String name;
     private String mEmail;
     private Team mMyTeam;
     private int backNumber = -1;
@@ -14,14 +14,14 @@ public class Player {
     private HashMap<Integer, PlayerStats> mGameStats = new HashMap<>();
 
     public Player(String mName, String mEmail, int backNumber, String onCourtPosition) {
-        this.mName = mName;
+        this.name = mName;
         this.mEmail = mEmail;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
     }
 
     public Player(String mName, int backNumber, String onCourtPosition) {
-        this.mName = mName;
+        this.name = mName;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
     }
@@ -46,11 +46,11 @@ public class Player {
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getmEmail() {

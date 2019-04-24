@@ -38,7 +38,7 @@ import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
-public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed, MadeOrMissCallback {
+public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed {
 
     private static final String TAG = "MainConsoleFragment";
 
@@ -375,13 +375,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void showMadeOrMissDialogUi(int addPoints) {
 
         MadeOrMissDialog madeOrMissDialog = new MadeOrMissDialog();
-//        madeOrMissDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//        mSubPresenter = new SubDialogPresenter(substituteDialog);
-//        mPresenter.setOnBenchPlayers();
-//        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
-//        ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
-//        ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
-//        substituteDialog.setPresenter(mSubPresenter);
         madeOrMissDialog.setMadeOrMissCallback(new MadeOrMissCallback() {
             @Override
             public void madeOrMissCallBack(String madeOrMiss) {
@@ -402,45 +395,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         FragmentManager fm = getFragmentManager();
         madeOrMissDialog.show(fm, "wierd");
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setMessage("Made or miss?")
-//                .setCancelable(true)
-//                .setPositiveButton("Made", (dialog, id) -> {
-//
-//                    //player made shot
-//                    mPresenter.updatePlayerScores(addPoints);
-//                    mPresenter.updateLog(addPoints, true);
-//                    mPresenter.updateScoreboard(addPoints);
-//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-//                    dialog.dismiss();
-//                })
-//                .setNegativeButton("Miss", (dialog, id) -> {
-//
-//                    //player missed shot
-//                    mPresenter.updatePlayerMisses(addPoints);
-//                    mPresenter.updateLog(addPoints, false);
-//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-//                    dialog.dismiss();
-//                });
-//        AlertDialog alert = builder.create();
-//        alert.show();
     }
 
-    @Override
-    public void madeOrMissCallBack(String madeOrMiss) {
-//        if (madeOrMiss.equals("made")) {
-//            mPresenter.updatePlayerScores(addPoints);
-//            mPresenter.updateLog(addPoints, true);
-//            mPresenter.updateScoreboard(addPoints);
-//            Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-//            dialog.dismiss();
-//        } else {
-//            mPresenter.updatePlayerMisses(addPoints);
-//            mPresenter.updateLog(addPoints, false);
-//            Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
-//            dialog.dismiss();
-//        }
-    }
+
 
     @Override
     public void showSubstituteDialogUi() {
@@ -477,12 +434,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 .setCancelable(true)
                 .setPositiveButton("Yes", (dialog, id) -> {
                     mPresenter.openExitBoxScore();
-                    //player made shot
-
                     dialog.dismiss();
                 })
                 .setNegativeButton("No", (dialog, id) -> {
-
                     dialog.dismiss();
                 });
         AlertDialog alert = builder.create();

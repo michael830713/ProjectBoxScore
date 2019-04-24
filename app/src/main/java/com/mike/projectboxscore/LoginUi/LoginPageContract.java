@@ -17,6 +17,8 @@
 package com.mike.projectboxscore.LoginUi;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -74,5 +76,7 @@ public interface LoginPageContract {
         void demoMainPage();
 
         void googleSignIn();
+
+        void getFireStoreData(FirebaseUser account,FirebaseDataCallback callback);
     }
 }
