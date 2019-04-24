@@ -101,7 +101,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
         mMainLogAdapter = new MainLogAdapter(mPresenter);
-        mPresenter.setOpponent("Pistons");
+//        mPresenter.setOpponent("Pistons");
         Log.d(TAG, "onCreate: ");
 
     }

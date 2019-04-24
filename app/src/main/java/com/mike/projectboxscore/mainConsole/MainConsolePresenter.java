@@ -93,19 +93,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         mOnBenchPlayers = playerStats;
     }
 
-    @Override
-    public void setOpponent(String name) {
-        boolean hasOpponent = false;
-        for (PlayerStats playerStats : mTeamPlayers) {
-            if (playerStats.getBackNumber() == -1) {
-                hasOpponent = true;
-            }
-        }
-        if (!hasOpponent) {
-            mTeamPlayers.add(new PlayerStats(name, -1, "O", true));
-        }
-
-    }
 
     @Override
     public ArrayList<PlayerStats> getPlayers() {

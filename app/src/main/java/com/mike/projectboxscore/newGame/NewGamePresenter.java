@@ -46,17 +46,18 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     public void setNewGame(String opponent, String tournament) {
         Log.d(TAG, "selectedTeam: " + getmSelectedTeam());
         mNewGame = new Game(opponent, tournament, getmSelectedTeam().getmName());
-        Log.d(TAG, "timestamp: "+mNewGame.getTimeStamp());
+        Log.d(TAG, "timestamp: " + mNewGame.getTimeStamp());
     }
 
     @Override
     public void setPlayerStats() {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
         for (Player player : mSelectedTeam.getmPlayers()) {
-            PlayerStats playerStat = new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(),player.isOnCourt());
+            PlayerStats playerStat = new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(), player.isOnCourt());
             playerStats.add(playerStat);
         }
-        mNewGame.setmPlayerStats(playerStats);
+        mNewGame.addmPlayerStats(playerStats);
+        mNewGame.addOpponentToPlayerStats();
     }
 
     public Game getmNewGame() {

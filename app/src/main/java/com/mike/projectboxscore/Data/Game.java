@@ -22,9 +22,8 @@ public class Game {
         this.mTournament = mTournament;
         this.mMyTeamName = mHomeTeam;
         SimpleDateFormat s = new SimpleDateFormat("yyyyMMddHHmmss");
-     timeStamp = s.format(new Date());
+        timeStamp = s.format(new Date());
 
-        mPlayerStats.add(new PlayerStats(mOpponent, -1, "O", true));
     }
 
     public String getTimeStamp() {
@@ -33,6 +32,16 @@ public class Game {
 
     public void setmPlayerStats(ArrayList<PlayerStats> mPlayerStats) {
         this.mPlayerStats = mPlayerStats;
+    }
+
+    public void addmPlayerStats(ArrayList<PlayerStats> playerStats) {
+        mPlayerStats.addAll(playerStats);
+
+    }
+
+    public void addOpponentToPlayerStats() {
+        PlayerStats opponent = new PlayerStats(getmOpponent(), -1, "O", true);
+        mPlayerStats.add(opponent);
     }
 
     public String getmMyTeamName() {
@@ -82,7 +91,6 @@ public class Game {
     public void setmTournament(String mTournament) {
         this.mTournament = mTournament;
     }
-
 
 //    public void setmPlayerStats() {
 //        for (Player player : mHomeTeam.getmPlayers()) {
