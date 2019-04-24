@@ -48,6 +48,8 @@ public interface MyTeamContract {
 
         void setNewPlayer(String name, String email, String onCourtPosition, int parseInt, Team selectedTeam);
 
+        void updatePlayerToFirebase(Team team);
+
         Player getNewPlayer();
 
         void showEditTeam();

@@ -2,6 +2,10 @@ package com.mike.projectboxscore.EditTeam;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
@@ -21,6 +25,8 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     Player mNewPlayer;
     private Game mNewGame;
+    CollectionReference mUsersCollection;
+    String mUserId;
 
     @Override
     public void start() {
@@ -34,6 +40,8 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
         Log.d(TAG, "Team: " + mTeam);
         mTeamPlayer = mTeam.getmPlayers();
         mView.setPresenter(this);
+        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        mMyTeams = new ArrayList<>();
 
     }
@@ -90,6 +98,12 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     @Override
     public void showConfirmDeleteDialog(boolean isPlayer) {
         mView.showConfirmDeleteDialogUi(isPlayer);
+    }
+
+    @Override
+    public void updateFirebaseData() {
+        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getmName()).set(mTeam, SetOptions.merge());
+
     }
 
     @Override

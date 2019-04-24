@@ -92,8 +92,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
     @Override
     public void addTeamToFirebase(Team team) {
-        Map<String, Object> data1 = new HashMap<>();
-        data1.put(team.getmName(), team);
+//        Map<String, Object> data1 = new HashMap<>();
+//        data1.put(team.getmName(), team);
         mUsersCollection.document(mUserId).collection("teams").document(team.getmName()).set(team, SetOptions.merge());
     }
 

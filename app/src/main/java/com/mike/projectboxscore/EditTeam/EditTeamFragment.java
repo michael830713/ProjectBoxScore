@@ -201,9 +201,11 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
             } else {
                 mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber));
                 mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
+                mPresenter.updateFirebaseData();
                 mPresenter.updateData();
             }
         } else if (requestCode == EDIT_DIALOG_REQUEST_CODE) {
+            mPresenter.updateFirebaseData();
             mPresenter.updateData();
         }
     }
