@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
-import com.mike.projectboxscore.Data.Player;
+import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.MainActivity;
 import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
@@ -26,11 +26,12 @@ import java.util.ArrayList;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
 public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerViewHolder> {
-
+    private static final String TAG = "MyTeamAdapter";
     private Context mContext;
     private MyTeamContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<Team> mTeams;
+    private boolean isFirstTime = true;
 
     public MyTeamAdapter(MyTeamContract.Presenter presenter, Context context) {
         mPresenter = presenter;
@@ -58,27 +59,31 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         playerViewHolder.roster.setOnClickListener(v -> {
 
             TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter, mTeams.get(i));
-            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
-            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            playerViewHolder.playerOrGameRecyclerView.setAdapter(teamPlayerAdapter);
+            playerViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//            if (isFirstTime) {
+//                Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+//                playerViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+//                isFirstTime = false;
+//            }
 
-            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
-
-            playerViewHolder.recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         });
+
         playerViewHolder.games.setOnClickListener(v -> {
-            mPresenter.showToast("game coming soon!");
-            GameAdapter gameAdapter = new GameAdapter(mPresenter, mTeams.get(i).getmGames());
-            playerViewHolder.recyclerView.setAdapter(gameAdapter);
-            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            GameAdapter gameAdapter = new GameAdapter(mPresenter, mPresenter.getGames());
+            mPresenter.loadGameData(i, new GamesDataCallback() {
+                @Override
+                public void loadGameCallBack(ArrayList<Game> games) {
+                    gameAdapter.updateData(games, true);
+                }
+            });
 
-            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+            playerViewHolder.playerOrGameRecyclerView.setAdapter(gameAdapter);
+            playerViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-            playerViewHolder.recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
-//            TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter,mTeams.get(i));
-//            playerViewHolder.recyclerView.setAdapter(teamPlayerAdapter);
-//            playerViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+//            playerViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         });
-//        playerViewHolder.buttonAddPlayer.setOnClickListener(v -> mPresenter.showNewPlayer());
         playerViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +105,19 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 
     }
 
+    @Override
+    public void onViewRecycled(@NonNull PlayerViewHolder holder) {
+        super.onViewRecycled(holder);
+        Log.d(TAG, "onViewRecycled: ");
+        while (holder.playerOrGameRecyclerView.getItemDecorationCount() > 0) {
+            holder.playerOrGameRecyclerView.removeItemDecorationAt(0);
+        }
+
+    }
+
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
         SegmentedGroup segmented2;
-        RecyclerView recyclerView;
+        RecyclerView playerOrGameRecyclerView;
         Button roster;
         Button games;
         TextView teamName;
@@ -113,12 +128,13 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             super(itemView);
             segmented2 = (SegmentedGroup) itemView.findViewById(R.id.segmented2);
             segmented2.setTintColor(Color.parseColor("#F39A2C"));
-            recyclerView = itemView.findViewById(R.id.recyclerViewPlayerOrGameList);
+            playerOrGameRecyclerView = itemView.findViewById(R.id.recyclerViewPlayerOrGameList);
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);
             teamName = itemView.findViewById(R.id.textViewTeamName);
-//            buttonAddPlayer = itemView.findViewById(R.id.imageViewAddButton);
             buttonEditTeam = itemView.findViewById(R.id.imageViewEdit);
+            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
+            playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
         }
     }

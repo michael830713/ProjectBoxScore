@@ -2,7 +2,7 @@ package com.mike.projectboxscore.Data;
 
 public class PlayerStats {
     private int gameId;
-    private String Name;
+    private String name;
     private int backNumber;
     private int points = 0;
     private int rebounds = 0;
@@ -42,7 +42,7 @@ public class PlayerStats {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setBackNumber(int backNumber) {
@@ -90,20 +90,20 @@ public class PlayerStats {
     }
 
     public PlayerStats(String name, int backNumber, String onCourtPosition) {
-        Name = name;
+        this.name = name;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
     }
 
     public PlayerStats(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
-        Name = name;
+        this.name = name;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
         this.isOnCourt = isOnCourt;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public int getBackNumber() {

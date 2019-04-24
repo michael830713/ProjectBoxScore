@@ -139,6 +139,11 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     }
 
     @Override
+    public void upDateGameDataUi() {
+
+    }
+
+    @Override
     public void showEditTeamUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         EditTeamFragment fragment = EditTeamFragment.newInstance();
@@ -187,10 +192,10 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
                 mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber), mTeamAdapter.getSelectedTeam());
                 Log.d(TAG, "getNewPlayer: " + mPresenter.getNewPlayer());
 //                mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
-                mPresenter.updateData();
+                mPresenter.updateTeamData();
             }
         } else if (requestCode == EDIT_DIALOG_REQUEST_CODE) {
-            mPresenter.updateData();
+            mPresenter.updateTeamData();
         }
     }
 
@@ -200,7 +205,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     }
 
     @Override
-    public void updateDataUi() {
+    public void updateTeamDataUi() {
         mTeamAdapter.updateData(mPresenter.getTeams());
     }
 

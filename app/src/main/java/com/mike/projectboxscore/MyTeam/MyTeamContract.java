@@ -20,13 +20,15 @@ public interface MyTeamContract {
 
         void openNewTeamFragmentUi();
 
-        void updateDataUi();
+        void updateTeamDataUi();
 
         void showEditPlayerUi(Player player);
 
         void showEditTeamUi();
 
         void openBoxScoreUi(Game game);
+
+        void upDateGameDataUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -36,7 +38,8 @@ public interface MyTeamContract {
 
         void openNewTeamFragment();
 
-        void updateData();
+        void updateTeamData();
+        void updateGameData();
 
         ArrayList<Team> getTeams();
 
@@ -55,5 +58,9 @@ public interface MyTeamContract {
         void showEditTeam();
 
         void openBoxScore(Game game);
+
+        void loadGameData(int i,GamesDataCallback callback);
+
+        ArrayList<Game> getGames();
     }
 }

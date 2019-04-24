@@ -1,18 +1,22 @@
 package com.mike.projectboxscore.MyTeam;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.gson.Gson;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
@@ -23,6 +27,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     MyTeamContract.View mView;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     ArrayList<Team> mTeams;
+    ArrayList<Game> mGames = new ArrayList<>();
     Player mNewPlayer;
     Team mSelectedTeam;
     private Game mNewGame;
@@ -52,7 +57,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber, Team selectedTeam) {
         mSelectedTeam = selectedTeam;
         mNewPlayer = new Player(name, email, backNumber, onCourtPosition);
-        Log.d(TAG, "updatePlayerToFirebase before: "+selectedTeam.getmPlayers().size());
+        Log.d(TAG, "updatePlayerToFirebase before: " + selectedTeam.getmPlayers().size());
         selectedTeam.addmPlayers(mNewPlayer);
         updatePlayerToFirebase(selectedTeam);
     }
@@ -61,7 +66,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     public void updatePlayerToFirebase(Team team) {
 //        Map<String, Object> data1 = new HashMap<>();
 //        data1.put("mPlayers", team);
-        Log.d(TAG, "updatePlayerToFirebase after: "+team.getmPlayers().size());
+        Log.d(TAG, "updatePlayerToFirebase after: " + team.getmPlayers().size());
         team.getmPlayers().size();
         mUsersCollection.document(mUserId).collection("teams").document(team.getmName()).set(team, SetOptions.merge());
     }
@@ -102,8 +107,44 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     }
 
     @Override
-    public void updateData() {
-        mView.updateDataUi();
+    public void loadGameData(int i,GamesDataCallback callback) {
+        ArrayList<Game> games = new ArrayList<>();
+        mUsersCollection.document(mUserId)
+                .collection("teams").document(mTeams.get(i).getmName())
+                .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        Gson gSon = new Gson();
+                        Game game = gSon.fromJson(document.getData().toString(), Game.class);
+
+                        games.add(game);
+
+                    }
+                    mGames = games;
+                    callback.loadGameCallBack(mGames);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Game> getGames() {
+        return mGames;
+    }
+
+    @Override
+    public void updateTeamData() {
+        mView.updateTeamDataUi();
+    }
+
+    @Override
+    public void updateGameData() {
+        mView.upDateGameDataUi();
     }
 
     @Override
