@@ -10,6 +10,7 @@ public class Player {
     private Team mMyTeam;
     private int backNumber = -1;
     private String onCourtPosition;
+    private String imageUrl;
     ArrayList<HashMap> gameStatHistory;
     private HashMap<String, PlayerStats> mGameStats = new HashMap<>();
 
@@ -20,10 +21,26 @@ public class Player {
         this.onCourtPosition = onCourtPosition;
     }
 
+    public Player(String name, String mEmail, int backNumber, String onCourtPosition, String imageUrl) {
+        this.name = name;
+        this.mEmail = mEmail;
+        this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+        this.imageUrl = imageUrl;
+    }
+
     public Player(String mName, int backNumber, String onCourtPosition) {
         this.name = mName;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Player() {

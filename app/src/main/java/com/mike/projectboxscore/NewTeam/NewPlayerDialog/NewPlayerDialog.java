@@ -106,21 +106,30 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
                     if (playerName != null && email != null && backNumber != -1 && position != null) {
-                        sendResult(playerName, email, position, backNumber);
+
                         if (mImageUri != null) {
-                            mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri));
+                            int finalBackNumber = backNumber;
+                            mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
+                                @Override
+                                public void loadGameCallBack(String imageLink) {
+                                    sendResult(playerName, email, position, finalBackNumber, imageLink);
+                                    Log.d(TAG, "loadGameCallBack: " + imageLink);
+                                }
+                            });
+                        } else {
+                            sendResult(playerName, email, position, backNumber, null);
+
                         }
 
-                        dismiss();
                     } else {
                         Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
                     }
-
+//                    dismiss();
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null, null, null, -1);
-                    dismiss();
+                    sendResult(null, null, null, -1, null);
+
                     break;
                 case R.id.imageViewAvatarFrame:
 
@@ -130,15 +139,23 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         }
     };
 
-    private void sendResult(String name, String email, String onCourtPosition, int backNumber) {
+    private void sendResult(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
         if (getTargetFragment() == null) {
             return;
         }
-        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber);
+        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         dismiss();
     }
 
+    //    private void sendResult(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
+//        if (getTargetFragment() == null) {
+//            return;
+//        }
+//        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber);
+//        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+//        dismiss();
+//    }
     @Override
     public void setPositionSpinnerUi() {
         final String[] lunch = {"G", "F", "C"};

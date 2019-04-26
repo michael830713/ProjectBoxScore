@@ -102,9 +102,10 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.imageViewAddButton:
+                    Log.d(TAG, "onClick: ");
                     mPresenter.showNewPlayerDialog();
-                    break;
 
+                    break;
                 case R.id.imageViewNext:
                     if (mTeamName.getText().toString().isEmpty()) {
                         showToastMessageUi("Please enter team name!");
@@ -145,24 +146,26 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
             String email = data.getStringExtra(NEW_PLAYER_EMAIL);
             String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
             String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
+            String imageUrl = data.getStringExtra(NEW_PLAYER_IMAGE_URI);
 
             Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
             if (name == null) {
                 Log.d(TAG, "it is null: ");
             } else {
-                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber));
+                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber), imageUrl);
                 mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
                 mPresenter.updateData();
             }
         }
     }
 
-    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {
+    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
         Intent intent = new Intent();
         intent.putExtra(NEW_PLAYER_NAME, name);
         intent.putExtra(NEW_PLAYER_EMAIL, email);
         intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
         intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
+        intent.putExtra(NEW_PLAYER_IMAGE_URI, imageUrl);
 
         return intent;
     }
@@ -185,7 +188,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void onPause() {
 
-        mButtonAddPlayer.setOnClickListener(null);
+//        mButtonAddPlayer.setOnClickListener(null);
         Log.d(TAG, "onPause: ");
         super.onPause();
     }

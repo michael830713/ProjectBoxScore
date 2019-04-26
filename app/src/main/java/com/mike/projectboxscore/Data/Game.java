@@ -16,6 +16,9 @@ public class Game {
     private int mOpponentScore = 0;
     private ArrayList<PlayerStats> mPlayerStats = new ArrayList<>();
 
+    public Game() {
+    }
+
     public Game(String mOpponent, String mTournament, String mHomeTeam) {
         id = uniqueId.getAndIncrement();
         this.mOpponent = mOpponent;

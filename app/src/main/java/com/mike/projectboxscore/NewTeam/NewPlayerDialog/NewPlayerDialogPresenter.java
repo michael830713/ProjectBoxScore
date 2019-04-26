@@ -36,7 +36,7 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
 
     public NewPlayerDialogPresenter(NewPlayerDialogContract.View view) {
         mView = checkNotNull(view, "view cannot be null!");
-        mStorageReference= FirebaseStorage.getInstance().getReference("uploads");
+        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
 //        mPlayer = player;
     }
 
@@ -100,7 +100,7 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     }
 
     @Override
-    public void uploadFile(Uri imageUri, String fileExtention) {
+    public void uploadFile(Uri imageUri, String fileExtention,PlayerAvatarUploadCallback callback) {
         if (imageUri != null) {
             StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
                     + "." + fileExtention);
@@ -109,27 +109,16 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-//                                    mProgressBar.setProgress(0);
-                                }
-                            }, 500);
 
                             Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Log.d(TAG, "upload URL: " + uri);
+                                    callback.loadGameCallBack(uri.toString());
                                 }
                             });
 
-//                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-//                                    taskSnapshot.getDownloadUrl().toString());
-//                            String uploadId = mDatabaseRef.push().getKey();
-//                            mDatabaseRef.child(uploadId).setValue(upload);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -141,8 +130,6 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-//                            mProgressBar.setProgress((int) progress);
                         }
                     });
         } else {

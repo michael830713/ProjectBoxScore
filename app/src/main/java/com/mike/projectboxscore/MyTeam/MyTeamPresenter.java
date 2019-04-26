@@ -117,10 +117,13 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
 
-                        Gson gSon = new Gson();
-                        Game game = gSon.fromJson(document.getData().toString(), Game.class);
+                        Game test= document.toObject(Game.class);
 
-                        games.add(game);
+
+//                        Gson gSon = new Gson();
+//                        Game game = gSon.fromJson(document.getData().toString(), Game.class);
+
+                        games.add(test);
 
                     }
                     mGames = games;

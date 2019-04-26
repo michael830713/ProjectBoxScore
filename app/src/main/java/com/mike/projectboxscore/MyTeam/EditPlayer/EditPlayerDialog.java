@@ -93,8 +93,8 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
                     if (playerName != null && email != null && backNumber != -1 && position != null) {
-                        mPresenter.updatePlayerInfo(playerName,email,backNumber,position);
-                        sendResult(playerName, email, position, backNumber);
+                        mPresenter.updatePlayerInfo(playerName, email, backNumber, position);
+                        sendResult(null, null, null, 0, null);
                         dismiss();
                     } else {
                         Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
@@ -103,18 +103,18 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null,null,null,-1);
+                    sendResult(null, null, null, -1, null);
                     dismiss();
                     break;
             }
         }
     };
 
-    private void sendResult(String name, String email, String onCourtPosition, int backNumber) {
+    private void sendResult(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
         if (getTargetFragment() == null) {
             return;
         }
-        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber);
+        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         dismiss();
     }

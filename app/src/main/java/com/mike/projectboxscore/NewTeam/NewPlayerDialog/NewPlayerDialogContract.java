@@ -39,6 +39,6 @@ public interface NewPlayerDialogContract {
 
         void setContext(FragmentActivity activity);
 
-        void uploadFile(Uri imageUri,String fileExtention);
+        void uploadFile(Uri imageUri,String fileExtention,PlayerAvatarUploadCallback callback);
     }
 }

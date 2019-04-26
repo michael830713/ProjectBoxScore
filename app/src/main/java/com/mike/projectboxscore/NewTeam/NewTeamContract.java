@@ -31,7 +31,7 @@ public interface NewTeamContract {
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
 
-        void setNewPlayer(String name, String email, String onCourtPosition, int backNumber);
+        void setNewPlayer(String name, String email, String onCourtPosition, int backNumber,String imageUrl);
 
         Player getNewPlayer();
 

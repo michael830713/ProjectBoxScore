@@ -12,6 +12,7 @@ import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
 import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
+import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().popBackStackImmediate();
                 Log.i(TAG, "backstack entry: " + getSupportFragmentManager().getBackStackEntryCount());
             }
-
         }
     }
-
 
     public static boolean isFragmentInBackstack(final FragmentManager fragmentManager, final String fragmentTagName) {
         for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
