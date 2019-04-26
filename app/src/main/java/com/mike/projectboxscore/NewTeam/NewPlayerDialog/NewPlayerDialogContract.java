@@ -1,5 +1,8 @@
 package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
+
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
@@ -23,6 +26,7 @@ public interface NewPlayerDialogContract {
         void changePlayer(int rowIndex);
 
         void setPositionSpinner();
+
         void deletePlayer();
 
         void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition);
@@ -30,5 +34,11 @@ public interface NewPlayerDialogContract {
         void setToBeReplacedPlayer(PlayerStats playerToEnterGame);
 
         void openGallery();
+
+        String getFileExtention(Uri mImageUri);
+
+        void setContext(FragmentActivity activity);
+
+        void uploadFile(Uri imageUri,String fileExtention);
     }
 }

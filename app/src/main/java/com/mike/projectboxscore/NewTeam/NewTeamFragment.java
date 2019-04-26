@@ -2,6 +2,7 @@ package com.mike.projectboxscore.NewTeam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     private static final String NEW_PLAYER_EMAIL = "playerEmail";
     private static final String NEW_PLAYER_ONCOURT_POSITION = "playerOnCourtPosition";
     private static final String NEW_PLAYER_BACK_NUMBER = "playerBackNumber";
+    private static final String NEW_PLAYER_IMAGE_URI = "playerImageUri";
 
     NewTeamContract.Presenter mPresenter;
     private RecyclerView mPlayerRecyclerView;
@@ -161,6 +163,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         intent.putExtra(NEW_PLAYER_EMAIL, email);
         intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
         intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
+
         return intent;
     }
 

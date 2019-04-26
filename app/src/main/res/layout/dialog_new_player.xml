@@ -109,7 +109,6 @@
         android:text="Position"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner" />
 

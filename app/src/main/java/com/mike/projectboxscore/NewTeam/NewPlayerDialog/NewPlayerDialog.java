@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
@@ -41,6 +45,8 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
     private ImageView mPlayerAvatar;
     private Spinner mPosition;
 
+    private StorageReference mStorageRef;
+
     private Uri mImageUri;
 
     private NewPlayerDialogContract.Presenter mPresenter;
@@ -53,6 +59,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.setContext(getActivity());
         Log.d(TAG, "Dialog onCreate: ");
     }
 
@@ -69,7 +76,6 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         mPlayerAvatarFrame = view.findViewById(R.id.imageViewAvatarFrame);
         mPlayerAvatar = view.findViewById(R.id.pic);
 //        mPlayerAvatarFrame.setOutlineProvider(new ProfileAvatarOutlineProvider());
-
 
         setCancelable(false);
         return view;
@@ -101,6 +107,10 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                     }
                     if (playerName != null && email != null && backNumber != -1 && position != null) {
                         sendResult(playerName, email, position, backNumber);
+                        if (mImageUri != null) {
+                            mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri));
+                        }
+
                         dismiss();
                     } else {
                         Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
@@ -109,10 +119,11 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null,null,null,-1);
+                    sendResult(null, null, null, -1);
                     dismiss();
                     break;
                 case R.id.imageViewAvatarFrame:
+
                     mPresenter.openGallery();
                     break;
             }
@@ -151,9 +162,10 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
+
             Log.d(TAG, "onActivityResult: " + data.getData());
-            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50,50).centerCrop().into(mPlayerAvatar);
-            mPlayerAvatar.setColorFilter(null);
+            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mPlayerAvatar);
+//            mPlayerAvatar.setColorFilter(null);
         }
 
     }
