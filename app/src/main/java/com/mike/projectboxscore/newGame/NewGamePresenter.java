@@ -45,7 +45,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     @Override
     public void setNewGame(String opponent, String tournament) {
         Log.d(TAG, "selectedTeam: " + getmSelectedTeam());
-        mNewGame = new Game(opponent, tournament, getmSelectedTeam().getmName());
+        mNewGame = new Game(opponent, tournament, getmSelectedTeam().getName());
         Log.d(TAG, "timestamp: " + mNewGame.getTimeStamp());
     }
 

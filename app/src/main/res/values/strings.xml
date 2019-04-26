@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectBoxScore</string>
+    <string name="app_name">HoopStats</string>
     <string name="gaurd">G</string>
     <string name="forward">F</string>
     <string name="center">C</string>

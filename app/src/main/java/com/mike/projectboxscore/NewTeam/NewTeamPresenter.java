@@ -1,7 +1,5 @@
 package com.mike.projectboxscore.NewTeam;
 
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,8 +9,6 @@ import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
@@ -93,8 +89,8 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     @Override
     public void addTeamToFirebase(Team team) {
 //        Map<String, Object> data1 = new HashMap<>();
-//        data1.put(team.getmName(), team);
-        mUsersCollection.document(mUserId).collection("teams").document(team.getmName()).set(team, SetOptions.merge());
+//        data1.put(team.getName(), team);
+        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
     }
 
     @Override

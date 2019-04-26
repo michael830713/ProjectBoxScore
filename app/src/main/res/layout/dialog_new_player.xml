@@ -20,7 +20,7 @@
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_view_player_oncourt_position"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAvatarFrame" />
 
     <EditText
         android:id="@+id/editText_email"
@@ -54,8 +54,8 @@
         android:id="@+id/text_view_player_name"
         style="@style/WhiteText"
         android:layout_width="0dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Name"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextPlayerName"
@@ -78,7 +78,7 @@
         style="@style/WhiteText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-android:gravity="center"
+        android:gravity="center"
         android:text="Email"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_email"
@@ -91,8 +91,8 @@ android:gravity="center"
         style="@style/WhiteText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Number"
         android:gravity="center"
+        android:text="Number"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_back_number"
         app:layout_constraintEnd_toEndOf="@+id/text_view_player_oncourt_position"
@@ -113,19 +113,31 @@ android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner" />
 
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/pic"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/circle_background"
+        android:src="@drawable/man_with_orange_tint"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAvatarFrame"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAvatarFrame"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAvatarFrame"
+        app:layout_constraintTop_toTopOf="@+id/imageViewAvatarFrame"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageViewAvatarFrame"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/circle_crop"
+        android:tint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/man" />
-
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="4dp" />
 
 
     <ImageView

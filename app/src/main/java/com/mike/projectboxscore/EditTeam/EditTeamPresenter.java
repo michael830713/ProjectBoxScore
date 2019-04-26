@@ -102,13 +102,13 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
 
     @Override
     public void updateFirebaseData() {
-        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getmName()).set(mTeam, SetOptions.merge());
+        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).set(mTeam, SetOptions.merge());
 
     }
 
     @Override
     public void deleteTeamFromFirebase() {
-        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getmName()).delete();
+        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).delete();
 
     }
 

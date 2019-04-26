@@ -54,7 +54,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
 
-        playerViewHolder.teamName.setText(mTeams.get(i).getmName());
+        playerViewHolder.teamName.setText(mTeams.get(i).getName());
 
         playerViewHolder.roster.setOnClickListener(v -> {
 

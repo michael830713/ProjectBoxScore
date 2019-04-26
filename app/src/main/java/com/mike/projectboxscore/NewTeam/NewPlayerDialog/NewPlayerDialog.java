@@ -2,12 +2,11 @@ package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,24 +18,30 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
-import com.mike.projectboxscore.MainActivity;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogContract.View {
 
     private static final String TAG = "NewPlayerDialog";
+    private static final int PICK_IMAGE_REQUEST = 5;
 
     private EditText mPlayerName;
     private EditText mEmail;
     private EditText mBackNumber;
     private ImageView mConfirmButton;
     private ImageView mDismissButton;
+    private ImageView mPlayerAvatarFrame;
+    private ImageView mPlayerAvatar;
     private Spinner mPosition;
+
+    private Uri mImageUri;
 
     private NewPlayerDialogContract.Presenter mPresenter;
 
@@ -61,6 +66,10 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         mPosition = view.findViewById(R.id.spinner);
         mConfirmButton = view.findViewById(R.id.imageViewConfirm);
         mDismissButton = view.findViewById(R.id.imageViewDismiss);
+        mPlayerAvatarFrame = view.findViewById(R.id.imageViewAvatarFrame);
+        mPlayerAvatar = view.findViewById(R.id.pic);
+//        mPlayerAvatarFrame.setOutlineProvider(new ProfileAvatarOutlineProvider());
+
 
         setCancelable(false);
         return view;
@@ -73,6 +82,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         mPresenter.setPositionSpinner();
         mConfirmButton.setOnClickListener(onClickListener);
         mDismissButton.setOnClickListener(onClickListener);
+        mPlayerAvatarFrame.setOnClickListener(onClickListener);
 
     }
 
@@ -102,6 +112,9 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                     sendResult(null,null,null,-1);
                     dismiss();
                     break;
+                case R.id.imageViewAvatarFrame:
+                    mPresenter.openGallery();
+                    break;
             }
         }
     };
@@ -122,6 +135,27 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
         mPosition.setAdapter(lunchList);
+    }
+
+    @Override
+    public void openGalleryUi() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+            Log.d(TAG, "onActivityResult: " + data.getData());
+            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50,50).centerCrop().into(mPlayerAvatar);
+            mPlayerAvatar.setColorFilter(null);
+        }
+
     }
 
     @Override

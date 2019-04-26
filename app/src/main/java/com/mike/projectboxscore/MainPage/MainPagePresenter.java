@@ -14,8 +14,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.Data.Test;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +79,8 @@ public class MainPagePresenter implements MainPageContract.Presenter {
 //        addTeam(allStar);
         Map<String, Object> data1 = new HashMap<>();
 
-        data1.put(allStar.getmName(), allStar);
-        mUsersCollection.document(mCurrentUser.getUid()).collection("teams").document(allStar.getmName()).set(allStar, SetOptions.merge());
+        data1.put(allStar.getName(), allStar);
+        mUsersCollection.document(mCurrentUser.getUid()).collection("teams").document(allStar.getName()).set(allStar, SetOptions.merge());
 
     }
 
@@ -90,12 +96,39 @@ public class MainPagePresenter implements MainPageContract.Presenter {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    Log.d(TAG, "onComplete task: " + task.getResult());
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
 
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Gson gSon = new Gson();
-                        Team team = gSon.fromJson(document.getData().toString(), Team.class);
-                        myTeams.add(team);
+                       Team test= documentSnapshot.toObject(Team.class);
+                        myTeams.add(test);
+//                        Gson gson = new Gson();
+//                        Log.d(TAG, "Team result: "+test.getName());
+//                        Test team = gson.fromJson(documentSnapshot.getData().toString(), Test.class);
+//                        Log.d(TAG, "test result: "+test.getString());
+//                        Log.d(TAG, "team result: "+team.getString());
+//                        Gson gson = new Gson();
+//                        Test team = gson.fromJson(, Test.class);
+
+//                        Log.d(TAG, "onComplete : documentSnapshot" + documentSnapshot.getData().toString());
+//                        Gson gson = new Gson();
+//                        Test team = gson.fromJson(documentSnapshot.getData().toString(), Test.class);
                     }
+
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        try {
+//                            Gson gson = new Gson();
+//                            JsonParser jsonParser = new JsonParser();
+//                            jsonParser.parse(document.getData().toString());
+//                            Log.d(TAG, "onComplete: " + document.getData().toString());
+//                            Team team = gson.fromJson(jsonParser.parse(document.getData().toString()), Team.class);
+////                            Team team = gson.fromJson(document.getData().toString(), Team.class);
+//
+//                            myTeams.add(team);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
                     mTeams = myTeams;
                     Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
                     Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());

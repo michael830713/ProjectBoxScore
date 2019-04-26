@@ -53,6 +53,11 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     }
 
     @Override
+    public void openGallery() {
+mView.openGalleryUi();
+    }
+
+    @Override
     public void showPlayer() {
     }
 

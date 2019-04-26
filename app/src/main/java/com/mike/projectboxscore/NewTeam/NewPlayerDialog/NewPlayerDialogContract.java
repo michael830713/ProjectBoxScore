@@ -13,6 +13,8 @@ public interface NewPlayerDialogContract {
         void changePlayerUi(PlayerStats playerToEnterGame);
 
         void setPositionSpinnerUi();
+
+        void openGalleryUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -26,5 +28,7 @@ public interface NewPlayerDialogContract {
         void setNewPlayerInfo(String mName, String mEmail, int backNumber, String onCourtPosition);
 
         void setToBeReplacedPlayer(PlayerStats playerToEnterGame);
+
+        void openGallery();
     }
 }

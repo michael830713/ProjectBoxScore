@@ -1,6 +1,5 @@
 package com.mike.projectboxscore.newGame;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TeamViewHolder teamViewHolder, int i) {
-        teamViewHolder.teamName.setText(mTeams.get(i).getmName());
+        teamViewHolder.teamName.setText(mTeams.get(i).getName());
         teamViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

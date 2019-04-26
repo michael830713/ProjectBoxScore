@@ -3,7 +3,7 @@ package com.mike.projectboxscore.Data;
 import java.util.ArrayList;
 
 public class Team {
-    private String mName;
+    private String name;
     private ArrayList<Player> mPlayers = new ArrayList<>();
     private ArrayList<Game> mGames = new ArrayList<>();
     private int mWins;
@@ -13,7 +13,7 @@ public class Team {
     }
 
     public Team(String mName) {
-        this.mName = mName;
+        this.name = mName;
     }
 
     public ArrayList<Game> getmGames() {
@@ -24,12 +24,12 @@ public class Team {
         this.mGames = mGames;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<Player> getmPlayers() {

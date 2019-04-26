@@ -1,6 +1,7 @@
 package com.mike.projectboxscore.MainPage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,16 +24,19 @@ import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 import com.mike.projectboxscore.newGame.NewGamePresenter;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class MainPageFragment extends Fragment implements MainPageContract.View, FirebaseAuth.AuthStateListener {
 
     private static final String TAG = "MainPageFragment";
+    private static final int PICK_IMAGE_REQUEST = 10;
 
     MainPageContract.Presenter mPresenter;
     private Button mNewGameButton;
     private Button mMyTeamButton;
     private Button mSignOutButton;
+    private Button mOpenGalleryButton;
     FirebaseAuth mFirebaseAuth;
     private Activity mActivity;
 
@@ -73,6 +77,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         mNewGameButton = root.findViewById(R.id.button_new_game);
         mMyTeamButton = root.findViewById(R.id.button_my_team);
         mSignOutButton = root.findViewById(R.id.buttonSignOut);
+        mOpenGalleryButton = root.findViewById(R.id.buttonOpenGallery);
         mActivity = getActivity();
         Log.d(TAG, "onCreateView getActivity: " + getActivity());
 
@@ -89,8 +94,29 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
             mFirebaseAuth.signOut();
             mPresenter.demoLoginView();
         });
+        mOpenGalleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            }
+        });
 
         mFirebaseAuth.addAuthStateListener(this);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+//            mImageUri = data.getData();
+            Log.d(TAG, "onActivityResult: " + data.getData());
+//            Picasso.with(this).load(mImageUri).into(mImageView);
+        }
 
     }
 

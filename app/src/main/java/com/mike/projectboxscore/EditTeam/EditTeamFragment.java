@@ -99,7 +99,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTeamName.setText(mPresenter.getTeam().getmName());
+        mTeamName.setText(mPresenter.getTeam().getName());
         mButtonAddPlayer.setOnClickListener(newTeamOnClickListener);
         mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
         mButtonDeleteTeam.setOnClickListener(newTeamOnClickListener);
@@ -164,7 +164,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                     } else {
                         mPresenter.getTeams().remove(mPresenter.getTeam());
                         mPresenter.deleteTeamFromFirebase();
-                        Log.d(TAG, "remove team name: " + mPresenter.getTeam().getmName());
+                        Log.d(TAG, "remove team name: " + mPresenter.getTeam().getName());
                         //player made shot
                         mPresenter.openMyTeamFragment();
                     }

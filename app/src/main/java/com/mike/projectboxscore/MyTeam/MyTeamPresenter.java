@@ -68,7 +68,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
 //        data1.put("mPlayers", team);
         Log.d(TAG, "updatePlayerToFirebase after: " + team.getmPlayers().size());
         team.getmPlayers().size();
-        mUsersCollection.document(mUserId).collection("teams").document(team.getmName()).set(team, SetOptions.merge());
+        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
     }
 
     @Override
@@ -110,7 +110,7 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     public void loadGameData(int i,GamesDataCallback callback) {
         ArrayList<Game> games = new ArrayList<>();
         mUsersCollection.document(mUserId)
-                .collection("teams").document(mTeams.get(i).getmName())
+                .collection("teams").document(mTeams.get(i).getName())
                 .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
