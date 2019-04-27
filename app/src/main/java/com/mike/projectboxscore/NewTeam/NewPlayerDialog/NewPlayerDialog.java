@@ -118,9 +118,8 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                             });
                         } else {
                             sendResult(playerName, email, position, backNumber, null);
-
                         }
-
+                        dismiss();
                     } else {
                         Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
                     }
@@ -129,6 +128,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                 case R.id.imageViewDismiss:
 
                     sendResult(null, null, null, -1, null);
+                    dismiss();
 
                     break;
                 case R.id.imageViewAvatarFrame:
@@ -145,7 +145,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         }
         Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-        dismiss();
+//        dismiss();
     }
 
     //    private void sendResult(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
@@ -179,7 +179,6 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-
             Log.d(TAG, "onActivityResult: " + data.getData());
             Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mPlayerAvatar);
 //            mPlayerAvatar.setColorFilter(null);

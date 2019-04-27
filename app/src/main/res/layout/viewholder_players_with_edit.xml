@@ -8,21 +8,31 @@
     android:background="@drawable/log_background_transparent">
 
     <ImageView
+        android:id="@+id/pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/man_with_orange_tint"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
         android:id="@+id/imageViewPlayerAvatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/circle_background"
-        android:padding="0dp"
-        android:scaleType="centerCrop"
+        android:src="@drawable/circle_crop"
+        android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="@id/constraintLayout_onCourt_players"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintStart_toEndOf="@+id/textView_OnCourtPosition"
         app:layout_constraintTop_toTopOf="@id/constraintLayout_onCourt_players"
-        app:srcCompat="@drawable/man" />
+        />
 
     <TextView
         android:id="@+id/textView_player_name"

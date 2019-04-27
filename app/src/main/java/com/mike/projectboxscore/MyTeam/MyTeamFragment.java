@@ -167,7 +167,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     @Override
     public void showEditPlayerUi(Player player) {
         EditPlayerDialog editPlayerDialog = new EditPlayerDialog();
-        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player);
+        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player,getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
         editPlayerDialog.show(getFragmentManager(), "createPlayer");

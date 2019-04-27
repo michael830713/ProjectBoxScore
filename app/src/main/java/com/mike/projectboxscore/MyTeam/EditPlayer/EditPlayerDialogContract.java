@@ -1,7 +1,10 @@
 package com.mike.projectboxscore.MyTeam.EditPlayer;
 
+import android.net.Uri;
+
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
 
@@ -14,6 +17,8 @@ public interface EditPlayerDialogContract {
         void changePlayerUi(PlayerStats playerToEnterGame);
 
         void setPositionSpinnerUi();
+
+        void openGalleryUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -32,6 +37,12 @@ public interface EditPlayerDialogContract {
 
         int getSpinnerPosition();
 
-        void updatePlayerInfo(String playerName, String email, int backNumber, String position);
+        String getFileExtention(Uri mImageUri);
+
+        void updatePlayerInfo(String playerName, String email, int backNumber, String position,String imageUrl);
+
+        void openGallery();
+
+        void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback);
     }
 }

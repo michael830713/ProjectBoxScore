@@ -70,8 +70,13 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     }
 
     @Override
-    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber) {
-        Player player = new Player(name, email, backNumber, onCourtPosition);
+    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
+        Player player;
+        if (imageUrl != null) {
+            player = new Player(name, email, backNumber, onCourtPosition, imageUrl);
+        } else {
+            player = new Player(name, email, backNumber, onCourtPosition);
+        }
         mNewPlayer = player;
     }
 
@@ -103,6 +108,8 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     @Override
     public void updateFirebaseData() {
         mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).set(mTeam, SetOptions.merge());
+        Log.d(TAG, "updateFirebaseData image Url: "+mTeam.getmPlayers().get(0).getImageUrl());
+        Log.d(TAG, "updateFirebaseData player name: "+mTeam.getmPlayers().get(0).getName());
 
     }
 

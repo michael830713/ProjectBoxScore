@@ -1,9 +1,14 @@
 package com.mike.projectboxscore.newGame;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +17,13 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
+
+    private static final String TAG = "PlayerAdapter";
 
     private NewGameContract.Presenter mPresenter;
     int row_index = 0;
@@ -44,7 +52,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         playerViewHolder.mPlayerName.setText(player.getName());
         playerViewHolder.mBackNumber.setText("" + player.getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
-
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
+        Log.d(TAG, "player image: "+mPlayers.get(i).getImageUrl());
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
 
             int onCourtPlayers = 0;
@@ -66,12 +75,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
         });
         if (player.isOnCourt()) {
-            highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+            highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
 //            playerViewHolder.mPlayerName.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
 //            playerViewHolder.mBackNumber.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
 //            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
-        }else {
-            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+        } else {
+            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
         }
 
     }
@@ -88,6 +97,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView mPlayerAvatarFrame;
         ImageView mPlayerAvatar;
         TextView mPlayerName;
         TextView mOnCourtPosition;
@@ -96,23 +106,29 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mPlayerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            mPlayerAvatarFrame = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            mPlayerAvatar = itemView.findViewById(R.id.pic);
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mOnCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             mBackNumber = itemView.findViewById(R.id.textView_number);
             mConstraintLayout = itemView.findViewById(R.id.constraintLayout_onCourt_players);
-
         }
     }
 
-    public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
+    public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
 //        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
         constraintLayout.setBackgroundResource(R.drawable.log_background_blue);
+//        ContextCompat.getColor(mContext, R.color.green_500);
+//        ImageViewCompat.setImageTintList(frame, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.selected_blue)));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
 
     }
 
-    public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
+    public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundResource(R.drawable.log_background_transparent);
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.deep_black));
+
+//        frame.setColorFilter(R.color.deep_black, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
     public int getRow_index() {
@@ -124,3 +140,19 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         notifyDataSetChanged();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

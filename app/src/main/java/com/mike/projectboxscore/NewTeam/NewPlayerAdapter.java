@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.Play
             playerViewHolder.playerName.setText(mPlayers.get(i).getName());
             playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
 
         }
     }

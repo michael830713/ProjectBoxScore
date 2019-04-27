@@ -36,11 +36,12 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 
     private static final String TAG = "EditTeamFragment";
 
-    private static final int TARGET_FRAGMENT_REQUEST_CODE = 1;
+    private static final int NEW_DIALOG_REQUEST_CODE = 1;
     private static final String NEW_PLAYER_NAME = "playerMessage";
     private static final String NEW_PLAYER_EMAIL = "playerEmail";
     private static final String NEW_PLAYER_ONCOURT_POSITION = "playerOnCourtPosition";
     private static final String NEW_PLAYER_BACK_NUMBER = "playerBackNumber";
+    private static final String NEW_PLAYER_AVATAR = "playerAvatar";
     private static final int EDIT_DIALOG_REQUEST_CODE = 2;
 
     EditTeamContract.Presenter mPresenter;
@@ -135,7 +136,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     @Override
     public void showEditPlayerUi(Player player) {
         EditPlayerDialog editPlayerDialog = new EditPlayerDialog();
-        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player);
+        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player,getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
         editPlayerDialog.show(getFragmentManager(), "createPlayer");
@@ -146,7 +147,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         NewPlayerDialog newPlayerDialog = new NewPlayerDialog();
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
-        newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
+        newPlayerDialog.setTargetFragment(this, NEW_DIALOG_REQUEST_CODE);
         newPlayerDialog.show(getFragmentManager(), "createPlayer");
 
     }
@@ -191,17 +192,19 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
+        if (requestCode == NEW_DIALOG_REQUEST_CODE) {
             String name = data.getStringExtra(NEW_PLAYER_NAME);
             String email = data.getStringExtra(NEW_PLAYER_EMAIL);
             String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
             String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
+            String imageUrl = data.getStringExtra(NEW_PLAYER_AVATAR);
+
 
             Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
             if (name == null) {
                 Log.d(TAG, "it is null: ");
             } else {
-                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber));
+                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber),imageUrl);
                 mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
                 mPresenter.updateFirebaseData();
                 mPresenter.updateData();
@@ -212,12 +215,13 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         }
     }
 
-    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber) {
+    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
         Intent intent = new Intent();
         intent.putExtra(NEW_PLAYER_NAME, name);
         intent.putExtra(NEW_PLAYER_EMAIL, email);
         intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
         intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
+        intent.putExtra(NEW_PLAYER_AVATAR, imageUrl);
         return intent;
     }
 
@@ -239,7 +243,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     @Override
     public void onPause() {
 
-        mButtonAddPlayer.setOnClickListener(null);
+//        mButtonAddPlayer.setOnClickListener(null);
         Log.d(TAG, "onPause: ");
         super.onPause();
     }

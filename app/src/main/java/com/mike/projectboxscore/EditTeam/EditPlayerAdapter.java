@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             playerViewHolder.playerName.setText(mPlayers.get(i).getName());
             playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
             playerViewHolder.editPlayerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,6 +78,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         private TextView playerName;
         private TextView onCourtPosition;
         private TextView backNumber;
+        private ImageView playerAvatarFrame;
         private ImageView playerAvatar;
         private ImageView editPlayerButton;
         private ImageView deletePlayerButton;
@@ -85,7 +88,8 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             playerName = itemView.findViewById(R.id.textView_player_name);
             onCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             backNumber = itemView.findViewById(R.id.textView_number);
-            playerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            playerAvatarFrame = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            playerAvatar = itemView.findViewById(R.id.pic);
             editPlayerButton = itemView.findViewById(R.id.imageViewEdit);
             deletePlayerButton = itemView.findViewById(R.id.imageViewDelete);
 

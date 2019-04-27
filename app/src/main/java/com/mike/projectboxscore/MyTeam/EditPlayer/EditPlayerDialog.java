@@ -2,6 +2,7 @@ package com.mike.projectboxscore.MyTeam.EditPlayer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,25 +18,32 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.EditTeam.EditTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogContract;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class EditPlayerDialog extends DialogFragment implements EditPlayerDialogContract.View {
 
-    private static final String TAG = "NewPlayerDialog";
+    private static final String TAG = "EditPlayerDialog";
 
     private EditText mPlayerName;
     private EditText mEmail;
     private EditText mBackNumber;
     private ImageView mConfirmButton;
     private ImageView mDismissButton;
+    private ImageView mAvatarFrame;
+    private ImageView mAvatar;
     private Spinner mPosition;
-
+    private Uri mImageUri;
+    private static final int PICK_IMAGE_REQUEST = 5;
     private EditPlayerDialogContract.Presenter mPresenter;
 
     @Override
@@ -59,6 +67,8 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         mPosition = view.findViewById(R.id.spinner);
         mConfirmButton = view.findViewById(R.id.imageViewConfirm);
         mDismissButton = view.findViewById(R.id.imageViewDismiss);
+        mAvatarFrame = view.findViewById(R.id.imageViewAvatarFrame);
+        mAvatar = view.findViewById(R.id.pic);
 
         setCancelable(false);
         return view;
@@ -76,6 +86,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
         mConfirmButton.setOnClickListener(onClickListener);
         mDismissButton.setOnClickListener(onClickListener);
+        mAvatarFrame.setOnClickListener(onClickListener);
 
     }
 
@@ -93,8 +104,22 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
                     if (playerName != null && email != null && backNumber != -1 && position != null) {
-                        mPresenter.updatePlayerInfo(playerName, email, backNumber, position);
-                        sendResult(null, null, null, 0, null);
+                        if (mImageUri != null) {
+                            int finalBackNumber = backNumber;
+                            mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
+                                @Override
+                                public void loadGameCallBack(String imageLink) {
+                                    mPresenter.updatePlayerInfo(playerName, email, finalBackNumber, position, imageLink);
+                                    sendResult(playerName, email, position, finalBackNumber, imageLink);
+                                    Log.d(TAG, "loadGameCallBack: " + mPresenter.getPlayer().getImageUrl());
+                                }
+                            });
+                        } else {
+
+                            mPresenter.updatePlayerInfo(playerName, email, backNumber, position, null);
+
+                            sendResult(playerName, email, position, backNumber, null);
+                        }
                         dismiss();
                     } else {
                         Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
@@ -106,6 +131,11 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     sendResult(null, null, null, -1, null);
                     dismiss();
                     break;
+                case R.id.imageViewAvatarFrame:
+
+                    mPresenter.openGallery();
+
+                    break;
             }
         }
     };
@@ -114,9 +144,9 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         if (getTargetFragment() == null) {
             return;
         }
-        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
+        Intent intent = EditTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-        dismiss();
+//        dismiss();
     }
 
     @Override
@@ -126,6 +156,27 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
         mPosition.setAdapter(lunchList);
+    }
+
+    @Override
+    public void openGalleryUi() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+            Log.d(TAG, "onActivityResult: " + data.getData());
+            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mAvatar);
+//            mPlayerAvatar.setColorFilter(null);
+        }
+
     }
 
     @Override

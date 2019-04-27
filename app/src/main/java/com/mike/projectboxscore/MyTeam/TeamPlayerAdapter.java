@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,8 @@ public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.Pl
         playerViewHolder.playerName.setText(mPlayers.get(i).getName());
         playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
         playerViewHolder.backNumber.setText(String.valueOf(mPlayers.get(i).getBackNumber()));
-//        playerViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+        //        playerViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                mPresenter.showEditPlayer(mPlayers.get(i));
@@ -58,6 +60,7 @@ public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.Pl
         private TextView playerName;
         private TextView onCourtPosition;
         private TextView backNumber;
+        private ImageView playerAvatarFrame;
         private ImageView playerAvatar;
         private ImageView editButton;
 
@@ -66,7 +69,8 @@ public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.Pl
             playerName = itemView.findViewById(R.id.textView_player_name);
             onCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             backNumber = itemView.findViewById(R.id.textView_number);
-            playerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            playerAvatarFrame = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            playerAvatar = itemView.findViewById(R.id.pic);
 //            editButton = itemView.findViewById(R.id.imageViewEdit);
 
         }
