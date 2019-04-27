@@ -1,8 +1,10 @@
 package com.mike.projectboxscore.mainConsole.substituteDialog;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,9 +25,11 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     private SubContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<PlayerStats> mPlayers;
+    private Context mContext;
 
-    public SubstituteAdapter(SubContract.Presenter presenter) {
+    public SubstituteAdapter(SubContract.Presenter presenter, Context context) {
         mPresenter = presenter;
+        mContext = context;
     }
 
     public SubstituteAdapter() {
@@ -44,6 +49,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
         playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
@@ -52,9 +58,9 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
             notifyDataSetChanged();
         });
         if (row_index == i) {
-            highlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+            highlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
         } else {
-            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
+            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
         }
     }
 
@@ -70,6 +76,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView mPlayerAvatarFrame;
         ImageView mPlayerAvatar;
         TextView mPlayerName;
         TextView mOnCourtPosition;
@@ -78,7 +85,8 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mPlayerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            mPlayerAvatarFrame = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            mPlayerAvatar = itemView.findViewById(R.id.pic);
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mOnCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             mBackNumber = itemView.findViewById(R.id.textView_number);
@@ -87,12 +95,16 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         }
     }
 
-    public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
+    public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+
     }
 
-    public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout) {
+    public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+
     }
 
     public int getRow_index() {

@@ -99,7 +99,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter);
+        mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter,getActivity());
         mMainLogAdapter = new MainLogAdapter(mPresenter);
 //        mPresenter.setOpponent("Pistons");
         Log.d(TAG, "onCreate: ");

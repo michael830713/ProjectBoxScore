@@ -19,8 +19,17 @@ public class PlayerStats {
     private int fouls = 0;
     private int steals = 0;
     private int blocks = 0;
+    private String imageUrl;
     private String onCourtPosition;
     private boolean isOnCourt;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public boolean isOnCourt() {
         return isOnCourt;
@@ -98,6 +107,14 @@ public class PlayerStats {
     public PlayerStats(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
         this.name = name;
         this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+        this.isOnCourt = isOnCourt;
+    }
+
+    public PlayerStats(String name, int backNumber, String onCourtPosition, boolean isOnCourt, String imageUrl) {
+        this.name = name;
+        this.backNumber = backNumber;
+        this.imageUrl = imageUrl;
         this.onCourtPosition = onCourtPosition;
         this.isOnCourt = isOnCourt;
     }

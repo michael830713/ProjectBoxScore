@@ -53,7 +53,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     public void setPlayerStats() {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
         for (Player player : mSelectedTeam.getmPlayers()) {
-            PlayerStats playerStat = new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(), player.isOnCourt());
+            PlayerStats playerStat = new PlayerStats(player.getName(), player.getBackNumber(), player.getOnCourtPosition(), player.isOnCourt(), player.getImageUrl());
             playerStats.add(playerStat);
         }
         mNewGame.addmPlayerStats(playerStats);
