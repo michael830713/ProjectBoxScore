@@ -151,8 +151,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void returnLastStep() {
-        mView.returnLastStepUi();
+    public void returnLastStep(int i) {
+        mView.returnLastStepUi(i);
     }
 
     @Override
@@ -176,8 +176,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void removeLog() {
-        mView.removeLogUi();
+    public void removeLog(int i) {
+        mView.removeLogUi(i);
     }
 
     @Override

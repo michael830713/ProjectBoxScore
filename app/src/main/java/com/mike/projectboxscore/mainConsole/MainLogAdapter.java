@@ -60,13 +60,13 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
+
         TextView mAction;
         TextView mPlayerPoints;
         TextView mPlayerName;
         TextView mFieldGoals;
         TextView mBackNumber;
         ConstraintLayout constraintLayout;
-
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
             mAction = itemView.findViewById(R.id.textView_action);
@@ -77,8 +77,8 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
             constraintLayout = itemView.findViewById(R.id.constraint_layout_logs);
 
         }
-    }
 
+    }
     public void setLog(PlayerStats playerStats, String action) {
         mPlayers.add(0, playerStats);
         mActions.add(0, action);
@@ -105,11 +105,16 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         notifyDataSetChanged();
     }
 
-    public void setmActionsRemoved(ArrayList<String> mActions) {
+    public void setmActionsRemoved(ArrayList<String> mActions, int i) {
         this.mActions = mActions;
-        notifyItemRemoved(0);
+        notifyItemRemoved(i);
         notifyItemRangeChanged(0, getItemCount());
 //        notifyDataSetChanged();
+    }
+
+    public void removeItem(int position) {
+        notifyItemRemoved(0);
+
     }
 
     public void setColor(int color) {

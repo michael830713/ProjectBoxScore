@@ -52,7 +52,7 @@ public interface MainConsoleViewContract {
 
         void updateLogUi(String action);
 
-        void removeLogUi();
+        void removeLogUi(int i);
 
         void showConfirmExitDialogUi();
 
@@ -64,7 +64,7 @@ public interface MainConsoleViewContract {
 
         void updateScoreboardReturnUi(int addScore);
 
-        void returnLastStepUi();
+        void returnLastStepUi(int i);
 
         int getAwayScore();
 
@@ -93,7 +93,7 @@ public interface MainConsoleViewContract {
 
         void updateLog(String action);
 
-        void removeLog();
+        void removeLog(int i);
 
         void updateScoreboard(int addPoint);
 
@@ -172,7 +172,7 @@ public interface MainConsoleViewContract {
 
         void openExitBoxScore();
 
-        void returnLastStep();
+        void returnLastStep(int i);
 
         void addNewGame();
 

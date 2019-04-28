@@ -53,7 +53,6 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
-
             mPresenter.changePlayer(row_index);
             notifyDataSetChanged();
         });

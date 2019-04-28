@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -99,7 +100,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter,getActivity());
+        mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter, getActivity());
         mMainLogAdapter = new MainLogAdapter(mPresenter);
 //        mPresenter.setOpponent("Pistons");
         Log.d(TAG, "onCreate: ");
@@ -122,6 +123,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         LinearLayoutManager logLayoutManager = new LinearLayoutManager(getContext());
         mLogRecyclerView.setLayoutManager(logLayoutManager);
         mLogRecyclerView.setAdapter(mMainLogAdapter);
+        enableSwipeToDeleteAndUndo();
 
         Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider);
 
@@ -252,7 +254,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.imageViewReturnStep:
-                    mPresenter.returnLastStep();
+                    mPresenter.returnLastStep(0);
                     break;
 
                 case R.id.buttonBoxScore:
@@ -262,6 +264,25 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getActivity()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+                final int position = viewHolder.getAdapterPosition();
+//                final String item = mMainLogAdapter.getData().get(position);
+
+//                mMainLogAdapter.removeItem(position);
+                mPresenter.returnLastStep(position);
+                Log.d(TAG, "onSwiped position: " + position);
+
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(mLogRecyclerView);
+    }
 
     private int updateAddAwayScore(int addPoints) {
         mAwayScore = mAwayScore + addPoints;
@@ -288,83 +309,83 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
-    public void returnLastStepUi() {
+    public void returnLastStepUi(int i) {
         if (mMainLogAdapter.getmPlayers().size() != 0) {
 
-            PlayerStats player = mMainLogAdapter.getmPlayers().get(0);
+            PlayerStats player = mMainLogAdapter.getmPlayers().get(i);
             mPresenter.setSelectedPlayer(player);
-            String currentAction = mMainLogAdapter.getmActions().get(0);
+            String currentAction = mMainLogAdapter.getmActions().get(i);
             Log.d(TAG, "returnLastStepUi: " + currentAction);
             switch (currentAction) {
                 case TWO_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(2);
                     mPresenter.updatePlayerScores(-2);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
                 case TWO_POINTS_MISS:
                     mPresenter.updatePlayerMisses(-2);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case THREE_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(3);
                     mPresenter.updatePlayerScores(-3);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case THREE_POINTS_MISS:
                     mPresenter.updatePlayerMisses(-3);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case FREE_THROW_MADE:
                     mPresenter.updateScoreboardReturn(1);
                     mPresenter.updatePlayerScores(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
 
                     break;
                 case FREE_THROW_MISS:
                     mPresenter.updatePlayerMisses(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     break;
 
                 case OFFENSIVE_REBOUND:
                     mPresenter.playerOffensiveRebounded(-1);
                     Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
 
                     break;
                 case DEFENSIVE_REBOUND:
                     mPresenter.playerDefensiveRebounded(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case ASSIST:
                     mPresenter.playerAssisted(-1);
                     Log.d(TAG, "assist after remove: " + mPresenter.getSelectedPlayer().getAssists());
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case TURN_OVER:
                     mPresenter.playerTurnedOver(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case FOUL:
                     mPresenter.playerFouled(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case STEAL:
                     mPresenter.playerstealed(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
                 case BLOCK:
                     mPresenter.playerBlocked(-1);
-                    mPresenter.removeLog();
+                    mPresenter.removeLog(i);
                     break;
 
             }
@@ -472,13 +493,13 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
-    public void removeLogUi() {
+    public void removeLogUi(int i) {
         ArrayList<PlayerStats> players = mMainLogAdapter.getmPlayers();
-        players.remove(0);
+        players.remove(i);
         mMainLogAdapter.setmPlayers(players);
         ArrayList<String> actions = mMainLogAdapter.getmActions();
-        actions.remove(0);
-        mMainLogAdapter.setmActionsRemoved(actions);
+        actions.remove(i);
+        mMainLogAdapter.setmActionsRemoved(actions,i);
     }
 
     @Override
