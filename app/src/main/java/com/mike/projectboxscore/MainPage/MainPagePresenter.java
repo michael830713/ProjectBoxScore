@@ -80,6 +80,10 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         Map<String, Object> data1 = new HashMap<>();
 
         data1.put(allStar.getName(), allStar);
+
+//        if (mUsersCollection.document(mCurrentUser.getUid()).collection("teams").whereEqualTo()) {
+//
+//        }
         mUsersCollection.document(mCurrentUser.getUid()).collection("teams").document(allStar.getName()).set(allStar, SetOptions.merge());
 
     }
@@ -97,41 +101,21 @@ public class MainPagePresenter implements MainPageContract.Presenter {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "onComplete task: " + task.getResult());
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    if (task.getResult().isEmpty()){
+                        Log.d(TAG, "task is empty: ");
+                        setSampleTeam();
+                    }else {
 
-                       Team test= documentSnapshot.toObject(Team.class);
-                        myTeams.add(test);
-//                        Gson gson = new Gson();
-//                        Log.d(TAG, "Team result: "+test.getName());
-//                        Test team = gson.fromJson(documentSnapshot.getData().toString(), Test.class);
-//                        Log.d(TAG, "test result: "+test.getString());
-//                        Log.d(TAG, "team result: "+team.getString());
-//                        Gson gson = new Gson();
-//                        Test team = gson.fromJson(, Test.class);
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Team test = documentSnapshot.toObject(Team.class);
+                            myTeams.add(test);
+                        }
 
-//                        Log.d(TAG, "onComplete : documentSnapshot" + documentSnapshot.getData().toString());
-//                        Gson gson = new Gson();
-//                        Test team = gson.fromJson(documentSnapshot.getData().toString(), Test.class);
+                        mTeams = myTeams;
+                        Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
+                        Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
                     }
 
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        try {
-//                            Gson gson = new Gson();
-//                            JsonParser jsonParser = new JsonParser();
-//                            jsonParser.parse(document.getData().toString());
-//                            Log.d(TAG, "onComplete: " + document.getData().toString());
-//                            Team team = gson.fromJson(jsonParser.parse(document.getData().toString()), Team.class);
-////                            Team team = gson.fromJson(document.getData().toString(), Team.class);
-//
-//                            myTeams.add(team);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-                    mTeams = myTeams;
-                    Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
-                    Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
                 }
 
             }

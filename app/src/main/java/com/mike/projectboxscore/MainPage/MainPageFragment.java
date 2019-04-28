@@ -62,7 +62,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.setSampleTeam();
+//        mPresenter.setSampleTeam();
         mPresenter.checkFirebaseData();
 //        mActivity = getActivity();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -77,7 +77,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         mNewGameButton = root.findViewById(R.id.button_new_game);
         mMyTeamButton = root.findViewById(R.id.button_my_team);
         mSignOutButton = root.findViewById(R.id.buttonSignOut);
-        mOpenGalleryButton = root.findViewById(R.id.buttonOpenGallery);
+//        mOpenGalleryButton = root.findViewById(R.id.buttonOpenGallery);
         mActivity = getActivity();
         Log.d(TAG, "onCreateView getActivity: " + getActivity());
 
@@ -94,15 +94,15 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
             mFirebaseAuth.signOut();
             mPresenter.demoLoginView();
         });
-        mOpenGalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
+//        mOpenGalleryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+//            }
+//        });
 
         mFirebaseAuth.addAuthStateListener(this);
 

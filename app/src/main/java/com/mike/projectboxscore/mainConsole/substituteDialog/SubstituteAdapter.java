@@ -102,7 +102,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
-        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
 
     }
 
