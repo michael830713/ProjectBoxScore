@@ -101,7 +101,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
-        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.deep_black));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
 
     }
 

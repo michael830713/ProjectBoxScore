@@ -271,9 +271,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
                 final int position = viewHolder.getAdapterPosition();
-//                final String item = mMainLogAdapter.getData().get(position);
-
-//                mMainLogAdapter.removeItem(position);
                 mPresenter.returnLastStep(position);
                 Log.d(TAG, "onSwiped position: " + position);
 
