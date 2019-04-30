@@ -93,7 +93,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         mOnBenchPlayers = playerStats;
     }
 
-
     @Override
     public ArrayList<PlayerStats> getPlayers() {
         return mOnCourtPlayers;
@@ -378,6 +377,19 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int newAmount = mSelectedPlayer.getBlocks() + amount;
         Log.d(TAG, mSelectedPlayer.getName() + " playerBlocked: " + newAmount);
         mSelectedPlayer.setBlocks(newAmount);
+    }
+
+    @Override
+    public void setRebound() {
+        mSelectedPlayer.setTotalRebound();
+        Log.d(TAG, "rebound : "+mSelectedPlayer.getRebounds());
+
+    }
+
+    @Override
+    public void setShotPersentage() {
+        mSelectedPlayer.setShotPercentage();
+        Log.d(TAG, "ShotPercent : "+mSelectedPlayer.getShotPercentage());
     }
 
     @Override

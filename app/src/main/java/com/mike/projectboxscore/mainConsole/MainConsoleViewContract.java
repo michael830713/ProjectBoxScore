@@ -177,5 +177,9 @@ public interface MainConsoleViewContract {
         void addNewGame();
 
         void updateFirebaseData();
+
+        void setRebound();
+
+        void setShotPersentage();
     }
 }

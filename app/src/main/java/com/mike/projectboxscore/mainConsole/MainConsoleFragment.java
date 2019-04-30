@@ -261,6 +261,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.openBoxScore();
                     break;
             }
+            mPresenter.setRebound();
+            mPresenter.setShotPersentage();
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
@@ -386,6 +388,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
             }
+            mPresenter.setShotPersentage();
+            mPresenter.setRebound();
+//            Log.d(TAG, "returnLastStepUi: ");
         }
     }
 
@@ -496,7 +501,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mMainLogAdapter.setmPlayers(players);
         ArrayList<String> actions = mMainLogAdapter.getmActions();
         actions.remove(i);
-        mMainLogAdapter.setmActionsRemoved(actions,i);
+        mMainLogAdapter.setmActionsRemoved(actions, i);
     }
 
     @Override

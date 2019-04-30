@@ -102,7 +102,6 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mTeamRecyclerView.setLayoutManager(teamLayoutManager);
 
-        // TODO: 2019-04-30 there is a crash here nullPointer
         mTeamAdapter.setTeams(mPresenter.getTeams());
 
         mTeamRecyclerView.setAdapter(mTeamAdapter);

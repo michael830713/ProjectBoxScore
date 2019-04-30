@@ -46,12 +46,15 @@ public class BoxScoreAdapter extends RecyclerView.Adapter<BoxScoreAdapter.Player
 
         playerViewHolder.fieldGoalMade.setText(String.valueOf(mPlayerStats.get(i).getShotMade()));
         playerViewHolder.fieldGoalAttempt.setText(String.valueOf(mPlayerStats.get(i).getShotTaken()));
+        playerViewHolder.fieldGoalPercentage.setText(String.valueOf(mPlayerStats.get(i).getShotPercentage()));
 
         playerViewHolder.threePointsMade.setText(String.valueOf(mPlayerStats.get(i).getThreePointShotMade()));
         playerViewHolder.threePointsAttempt.setText(String.valueOf(mPlayerStats.get(i).getThreePointShotTaken()));
+        playerViewHolder.threePointsPercentage.setText(String.valueOf(mPlayerStats.get(i).getThreePointShotPercentage()));
 
         playerViewHolder.freeThrowMade.setText(String.valueOf(mPlayerStats.get(i).getFreeThrowMade()));
         playerViewHolder.freeThrowAttempt.setText(String.valueOf(mPlayerStats.get(i).getFreeThrowTaken()));
+        playerViewHolder.freeThrowPercentage.setText(String.valueOf(mPlayerStats.get(i).getFreeThrowPercentage()));
 
         playerViewHolder.offensiveRebound.setText(String.valueOf(mPlayerStats.get(i).getOffensiveRebounds()));
         playerViewHolder.defensiveRebound.setText(String.valueOf(mPlayerStats.get(i).getDefensiveRebounds()));
@@ -65,7 +68,7 @@ public class BoxScoreAdapter extends RecyclerView.Adapter<BoxScoreAdapter.Player
     @Override
     public int getItemCount() {
 //        if (mPlayerStats != null) {
-            return mPlayerStats.size();
+        return mPlayerStats.size();
 //        } else {
 //            return 0;
 //        }

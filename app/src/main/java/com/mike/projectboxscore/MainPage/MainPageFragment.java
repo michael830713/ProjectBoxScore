@@ -64,7 +64,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         super.onCreate(savedInstanceState);
 //        mPresenter.setSampleTeam();
 
-        // TODO: 2019-04-30 there is a crash here nullPointer
         mPresenter.checkFirebaseData();
 //        mActivity = getActivity();
         mFirebaseAuth = FirebaseAuth.getInstance();

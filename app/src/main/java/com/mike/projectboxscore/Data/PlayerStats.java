@@ -11,10 +11,13 @@ public class PlayerStats {
     private int defensiveRebounds = 0;
     private int shotTaken = 0;
     private int shotMade = 0;
+    private double shotPercentage = 0;
     private int threePointShotTaken = 0;
     private int threePointShotMade = 0;
+    private double threePointShotPercentage = 0;
     private int freeThrowTaken = 0;
     private int freeThrowMade = 0;
+    private double freeThrowPercentage = 0;
     private int turnOvers = 0;
     private int fouls = 0;
     private int steals = 0;
@@ -22,6 +25,39 @@ public class PlayerStats {
     private String imageUrl;
     private String onCourtPosition;
     private boolean isOnCourt;
+
+    public void setShotPercentage() {
+        if (shotTaken != 0) {
+            shotPercentage = ((double) shotMade / shotTaken) * 100;
+            shotPercentage = Math.floor(shotPercentage * 10) / 10;
+        } else {
+            shotPercentage = 0;
+        }
+        if (threePointShotTaken != 0) {
+            threePointShotPercentage = ((double) threePointShotMade / threePointShotTaken) * 100;
+            threePointShotPercentage = Math.floor(threePointShotPercentage * 10) / 10;
+        } else {
+            threePointShotPercentage = 0;
+        }
+        if (freeThrowTaken != 0) {
+            freeThrowPercentage = ((double) freeThrowMade / freeThrowTaken) * 100;
+            freeThrowPercentage = Math.floor(freeThrowPercentage * 10) / 10;
+        } else {
+            freeThrowPercentage = 0;
+        }
+    }
+
+    public double getShotPercentage() {
+        return shotPercentage;
+    }
+
+    public double getThreePointShotPercentage() {
+        return threePointShotPercentage;
+    }
+
+    public double getFreeThrowPercentage() {
+        return freeThrowPercentage;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -157,6 +193,10 @@ public class PlayerStats {
 
     public void setOffensiveRebounds(int offensiveRebounds) {
         this.offensiveRebounds = offensiveRebounds;
+    }
+
+    public void setTotalRebound() {
+        rebounds = offensiveRebounds + defensiveRebounds;
     }
 
     public int getDefensiveRebounds() {
