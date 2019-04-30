@@ -101,7 +101,10 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         mTeamRecyclerView = view.findViewById(R.id.recyclerViewTeam);
         LinearLayoutManager teamLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mTeamRecyclerView.setLayoutManager(teamLayoutManager);
+
+        // TODO: 2019-04-30 there is a crash here nullPointer
         mTeamAdapter.setTeams(mPresenter.getTeams());
+
         mTeamRecyclerView.setAdapter(mTeamAdapter);
         Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider_vertical);
         mTeamRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));

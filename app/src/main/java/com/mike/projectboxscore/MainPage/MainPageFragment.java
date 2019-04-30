@@ -63,6 +63,8 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        mPresenter.setSampleTeam();
+
+        // TODO: 2019-04-30 there is a crash here nullPointer
         mPresenter.checkFirebaseData();
 //        mActivity = getActivity();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -162,9 +164,10 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void demoMyTeamViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MyTeamFragment fragment = MyTeamFragment.newInstance();
+        mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
+        fragment.setPresenter(mMyTeamPresenter);
         fragmentTransaction.replace(R.id.container, fragment, "MyTeam").addToBackStack("MyTeam");
         fragmentTransaction.commit();
-        mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override

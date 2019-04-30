@@ -211,9 +211,8 @@
     <TextView
         android:id="@+id/textViewAwayScore"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
         android:fontFamily="@font/audiowide"
         android:text="0"
         android:textColor="#F1F1F1"
@@ -224,8 +223,8 @@
     <TextView
         android:id="@+id/textViewHomeScore"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
         android:fontFamily="@font/audiowide"
         android:text="0"
         android:textColor="#F1F1F1"
@@ -263,44 +262,50 @@
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/team_name_font"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/btnColor"
         android:textSize="23dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAwayScore"
         app:layout_constraintEnd_toStartOf="@+id/textViewAwayScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAwayScore"
+        app:layout_constraintVertical_bias="0.066" />
 
     <TextView
         android:id="@+id/textViewHomeTeam"
         style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/team_name_font"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/btnColor"
         android:textSize="23dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewHomeScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textViewAwayTeam" />
 
     <TextView
         android:id="@+id/textViewFG"
         style="@style/WhiteText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="FG"
         app:layout_constraintEnd_toStartOf="@+id/textViewThreePointsMade"
         app:layout_constraintStart_toEndOf="@+id/textViewBlock"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAwayTeam" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAwayScore" />
 
     <TextView
         android:id="@+id/textView3PT"

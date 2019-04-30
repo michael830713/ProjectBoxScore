@@ -8,57 +8,67 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/adjusted_background_logo" />
+    android:id="@+id/imageView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:scaleType="fitStart"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/adjusted_background_logo" />
 
     <Button
         android:id="@+id/button_new_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/log_border_black_with__rounded_corner"
+        android:padding="15dp"
         android:text="new game"
         android:textColor="@color/selected_white"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_my_team"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/button_my_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/log_border_black_with__rounded_corner"
+        android:padding="15dp"
         android:text="my team"
         android:textColor="@color/selected_white"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_new_game"
         app:layout_constraintTop_toTopOf="@+id/button_new_game" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/robot_reavers"
         android:text=" Hoop Stats "
         android:textColor="@color/btnColor"
+
         android:textSize="50sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.801"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -66,12 +76,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/log_border_black_with__rounded_corner"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/log_border_light_orange_with__rounded_corner"
+        android:padding="15dp"
         android:text="logout"
-        android:textColor="@color/red_dismiss"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@color/lighter_grey"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -81,12 +93,12 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <!--<Button-->
-        <!--android:id="@+id/buttonOpenGallery"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="post"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/textView"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+    <!--android:id="@+id/buttonOpenGallery"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:text="post"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/textView"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 </android.support.constraint.ConstraintLayout>
