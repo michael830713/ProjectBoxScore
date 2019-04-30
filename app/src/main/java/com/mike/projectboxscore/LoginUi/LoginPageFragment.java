@@ -51,7 +51,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     private static final int RC_SIGN_IN = 500;
 
     LoginPageContract.Presenter mPresenter;
-    SignInButton mSignInButton;
+    Button mSignInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
 
@@ -101,7 +101,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         mView = root;
         mSignInButton = root.findViewById(R.id.sign_in_button);
-        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
+//        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
 
         return root;
     }

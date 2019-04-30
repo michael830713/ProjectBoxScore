@@ -81,7 +81,6 @@
         android:padding="15dp"
         android:text="logout"
         android:textColor="@color/lighter_grey"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
