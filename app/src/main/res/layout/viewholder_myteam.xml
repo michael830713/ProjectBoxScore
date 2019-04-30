@@ -11,8 +11,7 @@
         style="@style/iconInnerGreenWithoutTint"
         android:layout_width="124dp"
         android:layout_height="124dp"
-
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -58,18 +57,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
-    <ImageView
-        android:id="@+id/imageViewEdit"
-        style="@style/iconInner"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-
-        android:layout_marginBottom="0dp"
-        android:padding="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPlayerOrGameList"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerViewPlayerOrGameList"
-        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
     <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
         android:id="@+id/segmented2"
@@ -107,5 +94,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/imageViewEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        style="@style/iconInner"
+        app:borderWidth="1dp"
+        android:backgroundTint="@color/transparent"
+        app:backgroundTint="@color/btnColor"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPlayerOrGameList"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewPlayerOrGameList"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
