@@ -71,9 +71,11 @@
         android:fontFamily="@font/ncaa_ucla_condensed"
         android:gravity="center"
         android:text="#32"
+        android:paddingTop="3dp"
         android:textColor="#ffffff"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlayerAvatar"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayerAvatar"
+         />
 </android.support.constraint.ConstraintLayout>
