@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,7 +90,11 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mNewGameButton.setOnClickListener(v -> mPresenter.demoNewGameView());
+        mNewGameButton.setOnClickListener(v -> {
+            v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.image_click));
+            mPresenter.demoNewGameView();
+        });
+
         mMyTeamButton.setOnClickListener(v -> mPresenter.demoMyTeamView());
         mSignOutButton.setOnClickListener(v -> {
             mFirebaseAuth.signOut();

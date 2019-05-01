@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -184,6 +185,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private View.OnClickListener awesomeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.image_click));
+
             PlayerStats selectedPlayer = mOnCourtPlayerAdapter.getCurrentPlayer();
             mPresenter.setSelectedPlayer(selectedPlayer);
 
