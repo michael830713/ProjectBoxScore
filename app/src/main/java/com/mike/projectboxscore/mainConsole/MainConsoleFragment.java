@@ -248,7 +248,10 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonSub:
-                    mPresenter.showSubstituteDialog();
+                    if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
+                        mPresenter.showSubstituteDialog();
+                    }
+
                     break;
 
                 case R.id.buttonExit:

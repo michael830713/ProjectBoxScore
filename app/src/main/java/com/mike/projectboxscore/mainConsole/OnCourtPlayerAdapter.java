@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdapter.PlayerViewHolder> {
+public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
     int row_index = 0;
@@ -36,35 +36,74 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
 
     @NonNull
     @Override
-    public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.viewholder_players, viewGroup, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        switch (i) {
+            case 0:
+                return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.viewholder_players, viewGroup, false));
+            case 1:
+                return new OpponentViewHolder(LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.viewholder_opponent, viewGroup, false));
+            default:
+                return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.viewholder_players, viewGroup, false));
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
+    public int getItemViewType(int position) {
 
-        playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
-        if (mPlayers.get(i).getBackNumber() == -1) {
-            playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName().toUpperCase());
-            playerViewHolder.mPlayerName.setTextColor(Color.parseColor("#e00007"));
+        if (position != 5) {
+            return 0;
         } else {
-            playerViewHolder.mPlayerName.setTextColor(Color.parseColor("#ffffff"));
+            return 1;
         }
-        playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
-        playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 
-        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
+    }
 
-        playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
-            row_index = i;
-            notifyDataSetChanged();
-        });
-        if (row_index == i) {
-            highlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
-        } else {
-            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
+        switch (viewHolder.getItemViewType()) {
+            case 0:
+                PlayerViewHolder playerViewHolder1 = (PlayerViewHolder) viewHolder;
+                playerViewHolder1.mPlayerName.setText(mPlayers.get(i).getName());
+//                if (mPlayers.get(i).getBackNumber() == -1) {
+//                    playerViewHolder1.mPlayerName.setText(mPlayers.get(i).getName().toUpperCase());
+//                    playerViewHolder1.mPlayerName.setTextColor(Color.parseColor("#e00007"));
+//                } else {
+//                    playerViewHolder1.mPlayerName.setTextColor(Color.parseColor("#ffffff"));
+//                }
+                playerViewHolder1.mBackNumber.setText("" + mPlayers.get(i).getBackNumber());
+                playerViewHolder1.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
+
+                Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder1.mPlayerAvatar);
+
+                playerViewHolder1.mConstraintLayout.setOnClickListener(v -> {
+                    row_index = i;
+                    notifyDataSetChanged();
+                });
+                if (row_index == i) {
+                    highlightSelectedPlayer(playerViewHolder1.mConstraintLayout, playerViewHolder1.mPlayerAvatarFrame);
+                } else {
+                    notHighlightSelectedPlayer(playerViewHolder1.mConstraintLayout, playerViewHolder1.mPlayerAvatarFrame);
+                }
+                break;
+            case 1:
+                OpponentViewHolder opponentViewHolder = (OpponentViewHolder) viewHolder;
+                opponentViewHolder.opponentName.setText(mPlayers.get(i).getName());
+                opponentViewHolder.mConstraintLayout.setOnClickListener(v -> {
+                    row_index = i;
+                    notifyDataSetChanged();
+                });
+                if (row_index == i) {
+                    highlightSelectedPlayer(opponentViewHolder.mConstraintLayout, null);
+                } else {
+                    notHighlightSelectedPlayer(opponentViewHolder.mConstraintLayout, null);
+                }
+                break;
         }
+
     }
 
     @Override
@@ -93,16 +132,31 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<OnCourtPlayerAdap
         }
     }
 
+    public class OpponentViewHolder extends RecyclerView.ViewHolder {
+        TextView opponentName;
+        ConstraintLayout mConstraintLayout;
+
+        public OpponentViewHolder(@NonNull View itemView) {
+            super(itemView);
+            opponentName = itemView.findViewById(R.id.textView_opponent_name);
+            mConstraintLayout = itemView.findViewById(R.id.constraintLayout_onCourt_players);
+        }
+    }
+
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
-        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+        if (frame != null) {
+            frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+
+        }
 
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
-        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
-
+        if (frame != null) {
+            frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
+        }
     }
 
     public int getRow_index() {
