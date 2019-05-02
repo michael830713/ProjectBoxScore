@@ -1,6 +1,8 @@
 package com.mike.projectboxscore.NewTeam.NewPlayerDialog;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,7 +100,8 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.imageViewConfirm:
-                    String playerName = mPlayerName.getText().toString();
+                    String playerName = mPlayerName.getText().toString().trim();
+                    Log.d(TAG, "playerName: " + playerName);
 //                    String email = mEmail.getText().toString();
                     int backNumber = -1;
                     String position = mPosition.getSelectedItem().toString();
@@ -106,13 +109,17 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                     if (!mBackNumber.getText().toString().equals("")) {
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
-                    if (playerName != null && backNumber != -1 && position != null) {
+                    if (!playerName.isEmpty() && backNumber != -1 && position != null) {
 
                         if (mImageUri != null) {
                             int finalBackNumber = backNumber;
+                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+                            pd.setMessage("uploading image...");
+                            pd.show();
                             mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
+                                    pd.dismiss();
                                     sendResult(playerName, position, finalBackNumber, imageLink);
                                     Log.d(TAG, "loadGameCallBack: " + imageLink);
                                 }

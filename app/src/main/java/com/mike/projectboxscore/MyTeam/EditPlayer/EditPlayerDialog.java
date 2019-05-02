@@ -1,6 +1,7 @@
 package com.mike.projectboxscore.MyTeam.EditPlayer;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,6 +84,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         mBackNumber.setText(String.valueOf(mPresenter.getPlayer().getBackNumber()));
         mPresenter.setPositionSpinner();
         mPosition.setSelection(mPresenter.getSpinnerPosition());
+        Picasso.get().load(mPresenter.getPlayer().getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(mAvatar);
 
         mConfirmButton.setOnClickListener(onClickListener);
         mDismissButton.setOnClickListener(onClickListener);
@@ -106,9 +108,13 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     if (playerName != null && backNumber != -1 && position != null) {
                         if (mImageUri != null) {
                             int finalBackNumber = backNumber;
+                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+                            pd.setMessage("uploading image...");
+                            pd.show();
                             mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
+                                    pd.dismiss();
                                     mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
                                     sendResult(playerName, position, finalBackNumber, imageLink);
                                     Log.d(TAG, "loadGameCallBack: " + mPresenter.getPlayer().getImageUrl());
