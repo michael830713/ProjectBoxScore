@@ -8,19 +8,19 @@
     tools:context=".MainActivity">
 
     <ImageView
-    android:id="@+id/imageView2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp"
-    android:scaleType="fitStart"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/adjusted_background_logo" />
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/adjusted_background_logo" />
 
     <Button
         android:id="@+id/button_new_game"
@@ -76,12 +76,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:visibility="invisible"
         android:layout_marginTop="232dp"
         android:background="@drawable/log_border_light_orange_with__rounded_corner"
         android:padding="15dp"
         android:text="logout"
         android:textColor="@color/lighter_grey"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,8 +99,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:rotation="180"
-        android:visibility="invisible"
         android:tint="@color/lighter_grey"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />

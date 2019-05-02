@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout_onCourt_players"
     android:layout_width="match_parent"
-    android:layout_height="53dp"
+    android:layout_height="wrap_content"
 
     android:background="@drawable/log_background_transparent">
 
@@ -30,15 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/lighter_grey"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-27dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/viewBottomBorder"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/lighter_grey"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-27dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

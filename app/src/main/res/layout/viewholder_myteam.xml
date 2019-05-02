@@ -46,15 +46,18 @@
 
     <TextView
         android:id="@+id/textViewTeamName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/team_name_font"
         android:text="lakers"
         android:textColor="#ffffff"
-        android:textSize="38dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
-        app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
+        android:textSize="38sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
 

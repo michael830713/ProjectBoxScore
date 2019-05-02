@@ -272,7 +272,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/btnColor"
-        android:textSize="23dp"
+        android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewAwayScore"
         app:layout_constraintEnd_toStartOf="@+id/textViewAwayScore"
         app:layout_constraintHorizontal_bias="0.5"
@@ -293,7 +293,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/btnColor"
-        android:textSize="23dp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewHomeScore"
         app:layout_constraintTop_toTopOf="@+id/textViewAwayTeam" />

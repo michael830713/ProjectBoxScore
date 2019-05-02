@@ -37,11 +37,12 @@
 
     <TextView
         android:id="@+id/textView_player_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/jersey_m54"
+        android:gravity="center"
         android:text="Michael Jordan "
         android:textColor="#ffffff"
         android:textSize="14sp"
@@ -71,7 +72,7 @@
         android:fontFamily="@font/ncaa_ucla_condensed"
         android:gravity="center"
         android:text="#32"
-        android:paddingTop="3dp"
+        android:paddingTop="2dp"
         android:textColor="#ffffff"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayerAvatar"
