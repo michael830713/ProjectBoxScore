@@ -1,13 +1,20 @@
 package com.mike.projectboxscore.MyTeam.EditPlayer;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +27,14 @@ import android.widget.Toast;
 
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.EditTeam.EditTeamFragment;
+import com.mike.projectboxscore.ExifUtil;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogContract;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -34,6 +43,7 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 public class EditPlayerDialog extends DialogFragment implements EditPlayerDialogContract.View {
 
     private static final String TAG = "EditPlayerDialog";
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 30;
 
     private EditText mPlayerName;
     //    private EditText mEmail;
@@ -55,6 +65,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        checkGalleryPermission();
         Log.d(TAG, "Dialog onCreate: ");
     }
 
@@ -165,10 +176,75 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
     @Override
     public void openGalleryUi() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        checkGalleryPermission();
+//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            checkGalleryPermission();
+//            // Permission is not granted
+//        } else {
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_GET_CONTENT);
+//            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+//        }
+
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void checkGalleryPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            // Permission has already been granted
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -176,10 +252,23 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
+
             mImageUri = data.getData();
-            Log.d(TAG, "onActivityResult: " + data.getData());
-            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mAvatar);
-//            mPlayerAvatar.setColorFilter(null);
+            Bitmap bitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
+            Log.d(TAG, "onActivityResult: " + bitmap);
+            mAvatar.setImageBitmap(bitmap);
+//            Bitmap b = BitmapFactory.decodeFile(mImageUri.toString());
+//            Bitmap orientedBitmap = ExifUtil.rotateBitmap(mImageUri.toString(), b);
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mImageUri);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            Log.d(TAG, "onActivityResult: " + data.getData());
+//            mAvatar.setImageBitmap(orientedBitmap);
+
+//            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mAvatar);
         }
 
     }
