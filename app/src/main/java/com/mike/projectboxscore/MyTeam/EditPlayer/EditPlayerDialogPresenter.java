@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Presenter {
-    private static final String TAG = "NewPlayerDialogPresenter";
+    private static final String TAG = "EditPlayerDialogPresenter";
     EditPlayerDialogContract.View mView;
     private Player mPlayer;
     private PlayerStats mTobeReplacedPlayer;
@@ -96,9 +96,9 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
     }
 
     @Override
-    public void updatePlayerInfo(String playerName, String email, int backNumber, String position, String imageUrl) {
+    public void updatePlayerInfo(String playerName, int backNumber, String position, String imageUrl) {
         mPlayer.setName(playerName);
-        mPlayer.setmEmail(email);
+//        mPlayer.setmEmail(email);
         mPlayer.setBackNumber(backNumber);
         mPlayer.setOnCourtPosition(position);
         if (imageUrl != null) {

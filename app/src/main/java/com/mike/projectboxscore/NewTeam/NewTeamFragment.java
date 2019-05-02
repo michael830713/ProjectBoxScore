@@ -159,10 +159,10 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         }
     }
 
-    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
+    public static Intent newIntent(String name, String onCourtPosition, int backNumber, String imageUrl) {
         Intent intent = new Intent();
         intent.putExtra(NEW_PLAYER_NAME, name);
-        intent.putExtra(NEW_PLAYER_EMAIL, email);
+//        intent.putExtra(NEW_PLAYER_EMAIL, email);
         intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
         intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
         intent.putExtra(NEW_PLAYER_IMAGE_URI, imageUrl);

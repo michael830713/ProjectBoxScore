@@ -39,7 +39,7 @@ public interface EditPlayerDialogContract {
 
         String getFileExtention(Uri mImageUri);
 
-        void updatePlayerInfo(String playerName, String email, int backNumber, String position,String imageUrl);
+        void updatePlayerInfo(String playerName, int backNumber, String position,String imageUrl);
 
         void openGallery();
 

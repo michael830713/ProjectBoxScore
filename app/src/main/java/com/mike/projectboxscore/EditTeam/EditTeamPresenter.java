@@ -70,12 +70,12 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     }
 
     @Override
-    public void setNewPlayer(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
+    public void setNewPlayer(String name, String onCourtPosition, int backNumber,String imageUrl) {
         Player player;
         if (imageUrl != null) {
-            player = new Player(name, email, backNumber, onCourtPosition, imageUrl);
+            player = new Player(name, backNumber, onCourtPosition, imageUrl);
         } else {
-            player = new Player(name, email, backNumber, onCourtPosition);
+            player = new Player(name, backNumber, onCourtPosition);
         }
         mNewPlayer = player;
     }

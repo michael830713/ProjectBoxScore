@@ -187,10 +187,10 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         getFragmentManager().popBackStack("MyTeam", 0);
     }
 
-    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
+    public static Intent newIntent(String name, String onCourtPosition, int backNumber, String imageUrl) {
         Intent intent = new Intent();
         intent.putExtra(NEW_PLAYER_NAME, name);
-        intent.putExtra(NEW_PLAYER_EMAIL, email);
+//        intent.putExtra(NEW_PLAYER_EMAIL, email);
         intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
         intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
         Log.d(TAG, "new intent image: " + imageUrl);
@@ -205,16 +205,16 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         }
         if (requestCode == NEW_DIALOG_REQUEST_CODE) {
             String name = data.getStringExtra(NEW_PLAYER_NAME);
-            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
+//            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
             String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
             String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
             String imageUrl = data.getStringExtra(NEW_PLAYER_AVATAR);
 
-            Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber + "\n" + imageUrl);
+            Log.d(TAG, "onActivityResult greeting: " + name + "\n"  + "\n" + onCourtPosition + "\n" + backNumber + "\n" + imageUrl);
             if (name == null) {
                 Log.d(TAG, "it is null: ");
             } else {
-                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber), imageUrl);
+                mPresenter.setNewPlayer(name, onCourtPosition, Integer.parseInt(backNumber), imageUrl);
                 mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
                 mPresenter.updateFirebaseData();
                 mPresenter.updateData();

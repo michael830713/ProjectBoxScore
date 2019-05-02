@@ -35,7 +35,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
     private static final String TAG = "EditPlayerDialog";
 
     private EditText mPlayerName;
-    private EditText mEmail;
+    //    private EditText mEmail;
     private EditText mBackNumber;
     private ImageView mConfirmButton;
     private ImageView mDismissButton;
@@ -62,7 +62,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_new_player, container, false);
         mPlayerName = view.findViewById(R.id.editTextPlayerName);
-        mEmail = view.findViewById(R.id.editText_email);
+//        mEmail = view.findViewById(R.id.editText_email);
         mBackNumber = view.findViewById(R.id.editText_back_number);
         mPosition = view.findViewById(R.id.spinner);
         mConfirmButton = view.findViewById(R.id.imageViewConfirm);
@@ -79,7 +79,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         super.onViewCreated(view, savedInstanceState);
 
         mPlayerName.setText(mPresenter.getPlayer().getName());
-        mEmail.setText(mPresenter.getPlayer().getmEmail());
+//        mEmail.setText(mPresenter.getPlayer().getmEmail());
         mBackNumber.setText(String.valueOf(mPresenter.getPlayer().getBackNumber()));
         mPresenter.setPositionSpinner();
         mPosition.setSelection(mPresenter.getSpinnerPosition());
@@ -96,28 +96,28 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
             switch (v.getId()) {
                 case R.id.imageViewConfirm:
                     String playerName = mPlayerName.getText().toString();
-                    String email = mEmail.getText().toString();
+//                    String email = mEmail.getText().toString();
                     int backNumber = -1;
                     String position = mPosition.getSelectedItem().toString();
 
                     if (!mBackNumber.getText().toString().equals("")) {
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
-                    if (playerName != null && email != null && backNumber != -1 && position != null) {
+                    if (playerName != null && backNumber != -1 && position != null) {
                         if (mImageUri != null) {
                             int finalBackNumber = backNumber;
                             mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
-                                    mPresenter.updatePlayerInfo(playerName, email, finalBackNumber, position, imageLink);
-                                    sendResult(playerName, email, position, finalBackNumber, imageLink);
+                                    mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
+                                    sendResult(playerName, position, finalBackNumber, imageLink);
                                     Log.d(TAG, "loadGameCallBack: " + mPresenter.getPlayer().getImageUrl());
                                 }
                             });
                         } else {
 
-                            mPresenter.updatePlayerInfo(playerName, email, backNumber, position, null);
-                            sendResult(playerName, email, position, backNumber, null);
+                            mPresenter.updatePlayerInfo(playerName, backNumber, position, null);
+                            sendResult(playerName, position, backNumber, null);
                         }
                         dismiss();
                     } else {
@@ -127,7 +127,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null, null, null, -1, null);
+                    sendResult(null, null, -1, null);
                     dismiss();
                     break;
                 case R.id.imageViewAvatarFrame:
@@ -139,11 +139,11 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         }
     };
 
-    private void sendResult(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
+    private void sendResult(String name, String onCourtPosition, int backNumber, String imageUrl) {
         if (getTargetFragment() == null) {
             return;
         }
-        Intent intent = EditTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
+        Intent intent = EditTeamFragment.newIntent(name, onCourtPosition, backNumber, imageUrl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
 //        dismiss();
     }

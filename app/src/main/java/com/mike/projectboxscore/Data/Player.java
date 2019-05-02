@@ -28,7 +28,13 @@ public class Player {
         this.onCourtPosition = onCourtPosition;
         this.imageUrl = imageUrl;
     }
+    public Player(String name, int backNumber, String onCourtPosition, String imageUrl) {
+        this.name = name;
 
+        this.backNumber = backNumber;
+        this.onCourtPosition = onCourtPosition;
+        this.imageUrl = imageUrl;
+    }
     public Player(String mName, int backNumber, String onCourtPosition) {
         this.name = mName;
         this.backNumber = backNumber;

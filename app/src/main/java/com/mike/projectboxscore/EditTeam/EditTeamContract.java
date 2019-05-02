@@ -33,7 +33,7 @@ public interface EditTeamContract {
     interface Presenter extends BasePresenter {
         void setupNewTeam(Team team);
 
-        void setNewPlayer(String name, String email, String onCourtPosition, int backNumber,String imageUrl);
+        void setNewPlayer(String name, String onCourtPosition, int backNumber,String imageUrl);
 
         Player getNewPlayer();
 
