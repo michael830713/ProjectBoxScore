@@ -81,18 +81,21 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         mPresenter.setupGoogleSignIn();
-
         Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public void onStart() {
-        super.onStart();
+        Log.d(TAG, "onStart: ");
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
+            Log.d(TAG, "currentUser is not null ");
             updateUI(currentUser);
+        } else {
+            Log.d(TAG, "currentUser is null ");
         }
-
+        super.onStart();
     }
 
     @Nullable
@@ -116,6 +119,26 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     @Override
     public void onClick(View v) {
         mPresenter.googleSignIn();
+
+    }
+
+    private void updateUI(FirebaseUser account) {
+
+        String name = account.getDisplayName();
+        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
+
+        mPresenter.demoMainPage();
+    }
+
+    @Override
+    public void demoMainPageUi() {
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MainPageFragment fragment = MainPageFragment.newInstance();
+        mMainPagePresenter = new MainPagePresenter(fragment);
+        fragment.setPresenter(mMainPagePresenter);
+        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
+        fragmentTransaction.commitAllowingStateLoss();
 
     }
 
@@ -150,9 +173,10 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         NewGameFragment fragment = NewGameFragment.newInstance();
+        mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
         fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
         fragmentTransaction.commit();
-        mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
+
     }
 
     @Override
@@ -191,26 +215,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                         Snackbar.make(mView, "Login Failed.", Snackbar.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser account) {
-
-        String name = account.getDisplayName();
-        Snackbar.make(mView, "Welcome " + name + "!", Snackbar.LENGTH_SHORT).show();
-
-        mPresenter.demoMainPage();
-    }
-
-    @Override
-    public void demoMainPageUi() {
-
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MainPageFragment fragment = MainPageFragment.newInstance();
-        mMainPagePresenter = new MainPagePresenter(fragment);
-        fragment.setPresenter(mMainPagePresenter);
-        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
-        fragmentTransaction.commitAllowingStateLoss();
-
     }
 
     @Override

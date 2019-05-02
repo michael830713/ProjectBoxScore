@@ -19,6 +19,7 @@ import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
 import com.mike.projectboxscore.MyTeam.MyTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,13 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-//        startActivity(new Intent(this, LogoActivity.class));
-
-
 
         demoLoginView();
     }
@@ -49,18 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mLoginPresenter = new LoginPagePresenter(fragment);
         fragmentTransaction.replace(R.id.container, fragment, "LoginFragment");
         fragmentTransaction.commit();
-    }
-
-    private void demoSurfaceView() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        try {
-            MainPageFragment fragment = MainPageFragment.newInstance();
-            fragmentTransaction.replace(R.id.container, fragment, "Surface");
-            fragmentTransaction.commit();
-
-        } catch (Throwable t) {
-            Log.d(TAG, "demoSurfaceView: " + t);
-        }
     }
 
     @Override
@@ -75,15 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "backstack entry: " + getSupportFragmentManager().getBackStackEntryCount());
             }
         }
-    }
-
-    public static boolean isFragmentInBackstack(final FragmentManager fragmentManager, final String fragmentTagName) {
-        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
-            if (fragmentTagName.equals(fragmentManager.getBackStackEntryAt(entry).getName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

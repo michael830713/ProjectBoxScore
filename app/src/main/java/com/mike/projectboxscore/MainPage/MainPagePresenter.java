@@ -103,18 +103,18 @@ public class MainPagePresenter implements MainPageContract.Presenter {
                     Log.d(TAG, "onComplete task: " + task.getResult());
                     if (task.getResult().isEmpty()){
                         Log.d(TAG, "task is empty: ");
-                        setSampleTeam();
+//                        setSampleTeam();
                     }else {
 
-                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                            Team test = documentSnapshot.toObject(Team.class);
-                            myTeams.add(test);
-                        }
-
-                        mTeams = myTeams;
-                        Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
-                        Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                        Team test = documentSnapshot.toObject(Team.class);
+                        myTeams.add(test);
                     }
+
+                    mTeams = myTeams;
+//                    Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
+//                    Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
+                }
 
                 }
 

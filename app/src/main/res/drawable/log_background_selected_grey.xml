@@ -5,7 +5,7 @@
             <stroke
                 android:width="0.5dp"
                 android:color="#2d2d2d" />
-            <solid android:color="@color/selected_blue" />
+            <solid android:color="	#A5A5A5" />
             <padding
                 android:bottom="3dp"
                 android:left="3dp"
@@ -20,7 +20,7 @@
         </shape>
     </item>
     <item>
-        <color android:color="@color/selected_blue" />
+        <color android:color="	#A5A5A5" />
     </item>
 
 </layer-list>

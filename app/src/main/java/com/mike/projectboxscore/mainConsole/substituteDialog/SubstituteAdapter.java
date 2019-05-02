@@ -95,8 +95,10 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     }
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
-        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+//        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+//        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.test_selected_orange));
+        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.test_selected_orange));
 
     }
 

@@ -68,12 +68,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
             case 0:
                 PlayerViewHolder playerViewHolder1 = (PlayerViewHolder) viewHolder;
                 playerViewHolder1.mPlayerName.setText(mPlayers.get(i).getName());
-//                if (mPlayers.get(i).getBackNumber() == -1) {
-//                    playerViewHolder1.mPlayerName.setText(mPlayers.get(i).getName().toUpperCase());
-//                    playerViewHolder1.mPlayerName.setTextColor(Color.parseColor("#e00007"));
-//                } else {
-//                    playerViewHolder1.mPlayerName.setTextColor(Color.parseColor("#ffffff"));
-//                }
                 playerViewHolder1.mBackNumber.setText("" + mPlayers.get(i).getBackNumber());
                 playerViewHolder1.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 
@@ -98,8 +92,11 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 });
                 if (row_index == i) {
                     highlightSelectedPlayer(opponentViewHolder.mConstraintLayout, null);
+                    opponentViewHolder.opponentName.setTextColor(ContextCompat.getColor(mContext, R.color.selected_white));
                 } else {
                     notHighlightSelectedPlayer(opponentViewHolder.mConstraintLayout, null);
+                    opponentViewHolder.opponentName.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
+
                 }
                 break;
         }
@@ -144,9 +141,9 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.test_selected_orange));
         if (frame != null) {
-            frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
+            frame.setColorFilter(ContextCompat.getColor(mContext, R.color.test_selected_orange));
 
         }
 
@@ -168,7 +165,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void setPlayers(ArrayList<PlayerStats> players) {
-//        mPlayers = players;
         mPlayers = sortPlayers(players);
         notifyDataSetChanged();
     }
