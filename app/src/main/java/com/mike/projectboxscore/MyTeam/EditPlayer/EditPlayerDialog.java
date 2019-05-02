@@ -3,6 +3,7 @@ package com.mike.projectboxscore.MyTeam.EditPlayer;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -34,6 +35,7 @@ import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -54,6 +56,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
     private ImageView mAvatar;
     private Spinner mPosition;
     private Uri mImageUri;
+    private Bitmap mImageBitmap;
     private static final int PICK_IMAGE_REQUEST = 5;
     private EditPlayerDialogContract.Presenter mPresenter;
 
@@ -122,7 +125,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                             ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
                             pd.setMessage("uploading image...");
                             pd.show();
-                            mPresenter.uploadFile(mImageUri, mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
+                            mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap), mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
                                     pd.dismiss();
@@ -177,52 +180,32 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
     @Override
     public void openGalleryUi() {
         checkGalleryPermission();
-//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            checkGalleryPermission();
-//            // Permission is not granted
-//        } else {
-//            Intent intent = new Intent();
-//            intent.setType("image/*");
-//            intent.setAction(Intent.ACTION_GET_CONTENT);
-//            startActivityForResult(intent, PICK_IMAGE_REQUEST);
-//        }
-
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     private void checkGalleryPermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
+        if (!hasPermissions(getActivity(), permissions)) {
+            ActivityCompat.requestPermissions(getActivity(), permissions, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }else {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            // Permission has already been granted
         }
+
+
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -254,23 +237,18 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                 && data != null && data.getData() != null) {
 
             mImageUri = data.getData();
-            Bitmap bitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
-            Log.d(TAG, "onActivityResult: " + bitmap);
-            mAvatar.setImageBitmap(bitmap);
-//            Bitmap b = BitmapFactory.decodeFile(mImageUri.toString());
-//            Bitmap orientedBitmap = ExifUtil.rotateBitmap(mImageUri.toString(), b);
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mImageUri);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Log.d(TAG, "onActivityResult: " + data.getData());
-//            mAvatar.setImageBitmap(orientedBitmap);
-
-//            Picasso.get().load(mImageUri).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(mAvatar);
+            mImageBitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
+            Log.d(TAG, "onActivityResult: " + mImageBitmap);
+            mAvatar.setImageBitmap(mImageBitmap);
         }
 
+    }
+
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     @Override
