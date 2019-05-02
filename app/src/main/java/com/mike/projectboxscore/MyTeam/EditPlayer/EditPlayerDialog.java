@@ -117,7 +117,6 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                         } else {
 
                             mPresenter.updatePlayerInfo(playerName, email, backNumber, position, null);
-
                             sendResult(playerName, email, position, backNumber, null);
                         }
                         dismiss();

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.Play
     private NewTeamContract.Presenter mPresenter;
     int row_index = 0;
     private ArrayList<Player> mPlayers;
+
+    private static final String TAG = "NewPlayerAdapter";
 
     public NewPlayerAdapter(NewTeamContract.Presenter presenter) {
         mPresenter = presenter;
@@ -41,10 +44,10 @@ public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.Play
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         if (mPlayers != null) {
             playerViewHolder.playerName.setText(mPlayers.get(i).getName());
-            playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
+            playerViewHolder.backNumber.setText("" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
-
+            Log.d(TAG, "url: " + mPlayers.get(i).getImageUrl());
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
         }
     }
 
@@ -68,7 +71,7 @@ public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.Play
             playerName = itemView.findViewById(R.id.textView_player_name);
             onCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             backNumber = itemView.findViewById(R.id.textView_number);
-            playerAvatar = itemView.findViewById(R.id.imageViewPlayerAvatar);
+            playerAvatar = itemView.findViewById(R.id.pic);
 
         }
     }

@@ -136,7 +136,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     @Override
     public void showEditPlayerUi(Player player) {
         EditPlayerDialog editPlayerDialog = new EditPlayerDialog();
-        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player,getActivity());
+        EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player, getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
         editPlayerDialog.show(getFragmentManager(), "createPlayer");
@@ -187,6 +187,17 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         getFragmentManager().popBackStack("MyTeam", 0);
     }
 
+    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber, String imageUrl) {
+        Intent intent = new Intent();
+        intent.putExtra(NEW_PLAYER_NAME, name);
+        intent.putExtra(NEW_PLAYER_EMAIL, email);
+        intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
+        intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
+        Log.d(TAG, "new intent image: " + imageUrl);
+        intent.putExtra(NEW_PLAYER_AVATAR, imageUrl);
+        return intent;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
@@ -199,30 +210,20 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
             String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
             String imageUrl = data.getStringExtra(NEW_PLAYER_AVATAR);
 
-
-            Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
+            Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber + "\n" + imageUrl);
             if (name == null) {
                 Log.d(TAG, "it is null: ");
             } else {
-                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber),imageUrl);
+                mPresenter.setNewPlayer(name, email, onCourtPosition, Integer.parseInt(backNumber), imageUrl);
                 mPresenter.getTeamPlayer().add(mPresenter.getNewPlayer());
                 mPresenter.updateFirebaseData();
                 mPresenter.updateData();
             }
         } else if (requestCode == EDIT_DIALOG_REQUEST_CODE) {
+            Log.d(TAG, "EDIT_DIALOG_REQUEST_CODE: " + data.getStringExtra(NEW_PLAYER_AVATAR));
             mPresenter.updateFirebaseData();
             mPresenter.updateData();
         }
-    }
-
-    public static Intent newIntent(String name, String email, String onCourtPosition, int backNumber,String imageUrl) {
-        Intent intent = new Intent();
-        intent.putExtra(NEW_PLAYER_NAME, name);
-        intent.putExtra(NEW_PLAYER_EMAIL, email);
-        intent.putExtra(NEW_PLAYER_ONCOURT_POSITION, onCourtPosition);
-        intent.putExtra(NEW_PLAYER_BACK_NUMBER, String.valueOf(backNumber));
-        intent.putExtra(NEW_PLAYER_AVATAR, imageUrl);
-        return intent;
     }
 
     @Override

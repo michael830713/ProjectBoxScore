@@ -101,20 +101,20 @@ public class MainPagePresenter implements MainPageContract.Presenter {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "onComplete task: " + task.getResult());
-                    if (task.getResult().isEmpty()){
+                    if (task.getResult().isEmpty()) {
                         Log.d(TAG, "task is empty: ");
 //                        setSampleTeam();
-                    }else {
+                    } else {
 
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        Team test = documentSnapshot.toObject(Team.class);
-                        myTeams.add(test);
-                    }
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Team test = documentSnapshot.toObject(Team.class);
+                            myTeams.add(test);
+                        }
 
-                    mTeams = myTeams;
+                        mTeams = myTeams;
 //                    Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
 //                    Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
-                }
+                    }
 
                 }
 

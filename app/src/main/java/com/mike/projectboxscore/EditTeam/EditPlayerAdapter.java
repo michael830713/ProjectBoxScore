@@ -46,7 +46,10 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             playerViewHolder.playerName.setText(mPlayers.get(i).getName());
             playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+
+            Log.d(TAG, "player Url: " + mPlayers.get(i).getName()+"  "+mPlayers.get(i).getImageUrl());
+
             playerViewHolder.editPlayerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

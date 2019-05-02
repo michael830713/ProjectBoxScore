@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.EditTeam.EditTeamFragment;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -117,6 +118,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                                 }
                             });
                         } else {
+                            Log.d(TAG, "no image upload: ");
                             sendResult(playerName, email, position, backNumber, null);
                         }
                         dismiss();
@@ -143,8 +145,16 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         if (getTargetFragment() == null) {
             return;
         }
-        Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        if (getTargetFragment() instanceof NewTeamFragment) {
+            Intent intent = NewTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+
+        }else {
+            Intent intent = EditTeamFragment.newIntent(name, email, onCourtPosition, backNumber, imageUrl);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        }
+
+        Log.d(TAG, "sendResult URL: " + imageUrl);
 //        dismiss();
     }
 
