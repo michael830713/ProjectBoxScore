@@ -67,7 +67,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private ImageView mFoul;
     private ImageView mBlock;
     private ImageView mSettings;
-    private ImageView mBackButton;
+    private ImageView mTutorial;
+//    private ImageView mBackButton;
     private ImageView mBoxScore;
 
     private static final String TWO_POINTS_MADE = "2 Pts Made";
@@ -143,7 +144,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mSteal = root.findViewById(R.id.buttonSteal);
         mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
         mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
-        mBackButton = root.findViewById(R.id.imageViewReturnStep);
+        mTutorial = root.findViewById(R.id.buttonTutorial);
+//        mBackButton = root.findViewById(R.id.imageViewReturnStep);
         mSettings = root.findViewById(R.id.buttonExit);
         mBoxScore = root.findViewById(R.id.buttonBoxScore);
 //        mJoystickView = root.findViewById(R.id.joy_stick_controller);
@@ -173,7 +175,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mDreb.setOnClickListener(awesomeOnClickListener);
         mOreb.setOnClickListener(awesomeOnClickListener);
         mSteal.setOnClickListener(awesomeOnClickListener);
-        mBackButton.setOnClickListener(awesomeOnClickListener);
+        mTutorial.setOnClickListener(awesomeOnClickListener);
+//        mBackButton.setOnClickListener(awesomeOnClickListener);
         mSettings.setOnClickListener(awesomeOnClickListener);
         mBoxScore.setOnClickListener(awesomeOnClickListener);
 
@@ -259,8 +262,10 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                     break;
 
-                case R.id.imageViewReturnStep:
-                    mPresenter.returnLastStep(0);
+                case R.id.buttonTutorial:
+//                    mPresenter.returnLastStep(0);
+                    mPresenter.showTutorialDialog();
+
                     break;
 
                 case R.id.buttonBoxScore:
@@ -451,6 +456,15 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 fm.unregisterFragmentLifecycleCallbacks(this);
             }
         }, false);
+
+    }
+
+    @Override
+    public void showTutorialUi() {
+        TutorialDialog tutorialDialog = new TutorialDialog();
+
+        FragmentManager fm = getFragmentManager();
+        tutorialDialog.show(fm, "wierd");
 
     }
 

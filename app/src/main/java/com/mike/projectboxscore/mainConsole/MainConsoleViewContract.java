@@ -69,6 +69,8 @@ public interface MainConsoleViewContract {
         int getAwayScore();
 
         int getHomeScore();
+
+        void showTutorialUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -181,5 +183,7 @@ public interface MainConsoleViewContract {
         void setRebound();
 
         void setShotPersentage();
+
+        void showTutorialDialog();
     }
 }

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/log_border_black_background"
+    android:minWidth="400dp"
+    android:minHeight="600dp">
+
+    <ImageView
+        android:id="@+id/buttonTurnOver"
+        style="@style/iconInnerGreen"
+
+        app:layout_constraintStart_toStartOf="@+id/buttonFoul"
+        app:layout_constraintTop_toTopOf="@+id/buttonAssist"
+        app:srcCompat="@drawable/icon_slipped_min2" />
+
+    <ImageView
+        android:id="@+id/buttonFreeThrow"
+        style="@style/iconInner"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound"
+        app:srcCompat="@drawable/icon_shoot_min2" />
+
+    <ImageView
+        android:id="@+id/buttonSteal"
+        style="@style/iconInnerGreen"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/buttonBlock"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBlock"
+        app:srcCompat="@drawable/icon_steal_min2" />
+
+    <ImageView
+        android:id="@+id/buttonOffensiveRebound"
+        style="@style/iconInnerGreen"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:srcCompat="@drawable/icon_rebound3_min2" />
+
+    <ImageView
+        android:id="@+id/buttonBlock"
+        style="@style/iconInnerGreen"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/buttonOffensiveRebound"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOffensiveRebound"
+        app:srcCompat="@drawable/block_min2" />
+
+
+    <ImageView
+        android:id="@+id/buttonFoul"
+        style="@style/iconInner"
+        app:layout_constraintStart_toStartOf="@+id/buttonSub"
+        app:layout_constraintTop_toTopOf="@+id/buttonSteal"
+        app:srcCompat="@drawable/foul_wistle_min2" />
+
+
+    <ImageView
+        android:id="@+id/buttonSub"
+        style="@style/iconInner"
+        app:layout_constraintStart_toStartOf="@+id/buttonFreeThrow"
+        app:layout_constraintTop_toTopOf="@+id/buttonBlock"
+        app:srcCompat="@drawable/player_change" />
+
+    <ImageView
+        android:id="@+id/buttonAssist"
+        style="@style/iconInnerGreen"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/buttonSteal"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSteal"
+        app:srcCompat="@drawable/icon_assist_min2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.47" />
+
+    <ImageView
+        android:id="@+id/imageViewDismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/lighter_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text=":  Rebound"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonOffensiveRebound"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toEndOf="@+id/buttonOffensiveRebound"
+        app:layout_constraintTop_toTopOf="@+id/buttonOffensiveRebound" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text=":  Block"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBlock"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/buttonBlock" />
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text=":  Assist"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonAssist"
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/buttonAssist" />
+
+    <TextView
+        android:id="@+id/textView10"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text=":  Turn Over"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonTurnOver"
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/buttonTurnOver" />
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text=":  Steal"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSteal"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/buttonSteal" />
+
+    <TextView
+        android:id="@+id/textView7"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text=":  Foul"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFoul"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/buttonFoul" />
+
+    <TextView
+        android:id="@+id/textView8"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text=":  Substitution"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSub"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/buttonSub" />
+
+    <TextView
+        android:id="@+id/textView9"
+        style="@style/tutorialText"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text=":  Player Shoot"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFreeThrow"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewDismiss"
+        app:layout_constraintStart_toEndOf="@+id/buttonFreeThrow"
+        app:layout_constraintTop_toTopOf="@+id/buttonFreeThrow" />
+
+
+    <TextView
+        android:id="@+id/textView18"
+        style="@style/tutorialText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Hint : Swipe Right on logs to return that step."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

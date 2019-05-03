@@ -393,6 +393,11 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public void showTutorialDialog() {
+mView.showTutorialUi();
+    }
+
+    @Override
     public void openBoxScore() {
         mView.openBoxScoreUi();
     }
