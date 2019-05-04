@@ -37,7 +37,7 @@
         android:layout_marginEnd="8dp"
         android:text="2pts made"
         android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/textView_player_points"
         app:layout_constraintStart_toEndOf="@+id/textView_back_number"
         app:layout_constraintTop_toTopOf="@+id/textView_back_number" />
