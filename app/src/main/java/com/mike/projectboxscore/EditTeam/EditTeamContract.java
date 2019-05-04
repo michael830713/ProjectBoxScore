@@ -1,7 +1,10 @@
 package com.mike.projectboxscore.EditTeam;
 
+import android.net.Uri;
+
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
 
@@ -59,6 +62,24 @@ public interface EditTeamContract {
 
         void updateFirebaseData();
 
+        void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback);
+
         void deleteTeamFromFirebase();
+
+        void updateTeamInfo(String teamName, String imageLink);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

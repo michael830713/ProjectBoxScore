@@ -25,8 +25,8 @@ import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.EditTeam.EditTeamFragment;
 import com.mike.projectboxscore.EditTeam.EditTeamPresenter;
-import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialog;
-import com.mike.projectboxscore.MyTeam.EditPlayer.EditPlayerDialogPresenter;
+import com.mike.projectboxscore.EditTeam.EditPlayer.EditPlayerDialog;
+import com.mike.projectboxscore.EditTeam.EditPlayer.EditPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialog;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogPresenter;
 import com.mike.projectboxscore.NewTeam.NewTeamFragment;
@@ -126,7 +126,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         NewTeamFragment fragment = NewTeamFragment.newInstance();
         fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("NewTeam");
         fragmentTransaction.commit();
-        mNewTeamPresenter = new NewTeamPresenter(fragment, mPresenter.getTeams());
+        mNewTeamPresenter = new NewTeamPresenter(getActivity(),fragment, mPresenter.getTeams());
     }
 
     @Override
@@ -149,7 +149,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public void showEditTeamUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         EditTeamFragment fragment = EditTeamFragment.newInstance();
-        mEditTeamPresenter = new EditTeamPresenter(fragment, mTeamAdapter.getSelectedTeam(), mPresenter.getTeams());
+        mEditTeamPresenter = new EditTeamPresenter(getActivity(),fragment, mTeamAdapter.getSelectedTeam(), mPresenter.getTeams());
         fragment.setPresenter(mEditTeamPresenter);
         fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("EditTeam");
         fragmentTransaction.commit();

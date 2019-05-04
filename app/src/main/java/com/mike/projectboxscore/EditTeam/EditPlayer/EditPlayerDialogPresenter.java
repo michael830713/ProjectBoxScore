@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.MyTeam.EditPlayer;
+package com.mike.projectboxscore.EditTeam.EditPlayer;
 
 import android.content.ContentResolver;
 import android.content.Context;

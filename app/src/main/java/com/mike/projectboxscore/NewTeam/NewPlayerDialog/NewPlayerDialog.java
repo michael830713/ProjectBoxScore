@@ -198,19 +198,17 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         checkGalleryPermission();
 
     }
+
     private void checkGalleryPermission() {
         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
         if (!hasPermissions(getActivity(), permissions)) {
             ActivityCompat.requestPermissions(getActivity(), permissions, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        }else {
+        } else {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         }
-
-
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {
@@ -266,6 +264,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
     @Override
     public void showPlayerUi(ArrayList<PlayerStats> playerOnBench) {
     }

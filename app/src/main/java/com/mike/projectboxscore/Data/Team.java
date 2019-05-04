@@ -8,6 +8,15 @@ public class Team {
     private ArrayList<Game> mGames = new ArrayList<>();
     private int mWins;
     private int mLosses;
+    private String mTeamLogoUrl;
+
+    public String getmTeamLogoUrl() {
+        return mTeamLogoUrl;
+    }
+
+    public void setmTeamLogoUrl(String mTeamLogoUrl) {
+        this.mTeamLogoUrl = mTeamLogoUrl;
+    }
 
     public Team() {
     }

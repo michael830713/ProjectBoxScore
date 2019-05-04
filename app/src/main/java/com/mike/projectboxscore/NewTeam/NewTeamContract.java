@@ -1,8 +1,11 @@
 package com.mike.projectboxscore.NewTeam;
 
+import android.net.Uri;
+
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
 
@@ -43,12 +46,14 @@ public interface NewTeamContract {
 
         void openMyTeamFragment();
 
-        void createNewTeam();
+        void createNewTeam(String imageLink);
 
         void showNewPlayerDialog();
 
         ArrayList<Team> getTeams();
 
         void showToast(String message);
+
+        void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback);
     }
 }

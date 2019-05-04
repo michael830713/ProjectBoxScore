@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.MyTeam.EditPlayer;
+package com.mike.projectboxscore.EditTeam.EditPlayer;
 
 import android.Manifest;
 import android.app.Activity;
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +27,11 @@ import android.widget.Toast;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.EditTeam.EditTeamFragment;
 import com.mike.projectboxscore.ExifUtil;
-import com.mike.projectboxscore.NewTeam.NewPlayerDialog.NewPlayerDialogContract;
 import com.mike.projectboxscore.NewTeam.NewPlayerDialog.PlayerAvatarUploadCallback;
-import com.mike.projectboxscore.NewTeam.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;

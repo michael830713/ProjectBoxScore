@@ -20,12 +20,13 @@ import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
-public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerViewHolder> {
+public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHolder> {
     private static final String TAG = "MyTeamAdapter";
     private Context mContext;
     private MyTeamContract.Presenter mPresenter;
@@ -44,32 +45,32 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 
     @NonNull
     @Override
-    public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
+        return new TeamViewHolder(LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.viewholder_myteam, viewGroup, false));
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final TeamViewHolder teamViewHolder, final int i) {
 
-        playerViewHolder.teamName.setText(mTeams.get(i).getName());
-
-        playerViewHolder.roster.setOnClickListener(v -> {
+        teamViewHolder.teamName.setText(mTeams.get(i).getName());
+        Picasso.get().load(mTeams.get(i).getmTeamLogoUrl()).placeholder(R.drawable.team_logo_placeholder).into(teamViewHolder.teamLogo);
+        teamViewHolder.roster.setOnClickListener(v -> {
 
             TeamPlayerAdapter teamPlayerAdapter = new TeamPlayerAdapter(mPresenter, mTeams.get(i));
-            playerViewHolder.playerOrGameRecyclerView.setAdapter(teamPlayerAdapter);
-            playerViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            teamViewHolder.playerOrGameRecyclerView.setAdapter(teamPlayerAdapter);
+            teamViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 //            if (isFirstTime) {
 //                Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
-//                playerViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+//                teamViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 //                isFirstTime = false;
 //            }
 
         });
 
-        playerViewHolder.games.setOnClickListener(v -> {
+        teamViewHolder.games.setOnClickListener(v -> {
             GameAdapter gameAdapter = new GameAdapter(mPresenter, mPresenter.getGames());
             mPresenter.loadGameData(i, new GamesDataCallback() {
                 @Override
@@ -78,20 +79,20 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
                 }
             });
 
-            playerViewHolder.playerOrGameRecyclerView.setAdapter(gameAdapter);
-            playerViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            teamViewHolder.playerOrGameRecyclerView.setAdapter(gameAdapter);
+            teamViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
 //            Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
-//            playerViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+//            teamViewHolder.playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         });
-        playerViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
+        teamViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 row_index = i;
                 mPresenter.showEditTeam();
             }
         });
-        playerViewHolder.roster.performClick();
+        teamViewHolder.roster.performClick();
 
     }
 
@@ -106,7 +107,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
     }
 
     @Override
-    public void onViewRecycled(@NonNull PlayerViewHolder holder) {
+    public void onViewRecycled(@NonNull TeamViewHolder holder) {
         super.onViewRecycled(holder);
         Log.d(TAG, "onViewRecycled: ");
         while (holder.playerOrGameRecyclerView.getItemDecorationCount() > 0) {
@@ -115,7 +116,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
 
     }
 
-    public class PlayerViewHolder extends RecyclerView.ViewHolder {
+    public class TeamViewHolder extends RecyclerView.ViewHolder {
         SegmentedGroup segmented2;
         RecyclerView playerOrGameRecyclerView;
         Button roster;
@@ -123,8 +124,9 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
         TextView teamName;
         ImageView buttonAddPlayer;
         ImageView buttonEditTeam;
+        ImageView teamLogo;
 
-        public PlayerViewHolder(@NonNull View itemView) {
+        public TeamViewHolder(@NonNull View itemView) {
             super(itemView);
             segmented2 = (SegmentedGroup) itemView.findViewById(R.id.segmented2);
             segmented2.setTintColor(Color.parseColor("#F39A2C"));
@@ -132,6 +134,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.PlayerView
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);
             teamName = itemView.findViewById(R.id.textViewTeamName);
+            teamLogo = itemView.findViewById(R.id.imageViewLogo);
             buttonEditTeam = itemView.findViewById(R.id.imageViewEdit);
             Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.divider_grey);
             playerOrGameRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
