@@ -17,6 +17,7 @@
     <color name="white">#ffffff</color>
     <color name="log_background_grey">#222021</color>
     <color name="deep_black">#000000</color>
+    <color name="log_background_black">#080708</color>
 
 
 </resources>

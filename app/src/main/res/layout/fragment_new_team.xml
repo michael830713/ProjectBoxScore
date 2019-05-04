@@ -71,6 +71,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:maxLength="15"
+        android:imeOptions="flagNoExtractUi"
         android:background="#7c7c7c"
         android:ems="10"
         android:hint="Team Name"

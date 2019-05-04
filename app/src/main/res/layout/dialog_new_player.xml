@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/log_border_black_background"
+    android:background="@drawable/log_border_black_with__rounded_corner"
     app:layout_constraintCircleRadius="8dp">
 
     <EditText
@@ -13,6 +13,7 @@
         android:layout_height="30dp"
         android:maxLines="2"
         android:inputType="text"
+        android:imeOptions="flagNoExtractUi"
         android:maxLength="15"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,6 +35,7 @@
         android:layout_height="30dp"
         android:background="#7c7c7c"
         android:maxLength="2"
+        android:imeOptions="flagNoExtractUi"
         android:hint="Back Number"
         android:layout_marginTop="8dp"
         android:inputType="number"

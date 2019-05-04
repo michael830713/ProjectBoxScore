@@ -71,14 +71,14 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 //    private ImageView mBackButton;
     private ImageView mBoxScore;
 
-    private static final String TWO_POINTS_MADE = "2 Pts Made";
-    private static final String THREE_POINTS_MADE = "3 Pts Made";
-    private static final String TWO_POINTS_MISS = "2 Pts Miss";
-    private static final String THREE_POINTS_MISS = "3 Pts Miss";
+    private static final String TWO_POINTS_MADE = "2 Points Made";
+    private static final String THREE_POINTS_MADE = "3 Points Made";
+    private static final String TWO_POINTS_MISS = "2 Points Miss";
+    private static final String THREE_POINTS_MISS = "3 Points Miss";
     private static final String FREE_THROW_MADE = "Free Throw Made";
     private static final String FREE_THROW_MISS = "Free Throw Miss";
-    private static final String OFFENSIVE_REBOUND = "O Rebound";
-    private static final String DEFENSIVE_REBOUND = "D Rebound";
+    private static final String OFFENSIVE_REBOUND = "Rebound(Offensive)";
+    private static final String DEFENSIVE_REBOUND = "Rebound(Defensive)";
     private static final String ASSIST = "Assist";
     private static final String TURN_OVER = "Turn Over";
     private static final String FOUL = "Foul";
@@ -537,7 +537,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void updateScoreboardReturnUi(int addScore) {
         Log.d(TAG, "currentACtiomn: " + mMainLogAdapter.getmActions().get(0));
-        if (mMainLogAdapter.getmPlayers().get(0).getBackNumber() != -1) {
+        if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
             mTextViewAwayScore.setText(Integer.toString(updateMinusAwayScore(addScore)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateMinusHomeScore(addScore)));

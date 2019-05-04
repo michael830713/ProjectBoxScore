@@ -5,6 +5,7 @@
     android:id="@+id/constraintLayoutNewGame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="#000000">
 
     <ImageView
@@ -99,6 +100,7 @@
         style="@style/WhiteText"
         android:layout_width="0dp"
         android:maxLength="12"
+        android:imeOptions="flagNoExtractUi"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="16sp"
@@ -131,6 +133,7 @@
         android:paddingStart="8dp"
         android:maxLength="12"
         android:textSize="16sp"
+        android:imeOptions="flagNoExtractUi"
         android:layout_marginEnd="8dp"
         android:background="@color/light_grey"
         android:ems="10"

@@ -38,17 +38,22 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
-        playerViewHolder.mPlayerPoints.setText(Integer.toString(mPlayers.get(i).getPoints()));
+//        playerViewHolder.mPlayerPoints.setText(Integer.toString(mPlayers.get(i).getPoints()));
         playerViewHolder.mAction.setText(mActions.get(i));
-        playerViewHolder.mBackNumber.setText("#" + Integer.toString(mPlayers.get(i).getBackNumber()));
+        if (mPlayers.get(i).getBackNumber()!=-1){
+            playerViewHolder.mBackNumber.setText( Integer.toString(mPlayers.get(i).getBackNumber())+"  ");
+        }else {
+            playerViewHolder.mBackNumber.setText("");
+
+        }
         Log.d(TAG, "mPlayerList: " + mPlayers);
-        playerViewHolder.mFieldGoals.setText("FG " + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
+//        playerViewHolder.mFieldGoals.setText("FG " + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
         if (mActions.get(i).indexOf("Made") != -1) {
-            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
         } else if (mActions.get(i).indexOf("Miss") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
         } else if (mActions.get(i).indexOf("Foul") != -1) {
-            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border);
+            playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
         } else {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_light_green);
         }
@@ -70,9 +75,9 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
             mAction = itemView.findViewById(R.id.textView_action);
-            mPlayerPoints = itemView.findViewById(R.id.textView_player_points);
+//            mPlayerPoints = itemView.findViewById(R.id.textView_player_points);
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
-            mFieldGoals = itemView.findViewById(R.id.textView_field_goal);
+//            mFieldGoals = itemView.findViewById(R.id.textView_field_goal);
             mBackNumber = itemView.findViewById(R.id.textView_back_number);
             constraintLayout = itemView.findViewById(R.id.constraint_layout_logs);
 

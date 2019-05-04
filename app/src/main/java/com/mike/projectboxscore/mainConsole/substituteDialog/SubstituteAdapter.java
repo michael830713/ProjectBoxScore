@@ -47,7 +47,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
 
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
-        playerViewHolder.mBackNumber.setText("#" + mPlayers.get(i).getBackNumber());
+        playerViewHolder.mBackNumber.setText("" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
         Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
 

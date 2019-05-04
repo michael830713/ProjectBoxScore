@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/log_border_black_background"
+    android:background="@drawable/log_border_black_with__rounded_corner"
     android:minWidth="400dp"
     android:minHeight="600dp">
 
