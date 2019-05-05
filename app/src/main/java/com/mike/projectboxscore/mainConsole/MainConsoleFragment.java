@@ -68,7 +68,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private ImageView mBlock;
     private ImageView mSettings;
     private ImageView mTutorial;
-//    private ImageView mBackButton;
+    //    private ImageView mBackButton;
     private ImageView mBoxScore;
 
     private static final String TWO_POINTS_MADE = "2 Points Made";
@@ -470,7 +470,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void showConfirmExitDialogUi() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
         builder.setMessage("Are you sure to end game?")
                 .setCancelable(true)
                 .setPositiveButton("Yes", (dialog, id) -> {

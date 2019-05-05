@@ -186,6 +186,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player, getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
+        editPlayerDialog.show(getFragmentManager(), "editPlayer");
     }
 
     @Override
@@ -258,7 +259,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 
     @Override
     public void showConfirmDeleteDialogUi(boolean isPlayer) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
         builder.setMessage("Are you sure?")
                 .setCancelable(true)
                 .setPositiveButton("yes", (dialog, id) -> {

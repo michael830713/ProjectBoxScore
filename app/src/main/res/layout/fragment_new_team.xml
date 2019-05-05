@@ -84,7 +84,6 @@
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        style="@style/iconInnerGreenWithoutTint"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="56dp"

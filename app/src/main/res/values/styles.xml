@@ -64,6 +64,9 @@
     <style name="greyBackground">
         <item name="android:background">#3f3d3d</item>
     </style>
+    <style name="forAlertDialog">
+        <item name="android:background">#3f3d3d</item>
+    </style>
 
     <style name="boxScoreMarginforMAWithGreyBack" parent="greyBackground">
         <item name="android:layout_width">24dp</item>

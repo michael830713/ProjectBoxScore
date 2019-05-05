@@ -8,7 +8,6 @@
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        style="@style/iconInnerGreenWithoutTint"
         android:layout_width="124dp"
         android:layout_height="124dp"
         android:layout_marginStart="8dp"
@@ -17,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/team_logo_placeholder" />
+        app:srcCompat="@drawable/logo_placeholder_triangle" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewPlayerOrGameList"

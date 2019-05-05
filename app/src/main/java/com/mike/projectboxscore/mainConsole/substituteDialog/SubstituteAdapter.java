@@ -2,6 +2,7 @@ package com.mike.projectboxscore.mainConsole.substituteDialog;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -53,8 +54,11 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
-            mPresenter.changePlayer(row_index);
             notifyDataSetChanged();
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                mPresenter.changePlayer(row_index);
+            }, 300);
         });
         if (row_index == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
