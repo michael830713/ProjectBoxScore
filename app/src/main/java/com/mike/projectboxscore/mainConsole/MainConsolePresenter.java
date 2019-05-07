@@ -211,6 +211,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
             playerFreeThrowReturn();
             playerMadeFreeThrowReturn();
         }
+//        setShotPersentage();
 //        updateLog(addPoints);
     }
 
@@ -381,20 +382,26 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void setRebound() {
-        mSelectedPlayer.setTotalRebound();
-        Log.d(TAG, "rebound : "+mSelectedPlayer.getRebounds());
+        for (PlayerStats playerStats : mTeamPlayers) {
+            playerStats.setTotalRebound();
+        }
+//        mSelectedPlayer.setTotalRebound();
+        Log.d(TAG, "rebound : " + mSelectedPlayer.getRebounds());
 
     }
 
     @Override
     public void setShotPersentage() {
-        mSelectedPlayer.setShotPercentage();
-        Log.d(TAG, "ShotPercent : "+mSelectedPlayer.getShotPercentage());
+        for (PlayerStats playerStats : mTeamPlayers) {
+            playerStats.setShotPercentage();
+        }
+//        mSelectedPlayer.setShotPercentage();
+        Log.d(TAG, "ShotPercent : " + mSelectedPlayer.getShotPercentage());
     }
 
     @Override
     public void showTutorialDialog() {
-mView.showTutorialUi();
+        mView.showTutorialUi();
     }
 
     @Override

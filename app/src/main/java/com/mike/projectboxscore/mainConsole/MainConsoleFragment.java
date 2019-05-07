@@ -192,7 +192,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
             PlayerStats selectedPlayer = mOnCourtPlayerAdapter.getCurrentPlayer();
             mPresenter.setSelectedPlayer(selectedPlayer);
-
+//            mPresenter.setRebound();
+//            mPresenter.setShotPersentage();
             switch (v.getId()) {
                 case R.id.button2Pts:
                     mPresenter.showMadeOrMissDialog(2);
@@ -272,8 +273,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.openBoxScore();
                     break;
             }
-            mPresenter.setRebound();
-            mPresenter.setShotPersentage();
+//            mPresenter.setRebound();
+//            mPresenter.setShotPersentage();
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
@@ -401,6 +402,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             }
             mPresenter.setShotPersentage();
             mPresenter.setRebound();
+//            mPresenter.setShotPersentage();
+//            mPresenter.setRebound();
 //            Log.d(TAG, "returnLastStepUi: ");
         }
     }
@@ -416,7 +419,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.updatePlayerScores(addPoints);
                     mPresenter.updateLog(addPoints, true);
                     mPresenter.updateScoreboard(addPoints);
-                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+
+//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     madeOrMissDialog.dismiss();
                 } else {
                     mPresenter.updatePlayerMisses(addPoints);
@@ -424,6 +428,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     madeOrMissDialog.dismiss();
                 }
+                mPresenter.setShotPersentage();
             }
         });
         FragmentManager fm = getFragmentManager();
