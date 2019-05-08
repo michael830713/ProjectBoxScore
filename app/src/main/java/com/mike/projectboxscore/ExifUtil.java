@@ -31,7 +31,6 @@ public class ExifUtil {
 
         try {
             Log.d(TAG, "URI value = " + getRealPathFromURI(context, uri));
-
             ExifInterface exif = new ExifInterface(getRealPathFromURI(context, uri));
             Log.d(TAG, "Exif value = " + exif);
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);

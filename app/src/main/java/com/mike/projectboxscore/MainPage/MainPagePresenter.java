@@ -1,5 +1,7 @@
 package com.mike.projectboxscore.MainPage;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -12,8 +14,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.mike.projectboxscore.CallBacks.TeamsDataCallback;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.FirebaseDataSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +28,7 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 public class MainPagePresenter implements MainPageContract.Presenter {
 
     private static final String TAG = "MainPagePresenter";
+    private final Context mContext;
 
     MainPageContract.View mView;
     ArrayList<Team> mTeams = new ArrayList<>();
@@ -31,14 +36,17 @@ public class MainPagePresenter implements MainPageContract.Presenter {
     FirebaseUser mCurrentUser;
     FirebaseFirestore mFirebaseFirestore;
     CollectionReference mUsersCollection;
+    String mUserId;
 
-    public MainPagePresenter(MainPageContract.View view) {
+    public MainPagePresenter(MainPageContract.View view, Context context) {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUser = mAuth.getCurrentUser();
-        mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mUsersCollection = mFirebaseFirestore.collection("users");
+        mContext = context;
+//        mAuth = FirebaseAuth.getInstance();
+//        mCurrentUser = mAuth.getCurrentUser();
+//        mFirebaseFirestore = FirebaseFirestore.getInstance();
+//        mUsersCollection = mFirebaseFirestore.collection("users");
+//        mUserId = mCurrentUser.getUid();
 
     }
 
@@ -53,7 +61,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         mView.demoMyTeamViewUi();
     }
 
-
     @Override
     public void demoLoginView() {
         mView.demoLoginViewUi();
@@ -61,28 +68,30 @@ public class MainPagePresenter implements MainPageContract.Presenter {
 
     @Override
     public void checkFirebaseData() {
-        ArrayList<Team> myTeams = new ArrayList<>();
-        mUsersCollection.document(mCurrentUser.getUid()).collection("teams").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "onComplete task: " + task.getResult());
-                    if (task.getResult().isEmpty()) {
-                        Log.d(TAG, "task is empty: ");
-                    } else {
+        FirebaseDataSource.checkFirebaseData(mContext, teams -> mTeams = teams);
 
-                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                            Team test = documentSnapshot.toObject(Team.class);
-                            myTeams.add(test);
-                        }
-
-                        mTeams = myTeams;
-                    }
-
-                }
-
-            }
-        });
+//        ArrayList<Team> myTeams = new ArrayList<>();
+//        ProgressDialog pd = new ProgressDialog(mContext, ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+//        pd.setMessage("Fetching data...");
+//        pd.show();
+//        mUsersCollection.document(mUserId).collection("teams").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                pd.dismiss();
+//                if (task.isSuccessful()) {
+//                    Log.d(TAG, "onComplete task: " + task.getResult());
+//                    if (task.getResult().isEmpty()) {
+//                        Log.d(TAG, "task is empty: ");
+//                    } else {
+//                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+//                            Team test = documentSnapshot.toObject(Team.class);
+//                            myTeams.add(test);
+//                        }
+//                        mTeams = myTeams;
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -90,12 +99,10 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         return mTeams;
     }
 
-
     @Override
     public void result(int requestCode, int resultCode) {
 
     }
-
 
     @Override
     public void start() {

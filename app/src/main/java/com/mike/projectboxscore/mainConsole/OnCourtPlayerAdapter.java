@@ -30,7 +30,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
         mContext = context;
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -45,7 +44,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.viewholder_players, viewGroup, false));
         }
-
     }
 
     @Override
@@ -141,9 +139,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
         constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.test_selected_orange));
         if (frame != null) {
             frame.setColorFilter(ContextCompat.getColor(mContext, R.color.test_selected_orange));
-
         }
-
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
@@ -153,17 +149,16 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-
     public PlayerStats getCurrentPlayer() {
         return mPlayers.get(row_index);
     }
 
     public void setPlayers(ArrayList<PlayerStats> players) {
-        mPlayers = sortPlayers(players);
+        mPlayers = sortPlayersByPosition(players);
         notifyDataSetChanged();
     }
 
-    private ArrayList<PlayerStats> sortPlayers(ArrayList<PlayerStats> players) {
+    private ArrayList<PlayerStats> sortPlayersByPosition(ArrayList<PlayerStats> players) {
         ArrayList<PlayerStats> newPlayers = new ArrayList<>();
         for (PlayerStats playerStats : players) {
             if (playerStats.getOnCourtPosition().equals("G")) {

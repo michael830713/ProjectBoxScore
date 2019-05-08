@@ -109,7 +109,6 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
                                     callback.loadGameCallBack(uri.toString());
                                 }
                             });
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

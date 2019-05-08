@@ -1,6 +1,5 @@
 package com.mike.projectboxscore.TeamNew.NewPlayerDialog;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,15 +23,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.storage.StorageReference;
-import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.TeamEdit.EditTeamFragment;
 import com.mike.projectboxscore.ExifUtil;
 import com.mike.projectboxscore.TeamNew.NewTeamFragment;
 import com.mike.projectboxscore.R;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
@@ -41,7 +37,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
 
     private static final String TAG = "NewPlayerDialog";
     private static final int PICK_IMAGE_REQUEST = 5;
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 40;
+    private static final int MY_PERMISSIONS_REQUEST_READ_WRITE_GALLERY = 40;
 
     private EditText mPlayerName;
     private EditText mBackNumber;
@@ -50,7 +46,6 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
     private ImageView mPlayerAvatarFrame;
     private ImageView mPlayerAvatar;
     private Spinner mPosition;
-
 
     private Uri mImageUri;
     private Bitmap mImageBitmap;
@@ -102,36 +97,14 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
             switch (v.getId()) {
                 case R.id.imageViewConfirm:
                     String playerName = mPlayerName.getText().toString().trim();
-                    Log.d(TAG, "playerName: " + playerName);
-                    int backNumber = -1;
                     String position = mPosition.getSelectedItem().toString();
-
+                    int backNumber = -1;
                     if (!mBackNumber.getText().toString().equals("")) {
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
-                    if (!playerName.isEmpty() && backNumber != -1 && position != null) {
 
-                        if (mImageUri != null) {
-                            int finalBackNumber = backNumber;
-                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-                            pd.setMessage("uploading image...");
-                            pd.show();
-                            mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap), mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
-                                @Override
-                                public void loadGameCallBack(String imageLink) {
-                                    pd.dismiss();
-                                    sendResult(playerName, position, finalBackNumber, imageLink);
-                                    Log.d(TAG, "loadGameCallBack: " + imageLink);
-                                }
-                            });
-                        } else {
-                            Log.d(TAG, "no image upload: ");
-                            sendResult(playerName, position, backNumber, null);
-                        }
-                        dismiss();
-                    } else {
-                        Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
-                    }
+                    setupNewPlayer(playerName, position, backNumber);
+
                     break;
                 case R.id.imageViewDismiss:
 
@@ -140,12 +113,36 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
 
                     break;
                 case R.id.imageViewAvatarFrame:
-
-                    mPresenter.openGallery();
+                    mPresenter.checkPermissionAndOpenGallery(getActivity());
                     break;
             }
         }
     };
+
+    private void setupNewPlayer(String playerName, String position, int backNumber) {
+        if (!playerName.isEmpty() && backNumber != -1 && position != null) {
+            if (mImageUri != null) {
+                int finalBackNumber = backNumber;
+
+                ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+                pd.setMessage("uploading image...");
+                pd.show();
+
+                mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap),
+                        mPresenter.getFileExtention(mImageUri), imageLink -> {
+                            pd.dismiss();
+                            sendResult(playerName, position, finalBackNumber, imageLink);
+                            Log.d(TAG, "loadGameCallBack: " + imageLink);
+                        });
+            } else {
+                Log.d(TAG, "no image upload: ");
+                sendResult(playerName, position, backNumber, null);
+            }
+            dismiss();
+        } else {
+            Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void sendResult(String name, String onCourtPosition, int backNumber, String imageUrl) {
         if (getTargetFragment() == null) {
@@ -174,53 +171,15 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
 
     @Override
     public void openGalleryUi() {
-        checkGalleryPermission();
-
-    }
-
-    private void checkGalleryPermission() {
-        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (!hasPermissions(getActivity(), permissions)) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        } else {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, PICK_IMAGE_REQUEST);
-        }
-    }
-
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-        }
+    public void requestGalleryPermission(String[] permissions) {
+        ActivityCompat.requestPermissions(getActivity(), permissions, MY_PERMISSIONS_REQUEST_READ_WRITE_GALLERY);
     }
 
     @Override
@@ -228,13 +187,15 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-
-            mImageUri = data.getData();
-            mImageBitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
-            Log.d(TAG, "onActivityResult: " + mImageBitmap);
-            mPlayerAvatar.setImageBitmap(mImageBitmap);
+            setImageToAvatar(data);
         }
+    }
 
+    private void setImageToAvatar(Intent data) {
+        mImageUri = data.getData();
+        mImageBitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
+        Log.d(TAG, "onActivityResult: " + mImageBitmap);
+        mPlayerAvatar.setImageBitmap(mImageBitmap);
     }
 
     private Uri getImageUri(Context context, Bitmap inImage) {
