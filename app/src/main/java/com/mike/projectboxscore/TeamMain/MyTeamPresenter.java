@@ -14,6 +14,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.FirebaseDataSource;
 
 import java.util.ArrayList;
 
@@ -57,8 +58,9 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     @Override
     public void updatePlayerToFirebase(Team team) {
         Log.d(TAG, "updatePlayerToFirebase after: " + team.getmPlayers().size());
-        team.getmPlayers().size();
-        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
+        FirebaseDataSource.updateTeamInfo(team);
+//        team.getmPlayers().size();
+//        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
     }
 
     @Override
@@ -83,24 +85,32 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
 
     @Override
     public void loadGameData(int i, GamesDataCallback callback) {
-        ArrayList<Game> games = new ArrayList<>();
-        mUsersCollection.document(mUserId)
-                .collection("teams").document(mTeams.get(i).getName())
-                .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseDataSource.loadGameData(i, new GamesDataCallback() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Game test = document.toObject(Game.class);
-                        games.add(test);
-                    }
-                    mGames = games;
-                    callback.loadGameCallBack(mGames);
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
+            public void loadGameCallBack(ArrayList<Game> games) {
+                mGames = games;
+                callback.loadGameCallBack(mGames);
             }
         });
+
+//        ArrayList<Game> games = new ArrayList<>();
+//        mUsersCollection.document(mUserId)
+//                .collection("teams").document(mTeams.get(i).getName())
+//                .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        Game test = document.toObject(Game.class);
+//                        games.add(test);
+//                    }
+//                    mGames = games;
+//                    callback.loadGameCallBack(mGames);
+//                } else {
+//                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
     }
 
     @Override
