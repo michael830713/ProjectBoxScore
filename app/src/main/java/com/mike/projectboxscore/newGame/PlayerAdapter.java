@@ -35,10 +35,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         mContext = context;
     }
 
-    public PlayerAdapter() {
-
-    }
-
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -53,7 +49,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         playerViewHolder.mBackNumber.setText("" + player.getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
 
-        Log.d(TAG, "player image: "+mPlayers.get(i).getImageUrl());
+        Log.d(TAG, "player image: " + mPlayers.get(i).getImageUrl());
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
 
             int onCourtPlayers = 0;
@@ -77,18 +73,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         if (player.isOnCourt()) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
             Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
-//            playerViewHolder.mPlayerName.setTextColor(ContextCompat.getColor(mContext, R.color.selected_white));
-//            playerViewHolder.mBackNumber.setTextColor(ContextCompat.getColor(mContext, R.color.selected_white));
-//            playerViewHolder.mOnCourtPosition.setTextColor(ContextCompat.getColor(mContext, R.color.selected_white));
-//            playerViewHolder.mPlayerName.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
-//            playerViewHolder.mBackNumber.setTextColor(ContextCompat.getColor(mContext, R.color.btnColor));
-//            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout);
         } else {
             notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
             Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
-//            playerViewHolder.mPlayerName.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-//            playerViewHolder.mBackNumber.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-//            playerViewHolder.mOnCourtPosition.setTextColor(ContextCompat.getColor(mContext, R.color.white));
 
         }
 
@@ -134,11 +121,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         constraintLayout.setBackgroundResource(R.drawable.log_background_transparent);
         frame.setColorFilter(ContextCompat.getColor(mContext, R.color.deep_black));
 
-//        frame.setColorFilter(R.color.deep_black, android.graphics.PorterDuff.Mode.MULTIPLY);
-    }
-
-    public int getRow_index() {
-        return row_index;
     }
 
     public void setPlayers(ArrayList<Player> players) {

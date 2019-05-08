@@ -38,23 +38,8 @@ public class RecyclerViewCornerRadius extends RecyclerView.ItemDecoration {
         });
     }
 
-    public void setCornerRadius(int radius) {
-        this.topLeftRadius = radius;
-        this.topRightRadius = radius;
-        this.bottomLeftRadius = radius;
-        this.bottomRightRadius = radius;
-    }
-
-    public void setCornerRadius(int topLeftRadius, int topRightRadius, int bottomLeftRadius, int bottomRightRadius) {
-        this.topLeftRadius = topLeftRadius;
-        this.topRightRadius = topRightRadius;
-        this.bottomLeftRadius = bottomLeftRadius;
-        this.bottomRightRadius = bottomRightRadius;
-    }
-
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         c.clipRect(rectF);
-//        c.clipPath(path, Region.Op.REPLACE);
     }
 }

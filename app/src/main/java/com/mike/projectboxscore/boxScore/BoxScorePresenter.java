@@ -14,11 +14,8 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
     private static final String TAG = "BoxScorePresenter";
 
     BoxScoreViewContract.View mView;
-    private PlayerStats mSelectedPlayer;
     boolean mIsExit;
     private Game mGame;
-    private ArrayList<PlayerStats> mOnCourtPlayers;
-    private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
 
     public BoxScorePresenter(BoxScoreViewContract.View view, Game game, boolean isExit) {
@@ -28,8 +25,6 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
         mTeamPlayers = game.getmPlayerStats();
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mIsExit = isExit;
-        mOnCourtPlayers = new ArrayList<>();
-        mOnBenchPlayers = new ArrayList<>();
 
     }
 

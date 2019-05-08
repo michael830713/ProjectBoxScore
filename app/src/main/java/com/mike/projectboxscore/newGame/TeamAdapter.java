@@ -68,10 +68,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         notifyDataSetChanged();
     }
 
-    public int getRow_index() {
-        return row_index;
-    }
-
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout) {
         constraintLayout.setBackgroundResource(R.drawable.log_background_orange);
 

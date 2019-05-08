@@ -70,10 +70,6 @@ public class NewGamePresenter implements NewGameContract.Presenter {
         mView.showPlayersOnTeamUi(mMyTeams.get(teamPosition).getmPlayers());
     }
 
-    @Override
-    public void setupNewTeam(Team team) {
-        mMyTeams.add(team);
-    }
 
     @Override
     public ArrayList<Team> getTeams() {

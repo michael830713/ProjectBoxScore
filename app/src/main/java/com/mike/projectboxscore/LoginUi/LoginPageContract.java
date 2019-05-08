@@ -34,13 +34,6 @@ public interface LoginPageContract {
 
     interface View extends BaseView<Presenter> {
 
-        void initView();
-
-        void demoNewGameViewUi();
-
-        void demoMyTeamViewUi();
-
-        void demoNewTeamUi();
 
         void setupGoogleSignInUi();
 
@@ -55,19 +48,8 @@ public interface LoginPageContract {
 
         void result(int requestCode, int resultCode);
 
-//        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
-
-        void doNormalMode(int screenWidth, int screenHeight);
-
-        void demoNewGameView();
-
         ArrayList<Team> getTeams();
 
-        void addTeam(Team team);
-
-        void demoMyTeamView();
-
-        void setSampleTeam();
 
         void setupGoogleSignIn();
 
@@ -77,6 +59,5 @@ public interface LoginPageContract {
 
         void googleSignIn();
 
-        void getFireStoreData(FirebaseUser account,FirebaseDataCallback callback);
     }
 }

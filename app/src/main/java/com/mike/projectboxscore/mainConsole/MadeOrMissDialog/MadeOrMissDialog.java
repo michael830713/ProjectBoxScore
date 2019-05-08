@@ -30,8 +30,6 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
 
     private static final String TAG = "SubstituteDialog";
 
-    private MainConsoleViewContract.Presenter mPresenter;
-    private SubstituteAdapter mAdapter;
     private Button mMadeButton;
     private Button mMissButton;
     MadeOrMissCallback madeOrMissCallback;
@@ -46,10 +44,6 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
         Log.d(TAG, "Dialog onCreate: ");
     }
 
-//    @Override
-//    public void setPresenter(MainConsoleViewContract.Presenter surfaceViewPresenter) {
-//        mPresenter = surfaceViewPresenter;
-//    }
 
     @Nullable
     @Override
@@ -58,7 +52,6 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
         mMadeButton = view.findViewById(R.id.buttonMade);
         mMissButton = view.findViewById(R.id.buttonMiss);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        getDialog().getWindow().setGravity(Gravity.RIGHT);
         return view;
     }
 
@@ -83,84 +76,4 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
                 break;
         }
     }
-
-//    @Override
-//    public void initView() {
-//
-//    }
-//
-//    @Override
-//    public void showSelectedPlayer() {
-//
-//    }
-//
-//    @Override
-//    public void showFullscreenModeUi(int videoWidth, int videoHeight) {
-//
-//    }
-//
-//    @Override
-//    public void showNormalModeUi(int videoWidth, int videoHeight) {
-//
-//    }
-//
-//    @Override
-//    public void addSurfaceHolderCallback(SurfaceHolder.Callback callback) {
-//
-//    }
-//
-//    @Override
-//    public void showMadeOrMissDialogUi(int addPoints) {
-//
-//    }
-//
-//    @Override
-//    public void showSubstituteDialogUi() {
-//
-//    }
-//
-//    @Override
-//    public void updateLogUi(int addScore, boolean isShotMade) {
-//
-//    }
-//
-//    @Override
-//    public void updateLogUi(String action) {
-//
-//    }
-//
-//    @Override
-//    public void removeLogUi() {
-//
-//    }
-//
-//    @Override
-//    public void showConfirmExitDialogUi() {
-//
-//    }
-//
-//    @Override
-//    public void openBoxScoreUi() {
-//
-//    }
-//
-//    @Override
-//    public void openExitBoxScoreUi() {
-//
-//    }
-//
-//    @Override
-//    public void updateScoreboardUi(int addScore) {
-//
-//    }
-//
-//    @Override
-//    public void updateScoreboardReturnUi(int addScore) {
-//
-//    }
-//
-//    @Override
-//    public void returnLastStepUi() {
-//
-//    }
 }

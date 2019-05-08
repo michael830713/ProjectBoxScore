@@ -22,7 +22,6 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     private MainConsoleViewContract.Presenter mPresenter;
     private ArrayList<PlayerStats> mPlayers = new ArrayList<>();
     private ArrayList<String> mActions = new ArrayList<>();
-    private int mColor = 0;
 
     public MainLogAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -38,16 +37,14 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
-//        playerViewHolder.mPlayerPoints.setText(Integer.toString(mPlayers.get(i).getPoints()));
         playerViewHolder.mAction.setText(mActions.get(i));
-        if (mPlayers.get(i).getBackNumber()!=-1){
-            playerViewHolder.mBackNumber.setText( Integer.toString(mPlayers.get(i).getBackNumber())+"  ");
-        }else {
+        if (mPlayers.get(i).getBackNumber() != -1) {
+            playerViewHolder.mBackNumber.setText(Integer.toString(mPlayers.get(i).getBackNumber()) + "  ");
+        } else {
             playerViewHolder.mBackNumber.setText("");
 
         }
         Log.d(TAG, "mPlayerList: " + mPlayers);
-//        playerViewHolder.mFieldGoals.setText("FG " + Integer.toString(mPlayers.get(i).getShotMade()) + "-" + Integer.toString(mPlayers.get(i).getShotTaken()));
         if (mActions.get(i).indexOf("Made") != -1) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
         } else if (mActions.get(i).indexOf("Miss") != -1) {
@@ -67,23 +64,21 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
 
         TextView mAction;
-        TextView mPlayerPoints;
         TextView mPlayerName;
-        TextView mFieldGoals;
         TextView mBackNumber;
         ConstraintLayout constraintLayout;
+
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
             mAction = itemView.findViewById(R.id.textView_action);
-//            mPlayerPoints = itemView.findViewById(R.id.textView_player_points);
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
-//            mFieldGoals = itemView.findViewById(R.id.textView_field_goal);
             mBackNumber = itemView.findViewById(R.id.textView_back_number);
             constraintLayout = itemView.findViewById(R.id.constraint_layout_logs);
 
         }
 
     }
+
     public void setLog(PlayerStats playerStats, String action) {
         mPlayers.add(0, playerStats);
         mActions.add(0, action);
@@ -105,24 +100,10 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
 
     }
 
-    public void setmActions(ArrayList<String> mActions) {
-        this.mActions = mActions;
-        notifyDataSetChanged();
-    }
-
     public void setmActionsRemoved(ArrayList<String> mActions, int i) {
         this.mActions = mActions;
         notifyItemRemoved(i);
         notifyItemRangeChanged(0, getItemCount());
-//        notifyDataSetChanged();
     }
 
-    public void removeItem(int position) {
-        notifyItemRemoved(0);
-
-    }
-
-    public void setColor(int color) {
-        mColor = color;
-    }
 }

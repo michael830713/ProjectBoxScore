@@ -67,11 +67,7 @@ public class BoxScoreAdapter extends RecyclerView.Adapter<BoxScoreAdapter.Player
 
     @Override
     public int getItemCount() {
-//        if (mPlayerStats != null) {
         return mPlayerStats.size();
-//        } else {
-//            return 0;
-//        }
 
     }
 

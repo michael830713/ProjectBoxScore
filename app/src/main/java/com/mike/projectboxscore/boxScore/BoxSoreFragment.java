@@ -30,19 +30,13 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
     private static final String TAG = "BoxSoreFragment";
 
     BoxScoreViewContract.Presenter mPresenter;
-    SubContract.Presenter mSubPresenter;
-    private OnCourtPlayerAdapter mOnCourtPlayerAdapter;
     private BoxScoreAdapter mBoxScoreAdapter;
     RecyclerView mBoxRecyclerView;
-    RecyclerView mLogRecyclerView;
     ImageView imageViewHome;
     TextView mTextViewAwayScore;
     TextView mTextViewHomeScore;
     TextView mTextViewAwayTeamName;
     TextView mTextViewHomeTeamName;
-    private JoystickView mJoystickView;
-    private int mAwayScore = 0;
-    private int mHomeScore = 0;
 
     public BoxSoreFragment() {
         // Requires empty public constructor
@@ -105,25 +99,6 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         mPresenter.openHome();
     };
 
-    private int updateAddAwayScore(int addPoints) {
-        mAwayScore = mAwayScore + addPoints;
-        return mAwayScore;
-    }
-
-    private int updateAddHomeScore(int addPoints) {
-        mHomeScore = mHomeScore + addPoints;
-        return mHomeScore;
-    }
-
-    private int updateMinusAwayScore(int addPoints) {
-        mAwayScore = mAwayScore - addPoints;
-        return mAwayScore;
-    }
-
-    private int updateMinusHomeScore(int addPoints) {
-        mHomeScore = mHomeScore - addPoints;
-        return mHomeScore;
-    }
 
     @Override
     public void onPause() {
@@ -147,8 +122,4 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         mPresenter = checkNotNull(loginUiPresenter);
     }
 
-    @Override
-    public void initView() {
-
-    }
 }

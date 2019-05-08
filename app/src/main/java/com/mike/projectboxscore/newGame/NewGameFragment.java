@@ -58,34 +58,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mTeamAdapter = new TeamAdapter(mPresenter);
         mPlayerAdapter = new PlayerAdapter(mPresenter, getActivity());
 
-//        Team allStar = new Team("All-star");
-//
-//        allStar.addmPlayers(new Player("Jordan", 23, "G"));
-//        allStar.addmPlayers(new Player("Pippen", 4, "F"));
-//        allStar.addmPlayers(new Player("Kobe", 24, "G"));
-//        allStar.addmPlayers(new Player("Lebron", 6, "F"));
-//        allStar.addmPlayers(new Player("Harden", 13, "G"));
-//        allStar.addmPlayers(new Player("Curry", 30, "G"));
-//        allStar.addmPlayers(new Player("O'neal", 34, "C"));
-//        allStar.addmPlayers(new Player("Duncan", 21, "C"));
-//        allStar.addmPlayers(new Player("Parker", 9, "G"));
-//        allStar.addmPlayers(new Player("McGrady", 1, "G"));
-//        allStar.addmPlayers(new Player("Allen", 20, "G"));
-//
-//        Team clippers = new Team("Clippers");
-//        clippers.addmPlayers(new Player("Alex", 2, "G"));
-//        clippers.addmPlayers(new Player("Gallinari", 8, "F"));
-//        clippers.addmPlayers(new Player("Zubac", 40, "C"));
-//        clippers.addmPlayers(new Player("Shamet", 20, "G"));
-//        clippers.addmPlayers(new Player("Beverley", 21, "G"));
-//        clippers.addmPlayers(new Player("Harrell", 5, "F"));
-//        clippers.addmPlayers(new Player("Williams", 23, "G"));
-//        clippers.addmPlayers(new Player("Green", 4, "F"));
-//        clippers.addmPlayers(new Player("Chandler", 22, "F"));
-//        clippers.addmPlayers(new Player("Temple", 17, "G"));
-//
-//        mPresenter.setupNewTeam(allStar);
-//        mPresenter.setupNewTeam(clippers);
         Log.d(TAG, "onCreate: ");
 
     }
@@ -110,9 +82,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
 
         mPlayerRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
-//        RecyclerViewCornerRadius radiusItemDecoration = new RecyclerViewCornerRadius(mPlayerRecyclerView);
-////        radiusItemDecoration.setCornerRadius(10);
-////        mPlayerRecyclerView.addItemDecoration(radiusItemDecoration);
 
         mNextButton = root.findViewById(R.id.imageViewNext);
         mOpponent = root.findViewById(R.id.editTextOpponent);

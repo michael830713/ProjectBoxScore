@@ -37,10 +37,6 @@ public class ExifUtil {
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
             Bitmap rotatedBitmap = rotateBitmap(bitmap, orientation);
-//            if (!bitmap.equals(rotatedBitmap)) {
-//                return bitmap;
-//                saveBitmapToFile(context, rotatedBitmap, uri);
-//            }
             Log.d(TAG, "rotatedBitmap: " + rotatedBitmap);
             return rotatedBitmap;
         } catch (IOException e) {

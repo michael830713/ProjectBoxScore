@@ -30,9 +30,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
         mContext = context;
     }
 
-    public OnCourtPlayerAdapter() {
-
-    }
 
     @NonNull
     @Override
@@ -156,9 +153,6 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public int getRow_index() {
-        return row_index;
-    }
 
     public PlayerStats getCurrentPlayer() {
         return mPlayers.get(row_index);

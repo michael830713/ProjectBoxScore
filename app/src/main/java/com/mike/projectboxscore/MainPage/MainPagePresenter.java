@@ -10,18 +10,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.Data.Test;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,32 +53,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         mView.demoMyTeamViewUi();
     }
 
-    @Override
-    public void setSampleTeam() {
-        Team allStar = new Team("All-stars");
-
-        allStar.addmPlayers(new Player("Jordan", 23, "G"));
-        allStar.addmPlayers(new Player("Pippen", 4, "F"));
-        allStar.addmPlayers(new Player("Kobe", 24, "G"));
-        allStar.addmPlayers(new Player("Lebron", 6, "F"));
-        allStar.addmPlayers(new Player("Harden", 13, "G"));
-        allStar.addmPlayers(new Player("Curry", 30, "G"));
-        allStar.addmPlayers(new Player("O'neal", 34, "C"));
-        allStar.addmPlayers(new Player("Duncan", 21, "C"));
-        allStar.addmPlayers(new Player("Parker", 9, "G"));
-        allStar.addmPlayers(new Player("McGrady", 1, "G"));
-        allStar.addmPlayers(new Player("Allen", 20, "G"));
-//        addTeam(allStar);
-        Map<String, Object> data1 = new HashMap<>();
-
-        data1.put(allStar.getName(), allStar);
-
-//        if (mUsersCollection.document(mCurrentUser.getUid()).collection("teams").whereEqualTo()) {
-//
-//        }
-        mUsersCollection.document(mCurrentUser.getUid()).collection("teams").document(allStar.getName()).set(allStar, SetOptions.merge());
-
-    }
 
     @Override
     public void demoLoginView() {
@@ -103,7 +69,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
                     Log.d(TAG, "onComplete task: " + task.getResult());
                     if (task.getResult().isEmpty()) {
                         Log.d(TAG, "task is empty: ");
-//                        setSampleTeam();
                     } else {
 
                         for (DocumentSnapshot documentSnapshot : task.getResult()) {
@@ -112,8 +77,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
                         }
 
                         mTeams = myTeams;
-//                    Log.d(TAG, "onComplete team arraylist: " + myTeams.get(0).getmPlayers().get(1).getName());
-//                    Log.d(TAG, "onComplete team arraylist size: " + myTeams.size());
                     }
 
                 }
@@ -127,20 +90,12 @@ public class MainPagePresenter implements MainPageContract.Presenter {
         return mTeams;
     }
 
-    @Override
-    public void addTeam(Team team) {
-        mTeams.add(team);
-    }
 
     @Override
     public void result(int requestCode, int resultCode) {
 
     }
 
-    @Override
-    public void doNormalMode(int screenWidth, int screenHeight) {
-
-    }
 
     @Override
     public void start() {

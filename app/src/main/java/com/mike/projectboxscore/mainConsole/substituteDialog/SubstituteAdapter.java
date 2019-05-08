@@ -33,10 +33,6 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         mContext = context;
     }
 
-    public SubstituteAdapter() {
-
-    }
-
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -61,9 +57,9 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
             }, 300);
         });
         if (row_index == i) {
-            highlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
+            highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
         } else {
-            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout,playerViewHolder.mPlayerAvatarFrame);
+            notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
         }
     }
 
@@ -99,8 +95,6 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     }
 
     public void highlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
-//        constraintLayout.setBackgroundColor(Color.parseColor("#689bed"));
-//        frame.setColorFilter(ContextCompat.getColor(mContext, R.color.selected_blue));
         constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.test_selected_orange));
         frame.setColorFilter(ContextCompat.getColor(mContext, R.color.test_selected_orange));
 
@@ -110,10 +104,6 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
         frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
 
-    }
-
-    public int getRow_index() {
-        return row_index;
     }
 
     public void setPlayers(ArrayList<PlayerStats> players) {

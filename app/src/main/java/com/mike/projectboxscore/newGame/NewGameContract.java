@@ -25,7 +25,6 @@ public interface NewGameContract {
     }
 
     interface Presenter extends BasePresenter {
-        void setupNewTeam(Team team);
 
         void openMainConsole();
 

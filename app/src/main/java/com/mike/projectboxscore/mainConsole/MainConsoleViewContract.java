@@ -34,15 +34,6 @@ public interface MainConsoleViewContract {
 
     interface View extends BaseView<Presenter> {
 
-        void initView();
-
-        void showSelectedPlayer();
-
-        void showFullscreenModeUi(int videoWidth, int videoHeight);
-
-        void showNormalModeUi(int videoWidth, int videoHeight);
-
-        void addSurfaceHolderCallback(SurfaceHolder.Callback callback);
 
         void showMadeOrMissDialogUi(int addPoints);
 
@@ -77,15 +68,7 @@ public interface MainConsoleViewContract {
 
         void result(int requestCode, int resultCode);
 
-//        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
-        void doNormalMode(int screenWidth, int screenHeight);
-
-        void doFullscreenMode(int screenWidth, int screenHeight);
-
-        void setScreenInfo(int screenWidth, int screenHeight);
-
-        void setVideoInfo(int videoWidth, int videoHeight);
 
         void updatePlayerScores(int addPoints);
 
@@ -107,15 +90,6 @@ public interface MainConsoleViewContract {
 
         void showConfirmExitDialog();
 
-        void requestPortrait();
-
-        void setupNewPlayer(String name, int backNumber, String onCourtPosition);
-
-        void setupNewPlayer(String name, int backNumber, String onCourtPosition, boolean isOnCourt);
-
-        void setPlayerOnCourt(int backNumber);
-
-        void setPlayerOffCourt(int backNumber);
 
         void setOnCourtPlayers();
 

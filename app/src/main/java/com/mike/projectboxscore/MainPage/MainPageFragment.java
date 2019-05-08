@@ -18,9 +18,9 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mike.projectboxscore.LoginUi.LoginPageFragment;
 import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
-import com.mike.projectboxscore.MyTeam.MyTeamFragment;
-import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
-import com.mike.projectboxscore.NewTeam.NewTeamFragment;
+import com.mike.projectboxscore.TeamMain.MyTeamFragment;
+import com.mike.projectboxscore.TeamMain.MyTeamPresenter;
+import com.mike.projectboxscore.TeamNew.NewTeamFragment;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 import com.mike.projectboxscore.newGame.NewGamePresenter;
@@ -63,10 +63,8 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mPresenter.setSampleTeam();
 
         mPresenter.checkFirebaseData();
-//        mActivity = getActivity();
         mFirebaseAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "onCreate: ");
     }
@@ -79,7 +77,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         mNewGameButton = root.findViewById(R.id.button_new_game);
         mMyTeamButton = root.findViewById(R.id.button_my_team);
         mSignOutButton = root.findViewById(R.id.buttonSignOut);
-//        mOpenGalleryButton = root.findViewById(R.id.buttonOpenGallery);
         mActivity = getActivity();
         Log.d(TAG, "onCreateView getActivity: " + getActivity());
 
@@ -100,15 +97,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
             mFirebaseAuth.signOut();
             mPresenter.demoLoginView();
         });
-//        mOpenGalleryButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-//            }
-//        });
 
         mFirebaseAuth.addAuthStateListener(this);
 
@@ -119,9 +107,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-//            mImageUri = data.getData();
             Log.d(TAG, "onActivityResult: " + data.getData());
-//            Picasso.with(this).load(mImageUri).into(mImageView);
         }
 
     }
@@ -147,13 +133,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         mLoginPresenter = new LoginPagePresenter(mLoginFragment);
     }
 
-    public FragmentManager getHostFragmentManager() {
-        FragmentManager fm = getFragmentManager();
-        if (fm == null) {
-            fm = getActivity().getSupportFragmentManager();
-        }
-        return fm;
-    }
 
     @Override
     public void demoNewGameViewUi() {
@@ -174,16 +153,5 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void demoMainPageUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        NewTeamFragment fragment = NewTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
-    }
 
-    @Override
-    public void initView() {
-
-    }
 }

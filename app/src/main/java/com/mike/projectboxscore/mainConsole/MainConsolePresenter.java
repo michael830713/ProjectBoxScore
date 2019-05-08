@@ -39,35 +39,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     }
 
-    @Override
-    public void setupNewPlayer(String name, int backNumber, String onCourtPosition) {
-//        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition);
-//        mTeamPlayers.add(playerStats);
-    }
-
-    @Override
-    public void setupNewPlayer(String name, int backNumber, String onCourtPosition, boolean isOnCourt) {
-//        PlayerStats playerStats = new PlayerStats(name, backNumber, onCourtPosition, isOnCourt);
-//        mTeamPlayers.add(playerStats);
-    }
-
-    @Override
-    public void setPlayerOnCourt(int backNumber) {
-        for (int i = 0; i < mTeamPlayers.size(); i++) {
-            if (mTeamPlayers.get(i).getBackNumber() == backNumber) {
-                mTeamPlayers.get(i).setOnCourt(true);
-            }
-        }
-    }
-
-    @Override
-    public void setPlayerOffCourt(int backNumber) {
-        for (int i = 0; i < mTeamPlayers.size(); i++) {
-            if (mTeamPlayers.get(i).getBackNumber() == backNumber) {
-                mTeamPlayers.get(i).setOnCourt(false);
-            }
-        }
-    }
 
     @Override
     public void setOnCourtPlayers() {
@@ -118,25 +89,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     }
 
-    @Override
-    public void doNormalMode(int screenWidth, int screenHeight) {
-
-    }
-
-    @Override
-    public void doFullscreenMode(int screenWidth, int screenHeight) {
-
-    }
-
-    @Override
-    public void setScreenInfo(int screenWidth, int screenHeight) {
-
-    }
-
-    @Override
-    public void setVideoInfo(int videoWidth, int videoHeight) {
-
-    }
 
     @Override
     public void showMadeOrMissDialog(int addPoints) {
@@ -159,10 +111,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         return mSelectedPlayer;
     }
 
-    @Override
-    public void requestPortrait() {
-
-    }
 
     @Override
     public void updateLog(int addPoint, boolean isShotMade) {
@@ -211,8 +159,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
             playerFreeThrowReturn();
             playerMadeFreeThrowReturn();
         }
-//        setShotPersentage();
-//        updateLog(addPoints);
+        setShotPersentage();
     }
 
     @Override
@@ -335,6 +282,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int newRebounds = mSelectedPlayer.getOffensiveRebounds() + amount;
 
         mSelectedPlayer.setOffensiveRebounds(newRebounds);
+        setRebound();
 
     }
 
@@ -416,10 +364,8 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void addNewGame() {
-//        mGame.setmPlayerStats(mTeamPlayers);
         mGame.setmMyScore(mView.getAwayScore());
         mGame.setmOpponentScore(mView.getHomeScore());
-//        mGame.getmHomeTeam().getmGames().add(mGame);
     }
 
     @Override

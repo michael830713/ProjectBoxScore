@@ -17,30 +17,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
-import com.mike.projectboxscore.MainPage.MainPageContract;
 import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
-import com.mike.projectboxscore.MyTeam.MyTeamFragment;
-import com.mike.projectboxscore.MyTeam.MyTeamPresenter;
-import com.mike.projectboxscore.NewTeam.NewTeamFragment;
+import com.mike.projectboxscore.TeamMain.MyTeamFragment;
+import com.mike.projectboxscore.TeamMain.MyTeamPresenter;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.newGame.NewGameFragment;
 import com.mike.projectboxscore.newGame.NewGamePresenter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
@@ -58,8 +47,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 // ...
 // Initialize Firebase Auth
 
-    private MyTeamPresenter mMyTeamPresenter;
-    private NewGamePresenter mNewGamePresenter;
     private MainPagePresenter mMainPagePresenter;
     private View mView;
 
@@ -104,7 +91,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         mView = root;
         mSignInButton = root.findViewById(R.id.sign_in_button);
-//        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
 
         return root;
     }
@@ -166,26 +152,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 }
             }
         }
-
-    }
-
-    @Override
-    public void demoNewGameViewUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        NewGameFragment fragment = NewGameFragment.newInstance();
-        mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
-
-    @Override
-    public void demoMyTeamViewUi() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        MyTeamFragment fragment = MyTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack(null);
-        fragmentTransaction.commit();
-        mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
     }
 
     @Override
@@ -217,13 +183,4 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 });
     }
 
-    @Override
-    public void demoNewTeamUi() {
-
-    }
-
-    @Override
-    public void initView() {
-
-    }
 }

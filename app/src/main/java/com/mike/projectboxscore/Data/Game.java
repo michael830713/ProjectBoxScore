@@ -95,13 +95,4 @@ public class Game {
         this.mTournament = mTournament;
     }
 
-//    public void setmPlayerStats() {
-//        for (Player player : mHomeTeam.getmPlayers()) {
-//            mPlayerStats.add(player.getmGameStats().get(id));
-//        }
-//    }
-
-//    public void setmPlayerStats(ArrayList<PlayerStats> mPlayerStats) {
-//        this.mPlayerStats = mPlayerStats;
-//    }
 }

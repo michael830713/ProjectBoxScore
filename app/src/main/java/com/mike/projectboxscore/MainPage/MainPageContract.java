@@ -31,13 +31,11 @@ public interface MainPageContract {
 
     interface View extends BaseView<Presenter> {
 
-        void initView();
 
         void demoNewGameViewUi();
 
         void demoMyTeamViewUi();
 
-        void demoMainPageUi();
 
         void demoLoginViewUi();
     }
@@ -46,19 +44,15 @@ public interface MainPageContract {
 
         void result(int requestCode, int resultCode);
 
-//        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
-        void doNormalMode(int screenWidth, int screenHeight);
 
         void demoNewGameView();
 
         ArrayList<Team> getTeams();
 
-        void addTeam(Team team);
 
         void demoMyTeamView();
 
-        void setSampleTeam();
 
         void demoLoginView();
 

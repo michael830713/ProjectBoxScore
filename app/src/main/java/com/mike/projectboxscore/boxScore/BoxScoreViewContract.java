@@ -34,7 +34,6 @@ public interface BoxScoreViewContract {
 
     interface View extends BaseView<Presenter> {
 
-        void initView();
 
         void openHomeUi();
 
@@ -44,7 +43,6 @@ public interface BoxScoreViewContract {
 
         void result(int requestCode, int resultCode);
 
-//        void setMediaControllerPresenter(MediaControllerContract.Presenter presenter);
 
         ArrayList<PlayerStats> getPlayerStats();
 

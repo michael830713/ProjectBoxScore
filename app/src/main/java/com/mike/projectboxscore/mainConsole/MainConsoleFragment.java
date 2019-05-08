@@ -52,7 +52,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     RecyclerView mLogRecyclerView;
     TextView mTextViewAwayScore;
     TextView mTextViewHomeScore;
-    private JoystickView mJoystickView;
     private int mAwayScore = 0;
     private int mHomeScore = 0;
     private ImageView m2Pts;
@@ -68,7 +67,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private ImageView mBlock;
     private ImageView mSettings;
     private ImageView mTutorial;
-    //    private ImageView mBackButton;
     private ImageView mBoxScore;
 
     private static final String TWO_POINTS_MADE = "2 Points Made";
@@ -104,7 +102,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter, getActivity());
         mMainLogAdapter = new MainLogAdapter(mPresenter);
-//        mPresenter.setOpponent("Pistons");
         Log.d(TAG, "onCreate: ");
 
     }
@@ -145,10 +142,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mTextViewAwayScore = root.findViewById(R.id.textViewAwayScore);
         mTextViewHomeScore = root.findViewById(R.id.textViewHomeScore);
         mTutorial = root.findViewById(R.id.buttonTutorial);
-//        mBackButton = root.findViewById(R.id.imageViewReturnStep);
         mSettings = root.findViewById(R.id.buttonExit);
         mBoxScore = root.findViewById(R.id.buttonBoxScore);
-//        mJoystickView = root.findViewById(R.id.joy_stick_controller);
 
         return root;
     }
@@ -176,7 +171,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         mOreb.setOnClickListener(awesomeOnClickListener);
         mSteal.setOnClickListener(awesomeOnClickListener);
         mTutorial.setOnClickListener(awesomeOnClickListener);
-//        mBackButton.setOnClickListener(awesomeOnClickListener);
         mSettings.setOnClickListener(awesomeOnClickListener);
         mBoxScore.setOnClickListener(awesomeOnClickListener);
 
@@ -192,8 +186,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
             PlayerStats selectedPlayer = mOnCourtPlayerAdapter.getCurrentPlayer();
             mPresenter.setSelectedPlayer(selectedPlayer);
-//            mPresenter.setRebound();
-//            mPresenter.setShotPersentage();
             switch (v.getId()) {
                 case R.id.button2Pts:
                     mPresenter.showMadeOrMissDialog(2);
@@ -264,7 +256,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonTutorial:
-//                    mPresenter.returnLastStep(0);
                     mPresenter.showTutorialDialog();
 
                     break;
@@ -273,8 +264,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.openBoxScore();
                     break;
             }
-//            mPresenter.setRebound();
-//            mPresenter.setShotPersentage();
             mLogRecyclerView.smoothScrollToPosition(0);
         }
     };
@@ -400,11 +389,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
             }
-            mPresenter.setShotPersentage();
             mPresenter.setRebound();
-//            mPresenter.setShotPersentage();
-//            mPresenter.setRebound();
-//            Log.d(TAG, "returnLastStepUi: ");
         }
     }
 
@@ -420,12 +405,10 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.updateLog(addPoints, true);
                     mPresenter.updateScoreboard(addPoints);
 
-//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     madeOrMissDialog.dismiss();
                 } else {
                     mPresenter.updatePlayerMisses(addPoints);
                     mPresenter.updateLog(addPoints, false);
-                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     madeOrMissDialog.dismiss();
                 }
                 mPresenter.setShotPersentage();
@@ -562,20 +545,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     }
 
     @Override
-    public void showSelectedPlayer() {
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void showFullscreenModeUi(int videoWidth, int videoHeight) {
-
-    }
-
-    @Override
     public int getAwayScore() {
         return mAwayScore;
     }
@@ -583,11 +552,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public int getHomeScore() {
         return mHomeScore;
-    }
-
-    @Override
-    public void showNormalModeUi(int videoWidth, int videoHeight) {
-
     }
 
     @Override
@@ -611,11 +575,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), true);
         fragmentTransaction.replace(R.id.container, fragment, "Surface");
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void addSurfaceHolderCallback(SurfaceHolder.Callback callback) {
-
     }
 
     long lastPress;
