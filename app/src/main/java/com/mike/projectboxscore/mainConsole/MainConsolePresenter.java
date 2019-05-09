@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 
@@ -27,18 +28,17 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     String mUserId;
 
     public MainConsolePresenter(MainConsoleViewContract.View view, Game game) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mView.setPresenter(this);
         mTeamPlayers = game.getmPlayerStats();
         mGame = game;
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
-        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+        mUsersCollection = FirebaseFirestore.getInstance().collection(Constants.USER_PATH);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
-
 
     @Override
     public void setOnCourtPlayers() {
@@ -89,7 +89,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     }
 
-
     @Override
     public void showMadeOrMissDialog(int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
@@ -110,7 +109,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     public PlayerStats getSelectedPlayer() {
         return mSelectedPlayer;
     }
-
 
     @Override
     public void updateLog(int addPoint, boolean isShotMade) {
@@ -133,29 +131,29 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         int newPoint = currentPoints + addPoints;
         mSelectedPlayer.setPoints(newPoint);
         if (addPoints > 0) {
-            if (addPoints == 1) {
+            if (addPoints == Constants.ONE) {
                 playerMadeFreeThrow();
                 playerFreeThrowShoot();
             }
 
-            if (addPoints != 1) {
+            if (addPoints != Constants.ONE) {
                 playerMadeShot();
                 playerShoot();
 
-                if (addPoints == 3) {
+                if (addPoints == Constants.THREE_POINT) {
                     playerMade3PtShot();
                     player3ptShoot();
                 }
             }
-        } else if (addPoints == -2 || addPoints == -3) {
+        } else if (addPoints == Constants.RETURN_TWO_POINTS || addPoints == Constants.RETURN_THREE_POINTS) {
 
             playerMadeShotReturn();
             playerShootReturn();
-            if (addPoints == -3) {
+            if (addPoints == Constants.RETURN_THREE_POINTS) {
                 player3ptShootReturn();
                 playerMade3PtShotReturn();
             }
-        } else if (addPoints == -1) {
+        } else if (addPoints == Constants.RETURN_ONE_STAT) {
             playerFreeThrowReturn();
             playerMadeFreeThrowReturn();
         }
@@ -164,20 +162,20 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void updatePlayerMisses(int addPoints) {
-        if (addPoints == 1) {
+        if (addPoints == Constants.ONE) {
             playerFreeThrowShoot();
         } else if (addPoints > 0) {
             playerShoot();
 
-            if (addPoints == 3) {
+            if (addPoints == Constants.THREE_POINT) {
                 player3ptShoot();
             }
-        } else if (addPoints == -2 || addPoints == -3) {
+        } else if (addPoints == Constants.RETURN_TWO_POINTS || addPoints == Constants.RETURN_THREE_POINTS) {
             playerShootReturn();
-            if (addPoints == -3) {
+            if (addPoints == Constants.RETURN_THREE_POINTS) {
                 player3ptShootReturn();
             }
-        } else if (addPoints == -1) {
+        } else if (addPoints == Constants.RETURN_ONE_STAT) {
             playerFreeThrowReturn();
         }
 
@@ -196,84 +194,84 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void playerMadeShot() {
         int currentShotMade = mSelectedPlayer.getShotMade();
-        int newShotMade = currentShotMade + 1;
+        int newShotMade = currentShotMade + Constants.ONE;
         mSelectedPlayer.setShotMade(newShotMade);
     }
 
     @Override
     public void playerShoot() {
         int currentShotTaken = mSelectedPlayer.getShotTaken();
-        int newTakenShot = currentShotTaken + 1;
+        int newTakenShot = currentShotTaken + Constants.ONE;
         mSelectedPlayer.setShotTaken(newTakenShot);
     }
 
     @Override
     public void playerMade3PtShot() {
         int currentShotMade = mSelectedPlayer.getThreePointShotMade();
-        int newShotMade = currentShotMade + 1;
+        int newShotMade = currentShotMade + Constants.ONE;
         mSelectedPlayer.setThreePointShotMade(newShotMade);
     }
 
     @Override
     public void player3ptShoot() {
         int currentShotTaken = mSelectedPlayer.getThreePointShotTaken();
-        int newTakenShot = currentShotTaken + 1;
+        int newTakenShot = currentShotTaken + Constants.ONE;
         mSelectedPlayer.setThreePointShotTaken(newTakenShot);
     }
 
     @Override
     public void playerMadeFreeThrow() {
         int currentShotTaken = mSelectedPlayer.getFreeThrowMade();
-        int newTakenShot = currentShotTaken + 1;
+        int newTakenShot = currentShotTaken + Constants.ONE;
         mSelectedPlayer.setFreeThrowMade(newTakenShot);
     }
 
     @Override
     public void playerFreeThrowShoot() {
         int currentShotTaken = mSelectedPlayer.getFreeThrowTaken();
-        int newTakenShot = currentShotTaken + 1;
+        int newTakenShot = currentShotTaken + Constants.ONE;
         mSelectedPlayer.setFreeThrowTaken(newTakenShot);
     }
 
     @Override
     public void playerMadeShotReturn() {
         int currentShotMade = mSelectedPlayer.getShotMade();
-        int newShotMade = currentShotMade - 1;
+        int newShotMade = currentShotMade - Constants.ONE;
         mSelectedPlayer.setShotMade(newShotMade);
     }
 
     @Override
     public void playerShootReturn() {
         int currentShotTaken = mSelectedPlayer.getShotTaken();
-        int newTakenShot = currentShotTaken - 1;
+        int newTakenShot = currentShotTaken - Constants.ONE;
         mSelectedPlayer.setShotTaken(newTakenShot);
     }
 
     @Override
     public void playerMade3PtShotReturn() {
         int currentShotMade = mSelectedPlayer.getThreePointShotMade();
-        int newShotMade = currentShotMade - 1;
+        int newShotMade = currentShotMade - Constants.ONE;
         mSelectedPlayer.setThreePointShotMade(newShotMade);
     }
 
     @Override
     public void player3ptShootReturn() {
         int currentShotTaken = mSelectedPlayer.getThreePointShotTaken();
-        int newTakenShot = currentShotTaken - 1;
+        int newTakenShot = currentShotTaken - Constants.ONE;
         mSelectedPlayer.setThreePointShotTaken(newTakenShot);
     }
 
     @Override
     public void playerMadeFreeThrowReturn() {
         int currentShotMade = mSelectedPlayer.getFreeThrowMade();
-        int newShotMade = currentShotMade - 1;
+        int newShotMade = currentShotMade - Constants.ONE;
         mSelectedPlayer.setFreeThrowMade(newShotMade);
     }
 
     @Override
     public void playerFreeThrowReturn() {
         int currentShotMade = mSelectedPlayer.getFreeThrowTaken();
-        int newShotMade = currentShotMade - 1;
+        int newShotMade = currentShotMade - Constants.ONE;
         mSelectedPlayer.setFreeThrowTaken(newShotMade);
     }
 
@@ -333,8 +331,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         for (PlayerStats playerStats : mTeamPlayers) {
             playerStats.setTotalRebound();
         }
-//        mSelectedPlayer.setTotalRebound();
-        Log.d(TAG, "rebound : " + mSelectedPlayer.getRebounds());
 
     }
 
@@ -343,8 +339,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         for (PlayerStats playerStats : mTeamPlayers) {
             playerStats.setShotPercentage();
         }
-//        mSelectedPlayer.setShotPercentage();
-        Log.d(TAG, "ShotPercent : " + mSelectedPlayer.getShotPercentage());
     }
 
     @Override
@@ -370,7 +364,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void updateFirebaseData() {
-        mUsersCollection.document(mUserId).collection("teams").document(mGame.getmMyTeamName()).collection("games").document(mGame.getTimeStamp()).set(mGame, SetOptions.merge());
+        mUsersCollection.document(mUserId).collection(Constants.TEAM_PATH).document(mGame.getmMyTeamName()).collection("games").document(mGame.getTimeStamp()).set(mGame, SetOptions.merge());
 
     }
 

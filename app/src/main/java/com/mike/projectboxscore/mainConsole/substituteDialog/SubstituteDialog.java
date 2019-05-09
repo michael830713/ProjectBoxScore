@@ -35,7 +35,6 @@ public class SubstituteDialog extends DialogFragment implements SubContract.View
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SubstituteAdapter(mPresenter,getActivity());
-        Log.d(TAG, "Dialog onCreate: ");
     }
 
     @Nullable

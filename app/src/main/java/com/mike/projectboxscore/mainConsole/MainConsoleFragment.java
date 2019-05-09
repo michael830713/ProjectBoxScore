@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.IOnBackPressed;
 import com.mike.projectboxscore.R;
@@ -40,9 +41,6 @@ import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed {
 
     private static final String TAG = "MainConsoleFragment";
-    public static final String YES = "Yes";
-    public static final String NO = "No";
-    public static final String BACK_EXIT_CONFIRM = "Press back again to exit";
 
     MainConsoleViewContract.Presenter mPresenter;
     SubContract.Presenter mSubPresenter;
@@ -82,7 +80,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private static final String FOUL = "Foul";
     private static final String STEAL = "Steal";
     private static final String BLOCK = "Block";
-    
+
     private static final int twoPoint = 2;
     private static final int threePoint = 3;
     private static final int one = 1;
@@ -90,7 +88,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private static final int opponentBackNumber = -1;
     private static final int returnOneStat = -1;
     private static final int returnTwoPoints = -2;
-    private static final int returnTHreePoints = -3;
+    private static final int returnThreePoints = -3;
     private int doubleTapBackTime = 3000;
 
     public MainConsoleFragment() {
@@ -112,7 +110,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         mOnCourtPlayerAdapter = new OnCourtPlayerAdapter(mPresenter, getActivity());
         mMainLogAdapter = new MainLogAdapter(mPresenter);
-        Log.d(TAG, "onCreate: ");
 
     }
 
@@ -219,7 +216,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                 case R.id.buttonAssist:
                     mPresenter.playerAssisted(one);
                     mPresenter.updateLog(ASSIST);
-                    Log.d(TAG, "assist: " + mPresenter.getSelectedPlayer().getAssists());
                     break;
 
                 case R.id.buttonTurnOver:
@@ -311,11 +307,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void returnLastStepUi(int i) {
         if (mMainLogAdapter.getmPlayers().size() != 0) {
-
             PlayerStats player = mMainLogAdapter.getmPlayers().get(i);
             mPresenter.setSelectedPlayer(player);
             String currentAction = mMainLogAdapter.getmActions().get(i);
-//            Log.d(TAG, "returnLastStepUi: " + currentAction);
             switch (currentAction) {
                 case TWO_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(twoPoint);
@@ -329,12 +323,12 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case THREE_POINTS_MADE:
                     mPresenter.updateScoreboardReturn(threePoint);
-                    mPresenter.updatePlayerScores(returnTHreePoints);
+                    mPresenter.updatePlayerScores(returnThreePoints);
                     mPresenter.removeLog(i);
                     break;
 
                 case THREE_POINTS_MISS:
-                    mPresenter.updatePlayerMisses(returnTHreePoints);
+                    mPresenter.updatePlayerMisses(returnThreePoints);
                     mPresenter.removeLog(i);
                     break;
 
@@ -342,18 +336,15 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.updateScoreboardReturn(one);
                     mPresenter.updatePlayerScores(returnOneStat);
                     mPresenter.removeLog(i);
-//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
 
                     break;
                 case FREE_THROW_MISS:
                     mPresenter.updatePlayerMisses(returnOneStat);
                     mPresenter.removeLog(i);
-//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     break;
 
                 case OFFENSIVE_REBOUND:
                     mPresenter.playerOffensiveRebounded(returnOneStat);
-//                    Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
                     mPresenter.removeLog(i);
 
                     break;
@@ -364,7 +355,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
                 case ASSIST:
                     mPresenter.playerAssisted(returnOneStat);
-//                    Log.d(TAG, "assist after remove: " + mPresenter.getSelectedPlayer().getAssists());
                     mPresenter.removeLog(i);
                     break;
 
@@ -400,7 +390,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         madeOrMissDialog.setMadeOrMissCallback(new MadeOrMissCallback() {
             @Override
             public void madeOrMissCallBack(String madeOrMiss) {
-                if (madeOrMiss.equals("made")) {
+                if (madeOrMiss.equals(Constants.MADE)) {
                     mPresenter.updatePlayerScores(addPoints);
                     mPresenter.updateLog(addPoints, true);
                     mPresenter.updateScoreboard(addPoints);
@@ -425,7 +415,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         SubstituteDialog substituteDialog = new SubstituteDialog();
         mSubPresenter = new SubDialogPresenter(substituteDialog);
         mPresenter.setOnBenchPlayers();
-//        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
         ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
         ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
         substituteDialog.setPresenter(mSubPresenter);
@@ -461,11 +450,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
         builder.setMessage(getString(R.string.endGameConfirmation))
                 .setCancelable(true)
-                .setPositiveButton(YES, (dialog, id) -> {
+                .setPositiveButton(Constants.YES, (dialog, id) -> {
                     mPresenter.openExitBoxScore();
                     dialog.dismiss();
                 })
-                .setNegativeButton(NO, (dialog, id) -> {
+                .setNegativeButton(Constants.NO, (dialog, id) -> {
                     dialog.dismiss();
                 });
         AlertDialog alert = builder.create();
@@ -560,8 +549,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;
         boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), false);
-        Log.d(TAG, "openBoxScoreUi player size: " + mPresenter.getGame().getmPlayerStats().size());
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("BoxScore");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.SURFACE).addToBackStack(Constants.FRAGMENT_BOX_SCORE);
         fragmentTransaction.commit();
     }
 
@@ -573,7 +561,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;
         boxScorePresenter = new BoxScorePresenter(fragment, mPresenter.getGame(), true);
-        fragmentTransaction.replace(R.id.container, fragment, "Surface");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.SURFACE);
         fragmentTransaction.commit();
     }
 
@@ -584,7 +572,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         long currentTime = System.currentTimeMillis();
 
         if (currentTime - lastPress > doubleTapBackTime) {
-            Toast.makeText(getActivity(), BACK_EXIT_CONFIRM, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), Constants.BACK_EXIT_CONFIRM, Toast.LENGTH_SHORT).show();
             lastPress = currentTime;
             return true;
         } else {

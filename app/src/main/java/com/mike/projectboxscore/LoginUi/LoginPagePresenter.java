@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 
@@ -28,7 +29,7 @@ public class LoginPagePresenter implements LoginPageContract.Presenter {
     ArrayList<Team> mTeams = new ArrayList<>();
 
     public LoginPagePresenter(LoginPageContract.View view) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mView.setPresenter(this);
         mFirebaseFirestore = FirebaseFirestore.getInstance();
     }

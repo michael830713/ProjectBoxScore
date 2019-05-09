@@ -23,6 +23,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.MainPage.MainPageFragment;
 import com.mike.projectboxscore.MainPage.MainPagePresenter;
 import com.mike.projectboxscore.TeamMain.MyTeamFragment;
@@ -73,14 +74,11 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
     @Override
     public void onStart() {
-        Log.d(TAG, "onStart: ");
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Log.d(TAG, "currentUser is not null ");
             updateUI(currentUser);
         } else {
-            Log.d(TAG, "currentUser is null ");
         }
         super.onStart();
     }
@@ -123,7 +121,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         MainPageFragment fragment = MainPageFragment.newInstance();
         mMainPagePresenter = new MainPagePresenter(fragment,getActivity());
         fragment.setPresenter(mMainPagePresenter);
-        fragmentTransaction.replace(R.id.container, fragment, "MainPage");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_MAIN_PAGE);
         fragmentTransaction.commitAllowingStateLoss();
 
     }
@@ -143,11 +141,9 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = task.getResult(ApiException.class);
-                    Log.d(TAG, "email: " + account.getEmail());
                     mPresenter.firebaseAuthWithGoogle(account);
                 } catch (ApiException e) {
                     // Google Sign In failed, update UI appropriately
-                    Log.w(TAG, "Google sign in failed", e);
                     // ...
                 }
             }
@@ -171,13 +167,10 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 .addOnCompleteListener(getActivity(), task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Log.d(TAG, "firebaseAuthWithGoogleUi Uid: " + user.getUid());
                         updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
                         Snackbar.make(mView, "Login Failed.", Snackbar.LENGTH_SHORT).show();
                     }
                 });

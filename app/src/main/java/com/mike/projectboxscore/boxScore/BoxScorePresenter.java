@@ -2,6 +2,7 @@ package com.mike.projectboxscore.boxScore;
 
 import android.util.Log;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 
@@ -19,11 +20,10 @@ public class BoxScorePresenter implements BoxScoreViewContract.Presenter {
     private ArrayList<PlayerStats> mTeamPlayers;
 
     public BoxScorePresenter(BoxScoreViewContract.View view, Game game, boolean isExit) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mView.setPresenter(this);
         mGame = game;
         mTeamPlayers = game.getmPlayerStats();
-        Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mIsExit = isExit;
 
     }

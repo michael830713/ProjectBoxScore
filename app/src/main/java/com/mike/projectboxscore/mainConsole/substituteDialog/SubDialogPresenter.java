@@ -2,6 +2,7 @@ package com.mike.projectboxscore.mainConsole.substituteDialog;
 
 import android.util.Log;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class SubDialogPresenter implements SubContract.Presenter {
     private PlayerStats mTobeReplacedPlayer;
 
     public SubDialogPresenter(SubContract.View view) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mPlayerOnBench = new ArrayList<>();
     }
 
@@ -38,7 +39,6 @@ public class SubDialogPresenter implements SubContract.Presenter {
 
     @Override
     public void showPlayer() {
-        Log.d(TAG, "showPlayer: " + mPlayerOnBench);
         mView.showPlayerUi(mPlayerOnBench);
     }
 

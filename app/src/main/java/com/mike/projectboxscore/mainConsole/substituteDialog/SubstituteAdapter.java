@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -46,7 +47,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
         playerViewHolder.mBackNumber.setText("" + mPlayers.get(i).getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
-        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.mPlayerAvatar);
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
             row_index = i;
@@ -54,7 +55,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 mPresenter.changePlayer(row_index);
-            }, 300);
+            }, Constants.SUBSTITUTE_DELAY);
         });
         if (row_index == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
@@ -101,7 +102,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.log_background_grey));
         frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
 
     }

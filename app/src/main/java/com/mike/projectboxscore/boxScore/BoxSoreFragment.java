@@ -51,7 +51,6 @@ public class BoxSoreFragment extends Fragment implements BoxScoreViewContract.Vi
         super.onCreate(savedInstanceState);
 
         mBoxScoreAdapter = new BoxScoreAdapter(mPresenter, mPresenter.getPlayerStats());
-        Log.d(TAG, "onCreate player stat: "+mPresenter.getPlayerStats());
     }
 
     @Nullable

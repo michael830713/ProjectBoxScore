@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.mainConsole.MainConsoleViewContract;
@@ -41,9 +42,7 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "Dialog onCreate: ");
     }
-
 
     @Nullable
     @Override
@@ -60,18 +59,17 @@ public class MadeOrMissDialog extends DialogFragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         mMadeButton.setOnClickListener(this);
         mMissButton.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonMade:
-                madeOrMissCallback.madeOrMissCallBack("made");
+                madeOrMissCallback.madeOrMissCallBack(Constants.MADE);
                 break;
 
             case R.id.buttonMiss:
-                madeOrMissCallback.madeOrMissCallBack("miss");
+                madeOrMissCallback.madeOrMissCallBack(Constants.MISS);
 
                 break;
         }

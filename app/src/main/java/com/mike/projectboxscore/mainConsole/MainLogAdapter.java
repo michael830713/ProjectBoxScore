@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 
@@ -38,18 +39,18 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
         playerViewHolder.mAction.setText(mActions.get(i));
-        if (mPlayers.get(i).getBackNumber() != -1) {
-            playerViewHolder.mBackNumber.setText(Integer.toString(mPlayers.get(i).getBackNumber()) + "  ");
+        if (mPlayers.get(i).getBackNumber() != Constants.OPPONENT_BACK_NUMBER) {
+            playerViewHolder.mBackNumber.setText(mPlayers.get(i).getBackNumber() + "  ");
         } else {
             playerViewHolder.mBackNumber.setText("");
-
         }
-        Log.d(TAG, "mPlayerList: " + mPlayers);
-        if (mActions.get(i).indexOf("Made") != -1) {
+        Log.d(TAG, "mActions: " + mActions.get(i));
+        if (mActions.get(i).contains(Constants.MADE)) {
+            Log.d(TAG, "it works: ");
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
-        } else if (mActions.get(i).indexOf("Miss") != -1) {
+        } else if (mActions.get(i).contains(Constants.MISS)) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
-        } else if (mActions.get(i).indexOf("Foul") != -1) {
+        } else if (mActions.get(i).contains(Constants.FOUL)) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
         } else {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_light_green);
@@ -74,17 +75,13 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
             mPlayerName = itemView.findViewById(R.id.textView_player_name);
             mBackNumber = itemView.findViewById(R.id.textView_back_number);
             constraintLayout = itemView.findViewById(R.id.constraint_layout_logs);
-
         }
-
     }
 
     public void setLog(PlayerStats playerStats, String action) {
-        mPlayers.add(0, playerStats);
-        mActions.add(0, action);
-        Log.d(TAG, " action: " + mActions.get(0));
-        notifyItemInserted(0);
-
+        mPlayers.add(Constants.ADAPTER_TOP_POSITION, playerStats);
+        mActions.add(Constants.ADAPTER_TOP_POSITION, action);
+        notifyItemInserted(Constants.ADAPTER_TOP_POSITION);
     }
 
     public ArrayList<String> getmActions() {
@@ -103,7 +100,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     public void setmActionsRemoved(ArrayList<String> mActions, int i) {
         this.mActions = mActions;
         notifyItemRemoved(i);
-        notifyItemRangeChanged(0, getItemCount());
+        notifyItemRangeChanged(Constants.ADAPTER_TOP_POSITION, getItemCount());
     }
 
 }

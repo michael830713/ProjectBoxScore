@@ -61,7 +61,6 @@ public class BoxScoreAdapter extends RecyclerView.Adapter<BoxScoreAdapter.Player
         playerViewHolder.turnOver.setText(String.valueOf(mPlayerStats.get(i).getTurnOvers()));
         playerViewHolder.personalFoul.setText(String.valueOf(mPlayerStats.get(i).getFouls()));
 
-        Log.d(TAG, mPlayerStats.get(0).getName() + "assist: " + mPlayerStats.get(0).getAssists());
 
     }
 
