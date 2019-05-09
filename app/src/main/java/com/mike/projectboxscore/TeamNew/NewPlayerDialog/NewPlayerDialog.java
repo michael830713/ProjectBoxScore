@@ -124,15 +124,13 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
             if (mImageUri != null) {
                 int finalBackNumber = backNumber;
 
-                ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-                pd.setMessage("uploading image...");
-                pd.show();
 
                 mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap),
                         mPresenter.getFileExtention(mImageUri), imageLink -> {
-                            pd.dismiss();
+
                             sendResult(playerName, position, finalBackNumber, imageLink);
                             Log.d(TAG, "loadGameCallBack: " + imageLink);
+
                         });
             } else {
                 Log.d(TAG, "no image upload: ");

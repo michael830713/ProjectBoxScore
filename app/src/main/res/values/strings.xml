@@ -17,5 +17,6 @@
     <string name="steal">Steal</string>
     <string name="block">Block</string>
     <string name="default_google_web_client_id">284614397606-8l0qm607bsh3ebge8dkbcku1uf4isog5.apps.googleusercontent.com</string>
+    <string name="endGameConfirmation">Are you sure to end game?</string>
 
 </resources>

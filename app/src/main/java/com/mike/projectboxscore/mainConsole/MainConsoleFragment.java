@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -36,13 +35,14 @@ import com.mike.projectboxscore.mainConsole.substituteDialog.SubstituteDialog;
 
 import java.util.ArrayList;
 
-import io.github.controlwear.virtual.joystick.android.JoystickView;
-
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 
 public class MainConsoleFragment extends Fragment implements MainConsoleViewContract.View, IOnBackPressed {
 
     private static final String TAG = "MainConsoleFragment";
+    public static final String YES = "Yes";
+    public static final String NO = "No";
+    public static final String BACK_EXIT_CONFIRM = "Press back again to exit";
 
     MainConsoleViewContract.Presenter mPresenter;
     SubContract.Presenter mSubPresenter;
@@ -82,6 +82,16 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     private static final String FOUL = "Foul";
     private static final String STEAL = "Steal";
     private static final String BLOCK = "Block";
+    
+    private static final int twoPoint = 2;
+    private static final int threePoint = 3;
+    private static final int one = 1;
+    private static final int adapterTopPosition = 0;
+    private static final int opponentBackNumber = -1;
+    private static final int returnOneStat = -1;
+    private static final int returnTwoPoints = -2;
+    private static final int returnTHreePoints = -3;
+    private int doubleTapBackTime = 3000;
 
     public MainConsoleFragment() {
         // Requires empty public constructor
@@ -125,7 +135,6 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         enableSwipeToDeleteAndUndo();
 
         Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.divider);
-
         mLogRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
         m2Pts = root.findViewById(R.id.button2Pts);
@@ -152,10 +161,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "onViewCreated players: " + mPresenter.getPlayers());
-
         mPresenter.setOnCourtPlayers();
-
         mOnCourtPlayerAdapter.setPlayers(mPresenter.getPlayers());
 
         mPresenter.getPlayers();
@@ -188,63 +194,60 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             mPresenter.setSelectedPlayer(selectedPlayer);
             switch (v.getId()) {
                 case R.id.button2Pts:
-                    mPresenter.showMadeOrMissDialog(2);
+                    mPresenter.showMadeOrMissDialog(twoPoint);
                     break;
 
                 case R.id.button3Pts:
-                    mPresenter.showMadeOrMissDialog(3);
-                    Log.d(TAG, "button3Pts: FG" + selectedPlayer.getThreePointShotMade()
-                            + "-"
-                            + selectedPlayer.getThreePointShotTaken());
+                    mPresenter.showMadeOrMissDialog(threePoint);
                     break;
 
                 case R.id.buttonFreeThrow:
-                    mPresenter.showMadeOrMissDialog(1);
+                    mPresenter.showMadeOrMissDialog(one);
                     break;
 
                 case R.id.buttonOffensiveRebound:
-                    mPresenter.playerOffensiveRebounded(1);
+                    mPresenter.playerOffensiveRebounded(one);
                     mPresenter.updateLog(OFFENSIVE_REBOUND);
                     break;
 
                 case R.id.buttonDefensiveRebound:
-                    mPresenter.playerDefensiveRebounded(1);
+                    mPresenter.playerDefensiveRebounded(one);
                     mPresenter.updateLog(DEFENSIVE_REBOUND);
 
                     break;
 
                 case R.id.buttonAssist:
-                    mPresenter.playerAssisted(1);
+                    mPresenter.playerAssisted(one);
                     mPresenter.updateLog(ASSIST);
                     Log.d(TAG, "assist: " + mPresenter.getSelectedPlayer().getAssists());
                     break;
 
                 case R.id.buttonTurnOver:
-                    mPresenter.playerTurnedOver(1);
+                    mPresenter.playerTurnedOver(one);
                     mPresenter.updateLog(TURN_OVER);
 
                     break;
 
                 case R.id.buttonFoul:
-                    mPresenter.playerFouled(1);
+                    mPresenter.playerFouled(one);
                     mPresenter.updateLog(FOUL);
 
                     break;
 
                 case R.id.buttonSteal:
-                    mPresenter.playerstealed(1);
+                    mPresenter.playerstealed(one);
                     mPresenter.updateLog(STEAL);
 
                     break;
 
                 case R.id.buttonBlock:
-                    mPresenter.playerBlocked(1);
+                    mPresenter.playerBlocked(one);
                     mPresenter.updateLog(BLOCK);
 
                     break;
 
                 case R.id.buttonSub:
-                    if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
+                    if (mPresenter.getSelectedPlayer().getBackNumber() != opponentBackNumber) {
                         mPresenter.showSubstituteDialog();
                     }
 
@@ -264,7 +267,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     mPresenter.openBoxScore();
                     break;
             }
-            mLogRecyclerView.smoothScrollToPosition(0);
+            mLogRecyclerView.smoothScrollToPosition(adapterTopPosition);
         }
     };
 
@@ -272,14 +275,11 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getActivity()) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
                 final int position = viewHolder.getAdapterPosition();
                 mPresenter.returnLastStep(position);
                 Log.d(TAG, "onSwiped position: " + position);
-
             }
         };
-
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(mLogRecyclerView);
     }
@@ -315,76 +315,76 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
             PlayerStats player = mMainLogAdapter.getmPlayers().get(i);
             mPresenter.setSelectedPlayer(player);
             String currentAction = mMainLogAdapter.getmActions().get(i);
-            Log.d(TAG, "returnLastStepUi: " + currentAction);
+//            Log.d(TAG, "returnLastStepUi: " + currentAction);
             switch (currentAction) {
                 case TWO_POINTS_MADE:
-                    mPresenter.updateScoreboardReturn(2);
-                    mPresenter.updatePlayerScores(-2);
+                    mPresenter.updateScoreboardReturn(twoPoint);
+                    mPresenter.updatePlayerScores(returnTwoPoints);
                     mPresenter.removeLog(i);
                     break;
                 case TWO_POINTS_MISS:
-                    mPresenter.updatePlayerMisses(-2);
+                    mPresenter.updatePlayerMisses(returnTwoPoints);
                     mPresenter.removeLog(i);
                     break;
 
                 case THREE_POINTS_MADE:
-                    mPresenter.updateScoreboardReturn(3);
-                    mPresenter.updatePlayerScores(-3);
+                    mPresenter.updateScoreboardReturn(threePoint);
+                    mPresenter.updatePlayerScores(returnTHreePoints);
                     mPresenter.removeLog(i);
                     break;
 
                 case THREE_POINTS_MISS:
-                    mPresenter.updatePlayerMisses(-3);
+                    mPresenter.updatePlayerMisses(returnTHreePoints);
                     mPresenter.removeLog(i);
                     break;
 
                 case FREE_THROW_MADE:
-                    mPresenter.updateScoreboardReturn(1);
-                    mPresenter.updatePlayerScores(-1);
+                    mPresenter.updateScoreboardReturn(one);
+                    mPresenter.updatePlayerScores(returnOneStat);
                     mPresenter.removeLog(i);
-                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
 
                     break;
                 case FREE_THROW_MISS:
-                    mPresenter.updatePlayerMisses(-1);
+                    mPresenter.updatePlayerMisses(returnOneStat);
                     mPresenter.removeLog(i);
-                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
+//                    Log.d(TAG, "current FT: " + mPresenter.getSelectedPlayer().getFreeThrowMade() + "-" + mPresenter.getSelectedPlayer().getFreeThrowTaken());
                     break;
 
                 case OFFENSIVE_REBOUND:
-                    mPresenter.playerOffensiveRebounded(-1);
-                    Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
+                    mPresenter.playerOffensiveRebounded(returnOneStat);
+//                    Log.d(TAG, "playerOffensiveRebounded: " + mPresenter.getSelectedPlayer().getOffensiveRebounds());
                     mPresenter.removeLog(i);
 
                     break;
                 case DEFENSIVE_REBOUND:
-                    mPresenter.playerDefensiveRebounded(-1);
+                    mPresenter.playerDefensiveRebounded(returnOneStat);
                     mPresenter.removeLog(i);
                     break;
 
                 case ASSIST:
-                    mPresenter.playerAssisted(-1);
-                    Log.d(TAG, "assist after remove: " + mPresenter.getSelectedPlayer().getAssists());
+                    mPresenter.playerAssisted(returnOneStat);
+//                    Log.d(TAG, "assist after remove: " + mPresenter.getSelectedPlayer().getAssists());
                     mPresenter.removeLog(i);
                     break;
 
                 case TURN_OVER:
-                    mPresenter.playerTurnedOver(-1);
+                    mPresenter.playerTurnedOver(returnOneStat);
                     mPresenter.removeLog(i);
                     break;
 
                 case FOUL:
-                    mPresenter.playerFouled(-1);
+                    mPresenter.playerFouled(returnOneStat);
                     mPresenter.removeLog(i);
                     break;
 
                 case STEAL:
-                    mPresenter.playerstealed(-1);
+                    mPresenter.playerstealed(returnOneStat);
                     mPresenter.removeLog(i);
                     break;
 
                 case BLOCK:
-                    mPresenter.playerBlocked(-1);
+                    mPresenter.playerBlocked(returnOneStat);
                     mPresenter.removeLog(i);
                     break;
 
@@ -425,7 +425,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
         SubstituteDialog substituteDialog = new SubstituteDialog();
         mSubPresenter = new SubDialogPresenter(substituteDialog);
         mPresenter.setOnBenchPlayers();
-        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
+//        Log.d(TAG, "setBenchPlayer: " + mPresenter.getOnBenchPlayers());
         ((SubDialogPresenter) mSubPresenter).setToBeReplacedPlayer(mPresenter.getSelectedPlayer());
         ((SubDialogPresenter) mSubPresenter).setBenchPlayer(mPresenter.getOnBenchPlayers());
         substituteDialog.setPresenter(mSubPresenter);
@@ -459,13 +459,13 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void showConfirmExitDialogUi() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-        builder.setMessage("Are you sure to end game?")
+        builder.setMessage(getString(R.string.endGameConfirmation))
                 .setCancelable(true)
-                .setPositiveButton("Yes", (dialog, id) -> {
+                .setPositiveButton(YES, (dialog, id) -> {
                     mPresenter.openExitBoxScore();
                     dialog.dismiss();
                 })
-                .setNegativeButton("No", (dialog, id) -> {
+                .setNegativeButton(NO, (dialog, id) -> {
                     dialog.dismiss();
                 });
         AlertDialog alert = builder.create();
@@ -475,18 +475,18 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void updateLogUi(int addScore, boolean isShotMade) {
         if (isShotMade) {
-            if (addScore == 2) {
+            if (addScore == twoPoint) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MADE);
-            } else if (addScore == 3) {
+            } else if (addScore == threePoint) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), THREE_POINTS_MADE);
             } else {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), FREE_THROW_MADE);
             }
 
         } else {
-            if (addScore == 2) {
+            if (addScore == twoPoint) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), TWO_POINTS_MISS);
-            } else if (addScore == 3) {
+            } else if (addScore == threePoint) {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), THREE_POINTS_MISS);
             } else {
                 mMainLogAdapter.setLog(mPresenter.getSelectedPlayer(), FREE_THROW_MISS);
@@ -494,7 +494,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
         }
 
-        mLogRecyclerView.smoothScrollToPosition(0);
+        mLogRecyclerView.smoothScrollToPosition(adapterTopPosition);
     }
 
     @Override
@@ -514,7 +514,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateScoreboardUi(int addScore) {
-        if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
+        if (mPresenter.getSelectedPlayer().getBackNumber() != opponentBackNumber) {
             mTextViewAwayScore.setText(Integer.toString(updateAddAwayScore(addScore)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateAddHomeScore(addScore)));
@@ -524,8 +524,8 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
 
     @Override
     public void updateScoreboardReturnUi(int addScore) {
-        Log.d(TAG, "currentACtiomn: " + mMainLogAdapter.getmActions().get(0));
-        if (mPresenter.getSelectedPlayer().getBackNumber() != -1) {
+//        Log.d(TAG, "currentACtiomn: " + mMainLogAdapter.getmActions().get(0));
+        if (mPresenter.getSelectedPlayer().getBackNumber() != opponentBackNumber) {
             mTextViewAwayScore.setText(Integer.toString(updateMinusAwayScore(addScore)));
         } else {
             mTextViewHomeScore.setText(Integer.toString(updateMinusHomeScore(addScore)));
@@ -535,7 +535,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: ");
+//        Log.d(TAG, "onPause: ");
     }
 
     @Override
@@ -582,8 +582,9 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
     @Override
     public boolean onBackPressed() {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastPress > 3000) {
-            Toast.makeText(getActivity(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        if (currentTime - lastPress > doubleTapBackTime) {
+            Toast.makeText(getActivity(), BACK_EXIT_CONFIRM, Toast.LENGTH_SHORT).show();
             lastPress = currentTime;
             return true;
         } else {

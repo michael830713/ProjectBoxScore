@@ -112,13 +112,13 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     if (playerName != null && backNumber != -1 && position != null) {
                         if (mImageUri != null) {
                             int finalBackNumber = backNumber;
-                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-                            pd.setMessage("uploading image...");
-                            pd.show();
+//                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+//                            pd.setMessage("uploading image...");
+//                            pd.show();
                             mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap), mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
-                                    pd.dismiss();
+//                                    pd.dismiss();
                                     mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
                                     sendResult(playerName, position, finalBackNumber, imageLink);
                                     Log.d(TAG, "loadGameCallBack: " + mPresenter.getPlayer().getImageUrl());

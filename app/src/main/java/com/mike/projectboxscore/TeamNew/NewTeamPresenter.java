@@ -2,24 +2,16 @@ package com.mike.projectboxscore.TeamNew;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
-import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
+import com.mike.projectboxscore.FirebaseDataSource;
 import com.mike.projectboxscore.TeamNew.NewPlayerDialog.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
@@ -101,7 +93,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         mView.showNewPlayerUi();
     }
 
-
     @Override
     public void updateData() {
         mView.updateDataUi();
@@ -125,7 +116,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         return mMyTeams;
     }
 
-
     @Override
     public void showToast(String message) {
         mView.showToastMessageUi(message);
@@ -133,40 +123,42 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
     @Override
     public void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback) {
-        if (imageUri != null) {
-            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
-                    + "." + fileExtention);
+        FirebaseDataSource.uploadTeamLogoFile(mContext, imageUri, fileExtention, callback);
 
-            StorageTask mUploadTask = fileReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Log.d(TAG, "upload URL: " + uri);
-                                    callback.loadGameCallBack(uri.toString());
-                                }
-                            });
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        }
-                    });
-        } else {
-            Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
-        }
+//        if (imageUri != null) {
+//            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
+//                    + "." + fileExtention);
+//
+//            StorageTask mUploadTask = fileReference.putFile(imageUri)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                            Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
+//                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    Log.d(TAG, "upload URL: " + uri);
+//                                    callback.loadGameCallBack(uri.toString());
+//                                }
+//                            });
+//
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                        }
+//                    });
+//        } else {
+//            Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
+//        }
     }
 }
 

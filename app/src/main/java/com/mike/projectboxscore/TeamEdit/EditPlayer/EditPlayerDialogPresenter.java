@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.FirebaseDataSource;
 import com.mike.projectboxscore.TeamNew.NewPlayerDialog.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
@@ -93,35 +94,38 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
     @Override
     public void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback) {
         if (imageUri != null) {
-            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
-                    + "." + fileExtention);
 
-            StorageTask mUploadTask = fileReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            FirebaseDataSource.uploadTeamLogoFile(mContext, imageUri, fileExtention, callback);
 
-                            Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Log.d(TAG, "upload URL: " + uri);
-                                    callback.loadGameCallBack(uri.toString());
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        }
-                    });
+//            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
+//                    + "." + fileExtention);
+//
+//            StorageTask mUploadTask = fileReference.putFile(imageUri)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                            Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
+//                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    Log.d(TAG, "upload URL: " + uri);
+//                                    callback.loadGameCallBack(uri.toString());
+//                                }
+//                            });
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                        }
+//                    });
         } else {
             Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
         }

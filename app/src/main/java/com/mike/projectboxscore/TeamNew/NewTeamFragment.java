@@ -125,13 +125,9 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
                         showToastMessageUi("Please enter team name!");
                     } else {
                         if (mImageUri != null) {
-                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-                            pd.setMessage("uploading image...");
-                            pd.show();
                             mPresenter.uploadFile(mImageUri, getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
-                                    pd.dismiss();
                                     mPresenter.createNewTeam(imageLink);
                                     mPresenter.openMyTeamFragment();
                                 }
@@ -140,10 +136,9 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
                             mPresenter.createNewTeam(null);
                             mPresenter.openMyTeamFragment();
                         }
-
                     }
-                    break;
 
+                    break;
                 case R.id.imageViewLogo:
                     checkGalleryPermissionAndOpenGallery();
                     break;

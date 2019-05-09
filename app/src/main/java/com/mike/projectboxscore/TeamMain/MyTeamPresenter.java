@@ -41,8 +41,8 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
         mView = checkNotNull(view, "view cannot be null!");
         mView.setPresenter(this);
         mTeams = teams;
-        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+//        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 

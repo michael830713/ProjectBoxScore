@@ -143,13 +143,9 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                         showToastMessageUi("Please enter team name!");
                     } else {
                         if (mImageUri != null) {
-                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-                            pd.setMessage("uploading image...");
-                            pd.show();
                             mPresenter.uploadFile(mImageUri, getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
                                 @Override
                                 public void loadGameCallBack(String imageLink) {
-                                    pd.dismiss();
                                     mPresenter.updateTeamInfo(teamName, imageLink);
                                     mPresenter.openMyTeamFragment();
                                 }

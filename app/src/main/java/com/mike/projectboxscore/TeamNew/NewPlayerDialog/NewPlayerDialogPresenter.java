@@ -22,6 +22,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.FirebaseDataSource;
 
 import java.util.ArrayList;
 
@@ -71,20 +72,9 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     @Override
     public void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback) {
         if (imageUri != null) {
-            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
-                    + "." + fileExtention);
-            mUploadTask = fileReference.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
-                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                            Log.d(TAG, "upload URL: " + uri);
-                            callback.loadGameCallBack(uri.toString());
-                        });
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show())
-                    .addOnProgressListener(taskSnapshot -> {
 
-                    });
+            FirebaseDataSource.uploadTeamLogoFile(mContext, imageUri, fileExtention, callback);
+
         } else {
             Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
         }
