@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.TeamEdit.EditPlayer.EditPlayerDialog;
 import com.mike.projectboxscore.TeamEdit.EditPlayer.EditPlayerDialogPresenter;
@@ -123,7 +124,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         mButtonFinishCreateTeam.setOnClickListener(newTeamOnClickListener);
         mButtonDeleteTeam.setOnClickListener(newTeamOnClickListener);
         mTeamLogo.setOnClickListener(newTeamOnClickListener);
-        mTitle.setText("Edit Team ");
+        mTitle.setText(getString(R.string.edit_team_title));
 
     }
 
@@ -140,7 +141,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 
                 case R.id.imageViewNext:
                     if (teamName.trim().isEmpty()) {
-                        showToastMessageUi("Please enter team name!");
+                        showToastMessageUi(getString(R.string.enter_team_name_toast));
                     } else {
                         if (mImageUri != null) {
                             mPresenter.uploadFile(mImageUri, getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
@@ -158,7 +159,6 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                     }
                     break;
                 case R.id.imageViewDelete:
-                    Log.d(TAG, "delete pressed: ");
                     mPresenter.showConfirmDeleteDialog(false);
                     break;
 
@@ -178,7 +178,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player, getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
-        editPlayerDialog.show(getFragmentManager(), "editPlayer");
+        editPlayerDialog.show(getFragmentManager(), Constants.FRAGMENT_EDIT_PLAYER);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
         newPlayerDialog.setTargetFragment(this, NEW_DIALOG_REQUEST_CODE);
-        newPlayerDialog.show(getFragmentManager(), "createPlayer");
+        newPlayerDialog.show(getFragmentManager(), Constants.FRAGMENT_CREATE_PLAYER);
 
     }
 
@@ -246,9 +246,9 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
     @Override
     public void showConfirmDeleteDialogUi(boolean isPlayer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-        builder.setMessage("Are you sure?")
+        builder.setMessage(R.string.confirm_dialog_message)
                 .setCancelable(true)
-                .setPositiveButton("yes", (dialog, id) -> {
+                .setPositiveButton(Constants.YES, (dialog, id) -> {
                     if (isPlayer) {
                         mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
                         mPresenter.updateFirebaseData();
@@ -263,7 +263,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 
                     dialog.dismiss();
                 })
-                .setNegativeButton("no", (dialog, id) -> {
+                .setNegativeButton(Constants.NO, (dialog, id) -> {
 
                     //player missed shot
                     dialog.dismiss();

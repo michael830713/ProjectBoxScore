@@ -41,12 +41,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
         playerViewHolder.opponentName.setText(game.getmOpponent());
         playerViewHolder.myScore.setText(String.valueOf(game.getmMyScore()));
         playerViewHolder.opponentScore.setText(String.valueOf(game.getmOpponentScore()));
-        playerViewHolder.mConstraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.openBoxScore(game);
-            }
-        });
+        playerViewHolder.mConstraintLayout.setOnClickListener(v -> mPresenter.openBoxScore(game));
 
     }
 

@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.LoginUi.LoginPageFragment;
 import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
 import com.mike.projectboxscore.TeamMain.MyTeamFragment;
@@ -78,7 +79,6 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         mMyTeamButton = root.findViewById(R.id.button_my_team);
         mSignOutButton = root.findViewById(R.id.buttonSignOut);
         mActivity = getActivity();
-        Log.d(TAG, "onCreateView getActivity: " + getActivity());
 
         return root;
     }
@@ -102,15 +102,8 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            Log.d(TAG, "onActivityResult: " + data.getData());
-        }
 
-    }
+
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -119,12 +112,10 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     @Override
     public void demoLoginViewUi() {
         FragmentManager fragmentManager = getFragmentManager();
-        Log.d(TAG, "getFragmentManager: " + getFragmentManager());
-        Log.d(TAG, "demoLoginViewUi the activity: " + getActivity());
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (getFragmentManager().findFragmentByTag("login") == null) {
+        if (getFragmentManager().findFragmentByTag(Constants.FRAGMENT_LOGIN) == null) {
             mLoginFragment = LoginPageFragment.newInstance();
-            fragmentTransaction.replace(R.id.container, mLoginFragment, "login");
+            fragmentTransaction.replace(R.id.container, mLoginFragment, Constants.FRAGMENT_LOGIN);
         } else {
             fragmentTransaction.show(mLoginFragment);
         }
@@ -138,7 +129,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
     public void demoNewGameViewUi() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         NewGameFragment fragment = NewGameFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("NewGame");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.SURFACE).addToBackStack(Constants.FRAGMENT_NEW_GAME);
         fragmentTransaction.commit();
         mNewGamePresenter = new NewGamePresenter(fragment, mPresenter.getTeams());
     }
@@ -149,7 +140,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View,
         MyTeamFragment fragment = MyTeamFragment.newInstance();
         mMyTeamPresenter = new MyTeamPresenter(fragment, mPresenter.getTeams());
         fragment.setPresenter(mMyTeamPresenter);
-        fragmentTransaction.replace(R.id.container, fragment, "MyTeam").addToBackStack("MyTeam");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_MY_TEAM).addToBackStack(Constants.FRAGMENT_MY_TEAM);
         fragmentTransaction.commit();
     }
 

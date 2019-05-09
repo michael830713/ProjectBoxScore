@@ -12,6 +12,7 @@ import com.google.firebase.storage.StorageReference;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.FirebaseDataSource;
+import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.TeamNew.NewPlayerDialog.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
@@ -27,10 +28,7 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     private ArrayList<Team> mMyTeams;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     Player mNewPlayer;
-    CollectionReference mUsersCollection;
-    String mUserId;
 
-    private StorageReference mStorageReference;
 
     @Override
     public void start() {
@@ -42,9 +40,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
         mContext = context;
         mMyTeams = teams;
         mView.setPresenter(this);
-        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
 
     }
 
@@ -53,7 +48,7 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
         String teamName = mView.getTeamName();
         if (teamName.isEmpty()) {
-            showToast("Please enter team name!");
+            showToast(mContext.getString(R.string.enter_team_name_toast));
         } else {
             Team team = new Team(teamName);
             if (imageLink != null) {
@@ -100,9 +95,9 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
     @Override
     public void addTeamToFirebase(Team team) {
-//        Map<String, Object> data1 = new HashMap<>();
-//        data1.put(team.getName(), team);
-        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
+
+        FirebaseDataSource.updateTeamInfo(team);
+
     }
 
     @Override
@@ -112,7 +107,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
 
     @Override
     public ArrayList<Team> getTeams() {
-//        return mMyTeams;
         return mMyTeams;
     }
 
@@ -125,40 +119,6 @@ public class NewTeamPresenter implements NewTeamContract.Presenter {
     public void uploadFile(Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback) {
         FirebaseDataSource.uploadTeamLogoFile(mContext, imageUri, fileExtention, callback);
 
-//        if (imageUri != null) {
-//            StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()
-//                    + "." + fileExtention);
-//
-//            StorageTask mUploadTask = fileReference.putFile(imageUri)
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                            Toast.makeText(mContext, "Upload successful", Toast.LENGTH_LONG).show();
-//                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                @Override
-//                                public void onSuccess(Uri uri) {
-//                                    Log.d(TAG, "upload URL: " + uri);
-//                                    callback.loadGameCallBack(uri.toString());
-//                                }
-//                            });
-//
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    })
-//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                        }
-//                    });
-//        } else {
-//            Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
-//        }
     }
 }
 

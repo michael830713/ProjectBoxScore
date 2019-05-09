@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -161,22 +162,22 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ArrayList<PlayerStats> sortPlayersByPosition(ArrayList<PlayerStats> players) {
         ArrayList<PlayerStats> newPlayers = new ArrayList<>();
         for (PlayerStats playerStats : players) {
-            if (playerStats.getOnCourtPosition().equals("G")) {
+            if (playerStats.getOnCourtPosition().equals(Constants.GUARD)) {
                 newPlayers.add(playerStats);
             }
         }
         for (PlayerStats playerStats : players) {
-            if (playerStats.getOnCourtPosition().equals("F")) {
+            if (playerStats.getOnCourtPosition().equals(Constants.FORWARD)) {
                 newPlayers.add(playerStats);
             }
         }
         for (PlayerStats playerStats : players) {
-            if (playerStats.getOnCourtPosition().equals("C")) {
+            if (playerStats.getOnCourtPosition().equals(Constants.CENTER)) {
                 newPlayers.add(playerStats);
             }
         }
         for (PlayerStats playerStats : players) {
-            if (playerStats.getOnCourtPosition().equals("O")) {
+            if (playerStats.getOnCourtPosition().equals(Constants.OPPONENT)) {
                 newPlayers.add(playerStats);
             }
         }

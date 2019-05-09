@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.TeamEdit.EditTeamFragment;
 import com.mike.projectboxscore.ExifUtil;
@@ -89,7 +90,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
         mBackNumber.setText(String.valueOf(mPresenter.getPlayer().getBackNumber()));
         mPresenter.setPositionSpinner();
         mPosition.setSelection(mPresenter.getSpinnerPosition());
-        Picasso.get().load(mPresenter.getPlayer().getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(mAvatar);
+        Picasso.get().load(mPresenter.getPlayer().getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(mAvatar);
 
         mConfirmButton.setOnClickListener(onClickListener);
         mDismissButton.setOnClickListener(onClickListener);
@@ -103,41 +104,39 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
             switch (v.getId()) {
                 case R.id.imageViewConfirm:
                     String playerName = mPlayerName.getText().toString();
-                    int backNumber = -1;
+                    int backNumber = Constants.OPPONENT_BACK_NUMBER;
                     String position = mPosition.getSelectedItem().toString();
 
                     if (!mBackNumber.getText().toString().equals("")) {
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
-                    if (playerName != null && backNumber != -1 && position != null) {
+                    if (playerName != null && backNumber != Constants.OPPONENT_BACK_NUMBER && position != null) {
                         if (mImageUri != null) {
                             int finalBackNumber = backNumber;
-//                            ProgressDialog pd = new ProgressDialog(getActivity(), ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-//                            pd.setMessage("uploading image...");
-//                            pd.show();
-                            mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap), mPresenter.getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
-                                @Override
-                                public void loadGameCallBack(String imageLink) {
-//                                    pd.dismiss();
-                                    mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
-                                    sendResult(playerName, position, finalBackNumber, imageLink);
-                                    Log.d(TAG, "loadGameCallBack: " + mPresenter.getPlayer().getImageUrl());
-                                }
+
+                            mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap),
+                                    mPresenter.getFileExtention(mImageUri), imageLink -> {
+
+                                //after upload succeed
+                                mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
+                                sendResult(playerName, position, finalBackNumber, imageLink);
                             });
+
                         } else {
 
+                            //no need to upload image
                             mPresenter.updatePlayerInfo(playerName, backNumber, position, null);
                             sendResult(playerName, position, backNumber, null);
                         }
                         dismiss();
                     } else {
-                        Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.enter_player_toast), Toast.LENGTH_SHORT).show();
                     }
 
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null, null, -1, null);
+                    sendResult(null, null, Constants.OPPONENT_BACK_NUMBER, null);
                     dismiss();
                     break;
                 case R.id.imageViewAvatarFrame:
@@ -159,7 +158,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
     @Override
     public void setPositionSpinnerUi() {
-        final String[] lunch = {"G", "F", "C"};
+        final String[] lunch = {Constants.GUARD, Constants.FORWARD, Constants.CENTER};
         ArrayAdapter<String> lunchList = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
@@ -227,7 +226,6 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
             mImageUri = data.getData();
             mImageBitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
-            Log.d(TAG, "onActivityResult: " + mImageBitmap);
             mAvatar.setImageBitmap(mImageBitmap);
         }
 
@@ -235,7 +233,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, Constants.IMAGE_URL_QUALITY, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }

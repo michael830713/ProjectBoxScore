@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.CallBacks.TeamsDataCallback;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.FirebaseDataSource;
@@ -32,21 +33,11 @@ public class MainPagePresenter implements MainPageContract.Presenter {
 
     MainPageContract.View mView;
     ArrayList<Team> mTeams = new ArrayList<>();
-    FirebaseAuth mAuth;
-    FirebaseUser mCurrentUser;
-    FirebaseFirestore mFirebaseFirestore;
-    CollectionReference mUsersCollection;
-    String mUserId;
 
     public MainPagePresenter(MainPageContract.View view, Context context) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mView.setPresenter(this);
         mContext = context;
-//        mAuth = FirebaseAuth.getInstance();
-//        mCurrentUser = mAuth.getCurrentUser();
-//        mFirebaseFirestore = FirebaseFirestore.getInstance();
-//        mUsersCollection = mFirebaseFirestore.collection("users");
-//        mUserId = mCurrentUser.getUid();
 
     }
 
@@ -70,28 +61,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
     public void checkFirebaseData() {
         FirebaseDataSource.checkFirebaseData(mContext, teams -> mTeams = teams);
 
-//        ArrayList<Team> myTeams = new ArrayList<>();
-//        ProgressDialog pd = new ProgressDialog(mContext, ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
-//        pd.setMessage("Fetching data...");
-//        pd.show();
-//        mUsersCollection.document(mUserId).collection("teams").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                pd.dismiss();
-//                if (task.isSuccessful()) {
-//                    Log.d(TAG, "onComplete task: " + task.getResult());
-//                    if (task.getResult().isEmpty()) {
-//                        Log.d(TAG, "task is empty: ");
-//                    } else {
-//                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
-//                            Team test = documentSnapshot.toObject(Team.class);
-//                            myTeams.add(test);
-//                        }
-//                        mTeams = myTeams;
-//                    }
-//                }
-//            }
-//        });
     }
 
     @Override

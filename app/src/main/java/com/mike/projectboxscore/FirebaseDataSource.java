@@ -79,6 +79,10 @@ public class FirebaseDataSource {
         teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
     }
 
+    public static void deleteTeam(Team team){
+        teamCollectionReference.document(team.getName()).delete();
+    }
+
     public static void loadGameData(int i, GamesDataCallback callback) {
         ArrayList<Game> games = new ArrayList<>();
         teamCollectionReference.document(mTeams.get(i).getName())

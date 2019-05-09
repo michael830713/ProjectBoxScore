@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
@@ -58,8 +59,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         mTeamAdapter = new TeamAdapter(mPresenter);
         mPlayerAdapter = new PlayerAdapter(mPresenter, getActivity());
 
-        Log.d(TAG, "onCreate: ");
-
     }
 
     @Nullable
@@ -82,7 +81,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
 
         mPlayerRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
-
         mNextButton = root.findViewById(R.id.imageViewNext);
         mOpponent = root.findViewById(R.id.editTextOpponent);
         mTournament = root.findViewById(R.id.editTextTournamnet);
@@ -94,10 +92,6 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
         super.onViewCreated(view, savedInstanceState);
 
         mTeamAdapter.setmTeams(mPresenter.getTeams());
-
-        Log.d(TAG, "onViewCreated again: ");
-
-        Log.d(TAG, "onViewCreated: ");
 
         mNextButton.setOnClickListener(nextOnClickListener);
 
@@ -119,17 +113,17 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
                     }
                 }
                 if (f < 5) {
-                    mPresenter.showToast("please select 5 Starters");
+                    mPresenter.showToast(getActivity().getString(R.string.select_5_player));
 
                 } else if (opponent.isEmpty() || tournament.isEmpty()) {
-                    mPresenter.showToast("Enter Opponent and Tournament!");
+                    mPresenter.showToast(getActivity().getString(R.string.enter_opponent_toast));
                 } else {
                     mPresenter.setupGameData();
                     mPresenter.openMainConsole();
                 }
 
             } else {
-                mPresenter.showToast("please select a team");
+                mPresenter.showToast(getActivity().getString(R.string.select_team_toast));
             }
         }
     };
@@ -138,11 +132,10 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void openMainConsoleUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainConsoleFragment fragment = MainConsoleFragment.newInstance();
-        Log.d(TAG, "newGame: " + mPresenter.getmNewGame().getmPlayerStats().get(0).getName());
 
         mMainConsolePresenter = new MainConsolePresenter(fragment, mPresenter.getmNewGame());
         fragment.setPresenter(mMainConsolePresenter);
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("MainConsole");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.SURFACE).addToBackStack(Constants.FRAGMENT_MAIN_CONSOLE);
         fragmentTransaction.commit();
     }
 
@@ -150,12 +143,9 @@ public class NewGameFragment extends Fragment implements NewGameContract.View {
     public void getGameDataAndSetNewGame() {
         String opponent = mOpponent.getText().toString();
         String tournament = mTournament.getText().toString();
-        Log.d(TAG, "opponent: " + opponent);
-        Log.d(TAG, "tournament: " + tournament);
         if (mOpponent.getText().equals("") || mTournament.getText().equals("")) {
-            mPresenter.showToast("Enter Opponent and Tournament!");
+            mPresenter.showToast(getActivity().getString(R.string.enter_opponent_toast));
         } else {
-            Log.d(TAG, "setNewGame is running: ");
 
             mPresenter.setNewGame(opponent, tournament);
             mPresenter.setPlayerStats();

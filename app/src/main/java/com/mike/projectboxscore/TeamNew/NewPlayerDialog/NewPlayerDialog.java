@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.TeamEdit.EditTeamFragment;
 import com.mike.projectboxscore.ExifUtil;
 import com.mike.projectboxscore.TeamNew.NewTeamFragment;
@@ -98,7 +99,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                 case R.id.imageViewConfirm:
                     String playerName = mPlayerName.getText().toString().trim();
                     String position = mPosition.getSelectedItem().toString();
-                    int backNumber = -1;
+                    int backNumber = Constants.OPPONENT_BACK_NUMBER;
                     if (!mBackNumber.getText().toString().equals("")) {
                         backNumber = Integer.parseInt(mBackNumber.getText().toString());
                     }
@@ -108,7 +109,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
                     break;
                 case R.id.imageViewDismiss:
 
-                    sendResult(null, null, -1, null);
+                    sendResult(null, null, Constants.OPPONENT_BACK_NUMBER, null);
                     dismiss();
 
                     break;
@@ -138,7 +139,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
             }
             dismiss();
         } else {
-            Toast.makeText(getActivity(), "Please enter player info!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.enter_player_toast), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -160,7 +161,7 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
 
     @Override
     public void setPositionSpinnerUi() {
-        final String[] lunch = {"G", "F", "C"};
+        final String[] lunch = {Constants.GUARD, Constants.FORWARD, Constants.CENTER};
         ArrayAdapter<String> lunchList = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
@@ -192,13 +193,12 @@ public class NewPlayerDialog extends DialogFragment implements NewPlayerDialogCo
     private void setImageToAvatar(Intent data) {
         mImageUri = data.getData();
         mImageBitmap = ExifUtil.normalizeImageForUri(getActivity(), mImageUri);
-        Log.d(TAG, "onActivityResult: " + mImageBitmap);
         mPlayerAvatar.setImageBitmap(mImageBitmap);
     }
 
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, Constants.IMAGE_URL_QUALITY, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }

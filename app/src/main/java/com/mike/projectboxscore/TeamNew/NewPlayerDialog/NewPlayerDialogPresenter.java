@@ -20,9 +20,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.FirebaseDataSource;
+import com.mike.projectboxscore.R;
 
 import java.util.ArrayList;
 
@@ -32,13 +34,9 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     private static final String TAG = "NewPlayerDialogPresenter";
     NewPlayerDialogContract.View mView;
     private Context mContext;
-    private StorageTask mUploadTask;
-
-    private StorageReference mStorageReference;
 
     public NewPlayerDialogPresenter(NewPlayerDialogContract.View view) {
-        mView = checkNotNull(view, "view cannot be null!");
-        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
     }
 
     @Override
@@ -76,7 +74,7 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
             FirebaseDataSource.uploadTeamLogoFile(mContext, imageUri, fileExtention, callback);
 
         } else {
-            Toast.makeText(mContext, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.file_empty_toast), Toast.LENGTH_SHORT).show();
         }
     }
 

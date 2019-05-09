@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -29,7 +30,6 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         Log.d(TAG, "players: " + players);
     }
 
-
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,23 +43,15 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             playerViewHolder.playerName.setText(mPlayers.get(i).getName());
             playerViewHolder.backNumber.setText("#" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.playerAvatar);
 
-            Log.d(TAG, "player Url: " + mPlayers.get(i).getName()+"  "+mPlayers.get(i).getImageUrl());
+            Log.d(TAG, "player Url: " + mPlayers.get(i).getName() + "  " + mPlayers.get(i).getImageUrl());
 
-            playerViewHolder.editPlayerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mPresenter.showEditPlayerDialog(mPlayers.get(i));
-                }
-            });
-            playerViewHolder.deletePlayerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    row_index = i;
-                    boolean isPlayer = true;
-                    mPresenter.showConfirmDeleteDialog(isPlayer);
-                }
+            playerViewHolder.editPlayerButton.setOnClickListener(v -> mPresenter.showEditPlayerDialog(mPlayers.get(i)));
+            playerViewHolder.deletePlayerButton.setOnClickListener(v -> {
+                row_index = i;
+                boolean isPlayer = true;
+                mPresenter.showConfirmDeleteDialog(isPlayer);
             });
 
         }
@@ -78,7 +70,6 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         private TextView playerName;
         private TextView onCourtPosition;
         private TextView backNumber;
-        private ImageView playerAvatarFrame;
         private ImageView playerAvatar;
         private ImageView editPlayerButton;
         private ImageView deletePlayerButton;
@@ -88,7 +79,6 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
             playerName = itemView.findViewById(R.id.textView_player_name);
             onCourtPosition = itemView.findViewById(R.id.textView_OnCourtPosition);
             backNumber = itemView.findViewById(R.id.textView_number);
-            playerAvatarFrame = itemView.findViewById(R.id.imageViewPlayerAvatar);
             playerAvatar = itemView.findViewById(R.id.pic);
             editPlayerButton = itemView.findViewById(R.id.imageViewEdit);
             deletePlayerButton = itemView.findViewById(R.id.imageViewDelete);
@@ -96,15 +86,8 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         }
     }
 
-
-
     public int getRow_index() {
         return row_index;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        mPlayers = players;
-        notifyDataSetChanged();
     }
 
     public void updateData() {

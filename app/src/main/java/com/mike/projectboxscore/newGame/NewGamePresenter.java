@@ -2,6 +2,7 @@ package com.mike.projectboxscore.newGame;
 
 import android.util.Log;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.PlayerStats;
@@ -26,7 +27,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
     }
 
     public NewGamePresenter(NewGameContract.View view, ArrayList<Team> myTeams) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mView.setPresenter(this);
         mMyTeams = myTeams;
 
@@ -44,9 +45,7 @@ public class NewGamePresenter implements NewGameContract.Presenter {
 
     @Override
     public void setNewGame(String opponent, String tournament) {
-        Log.d(TAG, "selectedTeam: " + getmSelectedTeam());
         mNewGame = new Game(opponent, tournament, getmSelectedTeam().getName());
-        Log.d(TAG, "timestamp: " + mNewGame.getTimeStamp());
     }
 
     @Override

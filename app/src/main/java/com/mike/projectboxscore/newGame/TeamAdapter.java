@@ -31,13 +31,10 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     @Override
     public void onBindViewHolder(@NonNull TeamViewHolder teamViewHolder, int i) {
         teamViewHolder.teamName.setText(mTeams.get(i).getName());
-        teamViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                row_index = i;
-                mPresenter.showPlayersOnTeam(row_index);
-                notifyDataSetChanged();
-            }
+        teamViewHolder.constraintLayout.setOnClickListener(v -> {
+            row_index = i;
+            mPresenter.showPlayersOnTeam(row_index);
+            notifyDataSetChanged();
         });
         if (row_index == i) {
             highlightSelectedPlayer(teamViewHolder.constraintLayout);

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -49,7 +50,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         playerViewHolder.mBackNumber.setText("" + player.getBackNumber());
         playerViewHolder.mOnCourtPosition.setText(player.getOnCourtPosition());
 
-        Log.d(TAG, "player image: " + mPlayers.get(i).getImageUrl());
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
 
             int onCourtPlayers = 0;
@@ -62,7 +62,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 if (player.isOnCourt()) {
                     player.setOnCourt(!player.isOnCourt());
                 } else {
-                    mPresenter.showToast("Reached 5 players!!");
+                    mPresenter.showToast(mContext.getString(R.string.starter_limit_toast));
                 }
             } else {
                 player.setOnCourt(!player.isOnCourt());
@@ -72,12 +72,11 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         });
         if (player.isOnCourt()) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
+//            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.mPlayerAvatar);
         } else {
             notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.mPlayerAvatar);
-
         }
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.mPlayerAvatar);
 
     }
 

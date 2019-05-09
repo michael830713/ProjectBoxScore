@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,7 @@ public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.Play
             playerViewHolder.backNumber.setText("" + mPlayers.get(i).getBackNumber());
             playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
             Log.d(TAG, "url: " + mPlayers.get(i).getImageUrl());
-            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+            Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.playerAvatar);
         }
     }
 

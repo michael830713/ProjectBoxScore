@@ -17,6 +17,17 @@
     <string name="steal">Steal</string>
     <string name="block">Block</string>
     <string name="default_google_web_client_id">284614397606-8l0qm607bsh3ebge8dkbcku1uf4isog5.apps.googleusercontent.com</string>
+
+    <string name="select_team_toast">please select a team</string>
+    <string name="enter_player_toast">Please enter player info!</string>
+    <string name="enter_team_name_toast">Please enter team name!</string>
+    <string name="select_5_player">please select 5 Starters</string>
+    <string name="starter_limit_toast">Reached 5 players!!</string>
+    <string name="enter_opponent_toast">Enter Opponent and Tournament!</string>
+
+    <string name="file_empty_toast">No file selected</string>
+    <string name="edit_team_title">Edit Team</string>
+    <string name="confirm_dialog_message">Are you sure?</string>
     <string name="endGameConfirmation">Are you sure to end game?</string>
 
 </resources>

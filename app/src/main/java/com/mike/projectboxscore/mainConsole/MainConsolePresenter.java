@@ -178,7 +178,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         } else if (addPoints == Constants.RETURN_ONE_STAT) {
             playerFreeThrowReturn();
         }
-
+        setShotPersentage();
     }
 
     @Override

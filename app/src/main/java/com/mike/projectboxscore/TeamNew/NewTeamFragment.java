@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.ExifUtil;
 import com.mike.projectboxscore.TeamNew.NewPlayerDialog.NewPlayerDialog;
@@ -121,8 +122,9 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
 
                     break;
                 case R.id.imageViewNext:
+
                     if (mTeamName.getText().toString().isEmpty()) {
-                        showToastMessageUi("Please enter team name!");
+                        showToastMessageUi(getString(R.string.enter_team_name_toast));
                     } else {
                         if (mImageUri != null) {
                             mPresenter.uploadFile(mImageUri, getFileExtention(mImageUri), new PlayerAvatarUploadCallback() {
@@ -153,7 +155,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
         newPlayerDialog.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE);
-        newPlayerDialog.show(getFragmentManager(), "createPlayer");
+        newPlayerDialog.show(getFragmentManager(), Constants.FRAGMENT_CREATE_PLAYER);
 
     }
 
@@ -172,7 +174,7 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     @Override
     public void openMyTeamFragmentUi() {
 
-        getFragmentManager().popBackStack("MyTeam", 0);
+        getFragmentManager().popBackStack(Constants.FRAGMENT_MY_TEAM, 0);
     }
 
     @Override
@@ -181,11 +183,11 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
             return;
         }
         if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
-            String name = data.getStringExtra(NEW_PLAYER_NAME);
-            String email = data.getStringExtra(NEW_PLAYER_EMAIL);
-            String onCourtPosition = data.getStringExtra(NEW_PLAYER_ONCOURT_POSITION);
-            String backNumber = data.getStringExtra(NEW_PLAYER_BACK_NUMBER);
-            String imageUrl = data.getStringExtra(NEW_PLAYER_IMAGE_URI);
+            String name = data.getStringExtra(Constants.NEW_PLAYER_NAME);
+            String email = data.getStringExtra(Constants.NEW_PLAYER_EMAIL);
+            String onCourtPosition = data.getStringExtra(Constants.NEW_PLAYER_ONCOURT_POSITION);
+            String backNumber = data.getStringExtra(Constants.NEW_PLAYER_BACK_NUMBER);
+            String imageUrl = data.getStringExtra(Constants.NEW_PLAYER_IMAGE_URI);
 
             Log.d(TAG, "onActivityResult greeting: " + name + "\n" + email + "\n" + onCourtPosition + "\n" + backNumber);
             if (name == null) {

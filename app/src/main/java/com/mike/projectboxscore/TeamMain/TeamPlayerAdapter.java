@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
 import com.mike.projectboxscore.R;
@@ -41,7 +42,7 @@ public class TeamPlayerAdapter extends RecyclerView.Adapter<TeamPlayerAdapter.Pl
         playerViewHolder.playerName.setText(mPlayers.get(i).getName());
         playerViewHolder.onCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
         playerViewHolder.backNumber.setText(String.valueOf(mPlayers.get(i).getBackNumber()));
-        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder.playerAvatar);
+        Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.playerAvatar);
     }
 
     @Override

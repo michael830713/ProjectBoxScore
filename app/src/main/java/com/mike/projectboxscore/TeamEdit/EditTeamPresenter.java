@@ -17,6 +17,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.Data.Team;
@@ -37,12 +38,12 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     private Team mTeam;
     ArrayList<Player> mTeamPlayer = new ArrayList<>();
     Player mNewPlayer;
-    CollectionReference mUsersCollection;
-    String mUserId;
-
-    private StorageTask mUploadTask;
-
-    private StorageReference mStorageReference;
+//    CollectionReference mUsersCollection;
+//    String mUserId;
+//
+//    private StorageTask mUploadTask;
+//
+//    private StorageReference mStorageReference;
 
     @Override
     public void start() {
@@ -50,16 +51,16 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
     }
 
     public EditTeamPresenter(Context context, EditTeamContract.View view, Team team, ArrayList<Team> myTeams) {
-        mView = checkNotNull(view, "view cannot be null!");
+        mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
         mTeam = team;
         mContext = context;
         mMyTeams = myTeams;
         Log.d(TAG, "Team: " + mTeam);
-        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
+//        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
         mTeamPlayer = mTeam.getmPlayers();
         mView.setPresenter(this);
-        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        mUsersCollection = FirebaseFirestore.getInstance().collection("users");
+//        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -106,7 +107,10 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
 
     @Override
     public void updateFirebaseData() {
-        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).set(mTeam, SetOptions.merge());
+//        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).set(mTeam, SetOptions.merge());
+
+        FirebaseDataSource.updateTeamInfo(mTeam);
+
         Log.d(TAG, "updateFirebaseData image Url: " + mTeam.getmPlayers().get(0).getImageUrl());
         Log.d(TAG, "updateFirebaseData player name: " + mTeam.getmPlayers().get(0).getName());
 
@@ -125,7 +129,10 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
 
     @Override
     public void deleteTeamFromFirebase() {
-        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).delete();
+
+        FirebaseDataSource.deleteTeam(mTeam);
+
+//        mUsersCollection.document(mUserId).collection("teams").document(mTeam.getName()).delete();
 
     }
 
@@ -135,12 +142,12 @@ public class EditTeamPresenter implements EditTeamContract.Presenter {
         if (imageLink != null) {
             mTeam.setmTeamLogoUrl(imageLink);
         }
-        updateTeamToFirebase(mTeam);
+        FirebaseDataSource.updateTeamInfo(mTeam);
 
     }
 
     public void updateTeamToFirebase(Team team) {
-        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
+//        mUsersCollection.document(mUserId).collection("teams").document(team.getName()).set(team, SetOptions.merge());
     }
 
     @Override

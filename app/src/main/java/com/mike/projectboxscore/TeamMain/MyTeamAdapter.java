@@ -38,7 +38,6 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
         mContext = context;
     }
 
-
     @NonNull
     @Override
     public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -63,23 +62,17 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
 
         teamViewHolder.games.setOnClickListener(v -> {
             GameAdapter gameAdapter = new GameAdapter(mPresenter, mPresenter.getGames());
-            mPresenter.loadGameData(i, new GamesDataCallback() {
-                @Override
-                public void loadGameCallBack(ArrayList<Game> games) {
-                    gameAdapter.updateData(games, true);
-                }
-            });
+            mPresenter.loadGameData(i, games ->
+                    gameAdapter.updateData(games, true)
+            );
 
             teamViewHolder.playerOrGameRecyclerView.setAdapter(gameAdapter);
             teamViewHolder.playerOrGameRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
         });
-        teamViewHolder.buttonEditTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                row_index = i;
-                mPresenter.showEditTeam();
-            }
+        teamViewHolder.buttonEditTeam.setOnClickListener(v -> {
+            row_index = i;
+            mPresenter.showEditTeam();
         });
         teamViewHolder.roster.performClick();
 
@@ -117,7 +110,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
         public TeamViewHolder(@NonNull View itemView) {
             super(itemView);
             segmented2 = (SegmentedGroup) itemView.findViewById(R.id.segmented2);
-            segmented2.setTintColor(Color.parseColor("#F39A2C"));
+            segmented2.setTintColor(R.color.btnColor);
             playerOrGameRecyclerView = itemView.findViewById(R.id.recyclerViewPlayerOrGameList);
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);
@@ -133,7 +126,6 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
     public Team getSelectedTeam() {
         return mTeams.get(row_index);
     }
-
 
     public void setTeams(ArrayList<Team> teams) {
         mTeams = teams;

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
+import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.Player;
 import com.mike.projectboxscore.TeamEdit.EditTeamFragment;
@@ -122,7 +123,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
     public void openNewTeamFragmentUi() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         NewTeamFragment fragment = NewTeamFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("NewTeam");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_NEW_TEAM).addToBackStack(Constants.FRAGMENT_NEW_TEAM);
         fragmentTransaction.commit();
         mNewTeamPresenter = new NewTeamPresenter(getActivity(),fragment, mPresenter.getTeams());
     }
@@ -133,7 +134,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         BoxSoreFragment fragment = BoxSoreFragment.newInstance();
         BoxScorePresenter boxScorePresenter;
         boxScorePresenter = new BoxScorePresenter(fragment, game, false);
-        fragmentTransaction.replace(R.id.container, fragment, "Surface").addToBackStack("BoxScore");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.SURFACE).addToBackStack(Constants.FRAGMENT_BOX_SCORE);
         fragmentTransaction.commit();
     }
 
@@ -148,7 +149,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         EditTeamFragment fragment = EditTeamFragment.newInstance();
         mEditTeamPresenter = new EditTeamPresenter(getActivity(),fragment, mTeamAdapter.getSelectedTeam(), mPresenter.getTeams());
         fragment.setPresenter(mEditTeamPresenter);
-        fragmentTransaction.replace(R.id.container, fragment, "NewTeam").addToBackStack("EditTeam");
+        fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_NEW_TEAM).addToBackStack(Constants.FRAGMENT_EDIT_TEAM);
         fragmentTransaction.commit();
 
         Log.d(TAG, "selectedteam: " + mTeamAdapter.getSelectedTeam());
@@ -160,7 +161,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         NewPlayerDialogPresenter newPlayerDialogPresenter = new NewPlayerDialogPresenter(newPlayerDialog);
         newPlayerDialog.setPresenter(newPlayerDialogPresenter);
         newPlayerDialog.setTargetFragment(this, NEW_DIALOG_REQUEST_CODE);
-        newPlayerDialog.show(getFragmentManager(), "createPlayer");
+        newPlayerDialog.show(getFragmentManager(), null);
     }
 
     @Override
@@ -169,7 +170,7 @@ public class MyTeamFragment extends Fragment implements MyTeamContract.View {
         EditPlayerDialogPresenter newPlayerDialogPresenter = new EditPlayerDialogPresenter(editPlayerDialog, player,getActivity());
         editPlayerDialog.setPresenter(newPlayerDialogPresenter);
         editPlayerDialog.setTargetFragment(this, EDIT_DIALOG_REQUEST_CODE);
-        editPlayerDialog.show(getFragmentManager(), "createPlayer");
+        editPlayerDialog.show(getFragmentManager(), null);
     }
 
     @Override
