@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.mike.projectboxscore.Constants;
 import com.mike.projectboxscore.FirebaseDataSource;
 import com.mike.projectboxscore.R;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 

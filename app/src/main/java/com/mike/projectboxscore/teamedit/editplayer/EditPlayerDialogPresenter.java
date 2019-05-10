@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.mike.projectboxscore.datas.Player;
 import com.mike.projectboxscore.FirebaseDataSource;
 import com.mike.projectboxscore.R;
-import com.mike.projectboxscore.createteam.createplayer.PlayerAvatarUploadCallback;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
 

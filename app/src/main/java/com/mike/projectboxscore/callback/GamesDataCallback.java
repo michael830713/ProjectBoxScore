@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.teams;
+package com.mike.projectboxscore.callback;
 
 import com.mike.projectboxscore.datas.Game;
 

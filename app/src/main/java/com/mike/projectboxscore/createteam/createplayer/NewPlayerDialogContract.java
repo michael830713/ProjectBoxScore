@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 
 public interface NewPlayerDialogContract {
     interface View extends BaseView<Presenter> {

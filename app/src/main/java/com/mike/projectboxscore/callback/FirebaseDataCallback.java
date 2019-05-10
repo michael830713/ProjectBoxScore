@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.login;
+package com.mike.projectboxscore.callback;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 

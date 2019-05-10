@@ -29,7 +29,7 @@ import com.mike.projectboxscore.IOnBackPressed;
 import com.mike.projectboxscore.R;
 import com.mike.projectboxscore.boxxscore.BoxScorePresenter;
 import com.mike.projectboxscore.boxxscore.BoxSoreFragment;
-import com.mike.projectboxscore.console.confirmshot.MadeOrMissCallback;
+import com.mike.projectboxscore.callback.MadeOrMissCallback;
 import com.mike.projectboxscore.console.confirmshot.MadeOrMissDialog;
 import com.mike.projectboxscore.console.substitution.SubContract;
 import com.mike.projectboxscore.console.substitution.SubDialogPresenter;

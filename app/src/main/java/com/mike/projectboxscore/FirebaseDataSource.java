@@ -28,8 +28,8 @@ import com.google.firebase.storage.UploadTask;
 import com.mike.projectboxscore.callback.TeamsDataCallback;
 import com.mike.projectboxscore.datas.Game;
 import com.mike.projectboxscore.datas.Team;
-import com.mike.projectboxscore.teams.GamesDataCallback;
-import com.mike.projectboxscore.createteam.createplayer.PlayerAvatarUploadCallback;
+import com.mike.projectboxscore.callback.GamesDataCallback;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
 

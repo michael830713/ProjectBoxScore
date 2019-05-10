@@ -1,5 +1,6 @@
 package com.mike.projectboxscore.teams;
 
+import com.mike.projectboxscore.callback.GamesDataCallback;
 import com.mike.projectboxscore.datas.Game;
 import com.mike.projectboxscore.datas.Player;
 import com.mike.projectboxscore.datas.Team;
@@ -50,7 +51,7 @@ public interface MyTeamContract {
 
         void openBoxScore(Game game);
 
-        void loadGameData(int i,GamesDataCallback callback);
+        void loadGameData(int i, GamesDataCallback callback);
 
         ArrayList<Game> getGames();
     }

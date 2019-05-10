@@ -3,7 +3,7 @@ package com.mike.projectboxscore.teamedit.editplayer;
 import android.net.Uri;
 
 import com.mike.projectboxscore.datas.Player;
-import com.mike.projectboxscore.createteam.createplayer.PlayerAvatarUploadCallback;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;
 

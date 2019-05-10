@@ -36,7 +36,7 @@ import com.mike.projectboxscore.teamedit.editplayer.EditPlayerDialogPresenter;
 import com.mike.projectboxscore.ExifUtil;
 import com.mike.projectboxscore.createteam.createplayer.NewPlayerDialog;
 import com.mike.projectboxscore.createteam.createplayer.NewPlayerDialogPresenter;
-import com.mike.projectboxscore.createteam.createplayer.PlayerAvatarUploadCallback;
+import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 import com.mike.projectboxscore.R;
 import com.squareup.picasso.Picasso;
 

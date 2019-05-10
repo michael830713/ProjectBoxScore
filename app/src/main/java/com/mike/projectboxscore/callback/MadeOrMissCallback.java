@@ -1,4 +1,4 @@
-package com.mike.projectboxscore.console.confirmshot;
+package com.mike.projectboxscore.callback;
 
 public interface MadeOrMissCallback {
     void madeOrMissCallBack(String madeOrMiss);
