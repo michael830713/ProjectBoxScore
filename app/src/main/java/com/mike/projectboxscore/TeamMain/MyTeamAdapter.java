@@ -110,7 +110,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
         public TeamViewHolder(@NonNull View itemView) {
             super(itemView);
             segmented2 = (SegmentedGroup) itemView.findViewById(R.id.segmented2);
-            segmented2.setTintColor(R.color.btnColor);
+            segmented2.setTintColor(ContextCompat.getColor(mContext, R.color.btnColor));
             playerOrGameRecyclerView = itemView.findViewById(R.id.recyclerViewPlayerOrGameList);
             roster = itemView.findViewById(R.id.button21);
             games = itemView.findViewById(R.id.button22);

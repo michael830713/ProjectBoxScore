@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mike.projectboxscore.Constants;
+import com.mike.projectboxscore.Data.Action;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.R;
 
@@ -22,7 +23,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
 
     private MainConsoleViewContract.Presenter mPresenter;
     private ArrayList<PlayerStats> mPlayers = new ArrayList<>();
-    private ArrayList<String> mActions = new ArrayList<>();
+    private ArrayList<Action> mActions = new ArrayList<>();
 
     public MainLogAdapter(MainConsoleViewContract.Presenter presenter) {
         mPresenter = presenter;
@@ -38,19 +39,19 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
     @Override
     public void onBindViewHolder(@NonNull final PlayerViewHolder playerViewHolder, final int i) {
         playerViewHolder.mPlayerName.setText(mPlayers.get(i).getName());
-        playerViewHolder.mAction.setText(mActions.get(i));
+        playerViewHolder.mAction.setText(mActions.get(i).getAction());
         if (mPlayers.get(i).getBackNumber() != Constants.OPPONENT_BACK_NUMBER) {
             playerViewHolder.mBackNumber.setText(mPlayers.get(i).getBackNumber() + "  ");
         } else {
             playerViewHolder.mBackNumber.setText("");
         }
         Log.d(TAG, "mActions: " + mActions.get(i));
-        if (mActions.get(i).contains(Constants.MADE)) {
+        if (mActions.get(i).getAction().contains(Constants.MADE)) {
             Log.d(TAG, "it works: ");
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
-        } else if (mActions.get(i).contains(Constants.MISS)) {
+        } else if (mActions.get(i).getAction().contains(Constants.MISS)) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_red);
-        } else if (mActions.get(i).contains(Constants.FOUL)) {
+        } else if (mActions.get(i).getAction().contains(Constants.FOUL)) {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_black_with__rounded_corner);
         } else {
             playerViewHolder.constraintLayout.setBackgroundResource(R.drawable.log_border_light_green);
@@ -78,13 +79,13 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         }
     }
 
-    public void setLog(PlayerStats playerStats, String action) {
+    public void setLog(PlayerStats playerStats, Action action) {
         mPlayers.add(Constants.ADAPTER_TOP_POSITION, playerStats);
         mActions.add(Constants.ADAPTER_TOP_POSITION, action);
         notifyItemInserted(Constants.ADAPTER_TOP_POSITION);
     }
 
-    public ArrayList<String> getmActions() {
+    public ArrayList<Action> getmActions() {
         return mActions;
     }
 
@@ -97,7 +98,7 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
 
     }
 
-    public void setmActionsRemoved(ArrayList<String> mActions, int i) {
+    public void setmActionsRemoved(ArrayList<Action> mActions, int i) {
         this.mActions = mActions;
         notifyItemRemoved(i);
         notifyItemRangeChanged(Constants.ADAPTER_TOP_POSITION, getItemCount());

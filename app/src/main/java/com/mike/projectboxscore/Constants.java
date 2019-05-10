@@ -2,7 +2,7 @@ package com.mike.projectboxscore;
 
 public class Constants {
 
-    public static String TWO_POINTS_MADE = "2 Points Made";
+    //    public static String TWO_POINTS_MADE = "2 Points Made";
     public static final String YES = "Yes";
     public static final String NO = "No";
     public static final String CHECK_VIEW_NOT_NULL = "view cannot be null!";
@@ -26,9 +26,37 @@ public class Constants {
     public static final String NEW_PLAYER_BACK_NUMBER = "playerBackNumber";
     public static final String NEW_PLAYER_IMAGE_URI = "playerImageUri";
 
+    public static final String TWO_POINTS_MADE = "2 Points Made";
+    public static final String THREE_POINTS_MADE = "3 Points Made";
+    public static final String TWO_POINTS_MISS = "2 Points Miss";
+    public static final String THREE_POINTS_MISS = "3 Points Miss";
+    public static final String FREE_THROW_MADE = "Free Throw Made";
+    public static final String FREE_THROW_MISS = "Free Throw Miss";
+    public static final String OFFENSIVE_REBOUND = "Rebound(Offensive)";
+    public static final String DEFENSIVE_REBOUND = "Rebound(Defensive)";
+    public static final String ASSIST = "Assist";
+    public static final String TURN_OVER = "Turn Over";
+    public static final String FOUL = "Foul";
+    public static final String STEAL = "Steal";
+    public static final String BLOCK = "Block";
+
+    public static final int CODE_TWO_POINTS_MADE = 20;
+    public static final int CODE_THREE_POINTS_MADE = 21;
+    public static final int CODE_TWO_POINTS_MISS = 22;
+    public static final int CODE_THREE_POINTS_MISS = 23;
+    public static final int CODE_FREE_THROW_MADE = 24;
+    public static final int CODE_FREE_THROW_MISS = 25;
+    public static final int CODE_OFFENSIVE_REBOUND = 26;
+    public static final int CODE_DEFENSIVE_REBOUND = 27;
+    public static final int CODE_ASSIST = 28;
+    public static final int CODE_TURN_OVER = 29;
+    public static final int CODE_FOUL = 30;
+    public static final int CODE_STEAL = 31;
+    public static final int CODE_BLOCK = 32;
+
     public static final String MADE = "Made";
     public static final String MISS = "Miss";
-    public static final String FOUL = "Foul";
+    //    public static final String FOUL = "Foul";
     public static final String GUARD = "G";
     public static final String FORWARD = "F";
     public static final String CENTER = "C";
@@ -36,6 +64,7 @@ public class Constants {
 
     public static final String USER_PATH = "users";
     public static final String TEAM_PATH = "teams";
+    public static final String GAME_PATH = "games";
 
     public static final int PLAYER_AVATAR_DIMEN = 50;
     public static final int SUBSTITUTE_DELAY = 300;

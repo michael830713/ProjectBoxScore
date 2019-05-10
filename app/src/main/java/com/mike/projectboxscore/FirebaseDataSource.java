@@ -79,7 +79,7 @@ public class FirebaseDataSource {
         teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
     }
 
-    public static void deleteTeam(Team team){
+    public static void deleteTeam(Team team) {
         teamCollectionReference.document(team.getName()).delete();
     }
 
@@ -143,6 +143,10 @@ public class FirebaseDataSource {
         } else {
             Toast.makeText(context, "No file selected", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static void uploadNewGame(Game game) {
+        teamCollectionReference.document(game.getmMyTeamName()).collection(Constants.GAME_PATH).document(game.getTimeStamp()).set(game, SetOptions.merge());
     }
 
 }

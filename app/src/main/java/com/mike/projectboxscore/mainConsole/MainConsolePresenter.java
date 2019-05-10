@@ -7,8 +7,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.mike.projectboxscore.Constants;
+import com.mike.projectboxscore.Data.Action;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
+import com.mike.projectboxscore.FirebaseDataSource;
 
 import java.util.ArrayList;
 
@@ -24,8 +26,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     private ArrayList<PlayerStats> mOnCourtPlayers;
     private ArrayList<PlayerStats> mOnBenchPlayers;
     private ArrayList<PlayerStats> mTeamPlayers;
-    CollectionReference mUsersCollection;
-    String mUserId;
 
     public MainConsolePresenter(MainConsoleViewContract.View view, Game game) {
         mView = checkNotNull(view, Constants.CHECK_VIEW_NOT_NULL);
@@ -35,8 +35,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
-        mUsersCollection = FirebaseFirestore.getInstance().collection(Constants.USER_PATH);
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -116,7 +114,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
-    public void updateLog(String action) {
+    public void updateLog(Action action) {
         mView.updateLogUi(action);
     }
 
@@ -347,6 +345,12 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     }
 
     @Override
+    public Action setNewAction(int actionCode, String action) {
+        Action action1 = new Action(actionCode, action);
+        return action1;
+    }
+
+    @Override
     public void openBoxScore() {
         mView.openBoxScoreUi();
     }
@@ -364,7 +368,7 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void updateFirebaseData() {
-        mUsersCollection.document(mUserId).collection(Constants.TEAM_PATH).document(mGame.getmMyTeamName()).collection("games").document(mGame.getTimeStamp()).set(mGame, SetOptions.merge());
+        FirebaseDataSource.uploadNewGame(mGame);
 
     }
 

@@ -18,6 +18,7 @@ package com.mike.projectboxscore.mainConsole;
 
 import android.view.SurfaceHolder;
 
+import com.mike.projectboxscore.Data.Action;
 import com.mike.projectboxscore.Data.Game;
 import com.mike.projectboxscore.Data.PlayerStats;
 import com.mike.projectboxscore.base.BasePresenter;
@@ -34,14 +35,13 @@ public interface MainConsoleViewContract {
 
     interface View extends BaseView<Presenter> {
 
-
         void showMadeOrMissDialogUi(int addPoints);
 
         void showSubstituteDialogUi();
 
         void updateLogUi(int addScore, boolean isShotMade);
 
-        void updateLogUi(String action);
+        void updateLogUi(Action action);
 
         void removeLogUi(int i);
 
@@ -68,15 +68,13 @@ public interface MainConsoleViewContract {
 
         void result(int requestCode, int resultCode);
 
-
-
         void updatePlayerScores(int addPoints);
 
         void updatePlayerMisses(int addPoints);
 
         void updateLog(int addPoint, boolean isShotMade);
 
-        void updateLog(String action);
+        void updateLog(Action action);
 
         void removeLog(int i);
 
@@ -84,17 +82,15 @@ public interface MainConsoleViewContract {
 
         void updateScoreboardReturn(int addPoint);
 
-        void showMadeOrMissDialog( int addPoints);
+        void showMadeOrMissDialog(int addPoints);
 
         void showSubstituteDialog();
 
         void showConfirmExitDialog();
 
-
         void setOnCourtPlayers();
 
         void setOnBenchPlayers();
-
 
         ArrayList<PlayerStats> getPlayers();
 
@@ -159,5 +155,7 @@ public interface MainConsoleViewContract {
         void setShotPersentage();
 
         void showTutorialDialog();
+
+        Action setNewAction(int actionCode, String action);
     }
 }

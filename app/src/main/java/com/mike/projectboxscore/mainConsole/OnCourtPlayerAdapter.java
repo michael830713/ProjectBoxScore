@@ -23,6 +23,8 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private MainConsoleViewContract.Presenter mPresenter;
     int row_index = 0;
+    private static final int playerViewHolder = 0;
+    private static final int opponentViewHolder = 1;
     private ArrayList<PlayerStats> mPlayers;
     private Context mContext;
 
@@ -35,10 +37,10 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         switch (i) {
-            case 0:
+            case playerViewHolder:
                 return new PlayerViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.viewholder_players, viewGroup, false));
-            case 1:
+            case opponentViewHolder:
                 return new OpponentViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.viewholder_opponent, viewGroup, false));
             default:
@@ -51,9 +53,9 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     public int getItemViewType(int position) {
 
         if (position != 5) {
-            return 0;
+            return playerViewHolder;
         } else {
-            return 1;
+            return opponentViewHolder;
         }
 
     }
@@ -61,13 +63,13 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
         switch (viewHolder.getItemViewType()) {
-            case 0:
+            case playerViewHolder:
                 PlayerViewHolder playerViewHolder1 = (PlayerViewHolder) viewHolder;
                 playerViewHolder1.mPlayerName.setText(mPlayers.get(i).getName());
                 playerViewHolder1.mBackNumber.setText("" + mPlayers.get(i).getBackNumber());
                 playerViewHolder1.mOnCourtPosition.setText(mPlayers.get(i).getOnCourtPosition());
 
-                Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(50, 50).centerCrop().into(playerViewHolder1.mPlayerAvatar);
+                Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder1.mPlayerAvatar);
 
                 playerViewHolder1.mConstraintLayout.setOnClickListener(v -> {
                     row_index = i;
@@ -79,7 +81,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
                     notHighlightSelectedPlayer(playerViewHolder1.mConstraintLayout, playerViewHolder1.mPlayerAvatarFrame);
                 }
                 break;
-            case 1:
+            case opponentViewHolder:
                 OpponentViewHolder opponentViewHolder = (OpponentViewHolder) viewHolder;
                 opponentViewHolder.opponentName.setText(mPlayers.get(i).getName());
                 opponentViewHolder.mConstraintLayout.setOnClickListener(v -> {
@@ -144,7 +146,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void notHighlightSelectedPlayer(ConstraintLayout constraintLayout, ImageView frame) {
-        constraintLayout.setBackgroundColor(Color.parseColor("#202020"));
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.log_background_grey));
         if (frame != null) {
             frame.setColorFilter(ContextCompat.getColor(mContext, R.color.log_background_grey));
         }
