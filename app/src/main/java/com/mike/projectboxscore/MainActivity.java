@@ -9,8 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.crashlytics.android.Crashlytics;
-import com.mike.projectboxscore.LoginUi.LoginPageFragment;
-import com.mike.projectboxscore.LoginUi.LoginPagePresenter;
+import com.mike.projectboxscore.login.LoginPageFragment;
+import com.mike.projectboxscore.login.LoginPagePresenter;
 
 import io.fabric.sdk.android.Fabric;
 

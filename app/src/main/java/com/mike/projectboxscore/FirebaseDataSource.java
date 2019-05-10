@@ -25,11 +25,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.mike.projectboxscore.CallBacks.TeamsDataCallback;
-import com.mike.projectboxscore.Data.Game;
-import com.mike.projectboxscore.Data.Team;
-import com.mike.projectboxscore.TeamMain.GamesDataCallback;
-import com.mike.projectboxscore.TeamNew.NewPlayerDialog.PlayerAvatarUploadCallback;
+import com.mike.projectboxscore.callback.TeamsDataCallback;
+import com.mike.projectboxscore.datas.Game;
+import com.mike.projectboxscore.datas.Team;
+import com.mike.projectboxscore.teams.GamesDataCallback;
+import com.mike.projectboxscore.createteam.createplayer.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
 
