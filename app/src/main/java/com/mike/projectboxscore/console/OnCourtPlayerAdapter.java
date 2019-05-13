@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int opponentViewHolder = 1;
     private ArrayList<PlayerStats> mPlayers;
     private Context mContext;
+
+    private static final String TAG = "OnCourtPlayerAdapter";
 
     public OnCourtPlayerAdapter(MainConsoleViewContract.Presenter presenter, Context context) {
         mPresenter = presenter;
@@ -162,6 +165,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private ArrayList<PlayerStats> sortPlayersByPosition(ArrayList<PlayerStats> players) {
         ArrayList<PlayerStats> newPlayers = new ArrayList<>();
+        Log.d(TAG, "sortPlayersByPosition: " + players);
         for (PlayerStats playerStats : players) {
             if (playerStats.getOnCourtPosition().equals(Constants.GUARD)) {
                 newPlayers.add(playerStats);
