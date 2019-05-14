@@ -226,7 +226,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case R.id.buttonSteal:
-                    mPresenter.playerstealed(Constants.ONE);
+                    mPresenter.playerStealed(Constants.ONE);
 
                     action = mPresenter.setNewAction(Constants.CODE_STEAL, Constants.STEAL);
 
@@ -371,7 +371,7 @@ public class MainConsoleFragment extends Fragment implements MainConsoleViewCont
                     break;
 
                 case Constants.CODE_STEAL:
-                    mPresenter.playerstealed(Constants.RETURN_ONE_STAT);
+                    mPresenter.playerStealed(Constants.RETURN_ONE_STAT);
                     mPresenter.removeLog(i);
                     break;
 

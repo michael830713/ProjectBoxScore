@@ -39,7 +39,10 @@ public class Game {
 
     public void addmPlayerStats(ArrayList<PlayerStats> playerStats) {
         mPlayerStats.addAll(playerStats);
+    }
 
+    public void addmPlayerStat(PlayerStats playerStats) {
+        mPlayerStats.add(playerStats);
     }
 
     public void addOpponentToPlayerStats() {

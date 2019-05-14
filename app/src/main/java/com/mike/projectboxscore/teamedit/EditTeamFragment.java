@@ -252,14 +252,11 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                         mPresenter.getTeams().remove(mPresenter.getTeam());
                         mPresenter.deleteTeamFromFirebase();
                         Log.d(TAG, "remove team name: " + mPresenter.getTeam().getName());
-                        //player made shot
                         mPresenter.openMyTeamFragment();
                     }
-
                     dialog.dismiss();
                 })
                 .setNegativeButton(Constants.NO, (dialog, id) -> {
-
                     //player missed shot
                     dialog.dismiss();
                 });

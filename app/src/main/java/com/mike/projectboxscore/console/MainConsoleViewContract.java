@@ -134,7 +134,7 @@ public interface MainConsoleViewContract {
 
         void playerFouled(int amount);
 
-        void playerstealed(int amount);
+        void playerStealed(int amount);
 
         void playerBlocked(int amount);
 
