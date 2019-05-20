@@ -53,6 +53,7 @@ All data will be securely saved in Cloud Firestore so you can access it anytime 
 # Requirement
 * Android 6.0+ (API level 23+)
 * Gradle 3.1.3+
+* Android Studio 3.2
 
 # Contact
 Mike Lee<br />
