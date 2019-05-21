@@ -57,5 +57,7 @@ public interface MainPageContract {
         void demoLoginView();
 
         void checkFirebaseData();
+
+        void setTeamCollection();
     }
 }

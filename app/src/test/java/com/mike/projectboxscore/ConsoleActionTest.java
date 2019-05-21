@@ -40,19 +40,60 @@ public class ConsoleActionTest {
     @Test
     public void playerMadeTenShot() {
         //five two points shot
-        for (int i = 0; i < 5; i++) {
-            mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
-        }
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+
         //five three points shot
-        for (int i = 0; i < 5; i++) {
-            mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
-        }
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+
         assertEquals(10, mConsolePresenter.getSelectedPlayer().getShotMade());
+    }
+    @Test
+    public void checkTwoPointsPercentage() {
+        //one made shot
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        //two missed shot
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+        assertEquals(33.3, mConsolePresenter.getSelectedPlayer().getShotPercentage(), 0);
+    }
+
+    @Test
+    public void checkTwoPointsPercentageReturned() {
+        //made three shot
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.TWO_POINT);
+
+        //missed four shot
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.TWO_POINT);
+
+        //return two missed shot
+        mConsolePresenter.updatePlayerMisses(Constants.RETURN_TWO_POINTS);
+        mConsolePresenter.updatePlayerMisses(Constants.RETURN_TWO_POINTS);
+
+        //return two made shot
+        mConsolePresenter.updatePlayerScores(Constants.RETURN_TWO_POINTS);
+        mConsolePresenter.updatePlayerScores(Constants.RETURN_TWO_POINTS);
+
+        assertEquals(33.3, mConsolePresenter.getSelectedPlayer().getShotPercentage(), 0);
     }
 
     @Test
     public void checkThreePointsPercentage() {
+        //one made shot
         mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        //two missed shot
         mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
         mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
         assertEquals(33.3, mConsolePresenter.getSelectedPlayer().getShotPercentage(), 0);
@@ -60,18 +101,25 @@ public class ConsoleActionTest {
 
     @Test
     public void checkThreePointsPercentageReturned() {
-        //made one shot
-        for (int i = 0; i < 1; i++) {
-            mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
-        }
+        //made three shot
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerScores(Constants.THREE_POINT);
+
         //missed four shot
-        for (int i = 0; i < 4; i++) {
-            mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
-        }
-        //return two shot
-        for (int i = 0; i < 2; i++) {
-            mConsolePresenter.updatePlayerMisses(Constants.RETURN_THREE_POINTS);
-        }
+        mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
+        mConsolePresenter.updatePlayerMisses(Constants.THREE_POINT);
+
+        //return two missed shot
+        mConsolePresenter.updatePlayerMisses(Constants.RETURN_THREE_POINTS);
+        mConsolePresenter.updatePlayerMisses(Constants.RETURN_THREE_POINTS);
+
+        //return two made shot
+        mConsolePresenter.updatePlayerScores(Constants.RETURN_THREE_POINTS);
+        mConsolePresenter.updatePlayerScores(Constants.RETURN_THREE_POINTS);
+
         assertEquals(33.3, mConsolePresenter.getSelectedPlayer().getShotPercentage(), 0);
     }
 
@@ -85,21 +133,29 @@ public class ConsoleActionTest {
     @Test
     public void checkReboundReturn() {
         //made five offensive rebound
-        for (int i = 0; i < 5; i++) {
-            mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
-        }
+        mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerOffensiveRebounded(Constants.ONE);
+
         //made five defensive rebound
-        for (int i = 0; i < 5; i++) {
-            mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
-        }
+        mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
+        mConsolePresenter.playerDefensiveRebounded(Constants.ONE);
+
         //return 3 defensive rebound
-        for (int i = 0; i < 3; i++) {
-            mConsolePresenter.playerDefensiveRebounded(Constants.RETURN_ONE_STAT);
-        }
+        mConsolePresenter.playerDefensiveRebounded(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerDefensiveRebounded(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerDefensiveRebounded(Constants.RETURN_ONE_STAT);
+
         //return 3 offensive rebound
-        for (int i = 0; i < 3; i++) {
-            mConsolePresenter.playerOffensiveRebounded(Constants.RETURN_ONE_STAT);
-        }
+        mConsolePresenter.playerOffensiveRebounded(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerOffensiveRebounded(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerOffensiveRebounded(Constants.RETURN_ONE_STAT);
+
         assertEquals(2, mConsolePresenter.getSelectedPlayer().getOffensiveRebounds());
         assertEquals(2, mConsolePresenter.getSelectedPlayer().getDefensiveRebounds());
         assertEquals(4, mConsolePresenter.getSelectedPlayer().getRebounds());
@@ -107,77 +163,121 @@ public class ConsoleActionTest {
 
     @Test
     public void checkSteal() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerStealed(Constants.ONE);
-        }
+        //made six steals
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+
         assertEquals(6, mConsolePresenter.getSelectedPlayer().getSteals());
     }
 
     @Test
     public void checkStealReturn() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerStealed(Constants.ONE);
-        }
-        for (int i = 0; i < 2; i++) {
-            mConsolePresenter.playerStealed(Constants.RETURN_ONE_STAT);
-        }
+        //made six steals
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+        mConsolePresenter.playerStealed(Constants.ONE);
+
+        //returned two steals
+        mConsolePresenter.playerStealed(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerStealed(Constants.RETURN_ONE_STAT);
+
         assertEquals(4, mConsolePresenter.getSelectedPlayer().getSteals());
     }
 
     @Test
     public void checkAssist() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerAssisted(Constants.ONE);
-        }
+        //made six steals
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+
         assertEquals(6, mConsolePresenter.getSelectedPlayer().getAssists());
     }
 
     @Test
     public void checkAssistReturn() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerAssisted(Constants.ONE);
-        }
-        for (int i = 0; i < 2; i++) {
-            mConsolePresenter.playerAssisted(Constants.RETURN_ONE_STAT);
-        }
+        //made six steals
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+        mConsolePresenter.playerAssisted(Constants.ONE);
+
+        //returned two steals
+        mConsolePresenter.playerAssisted(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerAssisted(Constants.RETURN_ONE_STAT);
+
         assertEquals(4, mConsolePresenter.getSelectedPlayer().getAssists());
     }
 
     @Test
     public void checkBlock() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerBlocked(Constants.ONE);
-        }
+        //made six steals
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+
         assertEquals(6, mConsolePresenter.getSelectedPlayer().getBlocks());
     }
 
     @Test
     public void checkBlockReturn() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerBlocked(Constants.ONE);
-        }
-        for (int i = 0; i < 2; i++) {
-            mConsolePresenter.playerBlocked(Constants.RETURN_ONE_STAT);
-        }
+        //made six steals
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+        mConsolePresenter.playerBlocked(Constants.ONE);
+
+        //returned two steals
+        mConsolePresenter.playerBlocked(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerBlocked(Constants.RETURN_ONE_STAT);
+
         assertEquals(4, mConsolePresenter.getSelectedPlayer().getBlocks());
     }
 
     @Test
     public void checkTurnOver() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerTurnedOver(Constants.ONE);
-        }
+        //made six steals
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+
         assertEquals(6, mConsolePresenter.getSelectedPlayer().getTurnOvers());
     }
 
     @Test
     public void checkTurnOverReturn() {
-        for (int i = 0; i < 6; i++) {
-            mConsolePresenter.playerTurnedOver(Constants.ONE);
-        }
-        for (int i = 0; i < 2; i++) {
-            mConsolePresenter.playerTurnedOver(Constants.RETURN_ONE_STAT);
-        }
+        //made six steals
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+        mConsolePresenter.playerTurnedOver(Constants.ONE);
+
+        //returned two steals
+        mConsolePresenter.playerTurnedOver(Constants.RETURN_ONE_STAT);
+        mConsolePresenter.playerTurnedOver(Constants.RETURN_ONE_STAT);
+
         assertEquals(4, mConsolePresenter.getSelectedPlayer().getTurnOvers());
     }
 }

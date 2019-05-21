@@ -62,9 +62,11 @@ public class FirebaseDataSource {
                     Log.d(TAG, "task is empty: ");
                 } else {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        Team test = documentSnapshot.toObject(Team.class);
-                        Log.d(TAG, "test: " + test);
-                        myTeams.add(test);
+                        Team team = documentSnapshot.toObject(Team.class);
+                        if (!team.getName().equals(Constants.INIT_TEAM_PATH)){
+                            myTeams.add(team);
+                        }
+                        Log.d(TAG, "test: " + team);
                         Log.d(TAG, "myteam size: " + myTeams.size());
                     }
                     mTeams = myTeams;
@@ -76,7 +78,12 @@ public class FirebaseDataSource {
     }
 
     public static void updateTeamInfo(Team team) {
-        teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
+//        if (team.getName() != Constants.INIT_TEAM_PATH) {
+            teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
+//        }
+//        else {
+//            teamCollectionReference.document(Constants.INIT_TEAM_PATH).set(team, SetOptions.merge());
+//        }
     }
 
     public static void deleteTeam(Team team) {
@@ -85,22 +92,27 @@ public class FirebaseDataSource {
 
     public static void loadGameData(int i, GamesDataCallback callback) {
         ArrayList<Game> games = new ArrayList<>();
-        teamCollectionReference.document(mTeams.get(i).getName())
-                .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Game test = document.toObject(Game.class);
-                        games.add(test);
-                    }
+        try {
+            teamCollectionReference.document(mTeams.get(i).getName())
+                    .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Game test = document.toObject(Game.class);
+                            games.add(test);
+                        }
 
-                    callback.loadGameCallBack(games);
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
+                        callback.loadGameCallBack(games);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
                 }
-            }
-        });
+            });
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+
     }
 
     public static void uploadTeamLogoFile(Context context, Uri imageUri, String fileExtention, PlayerAvatarUploadCallback callback) {
