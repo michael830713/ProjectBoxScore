@@ -28,6 +28,7 @@
     <string name="file_empty_toast">No file selected</string>
     <string name="edit_team_title">Edit Team</string>
     <string name="confirm_dialog_message">Are you sure?</string>
+    <string name="confirm_delete_team_dialog_message">Confirm delete team?</string>
     <string name="endGameConfirmation">Are you sure to end game?</string>
 
 </resources>

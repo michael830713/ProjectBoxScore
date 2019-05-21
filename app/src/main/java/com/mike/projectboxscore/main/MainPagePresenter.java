@@ -44,7 +44,6 @@ public class MainPagePresenter implements MainPageContract.Presenter {
     @Override
     public void checkFirebaseData() {
         FirebaseDataSource.checkFirebaseData(mContext, teams -> mTeams = teams);
-
     }
 
     @Override

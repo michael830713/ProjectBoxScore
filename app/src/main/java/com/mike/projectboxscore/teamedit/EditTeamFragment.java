@@ -231,7 +231,6 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         }
     }
 
-
     public String getFileExtention(Uri mImageUri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -240,28 +239,62 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
 
     @Override
     public void showConfirmDeleteDialogUi(boolean isPlayer) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-        builder.setMessage(R.string.confirm_dialog_message)
-                .setCancelable(true)
-                .setPositiveButton(Constants.YES, (dialog, id) -> {
-                    if (isPlayer) {
+        if (isPlayer) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            builder.setMessage(R.string.confirm_dialog_message)
+                    .setCancelable(true)
+                    .setPositiveButton(Constants.YES, (dialog, id) -> {
+
                         mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
                         mPresenter.updateFirebaseData();
                         mPlayerAdapter.updateData();
-                    } else {
+
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(Constants.NO, (dialog, id) -> {
+                        dialog.dismiss();
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            builder.setMessage(R.string.confirm_delete_team_dialog_message)
+                    .setCancelable(true)
+                    .setPositiveButton(Constants.YES, (dialog, id) -> {
                         mPresenter.getTeams().remove(mPresenter.getTeam());
                         mPresenter.deleteTeamFromFirebase();
                         Log.d(TAG, "remove team name: " + mPresenter.getTeam().getName());
                         mPresenter.openMyTeamFragment();
-                    }
-                    dialog.dismiss();
-                })
-                .setNegativeButton(Constants.NO, (dialog, id) -> {
-                    //player missed shot
-                    dialog.dismiss();
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(Constants.NO, (dialog, id) -> {
+                        dialog.dismiss();
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+//        builder.setMessage(R.string.confirm_dialog_message)
+//                .setCancelable(true)
+//                .setPositiveButton(Constants.YES, (dialog, id) -> {
+//                    if (isPlayer) {
+//                        mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
+//                        mPresenter.updateFirebaseData();
+//                        mPlayerAdapter.updateData();
+//                    } else {
+//                        mPresenter.getTeams().remove(mPresenter.getTeam());
+//                        mPresenter.deleteTeamFromFirebase();
+//                        Log.d(TAG, "remove team name: " + mPresenter.getTeam().getName());
+//                        mPresenter.openMyTeamFragment();
+//                    }
+//                    dialog.dismiss();
+//                })
+//                .setNegativeButton(Constants.NO, (dialog, id) -> {
+//                    //player missed shot
+//                    dialog.dismiss();
+//                });
+//        AlertDialog alert = builder.create();
+//        alert.show();
     }
 
     @Override
@@ -325,14 +358,12 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         return mTeamName.getText().toString();
     }
 
-
     @Override
     public void onPause() {
 
         Log.d(TAG, "onPause: ");
         super.onPause();
     }
-
 
     @Override
     public void showToastMessageUi(String message) {
