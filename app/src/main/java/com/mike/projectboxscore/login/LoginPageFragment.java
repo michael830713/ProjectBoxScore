@@ -115,7 +115,7 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MainPageFragment fragment = MainPageFragment.newInstance();
-        mMainPagePresenter = new MainPagePresenter(fragment,getActivity());
+        mMainPagePresenter = new MainPagePresenter(fragment, getActivity());
         fragment.setPresenter(mMainPagePresenter);
         fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_MAIN_PAGE);
         fragmentTransaction.commitAllowingStateLoss();
@@ -173,3 +173,20 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

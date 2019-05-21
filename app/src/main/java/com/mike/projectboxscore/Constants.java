@@ -65,6 +65,7 @@ public class Constants {
     public static final String USER_PATH = "users";
     public static final String TEAM_PATH = "teams";
     public static final String GAME_PATH = "games";
+    public static final String INIT_TEAM_PATH = "init";
 
     public static final int PLAYER_AVATAR_DIMEN = 50;
     public static final int SUBSTITUTE_DELAY = 300;

@@ -69,7 +69,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
 
 
 
-    public void updateData(ArrayList<Game> games,boolean hey) {
+    public void updateData(ArrayList<Game> games,boolean useless) {
         mGames=games;
         notifyDataSetChanged();
     }

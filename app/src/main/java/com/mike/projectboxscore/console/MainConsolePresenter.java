@@ -28,16 +28,14 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
         mView.setPresenter(this);
         mTeamPlayers = game.getmPlayerStats();
         mGame = game;
-        Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
+//        Log.d(TAG, "mTeamPlayers: " + mTeamPlayers);
         mOnCourtPlayers = new ArrayList<>();
         mOnBenchPlayers = new ArrayList<>();
-
     }
 
     @Override
     public void setOnCourtPlayers() {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
-
         for (int i = 0; i < mTeamPlayers.size(); i++) {
             if (mTeamPlayers.get(i).isOnCourt()) {
                 playerStats.add(mTeamPlayers.get(i));
@@ -49,7 +47,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void setOnBenchPlayers() {
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
-
         for (int i = 0; i < mTeamPlayers.size(); i++) {
             if (!mTeamPlayers.get(i).isOnCourt()) {
                 playerStats.add(mTeamPlayers.get(i));
@@ -86,7 +83,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void showMadeOrMissDialog(int addPoints) {
         mView.showMadeOrMissDialogUi(addPoints);
-
     }
 
     @Override
@@ -160,7 +156,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
             playerFreeThrowShoot();
         } else if (addPoints > 0) {
             playerShoot();
-
             if (addPoints == Constants.THREE_POINT) {
                 player3ptShoot();
             }
@@ -272,7 +267,6 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void playerOffensiveRebounded(int amount) {
         int newRebounds = mSelectedPlayer.getOffensiveRebounds() + amount;
-
         mSelectedPlayer.setOffensiveRebounds(newRebounds);
         setRebound();
 
@@ -281,42 +275,37 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
     @Override
     public void playerDefensiveRebounded(int amount) {
         int newRebounds = mSelectedPlayer.getDefensiveRebounds() + amount;
-
         mSelectedPlayer.setDefensiveRebounds(newRebounds);
+        setRebound();
     }
 
     @Override
     public void playerAssisted(int amount) {
         int newAmount = mSelectedPlayer.getAssists() + amount;
-
         mSelectedPlayer.setAssists(newAmount);
     }
 
     @Override
     public void playerTurnedOver(int amount) {
         int newAmount = mSelectedPlayer.getTurnOvers() + amount;
-
         mSelectedPlayer.setTurnOvers(newAmount);
     }
 
     @Override
     public void playerFouled(int amount) {
         int newAmount = mSelectedPlayer.getFouls() + amount;
-
         mSelectedPlayer.setFouls(newAmount);
     }
 
     @Override
-    public void playerstealed(int amount) {
+    public void playerStealed(int amount) {
         int newAmount = mSelectedPlayer.getSteals() + amount;
-
         mSelectedPlayer.setSteals(newAmount);
     }
 
     @Override
     public void playerBlocked(int amount) {
         int newAmount = mSelectedPlayer.getBlocks() + amount;
-        Log.d(TAG, mSelectedPlayer.getName() + " playerBlocked: " + newAmount);
         mSelectedPlayer.setBlocks(newAmount);
     }
 
@@ -375,6 +364,5 @@ public class MainConsolePresenter implements MainConsoleViewContract.Presenter {
 
     @Override
     public void start() {
-
     }
 }

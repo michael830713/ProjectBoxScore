@@ -48,6 +48,12 @@ public class MainPagePresenter implements MainPageContract.Presenter {
     }
 
     @Override
+    public void setTeamCollection() {
+
+        FirebaseDataSource.updateTeamInfo(new Team(Constants.INIT_TEAM_PATH));
+    }
+
+    @Override
     public ArrayList<Team> getTeams() {
         return mTeams;
     }
