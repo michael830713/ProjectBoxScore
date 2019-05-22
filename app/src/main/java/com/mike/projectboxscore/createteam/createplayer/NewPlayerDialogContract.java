@@ -24,7 +24,7 @@ public interface NewPlayerDialogContract {
 
         void openGallery();
 
-        String getFileExtention(Uri mImageUri);
+        String getFileExtention(Uri imageUri);
 
         void setContext(FragmentActivity activity);
 

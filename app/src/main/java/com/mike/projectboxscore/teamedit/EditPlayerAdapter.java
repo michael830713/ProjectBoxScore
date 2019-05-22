@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.PlayerViewHolder> {
     private static final String TAG = "EditPlayerAdapter";
     private EditTeamContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private ArrayList<Player> mPlayers;
 
     public EditPlayerAdapter(EditTeamContract.Presenter presenter, ArrayList<Player> players) {
@@ -47,7 +47,7 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
 
             playerViewHolder.editPlayerButton.setOnClickListener(v -> mPresenter.showEditPlayerDialog(mPlayers.get(i)));
             playerViewHolder.deletePlayerButton.setOnClickListener(v -> {
-                row_index = i;
+                mRowIndex = i;
                 boolean isPlayer = true;
                 mPresenter.showConfirmDeleteDialog(isPlayer);
             });
@@ -84,8 +84,8 @@ public class EditPlayerAdapter extends RecyclerView.Adapter<EditPlayerAdapter.Pl
         }
     }
 
-    public int getRow_index() {
-        return row_index;
+    public int getmRowIndex() {
+        return mRowIndex;
     }
 
     public void updateData() {

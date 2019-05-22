@@ -36,25 +36,25 @@ abstract public class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dx, float dy, int actionState, boolean isCurrentlyActive) {
+        super.onChildDraw(c, recyclerView, viewHolder, dx, dy, actionState, isCurrentlyActive);
 
         View itemView = viewHolder.itemView;
 
-        boolean isCancelled = dX == 0 && !isCurrentlyActive;
+        boolean isCancelled = dx == 0 && !isCurrentlyActive;
 
         if (isCancelled) {
-            clearCanvas(c, itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            clearCanvas(c, itemView.getRight() + dx, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+            super.onChildDraw(c, recyclerView, viewHolder, dx, dy, actionState, isCurrentlyActive);
             return;
         }
 
-        mBackground.setBounds(itemView.getRight() + (int) dX, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        mBackground.setBounds(itemView.getRight() + (int) dx, itemView.getTop(), itemView.getRight(), itemView.getBottom());
         mBackground.draw(c);
 
 
 
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        super.onChildDraw(c, recyclerView, viewHolder, dx, dy, actionState, isCurrentlyActive);
 
     }
 

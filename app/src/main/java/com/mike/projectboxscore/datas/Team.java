@@ -14,23 +14,23 @@ public class Team {
         return mTeamLogoUrl;
     }
 
-    public void setmTeamLogoUrl(String mTeamLogoUrl) {
-        this.mTeamLogoUrl = mTeamLogoUrl;
+    public void setmTeamLogoUrl(String teamLogoUrl) {
+        this.mTeamLogoUrl = teamLogoUrl;
     }
 
     public Team() {
     }
 
-    public Team(String mName) {
-        this.name = mName;
+    public Team(String name) {
+        this.name = name;
     }
 
     public ArrayList<Game> getmGames() {
         return mGames;
     }
 
-    public void setmGames(ArrayList<Game> mGames) {
-        this.mGames = mGames;
+    public void setmGames(ArrayList<Game> games) {
+        this.mGames = games;
     }
 
     public String getName() {
@@ -45,27 +45,27 @@ public class Team {
         return mPlayers;
     }
 
-    public void setmPlayers(ArrayList<Player> mPlayers) {
-        this.mPlayers = mPlayers;
+    public void setmPlayers(ArrayList<Player> players) {
+        this.mPlayers = players;
     }
 
-    public void addmPlayers(Player mPlayeradds) {
-        mPlayers.add(mPlayeradds);
+    public void addmPlayers(Player playerAdds) {
+        mPlayers.add(playerAdds);
     }
 
     public int getmWins() {
         return mWins;
     }
 
-    public void setmWins(int mWins) {
-        this.mWins = mWins;
+    public void setmWins(int wins) {
+        this.mWins = wins;
     }
 
     public int getmLosses() {
         return mLosses;
     }
 
-    public void setmLosses(int mLosses) {
-        this.mLosses = mLosses;
+    public void setmLosses(int losses) {
+        this.mLosses = losses;
     }
 }

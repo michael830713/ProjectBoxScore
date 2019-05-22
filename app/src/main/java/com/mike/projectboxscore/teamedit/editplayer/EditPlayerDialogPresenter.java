@@ -56,10 +56,10 @@ public class EditPlayerDialogPresenter implements EditPlayerDialogContract.Prese
     }
 
     @Override
-    public String getFileExtention(Uri mImageUri) {
-        ContentResolver cR = mContext.getContentResolver();
+    public String getFileExtention(Uri imageUri) {
+        ContentResolver contentResolver = mContext.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(mImageUri));
+        return mime.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
 
     @Override

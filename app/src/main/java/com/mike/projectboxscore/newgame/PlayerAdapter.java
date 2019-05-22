@@ -23,7 +23,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     private static final String TAG = "PlayerAdapter";
 
     private NewGameContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private Context mContext;
     private ArrayList<Player> mPlayers;
 

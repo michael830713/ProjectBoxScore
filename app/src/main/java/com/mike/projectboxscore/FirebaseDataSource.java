@@ -63,7 +63,7 @@ public class FirebaseDataSource {
                 } else {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         Team team = documentSnapshot.toObject(Team.class);
-                        if (!team.getName().equals(Constants.INIT_TEAM_PATH)){
+                        if (!team.getName().equals(Constants.INIT_TEAM_PATH)) {
                             myTeams.add(team);
                         }
                         Log.d(TAG, "test: " + team);
@@ -79,7 +79,7 @@ public class FirebaseDataSource {
 
     public static void updateTeamInfo(Team team) {
 //        if (team.getName() != Constants.INIT_TEAM_PATH) {
-            teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
+        teamCollectionReference.document(team.getName()).set(team, SetOptions.merge());
 //        }
 //        else {
 //            teamCollectionReference.document(Constants.INIT_TEAM_PATH).set(team, SetOptions.merge());
@@ -94,21 +94,18 @@ public class FirebaseDataSource {
         ArrayList<Game> games = new ArrayList<>();
         try {
             teamCollectionReference.document(mTeams.get(i).getName())
-                    .collection("games").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Game test = document.toObject(Game.class);
-                            games.add(test);
-                        }
+                    .collection("games").get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Game test = document.toObject(Game.class);
+                                games.add(test);
+                            }
 
-                        callback.loadGameCallBack(games);
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                }
-            });
+                            callback.loadGameCallBack(games);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    });
         } catch (IndexOutOfBoundsException e) {
 
         }
@@ -124,7 +121,7 @@ public class FirebaseDataSource {
             pd.setMessage("uploading image...");
             pd.show();
 
-            StorageTask mUploadTask = fileReference.putFile(imageUri)
+            StorageTask uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

@@ -113,10 +113,10 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                             mPresenter.uploadFile(getImageUri(getActivity(), mImageBitmap),
                                     mPresenter.getFileExtention(mImageUri), imageLink -> {
 
-                                //after upload succeed
-                                mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
-                                sendResult(playerName, position, finalBackNumber, imageLink);
-                            });
+                                        //after upload succeed
+                                        mPresenter.updatePlayerInfo(playerName, finalBackNumber, position, imageLink);
+                                        sendResult(playerName, position, finalBackNumber, imageLink);
+                                    });
 
                         } else {
 
@@ -136,9 +136,7 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
                     dismiss();
                     break;
                 case R.id.imageViewAvatarFrame:
-
                     mPresenter.openGallery();
-
                     break;
             }
         }
@@ -171,13 +169,12 @@ public class EditPlayerDialog extends DialogFragment implements EditPlayerDialog
 
         if (!hasPermissions(getActivity(), permissions)) {
             ActivityCompat.requestPermissions(getActivity(), permissions, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        }else {
+        } else {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         }
-
 
     }
 

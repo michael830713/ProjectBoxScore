@@ -27,7 +27,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
     private static final String TAG = "MyTeamAdapter";
     private Context mContext;
     private MyTeamContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private ArrayList<Team> mTeams;
 
     public MyTeamAdapter(MyTeamContract.Presenter presenter, Context context) {
@@ -68,7 +68,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
 
         });
         teamViewHolder.buttonEditTeam.setOnClickListener(v -> {
-            row_index = i;
+            mRowIndex = i;
             mPresenter.showEditTeam();
         });
         teamViewHolder.roster.performClick();
@@ -121,7 +121,7 @@ public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.TeamViewHo
     }
 
     public Team getSelectedTeam() {
-        return mTeams.get(row_index);
+        return mTeams.get(mRowIndex);
     }
 
     public void setTeams(ArrayList<Team> teams) {

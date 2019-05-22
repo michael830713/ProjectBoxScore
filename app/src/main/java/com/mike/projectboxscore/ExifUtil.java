@@ -8,10 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -20,8 +17,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 public class ExifUtil {
@@ -30,8 +25,8 @@ public class ExifUtil {
     public static Bitmap normalizeImageForUri(Context context, Uri uri) {
 
         try {
-            Log.d(TAG, "URI value = " + getRealPathFromURI(context, uri));
-            ExifInterface exif = new ExifInterface(getRealPathFromURI(context, uri));
+            Log.d(TAG, "URI value = " + getRealPathFromUri(context, uri));
+            ExifInterface exif = new ExifInterface(getRealPathFromUri(context, uri));
             Log.d(TAG, "Exif value = " + exif);
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
@@ -46,17 +41,16 @@ public class ExifUtil {
 
     }
 
-    private static String getRealPathFromURI(Context context, Uri contentUri) {
-
+    private static String getRealPathFromUri(Context context, Uri contentUri) {
 
         Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
         cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        String documentId = cursor.getString(0);
+        documentId = documentId.substring(documentId.lastIndexOf(":") + 1);
         cursor.close();
 
-        cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null
-                , MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null,
+                MediaStore.Images.Media._ID + " = ? ", new String[]{documentId}, null);
         cursor.moveToFirst();
 
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));

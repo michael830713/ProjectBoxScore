@@ -231,10 +231,10 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
         }
     }
 
-    public String getFileExtention(Uri mImageUri) {
-        ContentResolver cR = getActivity().getContentResolver();
+    public String getFileExtention(Uri imageUri) {
+        ContentResolver contentResolver = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(mImageUri));
+        return mime.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
 
     @Override
@@ -245,7 +245,7 @@ public class EditTeamFragment extends Fragment implements EditTeamContract.View 
                     .setCancelable(true)
                     .setPositiveButton(Constants.YES, (dialog, id) -> {
 
-                        mPresenter.getTeamPlayer().remove(mPlayerAdapter.getRow_index());
+                        mPresenter.getTeamPlayer().remove(mPlayerAdapter.getmRowIndex());
                         mPresenter.updateFirebaseData();
                         mPlayerAdapter.updateData();
 

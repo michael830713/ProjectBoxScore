@@ -256,10 +256,10 @@ public class NewTeamFragment extends Fragment implements NewTeamContract.View {
     }
 
 
-    public String getFileExtention(Uri mImageUri) {
-        ContentResolver cR = getActivity().getContentResolver();
+    public String getFileExtention(Uri imageUri) {
+        ContentResolver contentResolver = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(mImageUri));
+        return mime.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
 
     @Override

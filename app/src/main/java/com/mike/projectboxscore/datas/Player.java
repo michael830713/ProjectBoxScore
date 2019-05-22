@@ -14,20 +14,21 @@ public class Player {
     ArrayList<HashMap> gameStatHistory;
     private HashMap<String, PlayerStats> mGameStats = new HashMap<>();
 
-    public Player(String mName, String mEmail, int backNumber, String onCourtPosition) {
-        this.name = mName;
-        this.mEmail = mEmail;
+    public Player(String name, String email, int backNumber, String onCourtPosition) {
+        this.name = name;
+        this.mEmail = email;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
     }
 
-    public Player(String name, String mEmail, int backNumber, String onCourtPosition, String imageUrl) {
+    public Player(String name, String email, int backNumber, String onCourtPosition, String imageUrl) {
         this.name = name;
-        this.mEmail = mEmail;
+        this.mEmail = email;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
         this.imageUrl = imageUrl;
     }
+
     public Player(String name, int backNumber, String onCourtPosition, String imageUrl) {
         this.name = name;
 
@@ -35,8 +36,9 @@ public class Player {
         this.onCourtPosition = onCourtPosition;
         this.imageUrl = imageUrl;
     }
-    public Player(String mName, int backNumber, String onCourtPosition) {
-        this.name = mName;
+
+    public Player(String name, int backNumber, String onCourtPosition) {
+        this.name = name;
         this.backNumber = backNumber;
         this.onCourtPosition = onCourtPosition;
     }
@@ -64,8 +66,8 @@ public class Player {
         return mGameStats;
     }
 
-    public void setmGameStats(HashMap<String, PlayerStats> mGameStats) {
-        this.mGameStats = mGameStats;
+    public void setmGameStats(HashMap<String, PlayerStats> gameStats) {
+        this.mGameStats = gameStats;
     }
 
     public String getName() {
@@ -80,16 +82,16 @@ public class Player {
         return mEmail;
     }
 
-    public void setmEmail(String mEmail) {
-        this.mEmail = mEmail;
+    public void setmEmail(String email) {
+        this.mEmail = email;
     }
 
     public Team getmMyTeam() {
         return mMyTeam;
     }
 
-    public void setmMyTeam(Team mMyTeam) {
-        this.mMyTeam = mMyTeam;
+    public void setmMyTeam(Team myTeam) {
+        this.mMyTeam = myTeam;
     }
 
     public int getBackNumber() {

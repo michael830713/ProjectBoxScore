@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private void demoLoginView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         LoginPageFragment fragment = LoginPageFragment.newInstance();
-        LoginPagePresenter mLoginPresenter = new LoginPagePresenter(fragment);
+        LoginPagePresenter loginPagePresenter = new LoginPagePresenter(fragment);
         fragmentTransaction.replace(R.id.container, fragment, Constants.FRAGMENT_LOGIN);
         fragmentTransaction.commit();
     }

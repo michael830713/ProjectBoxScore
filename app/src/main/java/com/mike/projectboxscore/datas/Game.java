@@ -19,11 +19,11 @@ public class Game {
     public Game() {
     }
 
-    public Game(String mOpponent, String mTournament, String mHomeTeam) {
+    public Game(String opponent, String tournament, String homeTeam) {
         id = uniqueId.getAndIncrement();
-        this.mOpponent = mOpponent;
-        this.mTournament = mTournament;
-        this.mMyTeamName = mHomeTeam;
+        this.mOpponent = opponent;
+        this.mTournament = tournament;
+        this.mMyTeamName = homeTeam;
         SimpleDateFormat s = new SimpleDateFormat("yyyyMMddHHmmss");
         timeStamp = s.format(new Date());
 
@@ -33,8 +33,8 @@ public class Game {
         return timeStamp;
     }
 
-    public void setmPlayerStats(ArrayList<PlayerStats> mPlayerStats) {
-        this.mPlayerStats = mPlayerStats;
+    public void setmPlayerStats(ArrayList<PlayerStats> playerStats) {
+        this.mPlayerStats = playerStats;
     }
 
     public void addmPlayerStats(ArrayList<PlayerStats> playerStats) {
@@ -54,24 +54,24 @@ public class Game {
         return mMyTeamName;
     }
 
-    public void setmMyTeamName(String mMyTeamName) {
-        this.mMyTeamName = mMyTeamName;
+    public void setmMyTeamName(String myTeamName) {
+        this.mMyTeamName = myTeamName;
     }
 
     public int getmMyScore() {
         return mMyScore;
     }
 
-    public void setmMyScore(int mMyScore) {
-        this.mMyScore = mMyScore;
+    public void setmMyScore(int myScore) {
+        this.mMyScore = myScore;
     }
 
     public int getmOpponentScore() {
         return mOpponentScore;
     }
 
-    public void setmOpponentScore(int mOpponentScore) {
-        this.mOpponentScore = mOpponentScore;
+    public void setmOpponentScore(int opponentScore) {
+        this.mOpponentScore = opponentScore;
     }
 
     public ArrayList<PlayerStats> getmPlayerStats() {
@@ -86,16 +86,16 @@ public class Game {
         return mOpponent;
     }
 
-    public void setmOpponent(String mOpponent) {
-        this.mOpponent = mOpponent;
+    public void setmOpponent(String opponent) {
+        this.mOpponent = opponent;
     }
 
     public String getmTournament() {
         return mTournament;
     }
 
-    public void setmTournament(String mTournament) {
-        this.mTournament = mTournament;
+    public void setmTournament(String tournament) {
+        this.mTournament = tournament;
     }
 
 }

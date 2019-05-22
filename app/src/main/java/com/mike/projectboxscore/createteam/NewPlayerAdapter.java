@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class NewPlayerAdapter extends RecyclerView.Adapter<NewPlayerAdapter.PlayerViewHolder> {
 
     private NewTeamContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private ArrayList<Player> mPlayers;
 
     private static final String TAG = "NewPlayerAdapter";

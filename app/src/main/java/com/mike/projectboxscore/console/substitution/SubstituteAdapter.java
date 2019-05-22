@@ -24,7 +24,7 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
     private static final String TAG = "SubstituteAdapter";
 
     private SubContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private ArrayList<PlayerStats> mPlayers;
     private Context mContext;
 
@@ -49,14 +49,14 @@ public class SubstituteAdapter extends RecyclerView.Adapter<SubstituteAdapter.Pl
         Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder.mPlayerAvatar);
 
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> {
-            row_index = i;
+            mRowIndex = i;
             notifyDataSetChanged();
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
-                mPresenter.changePlayer(row_index);
+                mPresenter.changePlayer(mRowIndex);
             }, Constants.SUBSTITUTE_DELAY);
         });
-        if (row_index == i) {
+        if (mRowIndex == i) {
             highlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);
         } else {
             notHighlightSelectedPlayer(playerViewHolder.mConstraintLayout, playerViewHolder.mPlayerAvatarFrame);

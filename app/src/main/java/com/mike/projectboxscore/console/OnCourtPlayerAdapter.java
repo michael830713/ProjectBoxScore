@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private MainConsoleViewContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private static final int playerViewHolder = 0;
     private static final int opponentViewHolder = 1;
     private ArrayList<PlayerStats> mPlayers;
@@ -74,10 +74,10 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 Picasso.get().load(mPlayers.get(i).getImageUrl()).placeholder(R.drawable.man_with_orange_tint).resize(Constants.PLAYER_AVATAR_DIMEN, Constants.PLAYER_AVATAR_DIMEN).centerCrop().into(playerViewHolder1.mPlayerAvatar);
 
                 playerViewHolder1.mConstraintLayout.setOnClickListener(v -> {
-                    row_index = i;
+                    mRowIndex = i;
                     notifyDataSetChanged();
                 });
-                if (row_index == i) {
+                if (mRowIndex == i) {
                     highlightSelectedPlayer(playerViewHolder1.mConstraintLayout, playerViewHolder1.mPlayerAvatarFrame);
                 } else {
                     notHighlightSelectedPlayer(playerViewHolder1.mConstraintLayout, playerViewHolder1.mPlayerAvatarFrame);
@@ -87,10 +87,10 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 OpponentViewHolder opponentViewHolder = (OpponentViewHolder) viewHolder;
                 opponentViewHolder.opponentName.setText(mPlayers.get(i).getName());
                 opponentViewHolder.mConstraintLayout.setOnClickListener(v -> {
-                    row_index = i;
+                    mRowIndex = i;
                     notifyDataSetChanged();
                 });
-                if (row_index == i) {
+                if (mRowIndex == i) {
                     highlightSelectedPlayer(opponentViewHolder.mConstraintLayout, null);
                     opponentViewHolder.opponentName.setTextColor(ContextCompat.getColor(mContext, R.color.selected_white));
                 } else {
@@ -155,7 +155,7 @@ public class OnCourtPlayerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public PlayerStats getCurrentPlayer() {
-        return mPlayers.get(row_index);
+        return mPlayers.get(mRowIndex);
     }
 
     public void setPlayers(ArrayList<PlayerStats> players) {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder> {
     private NewGameContract.Presenter mPresenter;
     private ArrayList<Team> mTeams;
-    private int row_index = -1;
+    private int mRowIndex = -1;
 
     public TeamAdapter(NewGameContract.Presenter presenter) {
         mPresenter = presenter;
@@ -32,11 +32,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     public void onBindViewHolder(@NonNull TeamViewHolder teamViewHolder, int i) {
         teamViewHolder.teamName.setText(mTeams.get(i).getName());
         teamViewHolder.constraintLayout.setOnClickListener(v -> {
-            row_index = i;
-            mPresenter.showPlayersOnTeam(row_index);
+            mRowIndex = i;
+            mPresenter.showPlayersOnTeam(mRowIndex);
             notifyDataSetChanged();
         });
-        if (row_index == i) {
+        if (mRowIndex == i) {
             highlightSelectedPlayer(teamViewHolder.constraintLayout);
         } else {
             notHighlightSelectedPlayer(teamViewHolder.constraintLayout);
@@ -60,8 +60,8 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         }
     }
 
-    public void setmTeams(ArrayList<Team> mTeams) {
-        this.mTeams = mTeams;
+    public void setmTeams(ArrayList<Team> teams) {
+        this.mTeams = teams;
         notifyDataSetChanged();
     }
 

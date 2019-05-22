@@ -23,7 +23,7 @@ public interface EditPlayerDialogContract {
 
         int getSpinnerPosition();
 
-        String getFileExtention(Uri mImageUri);
+        String getFileExtention(Uri imageUri);
 
         void updatePlayerInfo(String playerName, int backNumber, String position,String imageUrl);
 

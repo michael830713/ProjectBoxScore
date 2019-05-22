@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHolder> {
 
     private MyTeamContract.Presenter mPresenter;
-    int row_index = 0;
+    int mRowIndex = 0;
     private ArrayList<Game> mGames;
 
     public GameAdapter(MyTeamContract.Presenter presenter, ArrayList<Game> game) {
@@ -65,12 +65,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
         }
     }
 
-
-
-
-
-    public void updateData(ArrayList<Game> games,boolean useless) {
-        mGames=games;
+    public void updateData(ArrayList<Game> games, boolean useless) {
+        mGames = games;
         notifyDataSetChanged();
     }
 }

@@ -74,7 +74,6 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             updateUI(currentUser);
-        } else {
         }
         super.onStart();
     }

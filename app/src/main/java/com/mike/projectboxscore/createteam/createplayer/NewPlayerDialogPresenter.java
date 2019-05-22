@@ -44,9 +44,9 @@ public class NewPlayerDialogPresenter implements NewPlayerDialogContract.Present
     @Override
     public String getFileExtention(Uri imageUri) {
 
-        ContentResolver cR = mContext.getContentResolver();
+        ContentResolver contentResolver = mContext.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(imageUri));
+        return mime.getExtensionFromMimeType(contentResolver.getType(imageUri));
     }
 
     @Override

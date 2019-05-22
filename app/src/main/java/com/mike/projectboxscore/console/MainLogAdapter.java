@@ -92,13 +92,13 @@ public class MainLogAdapter extends RecyclerView.Adapter<MainLogAdapter.PlayerVi
         return mPlayers;
     }
 
-    public void setmPlayers(ArrayList<PlayerStats> mPlayers) {
-        this.mPlayers = mPlayers;
+    public void setmPlayers(ArrayList<PlayerStats> playerStats) {
+        this.mPlayers = playerStats;
 
     }
 
-    public void setmActionsRemoved(ArrayList<Action> mActions, int i) {
-        this.mActions = mActions;
+    public void setmActionsRemoved(ArrayList<Action> actions, int i) {
+        this.mActions = actions;
         notifyItemRemoved(i);
         notifyItemRangeChanged(Constants.ADAPTER_TOP_POSITION, getItemCount());
     }
