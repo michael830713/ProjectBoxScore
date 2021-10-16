@@ -1,10 +1,14 @@
 package com.mike.projectboxscore.datas;
 
+
+import androidx.room.Entity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Entity
 public class Game {
     private static AtomicInteger uniqueId = new AtomicInteger();
     private int id;

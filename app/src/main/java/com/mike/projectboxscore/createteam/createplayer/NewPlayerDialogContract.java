@@ -2,7 +2,7 @@ package com.mike.projectboxscore.createteam.createplayer;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.mike.projectboxscore.base.BasePresenter;
 import com.mike.projectboxscore.base.BaseView;

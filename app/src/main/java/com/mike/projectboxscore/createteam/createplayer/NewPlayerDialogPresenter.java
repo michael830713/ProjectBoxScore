@@ -5,8 +5,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 

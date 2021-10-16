@@ -3,8 +3,8 @@ package com.mike.projectboxscore;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.Region;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewTreeObserver;
 
 public class RecyclerViewCornerRadius extends RecyclerView.ItemDecoration {
