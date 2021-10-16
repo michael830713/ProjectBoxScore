@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,6 +31,7 @@ import com.mike.projectboxscore.callback.GamesDataCallback;
 import com.mike.projectboxscore.callback.PlayerAvatarUploadCallback;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FirebaseDataSource {
     private static final String TAG = "FirebaseDataSource";
@@ -86,6 +89,15 @@ public class FirebaseDataSource {
     public static void deleteTeam(Team team) {
         teamCollectionReference.document(team.getName()).delete();
     }
+    public static void deleteGame(Game game) {
+        teamCollectionReference.document(game.getmMyTeamName()).collection("games").document(game.getTimeStamp()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Map<String, Object> data = documentSnapshot.getData();
+            }
+        });
+    }
+
 
     public static void loadGameData(int i, GamesDataCallback callback) {
         ArrayList<Game> games = new ArrayList<>();

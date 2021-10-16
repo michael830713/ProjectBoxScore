@@ -142,6 +142,8 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                     // ...
                 }
             }
+        }else {
+
         }
     }
 

@@ -51,6 +51,8 @@ public interface MyTeamContract {
 
         void openBoxScore(Game game);
 
+        void deleteGame(Game game);
+
         void loadGameData(int i, GamesDataCallback callback);
 
         ArrayList<Game> getGames();
