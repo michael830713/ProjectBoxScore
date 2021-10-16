@@ -3,7 +3,9 @@ package com.mike.projectboxscore;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -89,13 +91,32 @@ public class FirebaseDataSource {
     public static void deleteTeam(Team team) {
         teamCollectionReference.document(team.getName()).delete();
     }
-    public static void deleteGame(Game game) {
-        teamCollectionReference.document(game.getmMyTeamName()).collection("games").document(game.getTimeStamp()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Map<String, Object> data = documentSnapshot.getData();
-            }
-        });
+
+    public static void deleteGame(Game game, GamesDataCallback callback) {
+        CollectionReference gamesCollection = teamCollectionReference.document(game.getmMyTeamName())
+                .collection("games");
+
+        gamesCollection.document(game.getTimeStamp()).delete()
+                .addOnSuccessListener(unused -> {
+                    ArrayList<Game> gameArrayList = new ArrayList<>();
+                    try {
+                       gamesCollection.get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Game test = document.toObject(Game.class);
+                                    gameArrayList.add(test);
+                                }
+
+                                callback.loadGameCallBack(gameArrayList);
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        });
+                    } catch (IndexOutOfBoundsException e) {
+
+                    }
+
+                });
     }
 
 
@@ -104,17 +125,17 @@ public class FirebaseDataSource {
         try {
             teamCollectionReference.document(mTeams.get(i).getName())
                     .collection("games").get().addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Game test = document.toObject(Game.class);
-                                games.add(test);
-                            }
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Game test = document.toObject(Game.class);
+                        games.add(test);
+                    }
 
-                            callback.loadGameCallBack(games);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    });
+                    callback.loadGameCallBack(games);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            });
         } catch (IndexOutOfBoundsException e) {
 
         }

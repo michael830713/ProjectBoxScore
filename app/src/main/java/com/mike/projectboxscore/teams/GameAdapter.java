@@ -1,6 +1,7 @@
 package com.mike.projectboxscore.teams;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mike.projectboxscore.Constants;
+import com.mike.projectboxscore.callback.GamesDataCallback;
 import com.mike.projectboxscore.datas.Game;
 import com.mike.projectboxscore.R;
 
@@ -41,7 +44,22 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.PlayerViewHold
         playerViewHolder.opponentScore.setText(String.valueOf(game.getmOpponentScore()));
         playerViewHolder.mConstraintLayout.setOnClickListener(v -> mPresenter.openBoxScore(game));
         playerViewHolder.mConstraintLayout.setOnLongClickListener(v -> {
-            mPresenter.deleteGame(game);
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            builder.setTitle(R.string.delete_game_dialog_title)
+                    .setMessage(R.string.delete_game_dialog_message)
+                    .setCancelable(true)
+                    .setPositiveButton(Constants.YES, (dialog, id) -> {
+                        mPresenter.deleteGame(game, games -> {
+                            mGames = games;
+                            notifyDataSetChanged();
+                        });
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(Constants.NO, (dialog, id) -> {
+                        dialog.dismiss();
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
             return true;
         });
 

@@ -70,8 +70,8 @@ public class MyTeamPresenter implements MyTeamContract.Presenter {
     }
 
     @Override
-    public void deleteGame(Game game) {
-        FirebaseDataSource.deleteGame(game);
+    public void deleteGame(Game game, GamesDataCallback callback) {
+        FirebaseDataSource.deleteGame(game,callback);
     }
 
     @Override
