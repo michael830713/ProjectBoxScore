@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,8 @@ import com.mike.projectboxscore.R;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static com.google.android.gms.common.internal.Preconditions.checkNotNull;
+
+import java.util.Arrays;
 
 public class LoginPageFragment extends Fragment implements LoginPageContract.View, View.OnClickListener {
 
@@ -143,7 +147,8 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 }
             }
         }else {
-
+            assert data != null;
+            Log.d(TAG, "fail "+intentToString(data));
         }
     }
 
@@ -173,6 +178,64 @@ public class LoginPageFragment extends Fragment implements LoginPageContract.Vie
                 });
     }
 
+
+    public static String intentToString(Intent intent) {
+        if (intent == null) {
+            return null;
+        }
+
+        return intent.toString() + " " + bundleToString(intent.getExtras());
+    }
+
+    public static String bundleToString(Bundle bundle) {
+        StringBuilder out = new StringBuilder("Bundle[");
+
+        if (bundle == null) {
+            out.append("null");
+        } else {
+            boolean first = true;
+            for (String key : bundle.keySet()) {
+                if (!first) {
+                    out.append(", ");
+                }
+
+                out.append(key).append('=');
+
+                Object value = bundle.get(key);
+
+                if (value instanceof int[]) {
+                    out.append(Arrays.toString((int[]) value));
+                } else if (value instanceof byte[]) {
+                    out.append(Arrays.toString((byte[]) value));
+                } else if (value instanceof boolean[]) {
+                    out.append(Arrays.toString((boolean[]) value));
+                } else if (value instanceof short[]) {
+                    out.append(Arrays.toString((short[]) value));
+                } else if (value instanceof long[]) {
+                    out.append(Arrays.toString((long[]) value));
+                } else if (value instanceof float[]) {
+                    out.append(Arrays.toString((float[]) value));
+                } else if (value instanceof double[]) {
+                    out.append(Arrays.toString((double[]) value));
+                } else if (value instanceof String[]) {
+                    out.append(Arrays.toString((String[]) value));
+                } else if (value instanceof CharSequence[]) {
+                    out.append(Arrays.toString((CharSequence[]) value));
+                } else if (value instanceof Parcelable[]) {
+                    out.append(Arrays.toString((Parcelable[]) value));
+                } else if (value instanceof Bundle) {
+                    out.append(bundleToString((Bundle) value));
+                } else {
+                    out.append(value);
+                }
+
+                first = false;
+            }
+        }
+
+        out.append("]");
+        return out.toString();
+    }
 }
 
 
